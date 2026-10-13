@@ -1,0 +1,13 @@
+[project]
+name = "trustops-platform-core"
+version = "0.1.0"
+description = "Trace ingestion, storage, and synchronous platform orchestration."
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[build-system]
+requires = ["hatchling==1.32.4"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/trustops_platform"]
