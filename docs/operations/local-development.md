@@ -49,4 +49,21 @@ ESLint 9 and TypeScript 5.9 are pinned for compatibility with the current lint p
 
 Add a dashboard runtime dependency with `pnpm --filter @trustops/dashboard add <package>`. Add shared test tooling with `pnpm add --workspace-root --save-dev <package>`. Commit the manifests and generated lockfile together. Use `pnpm install` after intentional manifest changes; CI uses `--frozen-lockfile` and rejects a stale or missing lockfile. Review dependency install scripts before allowing them in `pnpm-workspace.yaml`.
 
+## Dependency update policy
+
+Dependabot checks GitHub Actions, Python, and frontend dependencies weekly. Each ecosystem groups minor and patch version updates; other major version updates get individual PRs for compatibility review. Grouping does not enable automatic merging. Follow the [GitHub Dependabot configuration reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference) when changing this policy.
+
+The frontend configuration excludes versions outside these supported tool lines:
+
+| Dependency | Supported line | Reason |
+| --- | --- | --- |
+| `@types/node` | 24.x | Match the Node 24 runtime in `.nvmrc` and `engines.node`. |
+| `eslint`, `@eslint/js` | 9.x | Current React and accessibility plugin peer requirements. |
+| `typescript` | 5.x | Keep the validated compiler/parser combination until a coordinated migration. |
+| `pnpm` | 11.x | Preserve the lockfile format verified with GitHub's dependency graph. |
+
+Minor and patch releases within these lines remain eligible. To migrate a restricted tool, update the relevant Dependabot limit together with its manifests, runtime pins, plugin compatibility, and lockfiles in a dedicated PR. For pnpm, keep `packageManager` and `engines.pnpm` identical and recheck GitHub's transitive dependency detection.
+
+Version exclusions can also prevent an automated security fix outside these lines. Continue reviewing security alerts and the independent dependency audits; if the only fix requires an excluded version, prioritize a tested toolchain migration. Do not dismiss the finding or disable strict peer validation to make an update pass.
+
 Next.js generates `next-env.d.ts` and `.next` locally. These are ignored. `pnpm typecheck` generates route types before checking source and test types, so it works on a fresh checkout. Use `pnpm build` followed by `pnpm start` to run the production build locally.
