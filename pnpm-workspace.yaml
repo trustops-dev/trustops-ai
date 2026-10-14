@@ -1,0 +1,12 @@
+packages:
+  - apps/dashboard
+
+engineStrict: true
+strictPeerDependencies: true
+saveExact: true
+
+# Native support for Next.js images and ESLint import resolution.
+# Review new install scripts explicitly.
+allowBuilds:
+  sharp: true
+  unrs-resolver: true

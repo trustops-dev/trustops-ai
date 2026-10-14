@@ -29,6 +29,8 @@ out/
 playwright-report/
 test-results/
 *.tsbuildinfo
+next-env.d.ts
+coverage/
 
 # Local data and generated output
 datasets/source/**
