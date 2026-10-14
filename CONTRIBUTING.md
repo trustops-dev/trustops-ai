@@ -1,6 +1,6 @@
 # Contributing to TrustOps AI
 
-This repository contains the planned directories, Python workspace setup, and repository checks. Add application behavior, tests, and configuration with the work that needs them. Follow the [local development guide](docs/operations/local-development.md), and read [ARCHITECTURE.md](ARCHITECTURE.md) before changing module boundaries.
+This repository contains the planned directories, Python and frontend workspace setup, and repository checks. Add application behavior, tests, and configuration with the work that needs them. Follow the [local development guide](docs/operations/local-development.md), and read [ARCHITECTURE.md](ARCHITECTURE.md) before changing module boundaries.
 
 ## Branches and pull requests
 
