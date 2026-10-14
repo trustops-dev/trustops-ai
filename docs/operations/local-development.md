@@ -26,10 +26,10 @@ Ruff, mypy, pytest, and import-linter are development dependencies. Run them thr
 
 ## Frontend workspace
 
-Install Node.js 24.21.0 (the LTS version pinned in `.nvmrc`) and pnpm 12.11.2. A version manager that supports `.nvmrc` can select Node automatically; otherwise install that version from the [official Node.js downloads](https://nodejs.org/en/download). To install the pinned package manager with npm:
+Install Node.js 24.21.0 (the LTS version pinned in `.nvmrc`) and pnpm 11.28.2. A version manager that supports `.nvmrc` can select Node automatically; otherwise install that version from the [official Node.js downloads](https://nodejs.org/en/download). To install the pinned package manager with npm:
 
 ```sh
-npm install --global pnpm@12.11.2
+npm install --global pnpm@11.28.2
 ```
 
 Then run from the repository root:
@@ -42,6 +42,8 @@ pnpm dev
 Open `http://localhost:3000`. The dashboard currently contains only an entry page with an empty application state. It does not connect to an API or display real traces yet.
 
 The root `package.json` owns shared lint, TypeScript, and test tools. React is also a root development dependency so the central dashboard test suite can resolve it. `apps/dashboard/package.json` owns the dashboard's runtime dependencies. Both use the same React version. The root `pnpm-lock.yaml` covers the entire JavaScript workspace.
+
+pnpm 11 is used for compatibility with GitHub's dependency graph, which currently reads only the first document of pnpm 12's two-document lockfile. `pmOnFail: error` rejects a mismatched package manager, and CI installs the exact `packageManager` pin. Keep `packageManager` and `engines.pnpm` equal when upgrading pnpm. Verify that GitHub still detects transitive lockfile dependencies before a future major upgrade.
 
 ESLint 9 and TypeScript 5.9 are pinned for compatibility with the current lint plugins. ESLint 9 is deprecated upstream; move to ESLint 10 when the React and accessibility plugins declare support. Do not bypass peer-dependency validation to upgrade them independently. The lint configuration uses explicit TypeScript, React, hooks, and accessibility presets. The Next.js ESLint preset is excluded because its current dependency chain contains the unpatched [braces advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm); Next.js-specific lint rules can be revisited after that chain is fixed.
 
