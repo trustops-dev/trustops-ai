@@ -17,3 +17,11 @@ updates:
     groups:
       python:
         patterns: ["*"]
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      frontend:
+        patterns: ["*"]
