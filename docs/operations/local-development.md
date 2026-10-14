@@ -43,7 +43,7 @@ Open `http://localhost:3000`. The dashboard currently contains only an entry pag
 
 The root `package.json` owns shared lint, TypeScript, and test tools. React is also a root development dependency so the central dashboard test suite can resolve it. `apps/dashboard/package.json` owns the dashboard's runtime dependencies. Both use the same React version. The root `pnpm-lock.yaml` covers the entire JavaScript workspace.
 
-ESLint 9 and TypeScript 5.9 are pinned for compatibility with Next.js's current lint plugins. ESLint 9 is deprecated upstream; move to ESLint 10 when the React, import, and accessibility plugins declare support. Do not bypass peer-dependency validation to upgrade them independently.
+ESLint 9 and TypeScript 5.9 are pinned for compatibility with the current lint plugins. ESLint 9 is deprecated upstream; move to ESLint 10 when the React and accessibility plugins declare support. Do not bypass peer-dependency validation to upgrade them independently. The lint configuration uses explicit TypeScript, React, hooks, and accessibility presets. The Next.js ESLint preset is excluded because its current dependency chain contains the unpatched [braces advisory GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm); Next.js-specific lint rules can be revisited after that chain is fixed.
 
 Add a dashboard runtime dependency with `pnpm --filter @trustops/dashboard add <package>`. Add shared test tooling with `pnpm add --workspace-root --save-dev <package>`. Commit the manifests and generated lockfile together. Use `pnpm install` after intentional manifest changes; CI uses `--frozen-lockfile` and rejects a stale or missing lockfile. Review dependency install scripts before allowing them in `pnpm-workspace.yaml`.
 

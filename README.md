@@ -6,6 +6,6 @@ Python packages currently provide installable shells with packaging smoke tests.
 
 The Security workflow scans Git history for secrets on pull requests and pushes to `main` and `dev`. Python CI checks linting, formatting, types, import boundaries, and package installation. Frontend CI checks linting, types, rendering tests, and a production build. Dependabot proposes weekly GitHub Actions, Python, and frontend dependency updates to `main`. See [SECURITY.md](SECURITY.md) for scanner maintenance.
 
-Dependency review checks new high/critical vulnerabilities on PRs, and a separate Python audit scans the external dependencies exported from `uv.lock`. Start with the [local development guide](docs/operations/local-development.md) and [repository checks](docs/operations/testing.md). Other CI workflows will be added with the code they validate.
+Dependency review checks new high/critical vulnerabilities on PRs. Separate frontend and Python audits scan the frontend lockfile and external dependencies exported from `uv.lock`. Start with the [local development guide](docs/operations/local-development.md) and [repository checks](docs/operations/testing.md). Other CI workflows will be added with the code they validate.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the task-branch and pull-request workflow.

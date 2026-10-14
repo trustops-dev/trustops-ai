@@ -58,7 +58,9 @@ Do not add successful placeholder jobs for these stages. Each required check mus
 
 ## Dependency security
 
-`Dependency review` checks PR dependency changes recognized by GitHub's dependency graph and fails on newly introduced high or critical vulnerabilities, including development dependencies. It is a PR-only comparison; it does not run after a push or on a schedule. The current frontend lockfile is supported. GitHub does not currently list `uv.lock` as a supported graph format, so Python has a separate check.
+`Dependency review` checks PR dependency changes recognized by GitHub's dependency graph and fails on newly introduced high or critical vulnerabilities, including development dependencies. It is a PR-only comparison; it does not run after a push or on a schedule. The repository owner must enable Dependency graph in GitHub security settings before this check can run. GitHub lists pnpm lockfiles as supported, but does not currently list `uv.lock`, so Python has a separate check.
+
+`Frontend dependency audit` independently audits the entire frontend lockfile with `pnpm audit --audit-level high`, including development dependencies. It runs on PRs, pushes, weekly on the default branch, and manual dispatch. It fails for high or critical known vulnerabilities and registry errors. Run the same command locally to reproduce it. This also detects newly disclosed vulnerabilities in existing dependencies that a PR-only comparison may not report.
 
 `Python dependency audit` exports locked external dependencies from all Python workspace members, extras, and dependency groups, then checks them with the pinned `pip-audit` tool. Workspace packages are excluded because they are our own unpublished code. Hashes and exact versions are retained; auditing does not install application dependencies. The audit runs on PRs, pushes to `main` and `dev`, a weekly schedule on the default branch, and manual runs. It fails for any known vulnerability reported by the advisory service (including severities below high) and for collection failures. Environment markers are evaluated for the Linux/Python 3.12 CI environment.
 
@@ -69,4 +71,4 @@ uv export --locked --all-packages --all-groups --all-extras --no-emit-workspace 
 uv run --locked --group audit pip-audit --requirement artifacts/python-audit-requirements.txt --require-hashes --disable-pip --strict --progress-spinner off
 ```
 
-The generated export is ignored and must not be edited or committed. Both security checks require network access to advisory services. They detect known vulnerabilities; they do not establish that packages are trustworthy or free of unknown flaws. After the workflows pass and are merged into each protected branch, the owner can require `Dependency review` and `Python dependency audit` alongside the other checks.
+The generated export is ignored and must not be edited or committed. Dependency security checks require network access to advisory services. They detect known vulnerabilities; they do not establish that packages are trustworthy or free of unknown flaws. After the workflows pass and are merged into each protected branch, the owner can require `Dependency review`, `Frontend dependency audit`, and `Python dependency audit` alongside the other checks.
