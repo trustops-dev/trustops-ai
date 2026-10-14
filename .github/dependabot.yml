@@ -9,6 +9,7 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: uv
     directory: /
@@ -17,11 +18,26 @@ updates:
     groups:
       python:
         patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    # Match the supported tool lines documented in local-development.md.
+    # Revisit these limits during an explicit toolchain migration.
+    ignore:
+      - dependency-name: "@types/node"
+        versions: [">=25.0.0"]
+      - dependency-name: "eslint"
+        versions: [">=10.0.0"]
+      - dependency-name: "@eslint/js"
+        versions: [">=10.0.0"]
+      - dependency-name: "typescript"
+        versions: [">=6.0.0"]
+      - dependency-name: "pnpm"
+        versions: [">=12.0.0"]
     groups:
       frontend:
         patterns: ["*"]
+        update-types: ["minor", "patch"]
