@@ -2,25 +2,10 @@
 
 > Historical source-package audit: references below to attachments, hashes and the absence of a Git checkout describe the original preparation session. Those attachments and their source-hash manifest were not included in the supplied 12-file Markdown folder and were not independently inspected during this import. See the [2026-10-15 repository integration record](repository-integration.md) for current repository evidence.
 
-## Evidence inspected
-
-| Source | Authority and use |
-|---|---|
-| Project Proposal v1.1 | Scope baseline; especially I–N, Q–W, Y and Open Decisions |
-| Sprint Execution Plan, supplied HTML | Execution sequence/ownership; S1-01 through S1-07, S2-01/S2-04, S3-01/S3-03, S5-02 |
-| GitHub Repository Architecture, supplied DOCX | Recommended tree, module ownership and nine architecture rules |
-| Figures 1–5, supplied PNGs | Visually inspected: component boundaries, pre-tool sequence, bypass graph, evaluation and gate |
-| Nour 16-Week Roadmap | Supplemental planning detail only; its inferred paths and Week 2 implementation do not supersede higher sources or this task |
-| Pasted text(1).txt | Original Week 1 task instructions and required deliverables |
-| Pasted text(2).txt | Current targeted provider update: Google Gemini API; exact model and embeddings remain open |
-
-The five PNGs were found and opened successfully in this session. The prior missing-file messages no longer describe their availability. Source copies are preserved. A source-hash manifest accompanies the package to identify the exact inputs read.
-
 ## Audit categories
 
 | Category | Finding | Consequence |
 |---|---|---|
-| Existing | Proposal, sprint plan, repository architecture, roadmap and all five diagrams supplied | Authoritative design evidence exists; not evidence of implementation |
 | Existing | Workspace contains source attachments; Git root detection reports no repository | No branch, commit, remote or production state can be claimed |
 | Missing | `apps/procurement-agent/`, `apps/rag-assistant/`, `scenarios/`, `docs/architecture/`, `docs/adr/` absent from the supplied workspace before drafting | Missing locally only; their existence in the actual remote is unknown |
 | Missing | Trace Schema v1, governance truth tables, reviewer signatures and runtime test evidence not supplied | Cannot validate against an unseen schema or declare S1-01 frozen |
