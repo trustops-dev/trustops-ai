@@ -16,3 +16,11 @@ and synchronization instructions. Dependabot updates to `main` are synced back t
 Future checks are prepared as inactive [workflow templates](.github/workflow-templates/README.md).
 Use the [activation guide](docs/operations/workflow-activation.md) to enable each
 with its implementation and tests; adding these templates does not enable new checks.
+
+## Week 1 reference application contracts
+
+See the [S1-01 reference application contracts](docs/architecture/reference-applications/README.md)
+for the procurement state machine, tool and RAG contracts, trace evidence, scenario
+plans and proposed orchestration ADR. These are revision 0.5 drafts awaiting
+canonical-schema alignment and named team sign-offs; they do not represent
+implemented or runtime-validated application behavior.
