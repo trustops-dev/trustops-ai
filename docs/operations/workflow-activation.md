@@ -40,8 +40,9 @@ the same PR. Do not create empty files just to satisfy prerequisite checks.
 6. Update the status table below, `testing.md`, and local setup instructions with
    the actual commands and scope. Include any non-secret environment example
    values needed by developers.
-7. Obtain Code Owner review and merge only after existing and newly activated
-   checks pass. If `dev` is used, sync the workflow and its implementation there.
+7. Target the implementation PR at `dev`. Obtain Code Owner review and merge only
+   after existing and newly activated checks pass. Promote the workflow and its
+   implementation together through a reviewed `dev` → `main` PR.
 8. The repository owner then adds the stable job names to branch protection on
    each branch containing the implementation. Required matrix check names must
    match the implemented rows. Keep the six baseline checks required.

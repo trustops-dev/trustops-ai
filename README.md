@@ -8,7 +8,10 @@ The Security workflow scans Git history for secrets on pull requests and pushes 
 
 Dependency review checks new high/critical vulnerabilities on PRs. Separate frontend and Python audits scan the frontend lockfile and external dependencies exported from `uv.lock`. Start with the [local development guide](docs/operations/local-development.md) and [repository checks](docs/operations/testing.md). Other CI workflows will be added with the code they validate.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the task-branch and pull-request workflow.
+Team work follows **task branch → PR → `dev` → PR → `main`**. Clone the repository,
+create each task branch from the latest `dev`, and open its PR against `dev`.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for teammate commands, review, promotion,
+and synchronization instructions. Dependabot updates to `main` are synced back to `dev`.
 
 Future checks are prepared as inactive [workflow templates](.github/workflow-templates/README.md).
 Use the [activation guide](docs/operations/workflow-activation.md) to enable each
