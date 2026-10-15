@@ -1,0 +1,64 @@
+# INACTIVE TEMPLATE: see docs/operations/workflow-activation.md.
+# Move to .github/workflows/ with a .yml extension in the implementation PR.
+name: Python coverage CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  coverage:
+    name: Python coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      # Choose an evidence-based integer threshold in the activation PR.
+      MIN_COVERAGE: REPLACE_WITH_AGREED_THRESHOLD
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require a real coverage target and source configuration
+        run: |
+          if [[ ! "$MIN_COVERAGE" =~ ^([1-9][0-9]?|100)$ ]]; then
+            echo "::error::Set MIN_COVERAGE to an agreed integer from 1 through 100."
+            exit 1
+          fi
+          test -s config/coverage.ini
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.13.0"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Install locked workspace
+        run: uv sync --locked --all-packages --all-groups --no-editable
+
+      # Add coverage to the locked dev group. The config must include unexecuted
+      # implemented source modules, branch coverage, and no ignored errors.
+      - name: Measure unit and contract behavior tests
+        run: uv run --no-sync coverage run --rcfile=config/coverage.ini -m pytest tests/unit tests/contract
+
+      - name: Enforce coverage threshold
+        run: uv run --no-sync coverage report --rcfile=config/coverage.ini --show-missing --fail-under="$MIN_COVERAGE"

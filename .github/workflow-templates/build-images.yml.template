@@ -1,0 +1,60 @@
+# INACTIVE TEMPLATE: see docs/operations/workflow-activation.md.
+# Move to .github/workflows/ with a .yml extension in the implementation PR.
+name: Container build CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build image (${{ matrix.component }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      # At activation, retain ONLY implemented components. Add each other row
+      # in the PR that implements its Dockerfile. These are proposed paths.
+      matrix:
+        include:
+          - component: api
+            dockerfile: apps/api/Dockerfile
+          - component: procurement-agent
+            dockerfile: apps/procurement-agent/Dockerfile
+          - component: rag-assistant
+            dockerfile: apps/rag-assistant/Dockerfile
+          - component: dashboard
+            dockerfile: apps/dashboard/Dockerfile
+          - component: mlflow
+            dockerfile: infra/docker/mlflow/Dockerfile
+    env:
+      COMPONENT: ${{ matrix.component }}
+      DOCKERFILE: ${{ matrix.dockerfile }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require reviewed build files
+        run: |
+          test -s "$DOCKERFILE"
+          test -s .dockerignore
+
+      # Root context supports workspace packages. No registry login or push.
+      - name: Build image
+        run: docker build --pull --file "$DOCKERFILE" --tag "trustops-ci/$COMPONENT:$GITHUB_SHA" .
