@@ -42,7 +42,9 @@ Selected provider: **Google Gemini API**, represented by the application configu
 
 ## Mandatory correlation expectations
 
-Request revision → state snapshot → model/tool proposal → argument validation → policy request → policy result → either suppression or dispatch → result → final claim. Approval evidence and supplier snapshot must be separately referenceable. Multiple failures do not overwrite earlier events. Retries have new invocation IDs but preserve proposal/request and idempotency relationships.
+Request revision → state snapshot → model/tool proposal → argument validation → policy request → policy result → either suppression or dispatch → result → final claim. The authorized APPROVED-to-PO_CREATION transition must link the checked source state revision, resulting dispatch state revision and single dispatch claim to the same ALLOW/proposal. Approval evidence and supplier snapshot must be separately referenceable. Multiple failures do not overwrite earlier events. Retries have new invocation IDs but preserve proposal/request and idempotency relationships.
+
+For PO recovery, record RECOVERY_PENDING, the trusted continuation, read-only ledger lookup outcome and original request/proposal/key/digest/dispatch/result references. A recovered result is an observation of the original creation, not a second tool execution. Preserve the original UNKNOWN_OUTCOME event; missing ledger evidence cannot prove non-execution. Canonical event names and continuation serialization remain Mohab's responsibility.
 
 For RAG, preserve retrieval output separately from selected context. Reconstruct exactly what the model saw and which source supported each claim; neither a list of citation IDs nor a hash-only record suffices.
 

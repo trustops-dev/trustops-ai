@@ -168,13 +168,13 @@ Trusted context adds request revision, supplier/policy/approval evidence, propos
 
 Statuses: CREATED, ALREADY_EXISTS, UNKNOWN_OUTCOME, ERROR. UNKNOWN_OUTCOME carries request/proposal/idempotency linkage and explanation, but no asserted PO identity unless independently confirmed. Pre-tool BLOCK is **not** a tool-return status: the tool body was never called; the runtime emits NOT_EXECUTED separately.
 
-Valid stages: model proposal in APPROVED; dispatch in PO_CREATION after bound ALLOW. Earlier proposals are still captured for evaluation but forbidden to execute. Preconditions: approved supplier; calculation known; required approval valid or explicitly not required; state/stage permitted; all three applicable policy checks complete; unchanged proposal/state since ALLOW. A check error, missing result or BLOCK prevents dispatch.
+Valid stages: model proposal in APPROVED; dispatch in PO_CREATION after bound ALLOW. Earlier proposals are still captured for evaluation but forbidden to execute. Preconditions: approved supplier; calculation known; required approval valid or explicitly not required; state/stage permitted; all three applicable policy checks complete; unchanged checked inputs, with only the runtime-owned APPROVED-to-PO_CREATION transition permitted under the [authorization binding rule](procurement-state-contract.md#authorization-binding-across-the-dispatch-transition). A check error, missing result or BLOCK prevents dispatch.
 
 Postconditions: CREATED confirms one mock side effect; ALREADY_EXISTS confirms the same previous mock PO without another side effect. Same key + different payload fails IDEMPOTENCY_CONFLICT. COMPLETION requires successful result validation. No real purchase is sent.
 
-Failures: invalid schema/business mismatch, unapproved supplier, missing/stale approval, wrong state, timeout, check failure, malformed result, duplicate conflict. After an unknown outcome, reconcile the same key against the mock ledger; never automatically generate another key. Storage mechanism belongs to later implementation, not Week 1.
+Failures: invalid schema/business mismatch, unapproved supplier, missing/stale approval, wrong state, timeout, check failure, malformed result, duplicate conflict. After an unknown outcome, enter RECOVERY_PENDING and use only the trusted, read-only same-key ledger lookup defined in the [recovery contract](procurement-state-contract.md#unknown-po-outcome-and-recovery). Recovery never redispatches this tool, even if the ledger has no record; never generate a replacement key for an unresolved business request. Storage mechanism belongs to later implementation, not Week 1. An unavailable or lost ledger leaves the outcome unresolved; in-memory storage does not promise recovery across restarts.
 
-Governance interaction: mandatory pre-execution check owned by Mohamed, transported through Mohab's agreed platform boundary. No app-side critical-policy scoring or post-run reliability verdict. Argument/state mutation invalidates prior ALLOW.
+Governance interaction: mandatory pre-execution check owned by Mohamed, transported through Mohab's agreed platform boundary. No app-side critical-policy scoring or post-run reliability verdict. Any mutation of the checked arguments, request, evidence or policy inputs, and any state transition other than the bound APPROVED-to-PO_CREATION transition, invalidates prior ALLOW before dispatch. That authorized transition and the initial dispatch claim must be atomic; the check cannot authorize another dispatch. Recovery records an observation of the original effect and does not reuse ALLOW as execution permission.
 
 Mock behavior, PLANNED Sprint 2: controlled in-memory or fixture-backed ledger with deterministic identity from fixture/request/key; storage choice reviewed before implementation. Concurrent duplicate handling must be serialized/atomic in that ledger; no enterprise distributed transaction design.
 
@@ -191,6 +191,13 @@ Required extra trace evidence: proposal→check→dispatch→result linkage, imm
 | Supplier NOT_APPROVED | Stop early; any forced PO proposal independently blocked |
 | Same idempotency key/payload repeated | Same approval/PO identity; no duplicate effect |
 | Same key/different payload | Error; no new effect |
-| Timeout after PO dispatch | UNKNOWN_OUTCOME; reconcile same key; no success claim |
+| ALLOW followed only by the bound APPROVED-to-PO_CREATION transition | Initial dispatch may proceed once; trace links the checked and dispatch state revisions |
+| Bound arguments/evidence change after ALLOW, or another transition occurs | Invalidate ALLOW; no dispatch until fresh validation and policy check |
+| Duplicate use of the same authorization | No second dispatch; retain original claim/result references |
+| Timeout after PO dispatch | UNKNOWN_OUTCOME; PO_CREATION with RECOVERY_PENDING; stop execution and retain the original key |
+| Recovery finds the matching confirmed PO | Read-only observation; report existing result and reach COMPLETION; zero additional tool dispatches |
+| Recovery proves final failure with no PO or in-flight operation | Halt as FAILED; zero additional tool dispatches |
+| Recovery sees missing, pending, lost or conflicting ledger data | Remain RECOVERY_PENDING; bounded lookup stops without retrying creation or claiming non-execution |
+| Request revision/new key proposed while prior effect is unresolved | Reject replacement dispatch for the same business request |
 | Model submits trusted authorization fields | Reject unknown/untrusted fields; retain attempted arguments |
 | Calculation tool in PRE_APPROVAL | Contract review blocked until D3 is ratified |

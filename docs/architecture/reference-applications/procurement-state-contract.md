@@ -13,7 +13,7 @@ Basis: Proposal N.1/R/Y.1, Sprint S1-01 and Figures 2/3. State semantics below a
 
 `APPROVED` is a workflow readiness label, not evidence that a human approved. Where approval is not required, retain `approval_required=false`, `approval_received=false`, `authorization_basis=NOT_REQUIRED` and the policy calculation evidence. Never manufacture an approval ID. All stages after PRE_APPROVAL are proposed names for Mohamed/Mohab to ratify. Calculation permission remains OPEN D3.
 
-Orthogonal run status: ACTIVE, WAITING_APPROVAL, BLOCKED, FAILED, CANCELLED, SUCCEEDED. These do not add primary failure classes or masquerade as workflow stages. A halted run preserves its last state. `COMPLETION` is reserved for success; blocked/failed runs can have final responses without entering it.
+Orthogonal run status: ACTIVE, WAITING_APPROVAL, RECOVERY_PENDING, BLOCKED, FAILED, CANCELLED, SUCCEEDED. These do not add primary failure classes or masquerade as workflow stages. A halted run preserves its last state. `COMPLETION` is reserved for success; blocked/failed runs can have final responses without entering it.
 
 ```mermaid
 flowchart TD
@@ -28,7 +28,8 @@ flowchart TD
  O -->|Successful result| F[COMPLETION]
  W -->|Denied or cancelled| H[Halted without PO]
  A -->|BLOCK or check error| H
- O -->|Failure or unknown result| H
+ O -->|Confirmed failure| H
+ O -->|Unknown result: RECOVERY_PENDING| O
 ```
 
 All states may halt on validation, tool or policy errors. Model-generated early PO proposals are captured at any state, checked before dispatch, and blocked outside the permitted state/stage. The diagram shows the valid path and selected halts; the tables define all permitted transitions.
@@ -138,13 +139,13 @@ All states may halt on validation, tool or policy errors. Model-generated early 
 | Purpose | Execute the permitted mock side effect once and observe result |
 | Required input | Bound proposal/check, same request revision, idempotency key, frozen argument digest |
 | Expected output | Mock PO ID and confirmed success, or explicit failure/unknown outcome |
-| Entry | ALLOW in APPROVED; no intervening mutation; dispatch identity recorded |
-| Exit | Successful tool result validates against request/proposal identity; otherwise halt |
-| Allowed transitions | COMPLETION on confirmed success; self only for same-key outcome reconciliation; halt on failure/unknown |
+| Entry | Bound ALLOW in APPROVED; only the authorized transition described below may change state before dispatch; dispatch identity recorded |
+| Exit | Confirmed successful result validates against request/proposal identity; confirmed failure halts; unknown result enters RECOVERY_PENDING |
+| Allowed transitions | COMPLETION on confirmed success; remain in PO_CREATION with RECOVERY_PENDING for read-only outcome reconciliation; halt as FAILED on confirmed failure |
 | Prohibited transitions | New PO with a new key on timeout; manufacture success; use permission for changed arguments |
-| Allowed tools | Dispatch/reconcile `create_purchase_order` for the already authorized proposal only |
+| Allowed tools | Initial authorized `create_purchase_order` dispatch only; recovery uses runtime-owned read-only ledger lookup, with no model-callable sixth tool or repeated PO dispatch |
 | Trace evidence | Check → dispatch linkage, started/finished times, invocation ID, idempotency key, result/error and actual side-effect indicator |
-| Policy evidence | Original authorization and unchanged evidence binding; if anything changes, halt and require a new reviewed attempt |
+| Policy evidence | Original authorization, authorized transition and dispatch binding retained; other pre-dispatch changes invalidate ALLOW. Later recovery observes the original effect and grants no new execution permission |
 | Failure modes | Timeout with unknown outcome, malformed result, duplicate conflict, lost result, mock execution failure |
 
 ### COMPLETION
@@ -169,9 +170,55 @@ All states may halt on validation, tool or policy errors. Model-generated early 
 2. Supplier, policy, approval and request revisions must agree. Editing amount, currency, items or supplier invalidates prior derived evidence and starts a new request revision from REQUEST_CAPTURED, with linkage to the prior attempt; history is retained.
 3. Model output cannot set approval/supplier status, state, check verdict, idempotency key or tool result. The runtime injects trusted context separately from model arguments.
 4. Missing, malformed or timed-out policy verdict means **no dispatch** and a technical check error, not a fabricated policy FAIL or ALLOW. Downstream handling remains Mohamed/Ahmed's responsibility.
-5. Retry limits and time budgets are configurable, versioned and OPEN; never an unbounded model/tool loop. Read retries retain distinct invocation IDs. Side-effect retries must reuse identity and reconcile known state first.
+5. Retry limits and time budgets are configurable, versioned and OPEN; never an unbounded model/tool loop. Read retries retain distinct invocation IDs. Side-effect retries must reuse identity and reconcile known state first. For a PO with UNKNOWN_OUTCOME, the read-only recovery rule below prohibits redispatch; a retry policy is not granted by this general invariant.
 6. Pending approval ends the current interaction honestly as waiting. A later trusted decision resumes from the same immutable revision with a linked continuation; Mohab defines whether that uses one trace or related traces. No promise of durable checkpointing in Week 1.
 7. Preserve a raw model completion claim independently even when an application formatter returns a corrected user-visible response. Record which text was generated, which was shown and why; do not erase diagnostic evidence or claim an unseen false response was delivered.
+
+## Authorization binding across the dispatch transition
+
+The pre-tool check evaluates the immutable APPROVED snapshot: proposal identity,
+request revision, arguments/digest, supplier and approval evidence, policy version,
+and source state revision. ALLOW authorizes that proposal's single
+`APPROVED -> PO_CREATION` transition and initial dispatch together.
+
+The runtime must atomically verify that the current snapshot still matches the
+checked snapshot, record the authorized transition and claim the dispatch once.
+The new PO_CREATION state revision links to the checked APPROVED revision and
+check reference. This runtime-owned transition is the only permitted state change
+between check and initial dispatch; it does not rewrite the checked snapshot or
+require a second check merely because the state name changed. Any other change to
+the bound inputs, intervening transition, or reuse of the authorization prevents
+dispatch and requires fresh validation and a new policy check. A model cannot
+invoke this exception. Mohamed/Mohab must ratify the binding representation and
+the implementation must enforce the atomic claim within the supported mock runtime.
+
+## Unknown PO outcome and recovery
+
+After a dispatched PO has an unknown outcome, stop the tool/model loop, retain
+PO_CREATION and set the proposed run status RECOVERY_PENDING. Report that the
+outcome is unknown; neither failure of the purchase nor successful creation is
+established. Keep the original request revision, proposal, payload digest,
+idempotency key, dispatch record and authorization references.
+
+Recovery starts only through a trusted runtime continuation associated with that
+record. It performs a bounded, read-only lookup of the original mock ledger under
+the same key; it cannot call the creating tool again or create a replacement PO.
+It is an internal runtime operation, not another model-visible tool. The specific
+continuation interface, budget and schema mapping still require owner review.
+
+| Ledger observation | Required state/outcome |
+|---|---|
+| Matching confirmed PO exists | Record a read-only recovery observation linked to the original creation result; validate its identity/payload; enter COMPLETION and report that existing PO, with no new dispatch |
+| Authoritative final failure with no PO and no in-flight operation | Record the evidence, retain PO_CREATION as last state, and halt as FAILED; do not redispatch |
+| Pending, missing, unavailable, lost after restart, or inconsistent record | Remain RECOVERY_PENDING; preserve the reason and stop when the lookup budget is exhausted. Missing data alone does not establish non-execution |
+
+A later trusted continuation may repeat only this read-only lookup. Do not create
+a new key or request revision to retry the same business request while its prior
+effect remains unresolved. Any future capability to retry a conclusively failed
+creation needs a separately reviewed retry/authorization contract under OD-12;
+this draft permits no redispatch through recovery. Preserve later observations
+as linked evidence without overwriting the original unknown outcome. No durable
+recovery is claimed for an in-memory ledger lost on process restart.
 
 ## Flagship bypass and independent unsupported completion
 
