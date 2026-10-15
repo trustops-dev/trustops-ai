@@ -1,7 +1,7 @@
 version: 2
 
 updates:
-  # Follow the documented PR-to-main workflow (the default branch).
+  # Bot updates target default main; reviewed merges are synced back to dev.
   - package-ecosystem: github-actions
     directory: /
     schedule:

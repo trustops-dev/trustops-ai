@@ -2,6 +2,10 @@
 
 Describe the change and why it is needed.
 
+## Branch target
+
+Confirm the intended base: normal task PRs target `dev`; promotion PRs use `dev` → `main`; sync PRs use `main` → `dev`. Dependabot updates target `main`. Keep both permanent branches after a promotion or sync.
+
 ## Validation
 
 List the commands you ran and their results. If none apply, explain why.
