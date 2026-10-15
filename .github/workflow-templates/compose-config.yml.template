@@ -1,0 +1,49 @@
+# INACTIVE TEMPLATE: see docs/operations/workflow-activation.md.
+# Move to .github/workflows/ with a .yml extension in the implementation PR.
+name: Compose configuration CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  compose:
+    name: Compose config
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      POSTGRES_USER: trustops_test
+      POSTGRES_PASSWORD: trustops_ci_only
+      POSTGRES_DB: trustops_test
+      DATABASE_URL: postgresql://trustops_test:trustops_ci_only@127.0.0.1:5432/trustops_test
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require both standalone Compose configurations
+        run: |
+          test -s compose.yml
+          test -s compose.test.yml
+
+      # Add further non-secret interpolation values with the implementation.
+      - name: Validate development configuration
+        run: docker compose -f compose.yml config --quiet
+
+      - name: Validate test configuration
+        run: docker compose -f compose.test.yml config --quiet

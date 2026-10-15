@@ -1,0 +1,61 @@
+# INACTIVE TEMPLATE: see docs/operations/workflow-activation.md.
+# Move to .github/workflows/ with a .yml extension in the implementation PR.
+name: AI evaluation CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  quality:
+    name: AI quality gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      # The implementation must enforce offline fixtures in this PR gate.
+      TRUSTOPS_EVAL_MODE: offline
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require evaluation implementation and versioned inputs
+        run: |
+          test -s scripts/run_quality_gate.sh
+          test -s config/quality-gate.yml
+          test -s tests/fixtures/evaluation/cases.jsonl
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.13.0"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install Python
+        run: uv python install
+
+      - name: Install locked workspace
+        run: uv sync --locked --all-packages --all-groups --no-editable
+
+      # Contract: nonzero for an unmet threshold, invalid/missing data,
+      # evaluator errors, or zero cases. Never turn these into a successful skip.
+      - name: Run evaluation and enforce thresholds
+        run: |
+          bash scripts/run_quality_gate.sh
+          test -s artifacts/ai-quality/report.json

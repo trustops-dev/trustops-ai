@@ -17,3 +17,4 @@ The repository also has a lowercase `dev` branch. Use it only when the team agre
 - Add or update relevant tests and tooling with the implementation they verify. Do not add empty source files or workflows that depend on commands that do not exist yet.
 - Never commit credentials, real secrets, sensitive datasets, or generated artifacts. Use safe example values in `.env.example` when configuration is introduced.
 - Report exact validation commands and results in the pull request. If a check does not yet exist or cannot run, say so.
+- When implementing a feature covered by an inactive workflow template, follow the [activation guide](docs/operations/workflow-activation.md) and activate the relevant check in the same PR as its code and tests. Record successful execution and failure behavior before requesting a new required check.
