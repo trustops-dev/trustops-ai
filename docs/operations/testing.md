@@ -49,6 +49,10 @@ After a successful CI run and merge, the repository owner can add `Frontend chec
 
 ## Remaining stages
 
+Inactive templates are prepared in `.github/workflow-templates/`. Follow the
+[workflow activation guide](workflow-activation.md) to activate each in the same
+PR as its implementation and tests. They do not currently run or count as checks.
+
 - Database, migrations, API integration, and end-to-end tests: add with the first working API and database setup.
 - Container builds and Compose validation: add with real Dockerfiles and Compose services.
 - Prompt-injection, approval-bypass, and redaction tests: add with the features they exercise.

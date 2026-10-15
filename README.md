@@ -9,3 +9,7 @@ The Security workflow scans Git history for secrets on pull requests and pushes 
 Dependency review checks new high/critical vulnerabilities on PRs. Separate frontend and Python audits scan the frontend lockfile and external dependencies exported from `uv.lock`. Start with the [local development guide](docs/operations/local-development.md) and [repository checks](docs/operations/testing.md). Other CI workflows will be added with the code they validate.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the task-branch and pull-request workflow.
+
+Future checks are prepared as inactive [workflow templates](.github/workflow-templates/README.md).
+Use the [activation guide](docs/operations/workflow-activation.md) to enable each
+with its implementation and tests; adding these templates does not enable new checks.

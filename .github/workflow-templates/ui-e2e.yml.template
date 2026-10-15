@@ -1,0 +1,64 @@
+# INACTIVE TEMPLATE: see docs/operations/workflow-activation.md.
+# Move to .github/workflows/ with a .yml extension in the implementation PR.
+name: Browser CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  browser:
+    name: Browser tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CI: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require browser test configuration
+        run: |
+          test -s playwright.config.ts
+          test -d tests/e2e/ui
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install locked workspace
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium and operating system dependencies
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build dashboard
+        run: pnpm build
+
+      # The config must start/stop the production server through webServer,
+      # select tests/e2e/ui, and define a chromium project.
+      - name: Run browser tests
+        run: pnpm exec playwright test --project=chromium --workers=1 --reporter=line
