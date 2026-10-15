@@ -28,7 +28,7 @@ Put actual behavior tests under the corresponding `tests/unit` directory and sha
 
 Coverage reporting and a meaningful coverage target will be added with the first executable domain behavior. The package shells currently contain docstrings only, so a coverage percentage would not measure application quality. The MLOps CLI smoke test will be added with the CLI implementation.
 
-After this workflow has passed and the PR has merged, a repository owner can make `Python checks` a required status check. Enable it on `dev` only after the workflow is also merged there.
+`Python checks` is already required on both `dev` and `main`. Keep it required while adding behavior tests.
 
 ## Frontend checks
 
@@ -45,7 +45,7 @@ pnpm build
 
 The initial rendering smoke test verifies that the entry page mounts with an accessible heading and an empty application state. It validates the frontend harness, not application behavior, API integration, or browser flows. There is no coverage threshold until meaningful dashboard features exist. Add unit tests here as components are implemented; browser flows belong under `tests/e2e/ui` and will need a separate runner. Async Server Components should be tested through integration or browser tests rather than this synchronous rendering harness.
 
-After a successful CI run and merge, the repository owner can add `Frontend checks` alongside `Python checks` and `Secret scan` in branch protection. First sync the workflow to `dev` before requiring it there. Keep the permanent `main` and `dev` branches.
+`Frontend checks` is already required on both `dev` and `main`, alongside `Python checks` and `Secret scan`. Keep both permanent branches. New workflows are activated in implementation PRs targeting `dev`, then promoted with their implementation to `main`.
 
 ## Remaining stages
 
@@ -75,4 +75,4 @@ uv export --locked --all-packages --all-groups --all-extras --no-emit-workspace 
 uv run --locked --group audit pip-audit --requirement artifacts/python-audit-requirements.txt --require-hashes --disable-pip --strict --progress-spinner off
 ```
 
-The generated export is ignored and must not be edited or committed. Dependency security checks require network access to advisory services. They detect known vulnerabilities; they do not establish that packages are trustworthy or free of unknown flaws. After the workflows pass and are merged into each protected branch, the owner can require `Dependency review`, `Frontend dependency audit`, and `Python dependency audit` alongside the other checks.
+The generated export is ignored and must not be edited or committed. Dependency security checks require network access to advisory services. They detect known vulnerabilities; they do not establish that packages are trustworthy or free of unknown flaws. `Dependency review`, `Frontend dependency audit`, and `Python dependency audit` are already required on both protected branches alongside the other three baseline checks.
