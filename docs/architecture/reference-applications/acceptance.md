@@ -28,7 +28,7 @@ PASS below means verified documentation coverage, not runtime correctness, team 
 | Team handoffs explicit | PASS | Five separate handoff checklists and unsigned review register |
 | Open decisions visible | PASS | OD-01–OD-16 plus OD-LLM-01, OD-LLM-02 and OD-RAG-01; source conflicts and owners/closure criteria |
 | Valid existing work preserved | PASS | Supplied sources unchanged; existing staged documentation revised in place |
-| Actual repository compared/updated | PARTIAL | [Repository comparison and task-branch import recorded](repository-integration.md); PR review and merge pending |
+| Actual repository compared/updated | PASS | [OD-01 closure evidence](repository-integration.md#od-01-closure-evidence): PR #11 merged into `dev`, PR #12 promoted to `main`; merge commits and review evidence recorded |
 | Manual traces validated against Trace Schema v1 | BLOCKED | Four semantic walkthroughs prepared; actual canonical schema/fixtures not supplied |
 | Four owner sign-offs obtained | BLOCKED | No written acceptance received; no teammate contacted |
 | No Sprint 2 production functionality | PASS | This import contains Markdown documentation only; the original source-hash manifest was not supplied |
@@ -51,7 +51,7 @@ The model-selection portion of OD-LLM-01 can be recorded separately from its liv
 
 ## Week 2 recommended actions — Sprint 1 only
 
-1. Review and merge the documentation import into `dev`; record the PR and merge commit in the [integration record](repository-integration.md) to close OD-01. The repository comparison is complete; no runtime changes are included.
+1. **Completed ? OD-01 closed on 2026-10-16:** documentation import and promotion merged through PRs #11 and #12. See the [integration record](repository-integration.md#od-01-closure-evidence). Continue with the specialist reviews below; no runtime completion or contract freeze is implied.
 2. Review with Mohamed: resolve calculation permission, coarse stage names, approval-not-required branch, currency/threshold truth table, supplier evidence, approval validity and S2/S3 integration wording.
 3. Align E01–E27 with Mohab's Trace Schema v1 and governance boundary. Mohab creates canonical fixtures; walk procurement success, approval bypass, grounded RAG and RAG failure/abstention by hand. Record actual validation outcome per fixture.
 4. Review with Ahmed: exact class overlap, attempted vs prevented failure semantics, independent causal metadata, citation/sufficiency rubric and RCA evidence; review SC-01–SC-03 and obtain plan-owner agreement to the proposed S4-06 scope/dependency amendment and dataset ordering; OD-08 drafting is complete, approval remains pending.

@@ -4,7 +4,7 @@ No numeric policy, retrieval confidence or reliability threshold is invented. A 
 
 | ID | Decision / current proposal | Owner(s) | Closure evidence | When / effect |
 |---|---|---|---|---|
-| OD-01 | PARTIAL: repository and duplicate-doc inventory inspected; import awaits PR review and merge | Nour / repository maintainer | [Audited commit and file mapping](repository-integration.md); approved import PR and merge commit still required | Before completing repository integration; contract freeze and owner sign-offs remain separate |
+| OD-01 | CLOSED ? 2026-10-16: repository inventory inspected; Week 1 import reviewed and merged into `dev`, then promoted to `main` | Nour / repository maintainer | [Audited commit, file mapping and closure evidence](repository-integration.md#od-01-closure-evidence): merged PRs #11 and #12, their merge commits and Malak's approvals | Repository integration complete; contract freeze and specialist sign-offs remain separate |
 | OD-02 | Calculation tool missing from PRE_APPROVAL policy list (D3) | Mohamed + Nour | Reviewed allowlist/state mapping explicitly permits read-only calculation without weakening PO restriction | Week 2 before freeze; blocks executable procurement contract |
 | OD-03 | Approval rule values/currencies/levels, policy text/config authority and equality semantics | Mohamed | Versioned truth table, fixture IDs and rule-to-source mapping; proposal says `>` | Week 2 before implementation; no value assumed |
 | OD-04 | Approval record validity, amount/supplier/revision binding, denial, expiry/revocation and resume authority | Mohamed + Mohab + Nour | Approved evidence and continuation contract, manual stale-approval case | Week 2; freeze blocker |
