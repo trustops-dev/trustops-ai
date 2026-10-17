@@ -11,3 +11,10 @@ for the procurement state machine, tool and RAG contracts, trace evidence, scena
 plans and proposed orchestration ADR. These are revision 0.5 drafts awaiting
 canonical-schema alignment and named team sign-offs; they do not represent
 implemented or runtime-validated application behavior.
+
+## Dashboard UX architecture
+
+See the [dashboard UX architecture](docs/architecture/dashboard/README.md) for the
+reviewer task flows, the seven-screen information architecture, the status vocabulary and
+the field and data-owner matrix. It is a revision 0.1 draft awaiting backend-owner review;
+it adds no routes, components or code.
