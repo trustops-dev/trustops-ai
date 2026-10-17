@@ -1,35 +1,39 @@
 # Status vocabulary and non-colour encoding
 
-Revision 0.1 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.2 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 The dashboard has to keep apart outcomes that look alike: a tool that was blocked, a run that is waiting, a check that never ran, a check that crashed, and a check that does not apply. This page fixes the vocabulary, the wording and a presentation signature for each state. A signature is built from a text label, a glyph, an outline and a fill. Colour is an extra cue and never the only one.
 
 ## Separate concepts
 
-The [reference application overview](../reference-applications/overview.md#three-separate-outcomes) defines three outcomes plus a later human review. The dashboard adds evaluation states. Each concept has its own scope label, and the label is always shown with the value.
+The [reference application overview](../reference-applications/overview.md#three-separate-outcomes) defines three outcomes plus a later human review. The proposal (sections K.2, R.2 and S) and the user stories (US-24, US-25, US-27, US-40) add the release gate, the human review verdict and the override. The dashboard adds evaluation states. Each concept has its own scope label, and the label is always shown with the value.
 
 | Concept | Scope label | Values | Data owner | Fields |
 |---|---|---|---|---|
-| Reliability decision | Reliability | PASS, REVIEW, BLOCK | Mohamed | `TRD-03`, `OVW-04` |
+| Reliability decision | Reliability | PASS, REVIEW, BLOCK | Mohamed | `RCA-07`, `OVW-04` |
 | Release gate decision | Release gate | PASS, REVIEW, BLOCK | Alaa | `REL-01` |
+| Candidate disposition | Candidate | Approved, baseline retained (BLOCK), human action required (REVIEW) | Alaa | `REL-18` |
 | Pre-execution verdict | Pre-tool | ALLOW, BLOCK | Mohamed | `TRD-43`, `RCA-06` |
-| Dispatch status | Dispatch | NOT_EXECUTED, executed (result shown separately) | Nour | `TRD-44`, `TRD-45` |
+| Dispatch status | Dispatch | NOT_EXECUTED, executed (result shown separately); a suppressed call also names the layer that stopped it: agent guard or pre-tool policy | Nour | `TRD-44`, `TRD-47`, `TRD-45` |
 | Application outcome | Outcome | Procurement: PO created, Waiting for approval, Blocked, Failed, Recovery pending. RAG: Answer, Abstention, Error | Nour | `TRD-01`, `RAG-19` |
 | Run status | Run | ACTIVE, WAITING_APPROVAL, RECOVERY_PENDING, BLOCKED, FAILED, CANCELLED, SUCCEEDED | Nour | `TRD-02`, `APP-03` |
 | Approval status | Approval | PENDING, APPROVED, DENIED, CANCELLED, NOT_REQUIRED | Mohamed | `TRD-34`, `TRD-35` |
 | Evaluation state | Evaluation | value, Not evaluated, Evaluator failed, Not applicable | Ahmed | `TRD-60`, `OVW-05` |
-| Human review | Review | none, pending, completed | Mohamed | `TRD-70` |
+| Human review verdict | Human review | ACCEPT, REVIEW, BLOCK, with a written rationale | Mohamed | `TRD-70`, `REL-16` |
+| Override request | Override | Requested, Approved, Rejected | Mohamed | `REL-19` |
 
-The values for each concept come from its owner. This table records what S1-01 and the handoffs already name. The release gate row is a proposal until Alaa and Mohamed confirm it (Q-10). The absence states below are dashboard presentation states, not new backend enums.
+The values for each concept come from its owner. This table records what S1-01, the proposal and the user stories already name. The release gate row is a proposal until Alaa and Mohamed confirm it (Q-10). The absence states below are dashboard presentation states, not new backend enums.
 
 ### Rules that follow from the separation
 
-1. **Scope label is mandatory.** `BLOCK` appears under three scopes. The UI always shows "Reliability BLOCK", "Release gate BLOCK" or "Pre-tool BLOCK", never a bare "BLOCK". Their glyphs differ as well (table below).
+1. **Scope label is mandatory.** `BLOCK` and `REVIEW` appear under several scopes. The UI always shows "Reliability BLOCK", "Release gate BLOCK", "Pre-tool BLOCK" or "Human review: Block", never a bare "BLOCK" or "REVIEW". The reliability, release gate and pre-tool states have different glyphs (table below). Human review verdicts and override states are plain text tags with no glyph, so a reviewer's verdict cannot be mistaken for a machine decision.
 2. **A completed or pending run is not a PASS.** Outcome, Run and Approval tags never use the PASS badge, and nothing infers a PASS from them. A run waiting for approval shows Reliability: Awaiting result until Mohamed's engine decides.
 3. **A pre-tool ALLOW is neither a success nor a PASS.** It means one proposed action could be dispatched. The invocation result is a separate field.
 4. **A pre-tool BLOCK is not the end of the story.** The blocked proposal, the BLOCK verdict, `NOT_EXECUTED` and any false completion claim remain four visible, separate items. The attempt stays a finding.
-5. **Human review never replaces a machine decision.** It is shown next to the decision history, never in place of it.
-6. **The UI never computes a decision.** It does not derive PASS from "no findings", REVIEW from "evaluator failed", or a class from a policy result. Whatever the owner serves is shown.
+5. **Human review never replaces a machine decision.** The reviewer's ACCEPT, REVIEW or BLOCK is shown next to the decision and the decision history, never in place of them. Reviews are never edited; a correction is a new entry.
+6. **The UI never computes a decision.** It does not derive PASS from "no findings", REVIEW from "evaluator failed", a class from a policy result, or a cause order from its scores. Whatever the owner serves is shown, in the order served. The Top-3 causes keep the RCA engine's order, and their numbers are called "evidence scores", never probabilities.
+7. **Every score says what it is.** A score, badge or finding shows its meaning, its unit and direction (higher is better, lower is better), its source and its applicable version. A bare number is never shown (Epic 7 Definition of Done, US-38).
+8. **Two layers can stop a tool.** The agent guard (US-03) and the pre-tool policy check (US-22) each produce a Not executed result. The screen names the layer. A policy BLOCK is never shown for a call that only the agent guard stopped, and the reverse.
 
 ## Presentation signatures
 
@@ -121,6 +125,10 @@ Short, blame-free, and every message says what the state means and what to do. V
 | Redacted | Withheld by redaction policy {policy}. | See why |
 | Not configured | {value} has not been set. Owner: {owner}. | Open thresholds |
 | Pre-tool block with no dispatch | The proposed action was blocked before it ran. No tool executed. | View policy findings |
+| Stopped by the agent guard | The agent's own workflow check rejected this call at stage {stage}. No tool executed. | View stage evidence |
+| Release gate Block | The candidate is rejected and the approved baseline is retained. | View gate reasons |
+| Release gate Review | A person has to decide. This is not an approval. | Record review |
+| Permission refused | Your role cannot {action}. Ask a Governance Reviewer or Administrator. | View roles |
 
 ## Region states every screen defines
 

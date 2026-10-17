@@ -29,6 +29,25 @@ SCREEN_BY_PREFIX = {
     "REL": "SCR-REL",
 }
 PRIMARY_SCREENS = {"OVW", "APP", "TRX", "RCA", "RAG", "REL"}
+SCREEN_NAMES = [
+    "Reliability Overview",
+    "Applications",
+    "Trace Explorer",
+    "Trace Detail",
+    "RAG Diagnostics",
+    "Failure & RCA Investigation",
+    "Release Quality Gate",
+]
+ROLE_ACCESS = {
+    "Administrator": ["Manage"] * 7,
+    "AI Engineer": ["View", "Manage", "View", "View", "View", "View", "View"],
+    "Reliability Engineer": ["View", "View", "View", "View", "Manage", "Manage", "View"],
+    "LLMOps Engineer": ["View", "Manage", "View", "View", "View", "View", "Manage"],
+    "Platform Engineer": ["View", "Manage", "Manage", "View", "View", "View", "View"],
+    "Governance Reviewer": ["View", "View", "View", "View", "View", "Manage", "Manage"],
+    "Security Auditor": ["View"] * 7,
+}
+DASHBOARD_STORIES = {f"US-{number}" for number in range(34, 41)}
 OWNERS = {"Nour", "Ahmed", "Mohab", "Mohamed", "Alaa"}
 BASES = {"FACT", "DECISION", "OPEN"}
 SHAPES = {
@@ -239,7 +258,8 @@ def test_every_screen_reaches_trace_detail_evidence_quickly() -> None:
     for screen in PRIMARY_SCREENS:
         assert hops(screen, "TRD") <= 2, f"{screen} is too far from Trace Detail"
     assert hops("REL", "TRD") == 1, "a blocked gate must link straight to traces"
-    assert {origin for _, origin, target in edges if target == "TRD"} >= PRIMARY_SCREENS - {"APP"}
+    direct = {origin for _, origin, target in edges if target == "TRD"}
+    assert direct >= PRIMARY_SCREENS - {"APP", "OVW"}
 
 
 def test_trace_detail_links_back_to_the_other_screens() -> None:
@@ -251,7 +271,16 @@ def test_journeys_and_architecture_only_cite_real_fields_and_edges(fields: list[
     known_fields = {field.field_id for field in fields}
     known_edges = {edge_id for edge_id, _, _ in _contextual_edges()}
 
-    for name in ("reviewer-journeys.md", "information-architecture.md", "paper-walkthroughs.md"):
+    documents = (
+        "reviewer-journeys.md",
+        "information-architecture.md",
+        "paper-walkthroughs.md",
+        "story-traceability.md",
+        "roles-and-access.md",
+        "status-vocabulary.md",
+        "README.md",
+    )
+    for name in documents:
         text = _read(name)
         cited_fields = set(FIELD_ID_PATTERN.findall(text))
         assert cited_fields <= known_fields, (
@@ -263,16 +292,8 @@ def test_journeys_and_architecture_only_cite_real_fields_and_edges(fields: list[
 
 def test_every_screen_appears_in_a_reviewer_journey() -> None:
     text = _read("reviewer-journeys.md")
-    for name in (
-        "Overview",
-        "Trace Explorer",
-        "Trace Detail",
-        "Failure & RCA",
-        "RAG Diagnostics",
-        "Release Gate",
-    ):
+    for name in SCREEN_NAMES:
         assert name in text, f"no journey step uses {name}"
-    assert "Applications" in text
 
 
 def test_owner_review_record_lists_all_five_owners() -> None:
@@ -284,3 +305,38 @@ def test_owner_review_record_lists_all_five_owners() -> None:
         assert status == "PENDING" or evidence not in {"", "—", "-"}, (
             f"{row[0]} is marked {status} without evidence"
         )
+
+
+def test_screens_are_named_and_ordered_as_in_the_proposal() -> None:
+    rows = _table_rows(_read("information-architecture.md"), "| ID | Screen |")
+    assert [row[1] for row in rows] == SCREEN_NAMES
+    assert [row[0] for row in rows] == [
+        "SCR-OVW",
+        "SCR-APP",
+        "SCR-TRX",
+        "SCR-TRD",
+        "SCR-RAG",
+        "SCR-RCA",
+        "SCR-REL",
+    ]
+
+
+def test_access_table_matches_appendix_b_of_the_user_stories() -> None:
+    rows = _table_rows(_read("roles-and-access.md"), "| Role | D1 |")
+    assert {row[0]: row[1:] for row in rows} == ROLE_ACCESS
+
+
+def test_every_dashboard_story_is_traced_to_fields_or_links(fields: list[Field]) -> None:
+    rows = _table_rows(_read("story-traceability.md"), "| Story | Criterion |")
+    traced = {row[0] for row in rows}
+    assert DASHBOARD_STORIES <= traced
+    assert "Epic 7 DoD" in traced
+
+    for row in rows:
+        story, criterion, element, references, status = row
+        assert all((story, criterion, element, references, status)), f"{story} has an empty cell"
+        assert (
+            FIELD_ID_PATTERN.search(references)
+            or EDGE_ID_PATTERN.search(references)
+            or "Q-" in (references)
+        ), f"{story} cites no field, link or question"

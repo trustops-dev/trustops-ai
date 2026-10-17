@@ -1,6 +1,6 @@
 # Field and data-owner matrix
 
-Revision 0.1 · 2026-10-17 · DRAFT for owner review. Part of the [dashboard UX architecture](README.md).
+Revision 0.2 · 2026-10-17 · DRAFT for owner review. Part of the [dashboard UX architecture](README.md).
 
 Every diagnostic field the seven screens show appears below exactly once. Each row names one **home screen** (the section it sits in) and one **data owner**. Nothing here is a canonical schema, API route or database column; Mohab maps rows to `packages/contracts` under S1-02.
 
@@ -8,189 +8,209 @@ Every diagnostic field the seven screens show appears below exactly once. Each r
 
 | Term | Meaning |
 |---|---|
-| **Home screen** | The one screen where the field is defined and shown in full. The ID prefix matches the screen: `OVW` Overview, `APP` Applications, `TRX` Trace Explorer, `TRD` Trace Detail, `RCA` Failure & RCA, `RAG` RAG Diagnostics, `REL` Release Gate. |
+| **Home screen** | The one screen where the field is defined and shown in full. The ID prefix matches the screen: `OVW` Reliability Overview, `APP` Applications, `TRX` Trace Explorer, `TRD` Trace Detail, `RAG` RAG Diagnostics, `RCA` Failure & RCA Investigation, `REL` Release Quality Gate. |
 | **Projection** | A read-only echo of a field on another screen, such as a decision badge in a Trace Explorer row. A projection carries the same value from the same owner and is never a second field. Wireframes mark projections `{>ID}` and home fields `{ID}`. |
-| **Data owner** | The backend owner accountable for the value's meaning, correctness and schema evolution. It is not the serving layer. `apps/api` serves every value; the dashboard renders it and never infers, recomputes or overrides a decision, label or cause. |
-| **Aggregates** | A count or distribution belongs to the owner of the values being counted. Mohab's envelope owns only trace-level counts such as volume and completeness. |
+| **Data owner** | The backend owner accountable for the value's meaning, correctness and schema evolution. It is not the serving layer. `apps/api` serves every value; the dashboard renders it and never infers, recomputes, re-ranks or overrides a decision, label, cause or score. |
+| **Aggregates** | A count or distribution belongs to the owner of the values being counted. Mohab's envelope owns only trace-level counts such as volume, freshness and completeness. |
 | **Shape** | `id` identifier · `text` · `enum` · `ts` timestamp · `num` number · `count` counts or distribution · `flag` boolean · `obj` grouped record · `list` · `table` · `ref` link to another record · `ver` immutable version reference · `graph` nodes and edges. |
-| **Absence** | Which no-value states can occur: `NE` Not evaluated · `EF` Evaluator failed · `NA` Not applicable · `PE` Awaiting result · `UN` Unavailable · `ME` Missing evidence · `RD` Redacted · `NC` Not configured. A dash means the field always has a value. Definitions and presentation are in the [status vocabulary](status-vocabulary.md). |
-| **Basis** | `FACT`: required by the cited S1-01 source. `DECISION`: UX proposal that the owner must confirm or reject. `OPEN`: depends on an open decision or [question](README.md#open-questions). Same words as the [S1-01 status vocabulary](../reference-applications/README.md#status-vocabulary). |
-| **Source** | `E01`–`E27` rows of the [trace evidence contract](../reference-applications/trace-evidence-contract.md). `SC` [state contract](../reference-applications/procurement-state-contract.md). `TC` [tool contracts](../reference-applications/procurement-tool-contracts.md). `RC` [RAG contract](../reference-applications/rag-contract.md). `FM` [failure matrix](../reference-applications/failure-planning-matrix.md). `OV` [overview](../reference-applications/overview.md). `HO` [handoffs](../reference-applications/handoffs.md). `OD-nn` [open decisions](../reference-applications/open-decisions.md). |
+| **Absence** | Which no-value states can occur: `NE` Not evaluated · `EF` Evaluator failed · `NA` Not applicable · `PE` Awaiting result · `UN` Unavailable · `ME` Missing evidence · `RD` Redacted · `NC` Not configured. A dash means the field always has a value. Definitions are in the [status vocabulary](status-vocabulary.md). |
+| **Basis** | `FACT`: required by the cited source. `DECISION`: UX proposal that the owner must confirm or reject. `OPEN`: depends on an open decision or [question](README.md#open-questions). Same words as the [S1-01 status vocabulary](../reference-applications/README.md#status-vocabulary). |
+| **Source** | `PR §x` the project proposal v1.1. `US-nn` the user stories v2.2. `FR-nn` proposal functional requirements. `E01`–`E27` rows of the [trace evidence contract](../reference-applications/trace-evidence-contract.md). `SC` [state contract](../reference-applications/procurement-state-contract.md). `TC` [tool contracts](../reference-applications/procurement-tool-contracts.md). `RC` [RAG contract](../reference-applications/rag-contract.md). `FM` [failure matrix](../reference-applications/failure-planning-matrix.md). `OV` [overview](../reference-applications/overview.md). `HO` [handoffs](../reference-applications/handoffs.md). `OD-nn` [open decisions](../reference-applications/open-decisions.md). |
 
-The five owners: **Nour** (reference applications and scenarios), **Ahmed** (evaluators, classifier, RCA), **Mohab** (trace envelope, ordering, ingestion, execution graph), **Mohamed** (policy, approvals, reliability decisions, human review), **Alaa** (versions, datasets, experiments, release gate). Malak owns the dashboard and is not a data owner.
+The five owners: **Nour** (reference applications and scenarios), **Ahmed** (evaluators, classifier, RCA), **Mohab** (trace envelope, ordering, ingestion, execution graph), **Mohamed** (policy, approvals, reliability decisions, human review, audit, roles), **Alaa** (versions, datasets, experiments, release gate). Malak owns the dashboard and is not a data owner. These match proposal section V.
 
 ### Rules every row follows
 
-1. A field has one home and one owner. If two owners contribute, the row names the accountable one and the Notes below say what the other supplies.
+1. A field has one home and one owner. If two owners contribute, the row names the accountable one and the notes below say what the other supplies.
 2. The dashboard never shows a missing value as zero, blank or PASS. It shows one of the absence states.
-3. `PASS`, `REVIEW`, `BLOCK` (reliability), `ALLOW`/`BLOCK` (pre-tool), application outcome and human review are separate fields with separate presentation. See [status vocabulary](status-vocabulary.md).
-4. Fields tagged `OPEN` render as `Not configured` or `Awaiting result` until their owner closes the decision. The UI invents no value, threshold or default.
+3. Reliability decision, release gate decision, pre-tool verdict, application outcome and human review verdict are separate fields with separate presentation. See [status vocabulary](status-vocabulary.md).
+4. Every score, status badge and finding shows its meaning, its unit and direction, its provenance and its applicable version (Epic 7 Definition of Done). The shapes below describe the value; the version and provenance travel with it.
+5. Fields tagged `OPEN` render as `Not configured` or `Awaiting result` until their owner closes the decision. The UI invents no value, threshold or default.
 
 ### UI-local state (no backend owner)
 
-These are not diagnostic fields. They live in the browser or URL and have no data owner: sort order, column visibility, page size and page number, expanded or collapsed sections, selected tab or section, search text, applied filter chips, selected time range, selected baseline/candidate pair, graph zoom and pan, theme. The *values* offered by a filter always come from the field it filters.
+These are not diagnostic fields. They live in the browser or URL and have no data owner: sort order, column visibility, page size and page number, expanded or collapsed sections, selected tab or section, search text, applied filter chips, selected time range, selected baseline/candidate pair, graph zoom and pan, theme. The *values* offered by a filter always come from the field it filters. Filter and pagination state is carried in the URL (US-36).
 
-## SCR-OVW — Overview
+### Session context (outside the seven screens)
 
-Page pattern: Dashboard. Fixed glance, at most five tiles, read-only.
+The signed-in user's name, their role, and which actions that role may take come from the role service that Mohamed owns (US-27). They appear in the application shell on every screen, and the login form is not one of the seven screens. See [roles and access](roles-and-access.md).
+
+## SCR-OVW — Reliability Overview
+
+Page pattern: Dashboard. Fixed glance, at most five tiles, read-only. Each tile and card links out.
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
-| OVW-01 | Header | Reporting window: label, start and end of the period every tile covers | obj | Mohab | OV, E26 | UN | DECISION |
-| OVW-02 | Tile 1 | Trace volume in window: total, and by application | count | Mohab | E01, E26 | UN | DECISION |
-| OVW-03 | Tile 2 | Data freshness: time of the latest ingested trace, ingest lag | ts | Mohab | E25 | UN | DECISION |
-| OVW-04 | Tile 3 and chart | Reliability decision distribution, overall and by application: PASS, REVIEW, BLOCK and "no decision yet" counts, always shown as separate numbers | count | Mohamed | OV, HO | PE | FACT |
-| OVW-05 | Tile 4 | Evaluation coverage: counts of evaluated, Not evaluated, Evaluator failed and Not applicable | count | Ahmed | HO, FM | NE EF NA | FACT |
+| OVW-01 | Header | Reporting window: label, start and end of the period every figure covers | obj | Mohab | PR §T, US-34 | UN | DECISION |
+| OVW-02 | Tile: traces | Trace count in the window, total and by application | count | Mohab | US-34, E01 | UN | FACT |
+| OVW-03 | Header | Data freshness: time of the latest ingested trace, ingest lag | ts | Mohab | E25 | UN | DECISION |
+| OVW-04 | Tile: decisions | Reliability decision distribution, overall and by application: PASS, REVIEW, BLOCK and "no decision yet" as separate numbers | count | Mohamed | US-34, US-24 | PE | FACT |
+| OVW-05 | Tile: evaluation | Evaluation coverage: counts of evaluated, Not evaluated, Evaluator failed and Not applicable | count | Ahmed | US-18, US-15 | NE EF NA | FACT |
+| OVW-06 | Chart | Reliability trend: decision distribution over successive periods | count | Mohamed | US-34, PR §T | PE | FACT |
+| OVW-07 | Tile: failure classes | Top failure classes: class and count, overall and by application | count | Ahmed | US-34, PR §K | NE EF | FACT |
 
-The fifth tile is the latest release gate decision, a projection of `REL-01`. The "needs attention" list under the chart shows projections of `TRX` and `TRD` fields.
+The fifth tile is the most recent release gate decision, a projection of `REL-01`. The application cards project `APP-01`, `APP-03` and the decision and trace figures for each application.
 
 ## SCR-APP — Applications
 
-Page pattern: List. A row opens a read-only slide-over summary, because an application detail route would be an eighth screen.
+Page pattern: List, with each record shown as a full-width application card (US-35 asks for cards). A card needs room for all four version identifiers without truncating the differentiating suffix, which a table column would cut.
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
-| APP-01 | Table | Application identity: ID, display name, kind (Procurement Agent or Enterprise RAG Assistant) | obj | Nour | E01, E26 | — | FACT |
-| APP-02 | Table | Synthetic-data and mock-tool marker | flag | Nour | E01, E20 | — | FACT |
-| APP-03 | Table | Run-status mix: counts of ACTIVE, WAITING_APPROVAL, RECOVERY_PENDING, BLOCKED, FAILED, CANCELLED, SUCCEEDED | count | Nour | SC | — | FACT |
-| APP-04 | Table | Last trace received, per application | ts | Mohab | E25 | UN | DECISION |
-| APP-05 | Slide-over | Ingestion health: events received, events rejected, incomplete traces | count | Mohab | E25, OV | UN | FACT |
-| APP-06 | Slide-over | Deployed configuration versions: application, prompt, model/config, retriever, corpus/index, tool catalog, policy set, scenario/config | ver | Alaa | E26, OD-13 | UN | FACT |
-| APP-07 | Slide-over | Provider and configured model identifier (`gemini`, `gemini-3.8-flash`), and returned model version when known | obj | Alaa | E26, OD-LLM-01 | UN | FACT |
-| APP-08 | Slide-over | Policy applicability: which policy rules apply to this application; procurement rules are Not applicable to the RAG assistant | table | Mohamed | OD-16, SC | NA | FACT |
+| APP-01 | Card | Application identity: ID, display name, kind (Procurement Agent or Enterprise RAG Assistant) | obj | Nour | US-35, E01, E26 | — | FACT |
+| APP-02 | Card | Synthetic-data and mock-tool marker | flag | Nour | E01, E20 | — | FACT |
+| APP-03 | Card | Run-status mix: counts of ACTIVE, WAITING_APPROVAL, RECOVERY_PENDING, BLOCKED, FAILED, CANCELLED, SUCCEEDED | count | Nour | SC | — | FACT |
+| APP-04 | Card | Last trace received | ts | Mohab | E25 | UN | DECISION |
+| APP-05 | Card | Current version identifiers, all four shown in full: application, model, prompt, retriever | ver | Alaa | US-35, US-09, FR-01 | UN | FACT |
+| APP-06 | Card details | Other deployed versions: corpus and index, tool catalog, policy set, evaluator, scenario and configuration | ver | Alaa | E26, OD-13, FR-06 | UN | FACT |
+| APP-07 | Card details | Provider and configured model identifier, and returned model version when known | obj | Alaa | E26, OD-LLM-01 | UN | FACT |
+| APP-08 | Card | Latest evaluation run: run ID, time, dataset version, evaluator versions, status | obj | Alaa | US-35, US-18 | NE EF PE | FACT |
+| APP-09 | Card details | Ingestion health: events received, events rejected, incomplete traces | count | Mohab | E25, OV, US-11 | UN | FACT |
+| APP-10 | Card details | Policy applicability: which policy rules apply to this application; procurement rules are Not applicable to the RAG assistant | table | Mohamed | OD-16, SC | NA | FACT |
+
+The most recent gate decision on each card projects `REL-01` and links to its Release Quality Gate record.
 
 ## SCR-TRX — Trace Explorer
 
-Page pattern: List. Row columns are mostly projections of Trace Detail fields; only list-identity fields are homed here.
+Page pattern: List. Row columns are mostly projections of fields homed elsewhere; only list-identity fields are homed here.
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
-| TRX-01 | Table | Trace identifier | id | Mohab | E01, E25 | — | FACT |
-| TRX-02 | Table | Trace start time and duration | ts | Mohab | E01, E25 | UN | FACT |
+| TRX-01 | Table | Trace identifier | id | Mohab | US-36, E01, E25 | — | FACT |
+| TRX-02 | Table | Trace date and time, and duration | ts | Mohab | US-36, E01, E25 | UN | FACT |
 | TRX-03 | Table | Event count and trace completeness: complete, incomplete or inconclusive | enum | Mohab | E25, FM | ME | FACT |
 | TRX-04 | Table | Execution mode and scope: live model, synthetic output replay, synthetic proposal replay, boundary fixture; full-application or boundary scope | enum | Nour | FM, E27 | NA | FACT |
 | TRX-05 | Table | Scenario run reference (opaque) and linked control-pair reference | ref | Alaa | E27, FM | NA | FACT |
 
+The six filters US-36 requires are application (`APP-01`), version (`APP-05`), date (`TRX-02`), failure label (`RCA-01`), policy/security verdict (`TRD-62`, `TRD-63`) and reliability decision (`RCA-07`).
+
 ## SCR-TRD — Trace Detail
 
-Page pattern: Detail with a sticky section navigation (nine sections). One trace; the primary place to verify evidence.
+Page pattern: Detail with a sticky section navigation (nine sections). One trace; the place to verify events and evidence.
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
 | TRD-01 | Summary | Application outcome. Procurement: PO created, waiting for approval, blocked, failed, recovery pending. RAG: answer, abstention, error | enum | Nour | E21, E24, E25 | — | FACT |
 | TRD-02 | Summary | Run status | enum | Nour | SC | — | FACT |
-| TRD-03 | Summary | Reliability decision PASS, REVIEW or BLOCK, with decision time | enum | Mohamed | OV, HO | PE | FACT |
-| TRD-04 | Summary | Decision rationale: the findings and references that triggered the decision, each linking to its evidence | list | Mohamed | OV, E18 | PE | DECISION |
-| TRD-05 | Summary | Primary failure class (one of eight, or NORMAL) and classifier version | enum | Ahmed | FM | NE EF | FACT |
-| TRD-06 | Summary | Secondary findings, retained next to the primary class and never dropped | list | Ahmed | FM | NE EF | FACT |
 | TRD-10 | Request and model | Raw request and normalized request: item, quantity, amount, currency, supplier, requester, purpose; raw-to-normalized links | obj | Nour | E01, E08, TC | UN | FACT |
 | TRD-11 | Request and model | Request revision and lineage to prior attempts | list | Nour | E08, SC | — | FACT |
 | TRD-12 | Request and model | Normalization and validation details, including clarification outcomes | list | Nour | E08 | NA | FACT |
-| TRD-13 | Request and model | Model call: prompt or template version, rendered input reference, generation parameters, response, refusal or error | obj | Nour | E02 | UN NA | FACT |
-| TRD-14 | Request and model | Model call telemetry: latency, token usage, returned model identifier and version | obj | Nour | E02 | UN NA | FACT |
-| TRD-20 | Timeline | Ordered event timeline: event type, occurrence order, timestamp, parent link | list | Mohab | E09, E25 | ME | FACT |
-| TRD-21 | Timeline | Execution graph: nodes, causal edges and multi-evidence references, derived by the backend | graph | Mohab | HO, E09 | ME | FACT |
-| TRD-22 | Timeline | State transitions: previous and new state, reason, attempted versus accepted, state revision | list | Nour | E09 | — | FACT |
-| TRD-23 | Timeline | Workflow stage at each boundary, with the state-to-stage mapping version | list | Nour | E10, SC | NA | FACT |
+| TRD-13 | Request and model | Model call: prompt or template version, rendered input reference, generation parameters, response, refusal or error | obj | Nour | E02, US-10 | UN NA | FACT |
+| TRD-14 | Request and model | Model call telemetry: latency, token usage, returned model identifier and version | obj | Nour | E02, US-37 | UN NA | FACT |
+| TRD-20 | Timeline | Ordered event timeline: event type (retrieval, model_call, agent_state, approval, tool_call, tool_result, final_response), occurrence order, timestamp, parent link | list | Mohab | US-37, PR §J | ME | FACT |
+| TRD-21 | Timeline | Execution graph derived by the backend: nodes (request, retrieval, model call, agent state, approval, tool proposal or result, final response) and edges (order, parent, policy requirement, blocked action, unsupported completion) | graph | Mohab | US-12, PR §M.3 | ME | FACT |
+| TRD-22 | Timeline | State transitions: previous and new state, reason, attempted versus accepted, state revision | list | Nour | US-02, E09 | — | FACT |
+| TRD-23 | Timeline | Workflow stage at each boundary, with the state-to-stage mapping version | list | Nour | US-02, E10, SC | NA | FACT |
 | TRD-30 | Procurement evidence | Policy retrieval: raw and effective query, filters, k, ranked policy matches, policy-set and retriever versions, applicability | obj | Nour | E03, TC | NA ME | FACT |
 | TRD-31 | Procurement evidence | Supplier check: requested and returned supplier ID, raw and normalized status, directory and record version, lookup outcome | obj | Nour | E11, TC | NA ME | FACT |
 | TRD-32 | Procurement evidence | Approval calculation: amount, currency, rule basis, threshold, comparator, policy version, required level or unresolved reason | obj | Mohamed | E12, TC | NA | FACT |
 | TRD-33 | Procurement evidence | Approval submission: request ID, approval-request ID, required level, idempotency identity | obj | Mohamed | E13, TC | NA | FACT |
 | TRD-34 | Procurement evidence | Approval observation: required and received flags, status, approval ID, actor, time, source | obj | Mohamed | E14, TC | NA PE | FACT |
 | TRD-35 | Procurement evidence | Approval binding checks (request revision, supplier, amount, currency, level, version) and authorization basis, including NOT_REQUIRED | list | Mohamed | E14, SC | NA | FACT |
-| TRD-40 | Tools and enforcement | Tool proposal: tool name, catalog version, proposal ID, originating model-call reference | obj | Nour | E15 | — | FACT |
-| TRD-41 | Tools and enforcement | Tool arguments: raw serialized, parsed values, trusted runtime context kept separate, validation outcome with field errors | obj | Nour | E16 | — | FACT |
-| TRD-42 | Tools and enforcement | Pre-execution policy request: proposal reference, argument digest, state revision, stage, evidence references, policy version | obj | Mohamed | E17 | NA ME | FACT |
-| TRD-43 | Tools and enforcement | Pre-execution verdict ALLOW or BLOCK, per-policy findings (PROC-APPROVAL-01, PROC-TOOL-STAGE-01, PROC-SUPPLIER-01), reasons, version; timeout, error or missing verdict | obj | Mohamed | E18, SC | NA ME | FACT |
-| TRD-44 | Tools and enforcement | Dispatch suppression: NOT_EXECUTED, execution_started false, blocking reference, reason | obj | Nour | E19 | NA | FACT |
+| TRD-40 | Tools and enforcement | Tool proposal: tool name, catalog version, proposal ID, originating model-call reference | obj | Nour | E15, US-01 | — | FACT |
+| TRD-41 | Tools and enforcement | Tool arguments: raw serialized, parsed values, trusted runtime context kept separate, validation outcome with field errors | obj | Nour | E16, US-01 | — | FACT |
+| TRD-42 | Tools and enforcement | Pre-execution policy request: proposal reference, argument digest, state revision, stage, evidence references, policy version | obj | Mohamed | E17, US-22 | NA ME | FACT |
+| TRD-43 | Tools and enforcement | Pre-execution verdict ALLOW or BLOCK, per-policy findings (PROC-APPROVAL-01, PROC-TOOL-STAGE-01, PROC-SUPPLIER-01), reasons, version; timeout, error or missing verdict | obj | Mohamed | E18, US-22 | NA ME | FACT |
+| TRD-44 | Tools and enforcement | Dispatch suppression: NOT_EXECUTED, execution_started false, which layer stopped it (agent guard or pre-tool policy), blocking reference, reason | obj | Nour | E19, US-03, US-22 | NA | FACT |
 | TRD-45 | Tools and enforcement | Tool invocation and result: invocation ID, start and end, mock marker, idempotency key, outcome (CREATED, ALREADY_EXISTS, UNKNOWN_OUTCOME, ERROR), PO ID only if confirmed | obj | Nour | E20, TC | NA ME | FACT |
 | TRD-46 | Tools and enforcement | Recovery: RECOVERY_PENDING, read-only ledger lookup outcome, links to the original proposal, key, dispatch and result | obj | Nour | E25, SC | NA PE | FACT |
+| TRD-47 | Tools and enforcement | Agent-guard rejection: the rejected tool call, the workflow stage that forbade it, reason, recorded as its own event | obj | Nour | US-03 | NA | FACT |
 | TRD-50 | Response | Final response (procurement): raw generated text, delivered text, which was shown, supporting result references or the reason no action occurred | obj | Nour | E21 | NA | FACT |
 | TRD-51 | Response | Technical failure, cancellation or pending detail: stage, known or unknown outcome, error category, retry and continuation references | obj | Nour | E25 | NA | FACT |
-| TRD-60 | Evaluation and diagnosis | Evaluator results: evaluator name, family and version; result state (value, Not evaluated, Evaluator failed, Not applicable); value or finding; evidence references | table | Ahmed | HO, FM | NE EF NA | FACT |
-| TRD-61 | Evaluation and diagnosis | Evaluator failure detail: error category, evaluator run ID, time | obj | Ahmed | HO | EF | DECISION |
-| TRD-62 | Evaluation and diagnosis | RCA candidate causes (the fixed nine), rank, and supporting event references | list | Ahmed | FM, HO | NE EF | FACT |
-| TRD-63 | Evaluation and diagnosis | Evaluation run history: each versioned re-evaluation, kept beside the original | list | Ahmed | E25, FM | — | FACT |
-| TRD-64 | Evaluation and diagnosis | Prompt-injection finding: attack text, location (user input or retrieved chunk), detector outcome | obj | Ahmed | FM | NE EF NA | FACT |
-| TRD-65 | Evaluation and diagnosis | Scenario ground truth, evaluation-side only: injected failure, injected root cause, expected behavior | obj | Alaa | FM, E27 | NA RD | OPEN |
-| TRD-66 | Evaluation and diagnosis | Reviewer or adjudicated failure label | enum | Ahmed | FM | PE | FACT |
-| TRD-70 | Human review and audit | Human review status (none, pending, completed) and review records: reviewer, outcome, rationale, time | list | Mohamed | OV, HO | NA PE | OPEN |
-| TRD-71 | Human review and audit | Decision history: every machine decision with its version and time; earlier decisions are never overwritten | list | Mohamed | OV, E25 | — | FACT |
-| TRD-80 | Provenance and completeness | Version snapshot for the run (application, prompt, model/config, retriever, corpus/index, tools, policy, scenario/config) and per-call exceptions | ver | Alaa | E26, OD-13 | UN ME | FACT |
-| TRD-81 | Provenance and completeness | Redaction and unavailability markers: which field, which reason | list | Mohab | E25 | RD UN | FACT |
+| TRD-60 | Evaluator outputs | Evaluator results: evaluator name, family and version; result state (value, Not evaluated, Evaluator failed, Not applicable); value or finding with metric name, unit and direction; evidence references | table | Ahmed | US-37, US-18, PR §K.1 | NE EF NA | FACT |
+| TRD-61 | Evaluator outputs | Evaluator failure detail: error category, evaluator run ID, time | obj | Ahmed | US-18 | EF | DECISION |
+| TRD-62 | Evaluator outputs | Policy verdicts (post-run): per policy PROC-APPROVAL-01, PROC-TOOL-STAGE-01, PROC-SUPPLIER-01, pass or fail, supporting evidence, criticality | table | Mohamed | US-21, PR §R | NA ME | FACT |
+| TRD-63 | Evaluator outputs | Security verdict: attack score or verdict, attack category (direct, indirect, malicious tool use, policy bypass), semantic detector score, location of the attack text | obj | Ahmed | US-17a, PR §Q | NE EF NA | FACT |
+| TRD-70 | Review and audit | Human review history: verdict ACCEPT, REVIEW or BLOCK, written rationale, reviewer, role, time; entries are never edited, corrections are new entries | list | Mohamed | US-25, FR-13 | NA PE | FACT |
+| TRD-71 | Review and audit | Audit trail for this trace: policy, decision and review entries with actor, role, time, application, model and policy versions, and the administrator-action flag | list | Mohamed | US-26, FR-18 | — | FACT |
+| TRD-80 | Provenance and completeness | Version snapshot for the run (application, prompt, model/config, retriever, corpus/index, tools, policy, scenario/config) and per-call exceptions | ver | Alaa | E26, OD-13, US-37 | UN ME | FACT |
+| TRD-81 | Provenance and completeness | Redaction and unavailability markers: which field, which reason | list | Mohab | E25, US-11 | RD UN | FACT |
 | TRD-82 | Provenance and completeness | Missing or inconclusive evidence: expected events that did not arrive | list | Mohab | E25, FM | ME | FACT |
-
-## SCR-RCA — Failure & RCA
-
-Page pattern: Analytics (analytical). Patterns across traces; single-trace diagnosis lives in Trace Detail.
-
-| ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
-|---|---|---|---|---|---|---|---|
-| RCA-01 | KPI and chart | Failure class distribution for the selected range: eight classes plus NORMAL, by application | count | Ahmed | FM | NE EF | FACT |
-| RCA-02 | Header | Class definitions and taxonomy version | text | Ahmed | FM, OD-09 | — | FACT |
-| RCA-03 | Chart | Primary-class by secondary-finding co-occurrence | table | Ahmed | FM | NE EF | FACT |
-| RCA-04 | Chart | RCA cause distribution (the fixed nine), supporting-evidence counts, and the count where no cause is supported | count | Ahmed | FM | NE EF | FACT |
-| RCA-05 | Chart | Attempted, prevented and realized violation breakdown | count | Ahmed | OD-09 | NE | OPEN |
-| RCA-06 | Chart | Pre-execution enforcement outcomes: ALLOW and BLOCK counts per policy rule | count | Mohamed | E18, FM | NA ME | FACT |
-| RCA-07 | Chart | Reliability decisions by failure class | table | Mohamed | OV | PE | DECISION |
-| RCA-08 | Chart | Evaluator health: Evaluator failed and Not evaluated rates per evaluator | table | Ahmed | HO | NE EF | FACT |
-| RCA-09 | Table | Exemplar traces for each class or cause, linking to Trace Detail | list | Ahmed | HO | NE | DECISION |
+| TRD-83 | Provenance and completeness | Payload visibility for the current role: raw for the Administrator, redacted for every other role | enum | Mohamed | US-27 | RD | FACT |
 
 ## SCR-RAG — RAG Diagnostics
 
-Page pattern: Split Pane. A compact query list on the left, the query inspector on the right. Left-list rows are projections of `RAG-01`, `RAG-19` and `RAG-10`.
+Page pattern: Split Pane. A compact query list on the left, the query inspector on the right. Left-list rows are projections of `RAG-01`, `RAG-19` and `RCA-01`.
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
-| RAG-01 | Inspector: query | Query ID, raw query, effective query, transformation provenance | obj | Nour | E04, RC | UN | FACT |
+| RAG-01 | Inspector: query | Query ID, raw query, effective query, transformation provenance | obj | Nour | US-38, E04, RC | UN | FACT |
 | RAG-02 | Inspector: query | Retrieval settings: k and filters | obj | Nour | E04, RC | UN | FACT |
 | RAG-03 | Inspector: query | Retriever, corpus, index and embedding version identifiers | ver | Alaa | E04, E26, OD-13 | UN | FACT |
-| RAG-04 | Inspector: retrieval | Retrieval outcome (success, including empty; or error) and returned count | enum | Nour | RC | — | FACT |
-| RAG-05 | Inspector: retrieval | Retrieved documents in returned order: document, source and chunk IDs, versions, snapshot text, content hash, locator | table | Nour | E05 | ME | FACT |
-| RAG-06 | Inspector: retrieval | Scores and ranks: raw score, metric kind, direction, one-based rank, tie rule | table | Nour | E06 | UN | FACT |
+| RAG-04 | Inspector: retrieval | Retrieval outcome (success, including empty; or error) and returned count | enum | Nour | RC, US-07 | — | FACT |
+| RAG-05 | Inspector: retrieval | Retrieved documents in returned order: document, source and chunk IDs, versions, snapshot text, content hash, locator | table | Nour | US-38, E05 | ME | FACT |
+| RAG-06 | Inspector: retrieval | Scores and ranks: raw score, metric kind, direction, one-based rank, tie rule | table | Nour | US-38, E06 | UN | FACT |
 | RAG-07 | Inspector: context | Selected context: selected IDs, order and spans; rejected IDs with reasons; selection version | table | Nour | E07 | NA | FACT |
 | RAG-08 | Inspector: context | Sufficiency outcome and unresolved facets or conflicts | obj | Nour | E07, RC | NA | FACT |
-| RAG-09 | Inspector: context | Expected relevant sources (evaluation-side reference) compared with what was retrieved | table | Ahmed | FM, HO | NA RD | OPEN |
-| RAG-10 | Inspector: retrieval | Retrieval metrics for the query; unit and value per metric, each with its own state | num | Ahmed | E06, FM | NE EF NA | OPEN |
+| RAG-09 | Inspector: context | Expected evidence (evaluation-side reference) compared with what was retrieved | table | Ahmed | US-38, FM, US-15 | NE NA | FACT |
+| RAG-10 | Inspector: retrieval | Retrieval metrics for the query: Recall@k and MRR (NDCG only where graded relevance exists), each with name, unit, direction and evaluator version | num | Ahmed | US-15, PR §K.1 | NE EF NA | FACT |
 | RAG-11 | Inspector: answer | Candidate answer and delivered answer text, with the delivery flag | obj | Nour | E22 | NA | FACT |
 | RAG-12 | Inspector: answer | Claims: claim ID, text, answer span | table | Nour | E22 | NA | FACT |
-| RAG-13 | Inspector: answer | Citations: claim to source, chunk, version and span to visible marker; membership in selected context | table | Nour | E23 | NA | FACT |
+| RAG-13 | Inspector: answer | Citations: claim to source, chunk, version and span to visible marker; membership in selected context | table | Nour | US-06, E23 | NA | FACT |
 | RAG-14 | Inspector: answer | Structural citation checks: resolves, version matches, locator valid, marker bound; cited-but-not-retrieved; uncited claims | table | Nour | E23, RC | NA | FACT |
-| RAG-15 | Inspector: answer | Claim support verdict per claim from the groundedness evaluator | table | Ahmed | RC, HO | NE EF NA | FACT |
+| RAG-15 | Inspector: answer | Unsupported claims: per-claim support verdict from the groundedness evaluator, and which claims are unsupported | table | Ahmed | US-38, RC | NE EF NA | FACT |
 | RAG-16 | Inspector: abstention | Abstention: reason (NO_RELEVANT_EVIDENCE, INCOMPLETE_SUPPORT, CONFLICTING_EVIDENCE, INVALID_CITATION_BINDING), missing information, last stage, delivered text | obj | Nour | E24, RC | NA | FACT |
 | RAG-17 | Inspector: abstention | Abstention appropriateness evaluator result | enum | Ahmed | E24, FM | NE EF NA | FACT |
 | RAG-18 | Source viewer | Source snapshot: immutable text, title, hash, source ID and version | obj | Nour | E05, RC | RD ME | FACT |
 | RAG-19 | Inspector: answer | RAG outcome (ANSWER, ABSTENTION, ERROR) with the error stage | enum | Nour | RC, E25 | — | FACT |
-| RAG-20 | Inspector: query | Prompt-injection indicators in the query or retrieved sources: source version, location | list | Ahmed | FM | NE EF NA | FACT |
+| RAG-20 | Inspector: query | Prompt-injection indicators in the query or retrieved sources: source version, location | list | Ahmed | FM, US-17a | NE EF NA | FACT |
+| RAG-21 | Inspector: answer | Groundedness and citation precision for the answer, each with metric name, unit, direction and evaluator version | num | Ahmed | US-38, US-15 | NE EF NA | FACT |
 
-## SCR-REL — Release Gate
+## SCR-RCA — Failure & RCA Investigation
 
-Page pattern: Detail with a sticky section navigation. One gate evaluation: a candidate compared with a baseline.
+Page pattern: Split Pane. A queue of traces that need investigation on the left (failed, REVIEW, BLOCK, not yet decided), the investigation of the selected trace on the right. It works as the landing page for the Reliability Engineer and the Governance Reviewer (Appendix B).
 
 | ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
 |---|---|---|---|---|---|---|---|
-| REL-01 | Decision | Release gate decision PASS, REVIEW or BLOCK (release scope), with gate-policy version and evaluation time | enum | Alaa | OV, FM | PE NC | OPEN |
-| REL-02 | Decision | Gate reasons: each triggering metric, regression or completeness condition, linking to its row | list | Alaa | OV | NC | DECISION |
-| REL-03 | Decision | Release identities: candidate and baseline labels, IDs, creation times | obj | Alaa | OV | — | FACT |
-| REL-04 | Metrics | Metric comparison: metric, baseline value, candidate value, delta, sample size, state | table | Alaa | OV, HO | NE EF NA NC | FACT |
-| REL-05 | Metrics | Metric definitions: name, unit, direction, evaluator family | table | Ahmed | E06, HO | — | FACT |
-| REL-06 | Metrics | Configured thresholds and tolerances with rationale and version | table | Alaa | OD-15 | NC | OPEN |
-| REL-07 | Version changes | Component version differences between baseline and candidate | table | Alaa | E26, OD-13 | UN | FACT |
-| REL-08 | Version changes | Evaluation set: dataset or suite version, split, case counts, paired-case grouping | obj | Alaa | FM, HO | — | FACT |
-| REL-09 | Regressions | Regressed and improved scenarios: scenario reference, class, direction, links to the paired baseline and candidate traces | list | Alaa | HO, FM | NE | DECISION |
-| REL-10 | Regressions | Failure class change from baseline to candidate | table | Alaa | FM | NE EF | DECISION |
-| REL-11 | Regressions | Pre-execution enforcement changes per policy rule | table | Mohamed | E18 | NA | DECISION |
+| RCA-01 | Diagnosis | Primary failure label (one of eight classes, or NORMAL) and the approach that produced it (rules, Logistic Regression or XGBoost) with its version | enum | Ahmed | US-39, US-19, FR-08 | NE EF | FACT |
+| RCA-02 | Diagnosis | Classifier score or confidence indicator per ML approach; the rule baseline has none | num | Ahmed | US-39, US-19 | NE EF NA | FACT |
+| RCA-03 | Diagnosis | Secondary findings, retained next to the primary label and never dropped | list | Ahmed | FM, PR §K | NE EF | FACT |
+| RCA-04 | Diagnosis | Rule-based findings: which deterministic baseline rules fired, with evidence | list | Ahmed | US-39, PR §K | NE EF | FACT |
+| RCA-05 | Causes | Top-3 root-cause candidates in the order the RCA engine returned them, each with its evidence score (not a probability); a trace with no supported cause shows that | list | Ahmed | US-39, US-20, PR §M.1 | NE EF | FACT |
+| RCA-06 | Causes | Supporting evidence for each cause and each evaluator finding: evaluator, version, and a link to the specific event in Trace Detail | list | Ahmed | US-39, US-20 | NE EF | FACT |
+| RCA-07 | Decision | Reliability decision PASS, REVIEW or BLOCK, with decision time and decision version | enum | Mohamed | US-39, US-24, FR-12 | PE | FACT |
+| RCA-08 | Decision | Decision rule path: the rules and evaluator signals that produced the decision, each linked to its evidence | list | Mohamed | US-39, US-24, PR §K.2 | PE | FACT |
+| RCA-09 | Diagnosis | Attempted, prevented and realized violation classification | enum | Ahmed | OD-09, FM | NE | OPEN |
+| RCA-10 | Diagnosis | Human-reviewed (adjudicated) label | enum | Ahmed | PR §O.3, FM, US-31 | PE | FACT |
+| RCA-11 | Diagnosis | Scenario ground truth, evaluation-side only: injected failure, injected root cause, expected behavior | obj | Alaa | FM, E27, PR §M.2 | NA RD | OPEN |
+| RCA-12 | Diagnosis | Evaluation run history: each versioned re-evaluation, kept beside the original | list | Ahmed | E25, FM | — | FACT |
+
+The review action and the review history on this screen project `TRD-70` (US-25 allows submitting from here). Evaluator evidence projects `TRD-60`.
+
+## SCR-REL — Release Quality Gate
+
+Page pattern: Detail with a sticky section navigation. One gate evaluation: a candidate compared with the approved baseline on the same versioned dataset.
+
+| ID | Region | Field | Shape | Data owner | Source | Absence | Basis |
+|---|---|---|---|---|---|---|---|
+| REL-01 | Decision | Release gate decision PASS, REVIEW or BLOCK (release scope), with gate-policy version and evaluation time | enum | Alaa | US-40, PR §S | PE NC | FACT |
+| REL-02 | Decision | Gate reasons: each triggering metric, regression, critical failure or completeness condition, linking to its row | list | Alaa | US-40, PR §S.3 | NC | DECISION |
+| REL-03 | Decision | Release identities: candidate and baseline labels, IDs, creation times | obj | Alaa | US-40, US-32 | — | FACT |
+| REL-04 | Metrics | Metric comparison by area (RAG, Agent, Security, Overall reliability): metric, baseline value, candidate value, delta, sample size, state | table | Alaa | US-40, US-32, PR §S.2 | NE EF NA NC | FACT |
+| REL-05 | Metrics | Metric definitions: name, unit, direction, evaluator family | table | Ahmed | US-40, PR §K.1 | — | FACT |
+| REL-06 | Metrics | Configured thresholds and tolerances with rationale and version | table | Alaa | OD-15, PR §S.3 | NC | OPEN |
+| REL-07 | Version changes | Component version differences between baseline and candidate | table | Alaa | US-40, E26, OD-13 | UN | FACT |
+| REL-08 | Version changes | Evaluation set: dataset or suite version, split, case counts, paired-case grouping | obj | Alaa | US-13, US-32, FM | — | FACT |
+| REL-09 | Critical scenarios | Regressed and improved scenarios: scenario reference, class, direction, links to the paired baseline and candidate traces | list | Alaa | US-40, US-32 | NE | FACT |
+| REL-10 | Critical scenarios | Failure class change from baseline to candidate | table | Alaa | FM, PR §S.2 | NE EF | DECISION |
+| REL-11 | Critical scenarios | Critical policy and security failures the candidate introduces, including a seeded unsafe action the baseline prevented: scenario, policy ID, criticality | list | Mohamed | US-40, US-32, PR §S.3 | NA ME | FACT |
 | REL-12 | Lineage and completeness | Run completeness: planned, executed and inconclusive cases; missing evidence | obj | Alaa | FM | ME | FACT |
-| REL-13 | Lineage and completeness | Experiment lineage: run IDs, code commit, configuration hashes, manifests | list | Alaa | HO, OD-13 | UN | FACT |
+| REL-13 | Lineage and completeness | Experiment lineage: run IDs, code commit, configuration hashes, manifests | list | Alaa | HO, OD-13, US-13 | UN | FACT |
 | REL-14 | Lineage and completeness | Reproducibility mode: fixed-fixture or live model, with a note that live output is not deterministic | enum | Alaa | FM, HO | — | FACT |
-| REL-15 | History | Previous gate evaluations: candidate, baseline, decision, time | list | Alaa | OV | — | DECISION |
-| REL-16 | Decision | Release review or override record | list | Mohamed | OV | NC PE | OPEN |
+| REL-15 | History | Previous gate evaluations: candidate, baseline, decision, time | list | Alaa | PR §S | — | DECISION |
+| REL-16 | Release review | Human review verdicts attached to this release evaluation: ACCEPT, REVIEW or BLOCK, rationale, reviewer, role, time | list | Mohamed | US-25, FR-13 | NA PE | FACT |
+| REL-17 | Decision | Gate artifact reference (JSON or Markdown) and CI job status; the screen's figures are those of this artifact | ref | Alaa | US-40, US-33 | UN ME | FACT |
+| REL-18 | Decision | Candidate disposition: BLOCK retains the approved baseline, REVIEW requires human action, PASS leaves the candidate approvable | enum | Alaa | US-40, PR §S | PE NC | FACT |
+| REL-19 | Override and audit | BLOCK override requests and approvals: requester and role, written reason, approver and role, outcome, times; administrator use is flagged | list | Mohamed | US-27, US-26 | NA PE | FACT |
+| REL-20 | Override and audit | Audit history for this release evaluation: policy, gate, review and override entries with actor, role, time and versions | list | Mohamed | US-26, FR-18 | — | FACT |
 
 ## Notes on shared ownership
 
-- **Versions (`APP-06`, `APP-07`, `RAG-03`, `TRD-80`, `REL-07`).** The applications emit version values at run time. Alaa owns the identifier and hash conventions and the lineage, so Alaa owns these rows.
+- **Versions (`APP-05`, `APP-06`, `APP-07`, `RAG-03`, `TRD-80`, `REL-07`).** The applications emit version values at run time. Alaa owns the identifier and hash conventions and the lineage, so Alaa owns these rows.
 - **Approvals (`TRD-32`–`TRD-35`).** Nour's tool wrappers submit and observe approvals through the governance boundary. Approval truth stays with Mohamed (`TC` request_approval).
+- **Two enforcement layers (`TRD-44`, `TRD-47`).** The agent guard (US-03) is Nour's and the pre-tool policy check (US-22) is Mohamed's. Both can stop a tool; the row shows which one did.
 - **Stage mapping (`TRD-23`).** Nour emits the stage snapshot. Mohamed and Mohab still have to ratify the state-to-stage names (D3).
-- **Citation checks.** Structural checks (`RAG-14`) are Nour's runtime checks. Semantic support (`RAG-15`) is Ahmed's evaluator. They are separate rows so a structurally valid citation is never shown as supported.
-- **Release gate versus reliability decision.** `REL-01` and `TRD-03` use the same three words at different scopes. The presentation rules in the vocabulary keep them apart. Alaa and Mohamed must confirm the split (Q-10).
-- **Ground truth (`TRD-65`, `RAG-09`).** Evaluation-side labels never feed classifier or model inputs. Whether reviewers see them, and when, is open (Q-11).
+- **Citation checks.** Structural checks (`RAG-14`) are Nour's runtime checks. Support and groundedness (`RAG-15`, `RAG-21`) are Ahmed's evaluators. They are separate rows so a structurally valid citation is never shown as supported.
+- **Release gate versus reliability decision.** `REL-01` and `RCA-07` use the same three words at different scopes. The presentation rules in the vocabulary keep them apart. Alaa and Mohamed must confirm the split (Q-10).
+- **Ground truth (`RCA-11`).** Evaluation-side labels never feed classifier or model inputs. Expected evidence (`RAG-09`) is shown on RAG Diagnostics as US-38 requires. Whether reviewers see the injected labels in `RCA-11` is open (Q-11).
+- **Reviews, overrides and audit (`TRD-70`, `TRD-71`, `REL-16`, `REL-19`, `REL-20`).** Mohamed owns the review workflow, the append-only audit records and role checks (proposal section V). Alaa's gate produces the decision that an override acts on.
