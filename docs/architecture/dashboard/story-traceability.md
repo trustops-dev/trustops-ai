@@ -1,6 +1,6 @@
 # Story traceability
 
-Revision 0.2 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 Each acceptance criterion of the seven dashboard stories (US-34 to US-40, user stories v2.2), the Epic 7 Definition of Done, and the criteria of other stories that change what a screen shows, mapped to the design element that satisfies it. "Designed" means the wireframes, matrix and navigation cover it. It does not mean built or verified.
 

@@ -1,6 +1,6 @@
 # Seven-screen information architecture
 
-Revision 0.2 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md). Low-fidelity wireframes and a navigation model. No routing, components or code.
+Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md). Low-fidelity wireframes and a navigation model. No routing, components or code.
 
 ## Screens
 
@@ -206,12 +206,12 @@ Application: <app> ×   Reliability decision: Block ×   Failure label: <class> 
  tr-<id> ›       <app>          <ids>              <time> · <dur>  Live model       Blocked
  …                                                      Failure label {>RCA-01}   Decision {>RCA-07}
                                                         Policy {>TRD-62}  Security {>TRD-63}
-                                                        Evidence {TRX-03}   Scenario {TRX-05}
+                                                        Evidence {TRX-03}   Scenario {TRX-05}   Env {TRX-06}
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  Page <n> of <n>   [Previous] [Next]
 ```
 
-Filters panel, all combinable: application, version, date, failure label, policy/security verdict, reliability decision (the six US-36 requires), plus execution mode and scope, application outcome, run status, evaluation state, evidence completeness and scenario run. Each is the value set of an existing field.
+Filters panel, all combinable: application, version, date, failure label, policy/security verdict, reliability decision (the six US-36 requires), plus execution mode and scope, execution environment, application outcome, run status, evaluation state, evidence completeness and scenario run. Each is the value set of an existing field.
 
 Notes:
 
@@ -269,7 +269,7 @@ Tools and enforcement
  2  Arguments {TRD-41}     raw · parsed · trusted context (separate)      validation: ✓ passed
  3  Agent guard {TRD-47}   ⊘ Not applicable — the agent's own stage check did not reject this call
  4  Policy request {TRD-42}   proposal <id> · stage PRE_APPROVAL · state revision … · digest …
- 5  Pre-tool verdict {TRD-43}  ⊣ Pre-tool Block
+ 5  Pre-tool verdict {TRD-43}  ⊣ Pre-tool Block · basis: policy violation · checked by: real policy engine
         ✕ PROC-APPROVAL-01   approval required, none received       [View approval evidence ›]
         ✕ PROC-TOOL-STAGE-01 tool not allowed at this stage
  6  Dispatch {TRD-44}      ∅ Not executed · stopped by: pre-tool policy · execution_started: false
@@ -280,6 +280,8 @@ Tools and enforcement
 Notes:
 
 - Row 7 says Not applicable because row 6 is positive evidence that nothing ran. If row 6 were absent, row 7 would read ✕ Missing evidence.
+- If the verdict came from the contract stub rather than the real policy engine, row 5 says so in text (Schema v1 `check_mode`). If no verdict came back, row 5 reads as a technical check error and row 6 names a missing verdict as the layer that stopped the call.
+- If the canonical schema also records a result event for a blocked call (Schema v1 §4.2 does; the S1-01 contracts do not), row 7 shows it as blocked with no side effect committed, using the Not executed signature. Q-15 asks the owners to settle which one stands.
 - Row 3 shows the other possible layer. When the agent guard rejects a call first (stage not approved, US-03), row 3 holds the rejection, and rows 4 and 5 read ⊘ Not applicable because no policy request was made.
 - Narrow: section navigation becomes a select at the top of the content; the summary tags wrap; wide tables scroll inside their region.
 - The AI Engineer and Platform Engineer investigate here. Raw payloads show only to the Administrator.
@@ -344,7 +346,7 @@ Traces that need investigation, with the evidence behind each diagnosis.
 │                                 │ │  Score {RCA-02}   <value> (rules baseline: ⊘ no score)              │
 │                                 │ │  Also found {RCA-03}      Rules fired {RCA-04}                      │
 │                                 │ │  Human label {RCA-10}     Violation type {RCA-09}                   │
-│                                 │ │  Ground truth, evaluation-side {RCA-11}      Runs {RCA-12}          │
+│                                 │ │  Evaluation runs {RCA-12}                                           │
 │                                 │ │ Causes                                                              │
 │                                 │ │  1 <cause>   evidence score <v>   {RCA-05}  (not a probability)     │
 │                                 │ │  Evidence {RCA-06}: <evaluator vN> finding › event <id>   [Open ›]  │
@@ -397,7 +399,7 @@ Candidate: approved baseline retained {REL-18}
 |---|---|---|
 | Decision | `{REL-01}` `{REL-02}` `{REL-03}` `{REL-17}` `{REL-18}` `{REL-16}` `{REL-19}` | The decision with its scope label, what happens to the candidate (BLOCK retains the approved baseline, REVIEW requires human action), every reason as a link, the gate artifact, and any release review or override. |
 | Metrics by area | `{REL-04}` `{REL-05}` `{REL-06}` | Baseline and candidate side by side with deltas for RAG, Agent, Security and Overall, each metric with its unit and direction. A missing threshold is ▢ Not configured, not a pass. |
-| Critical scenarios | `{REL-09}` `{REL-10}` `{REL-11}` | Regressed scenarios with links to the paired traces, the failure class shift, and the critical policy and security failures the candidate introduces. |
+| Critical scenarios | `{REL-09}` `{REL-10}` `{REL-11}` `{REL-21}` | Regressed scenarios with links to the paired traces, the failure class shift, and the critical policy and security failures the candidate introduces. Scenario ground truth appears in a labeled evaluation-side panel here and nowhere else. |
 | Version changes | `{REL-07}` `{REL-08}` | What changed between baseline and candidate, and which evaluation set was used. |
 | Lineage and completeness | `{REL-12}` `{REL-13}` `{REL-14}` | Whether the run is complete, how to reproduce it, and whether the comparison is fixture-deterministic or live. |
 | Override and audit | `{REL-19}` `{REL-20}` | Override requests and approvals with their reasons, and the audit history of this evaluation. |

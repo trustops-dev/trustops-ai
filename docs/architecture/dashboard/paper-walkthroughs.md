@@ -1,6 +1,6 @@
 # Paper walkthroughs and coverage check
 
-Revision 0.2 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 Two checks back the architecture: a coverage check (every field or decision maps to exactly one screen and one owner) and a paper walkthrough (a reviewer can reach supporting evidence from any failed trace or blocked gate within the proposed navigation).
 
@@ -24,7 +24,7 @@ An automated check runs in the Python CI contract tests: [test_dashboard_informa
 | Navigation reachability | Every primary screen reaches Trace Detail within two contextual links, and Release Quality Gate within one |
 | Review record | All five owners are listed, and none is marked reviewed without evidence |
 
-Result for revision 0.2: see the pull request for the exact commands and output. The check proves the documents are consistent with each other and with the transcribed Appendix B. It does not prove the design is right.
+Result for revision 0.3: see the pull request for the exact commands and output. The check proves the documents are consistent with each other and with the transcribed Appendix B. It does not prove the design is right.
 
 What the check does not cover, and who covers it:
 
@@ -40,7 +40,7 @@ What the check does not cover, and who covers it:
 
 The author walked each path on the wireframes in [information-architecture.md](information-architecture.md), counting one interaction per click, tap or keyboard activation, and checking that the evidence at the end is the evidence the question needs. The budgets are design targets. No interface exists to measure.
 
-Performed by: Malak (author), on paper, against revision 0.2. **An independent walkthrough by a second person is still pending**, and is part of the S1-07 closeout.
+Performed by: Malak (author), on paper, against revision 0.3. **An independent walkthrough by a second person is still pending**, and is part of the S1-07 closeout.
 
 Budgets, counted from the screen that shows the failed or blocked item:
 
@@ -83,6 +83,10 @@ Each is already reflected in revision 0.2. They are listed so reviewers can chal
 | WF-7 | A tool can be stopped by the agent guard (US-03) or by the pre-tool policy check (US-22), and the two must not be confused. | `TRD-44` names the layer and `TRD-47` holds the guard rejection as its own event. |
 | WF-8 | A split-pane screen's narrow rule would open a second detail route. | Same route, full width, with Back (DX-04). |
 | WF-9 | A review needs to be submitted from two screens, and Appendix B gives the Governance Reviewer only View on Trace Detail. | Action-level permission assumed; Q-07 asks Mohamed. |
+| WF-10 | The governance contract and Trace Schema v1 (merged to `dev` on 2026-10-19) disagree with each other and with S1-01 on stage names, run status, approval status, abstention reasons, per-policy status, the pre-tool verdict values, and whether a blocked call emits a result event. | Rows that depend on them are marked OPEN and name concepts, not one draft's spelling. Q-15 asks the owners to settle them. |
+| WF-11 | The governance decision flow runs one decision engine for a trace and a release evaluation, so the release gate decision is Mohamed's, not Alaa's. | `REL-01` and `REL-02` re-homed to Mohamed. |
+| WF-12 | Trace Schema v1 §5 shows scenario ground truth in the Release Quality Gate diagnostic panels. | Moved from Failure & RCA to `REL-21`. |
+| WF-13 | An incomplete evaluation produces no decision (governance contract §6.2). | `RCA-07` shows the evaluation status and the missing evidence instead of a decision. |
 
 ## Known risks and what would change the design
 
@@ -91,6 +95,6 @@ Each is already reflected in revision 0.2. They are listed so reviewers can chal
 | The Frontend README defines wireframes or checks that differ | Screens or checks change | Q-01 |
 | The decision engine cannot return a linked rule path | Evidence budgets for blocked traces grow by a step | Q-06 |
 | Execution graph is not available as nodes and edges | Timeline falls back to the ordered list, which is already primary | Q-03 |
-| Ground truth must be hidden from reviewers | `RCA-11` moves behind a role or is removed | Q-11 |
+| Ground truth must be hidden from reviewers | `REL-21` moves behind a role or is removed | Q-11 |
 | The Manage actions of Appendix B become required screens controls | Wireframes gain controls and fields | Q-13 |
 | Typed contracts rename or split rows | The matrix is updated with the same IDs; the check keeps the documents aligned | Mohab, S1-02 |

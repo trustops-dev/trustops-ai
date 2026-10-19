@@ -1,6 +1,6 @@
 # User task flows
 
-Revision 0.2 · 2026-10-17 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 Four flows translate the project's Figures 2 to 5 into what a person does in the dashboard: valid procurement, approval bypass, RAG failure and release regression. Each flow names who does it, lists the steps, the fields that must be visible at each step (IDs from the [field matrix](field-owner-matrix.md)), the question answered, and the distinctions the screen must keep. Screens and links are those in the [information architecture](information-architecture.md). Roles are those of [roles and access](roles-and-access.md).
 
@@ -106,6 +106,7 @@ flowchart LR
 - A prevented attempt is still a finding. The reliability decision stays Block even though no tool ran.
 - `⊣ Pre-tool Block`, `■ Reliability Block` and a reviewer's `Human review: Block` are different things with different signatures and scope labels.
 - The screen never shows a successful tool result for a blocked call.
+- A verdict from the contract stub is labeled as such, and a verdict with an evaluation-error basis is not shown as a policy violation.
 - The false claim and the missing approval are independent findings. Either can appear without the other.
 - Causes appear in the engine's order with evidence scores, never as probabilities.
 
