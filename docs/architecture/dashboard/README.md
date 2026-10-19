@@ -2,7 +2,7 @@
 
 User task flows and seven-screen information architecture · Owner: Malak (dashboard) · Revision 0.4 · 2026-10-19
 
-**Status: draft for owner review. Not signed off.** This package is documentation only. The five backend owners have not yet reviewed or acknowledged the field matrix (see the [owner review record](#owner-review-record)). Nothing here is a canonical schema, API route, routing setup or component.
+**Status: draft. Not signed off by the owners.** Work continues on the documented assumptions, and every open decision keeps both options in [open-decisions-both-options.md](open-decisions-both-options.md). This package is documentation only. The five backend owners have not yet reviewed or acknowledged the field matrix (see the [owner review record](#owner-review-record)). Nothing here is a canonical schema, API route, routing setup or component.
 
 Task: *Design Reviewer Journeys & Seven-Screen Information Architecture* (Frontend, Critical). Depends on the S1-01 application flows and evidence model. Blocks S2-06. The task ID is not stated in the repository; see Q-01.
 
@@ -14,7 +14,7 @@ Task: *Design Reviewer Journeys & Seven-Screen Information Architecture* (Fronte
 | **Matches** | Proposal v1.1 section T and user stories v2.2 (US-34 to US-40), and the owners' roadmaps and drafts on `dev`. |
 | **Checked** | An automated test keeps the documents consistent with each other and with Appendix B of the stories. Author's paper walkthrough done. |
 | **Not done** | Written acknowledgement from Nour, Ahmed, Mohab, Mohamed and Alaa. The [owner review packet](owner-review-packet.md) is ready to send. |
-| **Needs from owners** | Settle Q-15 (the same values are named differently in three drafts) and the other open questions below. |
+| **Open decisions** | Q-10 (who produces the release verdict) and Q-15 (the same values are named differently in three drafts) keep **both options**, so Sprint 2 can start without an answer. See [open-decisions-both-options.md](open-decisions-both-options.md). |
 
 ## Read in order
 
@@ -26,6 +26,7 @@ Task: *Design Reviewer Journeys & Seven-Screen Information Architecture* (Fronte
 6. [Story traceability](story-traceability.md): every acceptance criterion of US-34 to US-40 mapped to a design element.
 7. [Paper walkthroughs and coverage check](paper-walkthroughs.md): evidence reachability, findings, and the automated consistency check.
 8. [Owner review packet](owner-review-packet.md): each owner's rows and questions, ready to send.
+9. [Open decisions, both options kept](open-decisions-both-options.md): what the design builds on today and what changes if an owner decides the other way.
 
 ## What this answers
 
@@ -120,12 +121,12 @@ Revision 0.1 inferred the seven screens from the dashboard scaffold. Revision 0.
 | Q-07 | Mohamed, Mohab | US-25 lets a review be submitted from Trace Detail, but Appendix B gives the Governance Reviewer only View on Trace Detail. Confirm "submit a review" is an action-level permission. The governance contract (§7.3) and Schema v1 use three roles where the stories use seven. The audit action catalogue has no override request or approval. Confirm who sees review and audit history (GD-15). | `TRD-70`, `TRD-71`, `REL-16`, `REL-19` |
 | Q-08 | Ahmed | Is the evaluation state (value, Not evaluated, Evaluator failed, Not applicable) a first-class result? How is a finding worded versus a metric? What reference format ties a cause to events, and how is "no cause supported" returned? How are the three classifier approaches reported for one trace? | `TRD-60` to `TRD-63`, `RCA-01` to `RCA-06` |
 | Q-09 | Ahmed, Mohamed | How are attempted, prevented and realized violations returned once OD-09 is closed? | `RCA-09` |
-| Q-10 | Alaa, Mohamed | The decision flow (§2.4) and Mohamed's roadmap give Mohamed the decision semantics and a gate decision adapter. Alaa's roadmap (§3, `gate_rules.py`) has her gate module produce the verdict. Who produces the verdict that `REL-01` shows? This package assumes Mohamed. Also confirm Alaa owns the comparison, artifact and disposition, and override requests and audit are Mohamed's. How do thresholds appear while OD-15 is open? | `REL-01`, `REL-02`, `REL-06`, `REL-18`, `REL-19` |
+| Q-10 | Alaa, Mohamed | The decision flow (§2.4) and Mohamed's roadmap give Mohamed the decision semantics and a gate decision adapter. Alaa's roadmap (§3, `gate_rules.py`) has her gate module produce the verdict. Who produces the verdict that `REL-01` shows? This package assumes Mohamed and keeps Alaa's option open ([both options](open-decisions-both-options.md#decision-1-who-produces-the-release-gate-verdict-q-10)). Also confirm Alaa owns the comparison, artifact and disposition, and override requests and audit are Mohamed's. How do thresholds appear while OD-15 is open? | `REL-01`, `REL-02`, `REL-06`, `REL-18`, `REL-19` |
 | Q-11 | Alaa, Ahmed | Schema v1 §5 puts scenario ground truth in the Release Quality Gate diagnostic panels, hidden from normal inference views. May reviewers see it, and under which role? Expected evidence is already shown on RAG Diagnostics as US-38 requires. | `REL-21` |
 | Q-12 | Nour | Confirm the execution-mode values, that a replay has no model call, how raw and delivered text and source snapshots are exposed, and how the agent-guard rejection is emitted as its own event. | `TRX-04`, `TRD-13`, `TRD-44`, `TRD-47`, `TRD-50`, `RAG-18` |
 | Q-13 | Mohamed, plan owner | Appendix B gives Manage on several dashboards, and describes actions such as configuring behavior, running evaluations, annotating results and initiating gate evaluations. Which are in the MVP, and what are their fields? | None until answered |
 | Q-14 | Mohamed | Confirm the login form and Administrator account and role management are outside the seven screens. | Session context |
-| Q-15 | Mohab, Nour, Mohamed, Ahmed | The three drafts name the same values differently: workflow stage names (S1-01, governance, Schema v1's nine-stage list), run status versus `execution_status`, approval status, abstention reasons, per-policy status versus a pass boolean, pre-tool verdict (ALLOW or BLOCK with a basis versus `ERROR_BLOCK`), and whether a blocked call emits a result event (Schema v1 does; S1-01 forbids a fabricated result). Which enumerations are canonical? | `TRD-01`, `TRD-02`, `TRD-22`, `TRD-23`, `TRD-43`, `TRD-45`, `TRD-62`, `RAG-16` |
+| Q-15 | Mohab, Nour, Mohamed, Ahmed | The three drafts name the same values differently: workflow stage names (S1-01, governance, Schema v1's nine-stage list), run status versus `execution_status`, approval status, abstention reasons, per-policy status versus a pass boolean, pre-tool verdict (ALLOW or BLOCK with a basis versus `ERROR_BLOCK`), and whether a blocked call emits a result event (Schema v1 does; S1-01 forbids a fabricated result). Which enumerations are canonical? The design reads them through one [display map](open-decisions-both-options.md#decision-2-which-names-are-canonical-q-15) that covers all three drafts. | `TRD-01`, `TRD-02`, `TRD-22`, `TRD-23`, `TRD-43`, `TRD-45`, `TRD-62`, `RAG-16` |
 
 ## Requests the new drafts make of Malak
 

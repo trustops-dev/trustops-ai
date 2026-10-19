@@ -12,6 +12,8 @@ Send each owner their section below, with the links to the [field matrix](field-
 2. For each row, accept it or give the correction. Say if you are not the right owner.
 3. Answer your questions, and reply with your name, the date, and the revision you reviewed (0.4).
 
+The design does not wait for your reply. Q-10 and Q-15 keep both options in [open-decisions-both-options.md](open-decisions-both-options.md), so your answer can be as short as "keep A" or "keep B".
+
 Row basis: `FACT` means a source requires it, `DECISION` means this package proposes it, `OPEN` means it waits on an open decision. A reply of "accepted" is only a sign-off for the rows and answers it names.
 
 ## Reply template
