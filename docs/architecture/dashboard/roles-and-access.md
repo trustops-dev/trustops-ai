@@ -1,6 +1,6 @@
 # Roles and access
 
-Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.4 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 The user stories (US-27, Appendix B) define seven roles with pre-provisioned accounts. The backend enforces every permission. The dashboard reflects what the backend returns and never decides who may do what. This page records how the seven screens behave for each role.
 

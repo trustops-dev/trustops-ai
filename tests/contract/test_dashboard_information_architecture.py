@@ -279,6 +279,7 @@ def test_journeys_and_architecture_only_cite_real_fields_and_edges(fields: list[
         "roles-and-access.md",
         "status-vocabulary.md",
         "README.md",
+        "owner-review-packet.md",
     )
     for name in documents:
         text = _read(name)
@@ -340,3 +341,22 @@ def test_every_dashboard_story_is_traced_to_fields_or_links(fields: list[Field])
             or EDGE_ID_PATTERN.search(references)
             or "Q-" in (references)
         ), f"{story} cites no field, link or question"
+
+
+def test_owner_review_packet_lists_exactly_each_owners_rows(fields: list[Field]) -> None:
+    text = _read("owner-review-packet.md")
+    sections = {
+        chunk.split(":", 1)[0].strip(): chunk
+        for chunk in re.split(r"^## ", text, flags=re.MULTILINE)[1:]
+        if chunk.split(":", 1)[0].strip() in OWNERS
+    }
+    assert set(sections) == OWNERS
+
+    for owner, body in sections.items():
+        rows_block = body.split("**Questions for you:**")[0]
+        listed = set(FIELD_ID_PATTERN.findall(rows_block))
+        owned = {field.field_id for field in fields if field.owner == owner}
+        assert listed == owned, f"{owner}: packet and matrix disagree"
+        assert re.search(r"\*\*Rows to confirm \((\d+)\):\*\*", body)
+        count = int(re.search(r"Rows to confirm \((\d+)\)", body).group(1))  # type: ignore[union-attr]
+        assert count == len(owned), f"{owner}: row count is out of date"

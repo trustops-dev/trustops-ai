@@ -1,6 +1,6 @@
 # Field and data-owner matrix
 
-Revision 0.3 · 2026-10-19 · DRAFT for owner review. Part of the [dashboard UX architecture](README.md).
+Revision 0.4 · 2026-10-19 · DRAFT for owner review. Part of the [dashboard UX architecture](README.md).
 
 Every diagnostic field the seven screens show appears below exactly once. Each row names one **home screen** (the section it sits in) and one **data owner**. Nothing here is a canonical schema, API route or database column; Mohab maps rows to `packages/contracts` under S1-02.
 

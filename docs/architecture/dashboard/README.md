@@ -1,10 +1,20 @@
 # TrustOps AI — Dashboard UX architecture
 
-User task flows and seven-screen information architecture · Owner: Malak (dashboard) · Revision 0.3 · 2026-10-19
+User task flows and seven-screen information architecture · Owner: Malak (dashboard) · Revision 0.4 · 2026-10-19
 
 **Status: draft for owner review. Not signed off.** This package is documentation only. The five backend owners have not yet reviewed or acknowledged the field matrix (see the [owner review record](#owner-review-record)). Nothing here is a canonical schema, API route, routing setup or component.
 
 Task: *Design Reviewer Journeys & Seven-Screen Information Architecture* (Frontend, Critical). Depends on the S1-01 application flows and evidence model. Blocks S2-06. The task ID is not stated in the repository; see Q-01.
+
+## At a glance
+
+| | |
+|---|---|
+| **Deliverables** | Four user flows, wireframes and navigation for the seven screens, a status vocabulary that never relies on colour alone, and a field and data-owner matrix. |
+| **Matches** | Proposal v1.1 section T and user stories v2.2 (US-34 to US-40), and the owners' roadmaps and drafts on `dev`. |
+| **Checked** | An automated test keeps the documents consistent with each other and with Appendix B of the stories. Author's paper walkthrough done. |
+| **Not done** | Written acknowledgement from Nour, Ahmed, Mohab, Mohamed and Alaa. The [owner review packet](owner-review-packet.md) is ready to send. |
+| **Needs from owners** | Settle Q-15 (the same values are named differently in three drafts) and the other open questions below. |
 
 ## Read in order
 
@@ -15,6 +25,7 @@ Task: *Design Reviewer Journeys & Seven-Screen Information Architecture* (Fronte
 5. [Field and data-owner matrix](field-owner-matrix.md): every diagnostic field, each on one screen with one backend owner.
 6. [Story traceability](story-traceability.md): every acceptance criterion of US-34 to US-40 mapped to a design element.
 7. [Paper walkthroughs and coverage check](paper-walkthroughs.md): evidence reachability, findings, and the automated consistency check.
+8. [Owner review packet](owner-review-packet.md): each owner's rows and questions, ready to send.
 
 ## What this answers
 
@@ -32,7 +43,11 @@ Out of scope, as the task states: frontend code, routing and a component library
 
 ## Source basis
 
-Built from the TrustOps AI project proposal v1.1 (sections K, M, N, R, S, T and V, Figures 1 to 5), the user stories and acceptance criteria v2.2 (Epic 7 and the stories it depends on, Appendices A and B), the Week 1 contracts in [reference-applications](../reference-applications/README.md) (revision 0.5), Mohamed's [governance contract register](../governance/governance-contract.md) and [decision flow](../governance/decision-flow.md) (draft v0.2), Mohab's Trace Schema v1 draft (draft v1.0, in `docs/architecture/schemas`), the dashboard scaffold under `apps/dashboard/src/`, and `ARCHITECTURE.md`. All the Week 1 contracts and both new drafts are unfrozen and unsigned. The proposal and the user stories were supplied as PDFs and are cited by section and story number; they are not stored in this repository. Status words follow the S1-01 vocabulary: **FACT** is required by a cited source, **DECISION** is a proposal for an owner to confirm, **OPEN** depends on an unresolved decision.
+Built from the TrustOps AI project proposal v1.1 (sections K, M, N, R, S, T and V, Figures 1 to 5), the user stories and acceptance criteria v2.2 (Epic 7 and the stories it depends on, Appendices A and B), the six owners' 16-week roadmaps (responsibilities and RACI), the Week 1 contracts in [reference-applications](../reference-applications/README.md) (revision 0.5), Mohamed's [governance contract register](../governance/governance-contract.md) and [decision flow](../governance/decision-flow.md) (draft v0.2), Mohab's Trace Schema v1 draft (draft v1.0, in `docs/architecture/schemas`), the dashboard scaffold under `apps/dashboard/src/`, and `ARCHITECTURE.md`. The Week 1 contracts and both drafts are unfrozen and unsigned. The proposal, the user stories and the roadmaps were supplied as files and are cited by section and story number; they are not stored in this repository. Status words follow the S1-01 vocabulary: **FACT** is required by a cited source, **DECISION** is a proposal for an owner to confirm, **OPEN** depends on an unresolved decision.
+
+## Revision 0.4: owners' roadmaps and review packet
+
+The six roadmaps confirm the screen set, the owners of each area and the Week 1 acceptance for this task. They add one conflict: Alaa's roadmap and Mohamed's roadmap both place the release verdict logic in their own module (Q-10). The package now includes the [owner review packet](owner-review-packet.md), and Failure & RCA and RAG Diagnostics keep the selected trace in the URL, so the per-trace routes in the Week 2 plan open the same screen.
 
 ## Revision 0.3: alignment with the new work on `dev` (2026-10-19)
 
@@ -105,7 +120,7 @@ Revision 0.1 inferred the seven screens from the dashboard scaffold. Revision 0.
 | Q-07 | Mohamed, Mohab | US-25 lets a review be submitted from Trace Detail, but Appendix B gives the Governance Reviewer only View on Trace Detail. Confirm "submit a review" is an action-level permission. The governance contract (§7.3) and Schema v1 use three roles where the stories use seven. The audit action catalogue has no override request or approval. Confirm who sees review and audit history (GD-15). | `TRD-70`, `TRD-71`, `REL-16`, `REL-19` |
 | Q-08 | Ahmed | Is the evaluation state (value, Not evaluated, Evaluator failed, Not applicable) a first-class result? How is a finding worded versus a metric? What reference format ties a cause to events, and how is "no cause supported" returned? How are the three classifier approaches reported for one trace? | `TRD-60` to `TRD-63`, `RCA-01` to `RCA-06` |
 | Q-09 | Ahmed, Mohamed | How are attempted, prevented and realized violations returned once OD-09 is closed? | `RCA-09` |
-| Q-10 | Alaa, Mohamed | The decision flow (§2.4) runs one decision engine for a trace and a release evaluation. Confirm Mohamed owns `REL-01` and `REL-02`, Alaa owns the comparison, artifact and disposition, and override requests and audit are Mohamed's. How do thresholds appear while OD-15 is open? | `REL-01`, `REL-02`, `REL-06`, `REL-18`, `REL-19` |
+| Q-10 | Alaa, Mohamed | The decision flow (§2.4) and Mohamed's roadmap give Mohamed the decision semantics and a gate decision adapter. Alaa's roadmap (§3, `gate_rules.py`) has her gate module produce the verdict. Who produces the verdict that `REL-01` shows? This package assumes Mohamed. Also confirm Alaa owns the comparison, artifact and disposition, and override requests and audit are Mohamed's. How do thresholds appear while OD-15 is open? | `REL-01`, `REL-02`, `REL-06`, `REL-18`, `REL-19` |
 | Q-11 | Alaa, Ahmed | Schema v1 §5 puts scenario ground truth in the Release Quality Gate diagnostic panels, hidden from normal inference views. May reviewers see it, and under which role? Expected evidence is already shown on RAG Diagnostics as US-38 requires. | `REL-21` |
 | Q-12 | Nour | Confirm the execution-mode values, that a replay has no model call, how raw and delivered text and source snapshots are exposed, and how the agent-guard rejection is emitted as its own event. | `TRX-04`, `TRD-13`, `TRD-44`, `TRD-47`, `TRD-50`, `RAG-18` |
 | Q-13 | Mohamed, plan owner | Appendix B gives Manage on several dashboards, and describes actions such as configuring behavior, running evaluations, annotating results and initiating gate evaluations. Which are in the MVP, and what are their fields? | None until answered |
@@ -129,11 +144,11 @@ Review requests are prepared and **not sent**. This package does not contact any
 
 | Owner | Review needed | Status | Revision | Evidence |
 |---|---|---|---|---|
-| Nour | Rows owned by Nour; Q-12, Q-15 | PENDING | 0.3 | — |
-| Ahmed | Rows owned by Ahmed; Q-08, Q-09, Q-11, Q-15 | PENDING | 0.3 | — |
-| Mohab | Rows owned by Mohab; Q-02 to Q-05, Q-07, Q-15 | PENDING | 0.3 | — |
-| Mohamed | Rows owned by Mohamed; Q-06, Q-07, Q-09, Q-10, Q-13, Q-14, Q-15 | PENDING | 0.3 | — |
-| Alaa | Rows owned by Alaa; Q-06, Q-10, Q-11 | PENDING | 0.3 | — |
+| Nour | Rows owned by Nour; Q-12, Q-15 | PENDING | 0.4 | — |
+| Ahmed | Rows owned by Ahmed; Q-08, Q-09, Q-11, Q-15 | PENDING | 0.4 | — |
+| Mohab | Rows owned by Mohab; Q-02 to Q-05, Q-07, Q-15 | PENDING | 0.4 | — |
+| Mohamed | Rows owned by Mohamed; Q-06, Q-07, Q-09, Q-10, Q-13, Q-14, Q-15 | PENDING | 0.4 | — |
+| Alaa | Rows owned by Alaa; Q-06, Q-10, Q-11 | PENDING | 0.4 | — |
 
 Record each acknowledgement with the reviewer, date, revision reviewed, accepted rows and unresolved conditions. The task's report-back criterion (reviewed and acknowledged by all five owners) is **not met** until all five rows above show evidence.
 

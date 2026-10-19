@@ -1,6 +1,6 @@
 # Seven-screen information architecture
 
-Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md). Low-fidelity wireframes and a navigation model. No routing, components or code.
+Revision 0.4 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md). Low-fidelity wireframes and a navigation model. No routing, components or code.
 
 ## Screens
 
@@ -48,7 +48,7 @@ After sign-in, each role lands on its default screen (Appendix B).
 - **Context travels with links.** Application, version, date, the selected baseline/candidate pair and any filter are carried in the link so the target opens already filtered. Every filtered screen shows its chips and a Clear all filters action.
 - **URL state.** Filter, sort and pagination state is in the URL so a filtered view can be shared or bookmarked, and returning from Trace Detail restores the previous filters (US-36).
 - **Breadcrumbs on drill-down.** Trace Detail shows `Traces › {trace}` or the origin, for example `Release Quality Gate › Critical scenarios › {scenario}`. Back returns to the origin with its filters.
-- **Deep links.** Each Trace Detail section, each release gate section and each single event has a stable address, so an evidence link from Failure & RCA lands on the exact event (US-39). Exact URL syntax is a Sprint 2 decision.
+- **Deep links.** Each Trace Detail section, each release gate section and each single event has a stable address, so an evidence link from Failure & RCA lands on the exact event (US-39). In the two Split Pane screens the selected trace is part of the address, so a per-trace link such as `/traces/{id}/investigation` or `/traces/{id}/rag` opens the same screen with that trace selected, not a second screen. Exact URL syntax is a Sprint 2 decision.
 - **Narrow viewports** collapse global navigation behind a menu button that opens the same six destinations. No persistent rail on a phone.
 
 ### Cross-link table

@@ -1,6 +1,6 @@
 # Status vocabulary and non-colour encoding
 
-Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.4 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 The dashboard has to keep apart outcomes that look alike: a tool that was blocked, a run that is waiting, a check that never ran, a check that crashed, and a check that does not apply. This page fixes the vocabulary, the wording and a presentation signature for each state. A signature is built from a text label, a glyph, an outline and a fill. Colour is an extra cue and never the only one.
 

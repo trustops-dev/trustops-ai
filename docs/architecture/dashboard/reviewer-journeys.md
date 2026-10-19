@@ -1,6 +1,6 @@
 # User task flows
 
-Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.4 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 Four flows translate the project's Figures 2 to 5 into what a person does in the dashboard: valid procurement, approval bypass, RAG failure and release regression. Each flow names who does it, lists the steps, the fields that must be visible at each step (IDs from the [field matrix](field-owner-matrix.md)), the question answered, and the distinctions the screen must keep. Screens and links are those in the [information architecture](information-architecture.md). Roles are those of [roles and access](roles-and-access.md).
 

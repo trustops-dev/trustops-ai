@@ -1,6 +1,6 @@
 # Paper walkthroughs and coverage check
 
-Revision 0.3 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
+Revision 0.4 · 2026-10-19 · DRAFT. Part of the [dashboard UX architecture](README.md).
 
 Two checks back the architecture: a coverage check (every field or decision maps to exactly one screen and one owner) and a paper walkthrough (a reviewer can reach supporting evidence from any failed trace or blocked gate within the proposed navigation).
 
