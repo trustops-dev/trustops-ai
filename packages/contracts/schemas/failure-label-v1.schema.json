@@ -1,0 +1,567 @@
+{
+  "$defs": {
+    "EvidenceReferenceV1": {
+      "additionalProperties": false,
+      "description": "Pointer to observed trace evidence; never an unlinked narrative assertion.",
+      "properties": {
+        "trace_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Id"
+        },
+        "span_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Span Id"
+        },
+        "document_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Document Id"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Id"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field Path"
+        },
+        "claim_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Claim Id"
+        }
+      },
+      "required": [
+        "trace_id"
+      ],
+      "title": "EvidenceReferenceV1",
+      "type": "object",
+      "anyOf": [
+        {
+          "required": [
+            "event_id"
+          ],
+          "properties": {
+            "event_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "span_id"
+          ],
+          "properties": {
+            "span_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "document_id"
+          ],
+          "properties": {
+            "document_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "source_id"
+          ],
+          "properties": {
+            "source_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "field_path"
+          ],
+          "properties": {
+            "field_path": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "claim_id"
+          ],
+          "properties": {
+            "claim_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "description": "Adjudication record; intended and observed labels remain separately represented.",
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "trace_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "annotation_status": {
+      "enum": [
+        "adjudicated",
+        "pending",
+        "insufficient_evidence",
+        "needs_adjudication"
+      ],
+      "title": "Annotation Status",
+      "type": "string"
+    },
+    "primary_label": {
+      "anyOf": [
+        {
+          "enum": [
+            "NORMAL",
+            "RETRIEVAL_FAILURE",
+            "HALLUCINATION",
+            "TOOL_SELECTION_ERROR",
+            "INVALID_TOOL_ARGUMENTS",
+            "WORKFLOW_VIOLATION",
+            "POLICY_VIOLATION",
+            "PROMPT_INJECTION",
+            "UNSUPPORTED_COMPLETION"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Primary Label"
+    },
+    "secondary_findings": {
+      "items": {
+        "enum": [
+          "injection_attempt_observed",
+          "retrieval_miss_observed",
+          "unsupported_claim_observed",
+          "missing_citation",
+          "tool_selection_mismatch",
+          "tool_argument_constraint_failure",
+          "workflow_transition_invalid",
+          "approval_missing",
+          "policy_rule_breach",
+          "tool_result_failed_or_missing",
+          "trace_evidence_incomplete",
+          "semantic_judge_disagreement",
+          "citation_claim_mismatch",
+          "expected_document_not_retrieved"
+        ],
+        "type": "string"
+      },
+      "title": "Secondary Findings",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "label_source": {
+      "anyOf": [
+        {
+          "enum": [
+            "human_adjudication",
+            "controlled_scenario_confirmed"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Label Source"
+    },
+    "intended_failure_class": {
+      "anyOf": [
+        {
+          "enum": [
+            "NORMAL",
+            "RETRIEVAL_FAILURE",
+            "HALLUCINATION",
+            "TOOL_SELECTION_ERROR",
+            "INVALID_TOOL_ARGUMENTS",
+            "WORKFLOW_VIOLATION",
+            "POLICY_VIOLATION",
+            "PROMPT_INJECTION",
+            "UNSUPPORTED_COMPLETION"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Intended Failure Class"
+    },
+    "injected_root_cause": {
+      "anyOf": [
+        {
+          "enum": [
+            "prompt",
+            "retriever",
+            "retrieved_context",
+            "model_generation",
+            "tool_selection",
+            "tool_arguments",
+            "agent_workflow",
+            "policy_configuration",
+            "malicious_input"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Injected Root Cause"
+    },
+    "evidence_refs": {
+      "items": {
+        "$ref": "#/$defs/EvidenceReferenceV1"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "annotation_guideline_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Annotation Guideline Version",
+      "type": "string"
+    },
+    "adjudicated_by": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Adjudicated By"
+    },
+    "adjudication_note": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Adjudication Note"
+    }
+  },
+  "required": [
+    "contract_version",
+    "trace_id",
+    "annotation_status",
+    "primary_label",
+    "secondary_findings",
+    "evidence_refs",
+    "annotation_guideline_version"
+  ],
+  "title": "TrustOps Adjudicated Failure Label v1",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trustops-ai:schema:failure-label-v1",
+  "$comment": "Observed/adjudicated truth is separate from intended injection metadata and all evaluator predictions. JSON Schema does not resolve evidence IDs against stored traces.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "const": "adjudicated"
+          }
+        },
+        "required": [
+          "annotation_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "label_source"
+        ],
+        "properties": {
+          "label_source": {
+            "enum": [
+              "human_adjudication",
+              "controlled_scenario_confirmed"
+            ]
+          },
+          "primary_label": {
+            "enum": [
+              "NORMAL",
+              "RETRIEVAL_FAILURE",
+              "HALLUCINATION",
+              "TOOL_SELECTION_ERROR",
+              "INVALID_TOOL_ARGUMENTS",
+              "WORKFLOW_VIOLATION",
+              "POLICY_VIOLATION",
+              "PROMPT_INJECTION",
+              "UNSUPPORTED_COMPLETION"
+            ]
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "enum": [
+              "pending",
+              "insufficient_evidence",
+              "needs_adjudication"
+            ]
+          }
+        },
+        "required": [
+          "annotation_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "primary_label": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "label_source": {
+            "const": "controlled_scenario_confirmed"
+          }
+        },
+        "required": [
+          "label_source"
+        ]
+      },
+      "then": {
+        "required": [
+          "intended_failure_class"
+        ],
+        "oneOf": [
+          {
+            "properties": {
+              "primary_label": {
+                "const": "NORMAL"
+              },
+              "intended_failure_class": {
+                "const": "NORMAL"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "RETRIEVAL_FAILURE"
+              },
+              "intended_failure_class": {
+                "const": "RETRIEVAL_FAILURE"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "HALLUCINATION"
+              },
+              "intended_failure_class": {
+                "const": "HALLUCINATION"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "TOOL_SELECTION_ERROR"
+              },
+              "intended_failure_class": {
+                "const": "TOOL_SELECTION_ERROR"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "INVALID_TOOL_ARGUMENTS"
+              },
+              "intended_failure_class": {
+                "const": "INVALID_TOOL_ARGUMENTS"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "WORKFLOW_VIOLATION"
+              },
+              "intended_failure_class": {
+                "const": "WORKFLOW_VIOLATION"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "POLICY_VIOLATION"
+              },
+              "intended_failure_class": {
+                "const": "POLICY_VIOLATION"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "PROMPT_INJECTION"
+              },
+              "intended_failure_class": {
+                "const": "PROMPT_INJECTION"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          },
+          {
+            "properties": {
+              "primary_label": {
+                "const": "UNSUPPORTED_COMPLETION"
+              },
+              "intended_failure_class": {
+                "const": "UNSUPPORTED_COMPLETION"
+              }
+            },
+            "required": [
+              "primary_label",
+              "intended_failure_class"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

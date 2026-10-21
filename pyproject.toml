@@ -9,10 +9,12 @@ dependencies = []
 audit = ["pip-audit==2.10.1"]
 dev = [
     "hatchling==1.32.4",
+    "jsonschema==4.26.0",
     "import-linter==2.15",
     "mypy==2.4.0",
     "pytest==9.1.1",
     "ruff==0.17.0",
+    "types-jsonschema>=4.26.0.20261006",
 ]
 
 [tool.uv]
