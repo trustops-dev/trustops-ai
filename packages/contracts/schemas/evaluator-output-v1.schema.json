@@ -1,0 +1,401 @@
+{
+  "$defs": {
+    "EvaluationExecutionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "input_fingerprint": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Input Fingerprint",
+          "type": "string"
+        },
+        "configuration_fingerprint": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Configuration Fingerprint",
+          "type": "string"
+        },
+        "deterministic": {
+          "title": "Deterministic",
+          "type": "boolean"
+        },
+        "reference_data_used": {
+          "title": "Reference Data Used",
+          "type": "boolean"
+        },
+        "run_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Run Id"
+        },
+        "error_code": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Error Code"
+        }
+      },
+      "required": [
+        "input_fingerprint",
+        "configuration_fingerprint",
+        "deterministic",
+        "reference_data_used"
+      ],
+      "title": "EvaluationExecutionV1",
+      "type": "object"
+    },
+    "EvaluationFindingV1": {
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Finding Id",
+          "type": "string"
+        },
+        "code": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Code",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Message",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "$ref": "#/$defs/EvidenceReferenceV1"
+          },
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "finding_id",
+        "code",
+        "severity",
+        "message",
+        "evidence_refs"
+      ],
+      "title": "EvaluationFindingV1",
+      "type": "object"
+    },
+    "EvidenceReferenceV1": {
+      "additionalProperties": false,
+      "description": "Pointer to observed trace evidence; never an unlinked narrative assertion.",
+      "properties": {
+        "trace_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Id"
+        },
+        "span_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Span Id"
+        },
+        "document_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Document Id"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Id"
+        },
+        "field_path": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Field Path"
+        },
+        "claim_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Claim Id"
+        }
+      },
+      "required": [
+        "trace_id"
+      ],
+      "title": "EvidenceReferenceV1",
+      "type": "object",
+      "anyOf": [
+        {
+          "required": [
+            "event_id"
+          ],
+          "properties": {
+            "event_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "span_id"
+          ],
+          "properties": {
+            "span_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "document_id"
+          ],
+          "properties": {
+            "document_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "source_id"
+          ],
+          "properties": {
+            "source_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "field_path"
+          ],
+          "properties": {
+            "field_path": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        },
+        {
+          "required": [
+            "claim_id"
+          ],
+          "properties": {
+            "claim_id": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "evaluator_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Evaluator Id",
+      "type": "string"
+    },
+    "evaluator_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Evaluator Version",
+      "type": "string"
+    },
+    "trace_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail",
+        "inconclusive",
+        "error"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/EvaluationFindingV1"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "metrics": {
+      "patternProperties": {
+        "\\S": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "propertyNames": {
+        "pattern": "\\S"
+      },
+      "title": "Metrics",
+      "type": "object"
+    },
+    "evidence_refs": {
+      "items": {
+        "$ref": "#/$defs/EvidenceReferenceV1"
+      },
+      "title": "Evidence Refs",
+      "type": "array"
+    },
+    "execution": {
+      "$ref": "#/$defs/EvaluationExecutionV1"
+    }
+  },
+  "required": [
+    "contract_version",
+    "evaluator_id",
+    "evaluator_version",
+    "trace_id",
+    "status",
+    "findings",
+    "metrics",
+    "evidence_refs",
+    "execution"
+  ],
+  "title": "TrustOps Evaluator Output v1",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trustops-ai:schema:evaluator-output-v1",
+  "$comment": "Evidence trace-ID equality and fail/findings cross-field semantics are validated by the Python model. JSON Schema does not prove that referenced events exist in storage.",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "fail"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "findings": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

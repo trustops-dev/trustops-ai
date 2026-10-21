@@ -1,0 +1,61 @@
+[
+  {
+    "case_id": "procurement-approved-normal",
+    "description": "Approval received and successful purchase-order tool result supports a normal trace.",
+    "annotation": {
+      "contract_version": "1.0.0",
+      "trace_id": "trace-procurement-normal",
+      "annotation_status": "adjudicated",
+      "primary_label": "NORMAL",
+      "secondary_findings": [],
+      "label_source": "human_adjudication",
+      "evidence_refs": [{"trace_id": "trace-procurement-normal", "event_id": "evt-po-created"}],
+      "annotation_guideline_version": "1.0.0",
+      "adjudicated_by": "reviewer-1"
+    }
+  },
+  {
+    "case_id": "procurement-workflow-bypass",
+    "description": "Purchase order creation occurred before required approval.",
+    "annotation": {
+      "contract_version": "1.0.0",
+      "trace_id": "trace-procurement-bypass",
+      "annotation_status": "adjudicated",
+      "primary_label": "WORKFLOW_VIOLATION",
+      "secondary_findings": ["approval_missing", "workflow_transition_invalid"],
+      "label_source": "controlled_scenario_confirmed",
+      "intended_failure_class": "WORKFLOW_VIOLATION",
+      "injected_root_cause": "agent_workflow",
+      "evidence_refs": [{"trace_id": "trace-procurement-bypass", "event_id": "evt-po-created-before-approval"}],
+      "annotation_guideline_version": "1.0.0"
+    }
+  },
+  {
+    "case_id": "rag-retrieval-miss",
+    "description": "Independent reference document was not retrieved.",
+    "annotation": {
+      "contract_version": "1.0.0",
+      "trace_id": "trace-rag-retrieval-miss",
+      "annotation_status": "adjudicated",
+      "primary_label": "RETRIEVAL_FAILURE",
+      "secondary_findings": ["expected_document_not_retrieved", "retrieval_miss_observed"],
+      "label_source": "human_adjudication",
+      "evidence_refs": [{"trace_id": "trace-rag-retrieval-miss", "document_id": "expected-doc-17"}, {"trace_id": "trace-rag-retrieval-miss", "field_path": "retrieval.query_id"}],
+      "annotation_guideline_version": "1.0.0",
+      "adjudicated_by": "reviewer-2"
+    }
+  },
+  {
+    "case_id": "rag-unresolved",
+    "description": "There is insufficient evidence to distinguish generation error from retrieval miss.",
+    "annotation": {
+      "contract_version": "1.0.0",
+      "trace_id": "trace-rag-unresolved",
+      "annotation_status": "needs_adjudication",
+      "primary_label": null,
+      "secondary_findings": ["trace_evidence_incomplete"],
+      "evidence_refs": [{"trace_id": "trace-rag-unresolved", "field_path": "trace.missing_retrieval_events"}],
+      "annotation_guideline_version": "1.0.0"
+    }
+  }
+]

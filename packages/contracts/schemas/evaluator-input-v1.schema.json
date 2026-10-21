@@ -1,0 +1,348 @@
+{
+  "$defs": {
+    "EvaluationReferenceDataV1": {
+      "additionalProperties": false,
+      "description": "Reference data for offline metrics only; never runtime model input.",
+      "properties": {
+        "mode": {
+          "const": "offline_metric_only",
+          "title": "Mode",
+          "type": "string"
+        },
+        "reference_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Reference Version",
+          "type": "string"
+        },
+        "expected_relevant_document_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Expected Relevant Document Ids",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "expected_citation_document_ids": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Expected Citation Document Ids",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "expected_tool_sequence": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Expected Tool Sequence",
+          "type": "array"
+        },
+        "expected_workflow_transitions": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "title": "Expected Workflow Transitions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mode",
+        "reference_version"
+      ],
+      "title": "EvaluationReferenceDataV1",
+      "type": "object"
+    },
+    "EvaluationRunMetadataV1": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dataset Version"
+        },
+        "dataset_fingerprint": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dataset Fingerprint"
+        },
+        "split_policy_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Split Policy Version"
+        },
+        "split": {
+          "anyOf": [
+            {
+              "enum": [
+                "train",
+                "validation",
+                "test",
+                "not_applicable"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Split"
+        },
+        "split_group_key": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Split Group Key"
+        },
+        "scenario_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Scenario Id"
+        },
+        "scenario_family": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Scenario Family"
+        },
+        "code_revision": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Code Revision"
+        },
+        "random_seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Random Seed"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prompt Version"
+        },
+        "model_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model Version"
+        },
+        "retriever_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retriever Version"
+        },
+        "policy_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Policy Version"
+        }
+      },
+      "title": "EvaluationRunMetadataV1",
+      "type": "object"
+    },
+    "EvaluatorSpecV1": {
+      "additionalProperties": false,
+      "properties": {
+        "evaluator_id": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Evaluator Id",
+          "type": "string"
+        },
+        "evaluator_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Evaluator Version",
+          "type": "string"
+        },
+        "configuration_fingerprint": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Configuration Fingerprint",
+          "type": "string"
+        }
+      },
+      "required": [
+        "evaluator_id",
+        "evaluator_version",
+        "configuration_fingerprint"
+      ],
+      "title": "EvaluatorSpecV1",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "1.0.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "request_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Request Id",
+      "type": "string"
+    },
+    "trace_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Trace Id",
+      "type": "string"
+    },
+    "trace_schema_version": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Trace Schema Version",
+      "type": "string"
+    },
+    "application_id": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Application Id",
+      "type": "string"
+    },
+    "trace_payload": {
+      "additionalProperties": true,
+      "description": "Observed trace envelope only. The canonical payload model is owned by the instrumentation/platform team and must be mapped after schema freeze.",
+      "title": "Trace Payload",
+      "type": "object"
+    },
+    "evaluator": {
+      "$ref": "#/$defs/EvaluatorSpecV1"
+    },
+    "reference_data": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvaluationReferenceDataV1"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "run_metadata": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvaluationRunMetadataV1"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "contract_version",
+    "request_id",
+    "trace_id",
+    "trace_schema_version",
+    "application_id",
+    "trace_payload",
+    "evaluator"
+  ],
+  "title": "TrustOps Evaluator Input v1",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:trustops-ai:schema:evaluator-input-v1",
+  "$comment": "The opaque trace_payload is validated only for nested ground-truth leakage by the Python model; canonical trace-shape and cross-envelope ID/version checks require the frozen Mohab Trace Schema v1."
+}

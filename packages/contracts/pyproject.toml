@@ -3,7 +3,7 @@ name = "trustops-contracts"
 version = "0.1.0"
 description = "Canonical cross-module contracts for TrustOps AI."
 requires-python = ">=3.12,<3.13"
-dependencies = []
+dependencies = ["pydantic==2.13.5"]
 
 [build-system]
 requires = ["hatchling==1.32.4"]
@@ -11,3 +11,8 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/trustops_contracts"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schemas/evaluator-input-v1.schema.json" = "trustops_contracts/schemas/evaluator-input-v1.schema.json"
+"schemas/evaluator-output-v1.schema.json" = "trustops_contracts/schemas/evaluator-output-v1.schema.json"
+"schemas/failure-label-v1.schema.json" = "trustops_contracts/schemas/failure-label-v1.schema.json"
