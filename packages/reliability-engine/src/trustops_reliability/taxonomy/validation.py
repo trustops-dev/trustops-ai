@@ -13,6 +13,9 @@ from trustops_contracts.failures import (
 
 SEMVER_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
 
+# The taxonomy schema contract shipped in this repository is v1.0.0 only.
+SUPPORTED_TAXONOMY_SCHEMA_VERSIONS = frozenset({"1.0.0"})
+
 
 class TaxonomyValidationError(ValueError):
     """Raised when taxonomy content violates the v1 contract."""
@@ -65,6 +68,12 @@ def validate_taxonomy(payload: object) -> None:
     if extra:
         raise TaxonomyValidationError(f"taxonomy has unexpected keys: {sorted(extra)}")
     _validate_semver(root["schema_version"], "taxonomy.schema_version")
+    if root["schema_version"] not in SUPPORTED_TAXONOMY_SCHEMA_VERSIONS:
+        supported = ", ".join(sorted(SUPPORTED_TAXONOMY_SCHEMA_VERSIONS))
+        raise TaxonomyValidationError(
+            f"unsupported taxonomy.schema_version {root['schema_version']!r}; "
+            f"supported versions: {supported}"
+        )
     _validate_semver(root["taxonomy_version"], "taxonomy.taxonomy_version")
     _nonempty_string(root["review_status"], "taxonomy.review_status")
     if root["review_status"] != "candidate_pending_cross_team_signoff":

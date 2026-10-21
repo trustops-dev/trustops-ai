@@ -117,6 +117,15 @@ def test_request_rejects_embedded_primary_label_at_nested_level() -> None:
         "adjudicatedLabel",
         "target_label",
         "failureLabel",
+        "is_seeded_failure",
+        "isSeededFailure",
+        "is-seeded-failure",
+        "expected_critical_policy_result",
+        "expectedCriticalPolicyResult",
+        "expected-critical-policy-result",
+        "injection_recipe_id",
+        "injectionRecipeId",
+        "injection-recipe-id",
     ],
 )
 def test_request_rejects_normalized_ground_truth_key_aliases(leak_key: str) -> None:
@@ -133,6 +142,34 @@ def test_request_rejects_ground_truth_nested_in_tuple_values() -> None:
     trace["non_json_python_container"] = ({"goldLabel": "NORMAL"},)
     with pytest.raises(ContractValidationError, match="ground truth"):
         validate_evaluation_request(payload)
+
+
+@pytest.mark.parametrize(
+    "leak_key",
+    [
+        "is_seeded_failure",
+        "expected_critical_policy_result",
+        "injection_recipe_id",
+    ],
+)
+def test_request_rejects_new_ground_truth_keys_at_deep_nested_levels(leak_key: str) -> None:
+    payload = _valid_request()
+    trace = cast(dict[str, object], payload["trace_payload"])
+    trace["events"] = [{"metadata": {"scenario": {"labels": {leak_key: True}}}}]
+    with pytest.raises(ContractValidationError, match="ground truth"):
+        validate_evaluation_request(payload)
+
+
+def test_request_allows_unrelated_runtime_trace_metadata() -> None:
+    payload = _valid_request()
+    trace = cast(dict[str, object], payload["trace_payload"])
+    trace["runtime_metadata"] = {
+        "trace_sample_seed": 17,
+        "policy_rule_id": "PROC-APPROVAL-01",
+        "scenario_name": "safe-refusal-control",
+    }
+    request = validate_evaluation_request(payload)
+    assert request.trace_payload["runtime_metadata"] == trace["runtime_metadata"]
 
 
 def test_request_requires_reference_data_to_be_metric_only() -> None:

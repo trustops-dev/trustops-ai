@@ -128,6 +128,9 @@ _FORBIDDEN_GROUND_TRUTH_KEYS = frozenset(
         "truth_label",
         "label_source",
         "failure_label",
+        "is_seeded_failure",
+        "expected_critical_policy_result",
+        "injection_recipe_id",
     }
 )
 

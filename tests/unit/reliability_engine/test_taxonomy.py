@@ -56,6 +56,20 @@ def test_taxonomy_rejects_missing_class() -> None:
         validate_taxonomy(taxonomy)
 
 
+def test_taxonomy_accepts_supported_schema_version_1_0_0() -> None:
+    taxonomy = load_taxonomy(TAXONOMY_PATH)
+    assert taxonomy["schema_version"] == "1.0.0"
+    validate_taxonomy(taxonomy)
+
+
+@pytest.mark.parametrize("schema_version", ["2.0.0", "99.0.0"])
+def test_taxonomy_rejects_unsupported_schema_versions(schema_version: str) -> None:
+    taxonomy = load_taxonomy(TAXONOMY_PATH)
+    taxonomy["schema_version"] = schema_version
+    with pytest.raises(TaxonomyValidationError, match="unsupported taxonomy.schema_version"):
+        validate_taxonomy(taxonomy)
+
+
 def test_taxonomy_rejects_evaluator_predictions_as_ground_truth() -> None:
     taxonomy = load_taxonomy(TAXONOMY_PATH)
     policy = cast(dict[str, object], taxonomy["label_policy"])
