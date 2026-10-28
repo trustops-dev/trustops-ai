@@ -204,9 +204,7 @@ class FailureTaxonomyV1:
 TEnum = TypeVar("TEnum", bound=StrEnum)
 
 
-def _enum_value[TEnum: StrEnum](
-    enum_type: type[TEnum], value: object, context: str
-) -> TEnum:
+def _enum_value[TEnum: StrEnum](enum_type: type[TEnum], value: object, context: str) -> TEnum:
     if not isinstance(value, str):
         raise TaxonomyLoadError(f"Invalid {context}: {value!r}")
 
