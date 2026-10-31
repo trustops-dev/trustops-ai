@@ -1,0 +1,864 @@
+{
+  "base": "59767ba53a168c4bf39160d8a4620504852063b4",
+  "commit": "31354fb1bcffa8a282bec9f1d497e5f0586f7f47",
+  "changed": [
+    {
+      "path": "apps/dashboard/package.json",
+      "status": "M",
+      "sha256": "af88f3a3fa7e6a82a727c38198e665902b0a16aa12508beaf1a86452e629af6d"
+    },
+    {
+      "path": "docs/architecture/annotation-guide.md",
+      "status": "A",
+      "sha256": "31d91d0473af5944d5bf0e97545a9a176aa4125442b9ec7669560bb2e4d8164a"
+    },
+    {
+      "path": "docs/architecture/evaluation-pipeline.md",
+      "status": "A",
+      "sha256": "e5125691f018c02d59bc468bdb653bfa355541183cc6cb7f07f168734566c356"
+    },
+    {
+      "path": "docs/architecture/trace-evidence-requirements.md",
+      "status": "A",
+      "sha256": "23d07535529d0e86e8604d87636ccde7883ef8da6d4567dd27f77ebdbc0a090e"
+    },
+    {
+      "path": "docs/team/week1-s1-03-index-and-handoff.md",
+      "status": "A",
+      "sha256": "c9bcec06c92f58b4ea1c38c11f47d6084e3dc5d3125a588dcc7bfb45231b373a"
+    },
+    {
+      "path": "packages/reliability-engine/README.md",
+      "status": "A",
+      "sha256": "2655551dfbc3ea3fce607b092f8190c50fa88f5251ac9e9337218be965d0e44b"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/taxonomy/failure_taxonomy.yaml",
+      "status": "A",
+      "sha256": "1c4782b2a898db29a06efaa752ea24914bd4d68f2aec834b3b3b7d35d695eb05"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "status": "M",
+      "sha256": "038457409fd5693b294991629a615e87dbc55ae47c96ba3c41f921e97beb8942"
+    },
+    {
+      "path": "pyproject.toml",
+      "status": "M",
+      "sha256": "2dd358f2de710a8c1557a750fbb4dd994d56a1a0b880688fdb75b833529ba149"
+    },
+    {
+      "path": "research/README.md",
+      "status": "M",
+      "sha256": "41dd5e5fe3c48fabef696adf5696b20e68c4960cbf98d2bd69d4fe75f8806738"
+    },
+    {
+      "path": "tests/unit/reliability_engine/test_failure_taxonomy_yaml.py",
+      "status": "A",
+      "sha256": "4ab485484a354c4de70446dbb18496edf5ac8363df6b7c797d040feba47fabf8"
+    },
+    {
+      "path": "uv.lock",
+      "status": "M",
+      "sha256": "252aa78b59219387c9694e1fbaec149c025d8427c625a1599146eb06a28e47a8"
+    }
+  ],
+  "retained": [
+    {
+      "path": ".editorconfig",
+      "sha256": "b42ef3b4c2d2276a5d46f9607651f249b829ac5aa2efc40e8ae54659ba6bd845"
+    },
+    {
+      "path": ".nvmrc",
+      "sha256": "73fb1b615e2043a933be1c0895cde4358036acc28d785692509b822aa53c761f"
+    },
+    {
+      "path": "vitest.config.mts",
+      "sha256": "1a125ba4f7e38d4e09c4636584f97865eb5bfce4a830962a67f05c9bca49b933"
+    },
+    {
+      "path": ".python-version",
+      "sha256": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d"
+    },
+    {
+      "path": "package.json",
+      "sha256": "e0ec719b773355424bb241f700c7297e0dda06377e4904c6edf3f5abb7819ebe"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "af759adcd419a61518fa2ec2c25657db0db4c02600a70c020f94216a8bdcb53d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "891ebefe6d86eca3610cd06dc2c1b8baea05681856169c6a511228d4507b9979"
+    },
+    {
+      "path": "tsconfig.tests.json",
+      "sha256": "c04f1080a0cc287d5002fe02d959a3c7687b19bc2845d17e03d123e8f176170f"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "ca8776fa04aefe221c66e85c6292f30fafc2fa1fc0fa701d3741f6670bcae971"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "6c44a2105a98530898372456f44b4360d70a1ace5abfbd85148e3cac59210626"
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "025a138d3bb1e8fdb124e91e4e60ad7e2e06e8d4b334f1748a4730c9406b57bb"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "3e52df838c16a27555041ee160f47930f443441425a2aaa2a9dd6120b7360e12"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "0f4c4a61016b08bb97d361c5cc5bce0b58cc8e1b1a121a6325372b17caafd6db"
+    },
+    {
+      "path": "ARCHITECTURE.md",
+      "sha256": "1c308755ce6b1074f1f04b2a3b01cbd0bfa94f8446b1d586ef1af1ca1ed25b2f"
+    },
+    {
+      "path": "datasets/README.md",
+      "sha256": "8e38232ad5cb153db278214d54d953b5068d1d7b103886fd6287ca4212b43f4a"
+    },
+    {
+      "path": "scripts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/README.md",
+      "sha256": "c9626386e7eb344ab0e24c255dc052ab1b68099f9a6528378d58f374029da2fa"
+    },
+    {
+      "path": "config/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/README.md",
+      "sha256": "ca125f713eba96f80a99b3569542cd9ea33740f3b03e62b34a0bc79632a1248b"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "0a27e4dcad0561baf023f311d1580f21e22005b3d50737c8db78ba91371d19b2"
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "e1b48649a7ebed2ff085b354a09c326cf48cc4fea5efaea1c04571534a76397c"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "sha256": "f4a30e1edbe651ccbdd3450a8b8ca049c247988bc90af42f8198b1355785b7c0"
+    },
+    {
+      "path": "datasets/manifests/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/processed/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/splits/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/labels/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/schemas/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "datasets/source/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/experiments/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/notebooks/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research/configs/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/security/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/suites/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/rag/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/procurement/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scenarios/schema/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "infra/scripts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "infra/docker/mlflow/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "infra/docker/otel/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "infra/docker/postgres/init/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/mlflow/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/research/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/models/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/openapi/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/reports/security/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/reports/coverage/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/reports/regression/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/reports/quality-gate/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/security/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/contract/test_dashboard_information_architecture.py",
+      "sha256": "e98572f1d04ad03b3e80b2ad36b58722567bf7cb7438ebb04229ec704334455e"
+    },
+    {
+      "path": "tests/contract/test_workspace_packages.py",
+      "sha256": "ca3776da1d45888537be439ec8cdc6d0bd8af0b608a7f4d0a5c65e133f32e409"
+    },
+    {
+      "path": "tests/research/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/helpers/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/integration/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/fixtures/traces/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/fixtures/documents/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/platform_core/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/procurement_agent/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/reliability_engine/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/governance_engine/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/instrumentation_sdk/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/dashboard/setup.ts",
+      "sha256": "c2ccf2417a8183a91935356b3d91c9aefc75b23abe2e72e335e671c12654f65d"
+    },
+    {
+      "path": "tests/unit/dashboard/page.test.tsx",
+      "sha256": "6eaa34c4cb2106d4cba303b4fd4f74fd8aac554cec6ccb202e06cfeb4c324e5b"
+    },
+    {
+      "path": "tests/unit/rag_assistant/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/unit/mlops/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/e2e/api/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/e2e/ui/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".github/workflow-templates/compose-config.yml.template",
+      "sha256": "9a43e28512e10e10849169def5308d25399dcf99387a4e1106f9a153da1e6ef6"
+    },
+    {
+      "path": ".github/workflow-templates/README.md",
+      "sha256": "1cac98fecb5a374b6d43f1585ab825b7ff08a36cbb80849b3c9b0cf97482d38e"
+    },
+    {
+      "path": ".github/workflow-templates/abuse-case-tests.yml.template",
+      "sha256": "92ea24bddd884a598241dfa50104bb03226f8571b254c11b05283f8add134dc1"
+    },
+    {
+      "path": ".github/workflow-templates/frontend-coverage.yml.template",
+      "sha256": "f7e3cac8586e74b2914be019c44ddc0243d01f83b4c6bb4a8f9f0d57a2561cf8"
+    },
+    {
+      "path": ".github/workflow-templates/python-coverage.yml.template",
+      "sha256": "3f1d2aab47426dee28bc4c5cbab2153b62a909b90bab7dd7b1fdc3a103098c6f"
+    },
+    {
+      "path": ".github/workflow-templates/integration-tests.yml.template",
+      "sha256": "adcb336c2baf10f535c760fa3e5f975f1a591a015adbe2762609886fb82102bc"
+    },
+    {
+      "path": ".github/workflow-templates/cli-smoke.yml.template",
+      "sha256": "27661a2b3b1108a28c7eea8f9dc9729a10d009e8daffd474a4ad771d835860f9"
+    },
+    {
+      "path": ".github/workflow-templates/build-images.yml.template",
+      "sha256": "b7ca3bfd119930e18c370e94bdd1e690e4f177ce1a5d4840aa7076eb9172d735"
+    },
+    {
+      "path": ".github/workflow-templates/ui-e2e.yml.template",
+      "sha256": "b99704d1abc831861e56b43eab712973a06cc1b92a59b50719e00594a3bc9141"
+    },
+    {
+      "path": ".github/workflow-templates/ai-quality-gate.yml.template",
+      "sha256": "943d9df6ef1eb71a1d11f41c66369fe4084042769cfccf41252d26a4761e294e"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".github/workflows/security-tests.yml",
+      "sha256": "ce6d68de323da6d9d5d39911ff36ae960d99c016559879ce0f390230576c40a3"
+    },
+    {
+      "path": ".github/workflows/ci-python.yml",
+      "sha256": "bbae3c9f3b28fa9325d85f50f826184fcf2bc3e70215eed4464856428dae199a"
+    },
+    {
+      "path": ".github/workflows/ci-frontend.yml",
+      "sha256": "4526ea53365e416c5854f3a14cea9c15ae1600b254da5c386d3e88274b253870"
+    },
+    {
+      "path": ".github/workflows/dependency-checks.yml",
+      "sha256": "d68b374f9623078c0dc040cb2fd188a8cea622a68cbd5e2ebec7b00e5c807e02"
+    },
+    {
+      "path": "apps/api/pyproject.toml",
+      "sha256": "9487693ea76ec44f89447171d5a4ea37faa4b3c37be48ead0df0215c2792abad"
+    },
+    {
+      "path": "apps/procurement-agent/pyproject.toml",
+      "sha256": "fb1ab332565b825c390681885271be08e7a271fb46d83252232d9c37ba184526"
+    },
+    {
+      "path": "apps/dashboard/tsconfig.json",
+      "sha256": "ffcaae345a5c51f7d0419442fe638c5c1fed9bfe3d6e3a2586dcb41318b6bc44"
+    },
+    {
+      "path": "apps/rag-assistant/pyproject.toml",
+      "sha256": "5ad5b955ae366fd61f60bd79525f32a9c5fccc5fbaae1105854d351a8e99e62e"
+    },
+    {
+      "path": "apps/api/src/trustops_api/__init__.py",
+      "sha256": "53b42eaf3a2c0d8289a073d8f4e17cb307b3b1c4e4682dd5b6ca2f271fc4ec7c"
+    },
+    {
+      "path": "apps/api/src/trustops_api/middleware/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/src/trustops_api/routers/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/api/src/trustops_api/db/migrations/versions/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/__init__.py",
+      "sha256": "5bfff323fd355e184d47d98dc2479fefc92c995ae57c5d886536737c9403a3d9"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/tools/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/prompts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/adapters/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/workflows/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/public/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/generated/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/types/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/lib/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/page.tsx",
+      "sha256": "db61198b17d749620bd6428a95b721fb3bb4ab4e74a8608b058269903785e736"
+    },
+    {
+      "path": "apps/dashboard/src/app/layout.tsx",
+      "sha256": "b63d441993a56d99ecee338271173f3121c1f2ab41eb6c2a2bfd91f0362764b5"
+    },
+    {
+      "path": "apps/dashboard/src/styles/globals.css",
+      "sha256": "4455d437b407c461446109213794c16e935f99f288a86975f51434ce559dd6d8"
+    },
+    {
+      "path": "apps/dashboard/src/components/charts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/components/traces/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/components/decisions/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/components/layout/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/components/ui/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/release-gate/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/failure-rca/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/trace-explorer/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/overview/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/rag-diagnostics/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/features/applications/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/release-gate/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/failure-rca/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/rag-diagnostics/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/applications/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/dashboard/src/app/traces/[traceId]/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/__init__.py",
+      "sha256": "826c18214f2d02cefb691a814179a22aeb4a66474c9c52ad29e1a9dfaab562ff"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/retrieval/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/ingestion/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/adapters/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/generation/prompts/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/pyproject.toml",
+      "sha256": "aa527671fac3df6462c9b77020e2dfd9b149f62bc0ba54dd6dcecbe0a16c5feb"
+    },
+    {
+      "path": "packages/platform-core/pyproject.toml",
+      "sha256": "2ac78f3dea921ce3a8deb22e5c13f1e44d31de7c5cbfdc3f2d91723ff9437bf8"
+    },
+    {
+      "path": "packages/contracts/pyproject.toml",
+      "sha256": "177f6c27caa1e66dac62ee1f6744f93e757162864aef56cf1ffffe75ee2bd3ae"
+    },
+    {
+      "path": "packages/reliability-engine/pyproject.toml",
+      "sha256": "5476e471a41296bcd12654cc2004323fb653ad29389935336c3471df89ef3867"
+    },
+    {
+      "path": "packages/instrumentation-sdk/pyproject.toml",
+      "sha256": "5ce73801fcb9f1951d74e9ccdd358a338111243eb83fdffe782d0f0781c9cafc"
+    },
+    {
+      "path": "packages/mlops/pyproject.toml",
+      "sha256": "664a796ef253c2d0153bd5275edd1c05818e964e09a91247bc2bc9a3ba7140ed"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/__init__.py",
+      "sha256": "a02461c4ee61cb3887173365dfad9e4bf8f30d0688ece14689274ffce204779e"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/review/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/audit/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/decision/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/gate/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/approvals/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/ports/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/access/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/policy/policies/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/governance-engine/src/trustops_governance/adapters/postgres/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/__init__.py",
+      "sha256": "f0dd6f3a80ec0ff8e68306ae3bb96bc5f28b5a210dbbf1e0a340bcf42e55cec2"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/domain/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/application/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/ports/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/adapters/otel/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/platform-core/src/trustops_platform/adapters/postgres/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/contracts/src/trustops_contracts/__init__.py",
+      "sha256": "7b430dbab4f902980b224a4aa1fc02dacef2f28084071be2657dcfd5a51def3e"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/__init__.py",
+      "sha256": "8e2411f04f86be56a0da4e418d473b786072be20379d39370bd73c9b3a034302"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/security/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/classification/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/feature_engineering/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/taxonomy/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/rca/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/ports/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/adapters/postgres/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/evaluation/evaluators/agent/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/reliability-engine/src/trustops_reliability/evaluation/evaluators/rag/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/instrumentation-sdk/src/trustops_sdk/__init__.py",
+      "sha256": "576cb1da7c7e453c2afe865ce8eff8afe8ffb6a6a1d1a9dba193b132321cbc29"
+    },
+    {
+      "path": "packages/instrumentation-sdk/src/trustops_sdk/integrations/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/instrumentation-sdk/src/trustops_sdk/exporters/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/__init__.py",
+      "sha256": "c8fc3b0eaf8a3aee632e08090d403cf2af99870039f59869e4da6f6459e26878"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/experiments/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/quality_gate/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/regression/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/datasets/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/training/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "packages/mlops/src/trustops_mlops/registry/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/requirements/S1-05-dataset-experiment-requirements.md",
+      "sha256": "5b80f4e884f6e18ae72e88852b8e71bb2cb21ec252c02bad9f23a2a8acc51a35"
+    },
+    {
+      "path": "docs/security/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/operations/workflow-activation.md",
+      "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe"
+    },
+    {
+      "path": "docs/operations/local-development.md",
+      "sha256": "36dbc6e513a54e22a1de05ff06017c58bef00e877a4566b88c446f944eddceb4"
+    },
+    {
+      "path": "docs/operations/testing.md",
+      "sha256": "a8f6007dc6ee78023d9cc045c04c1655f44bab6ee670b361084526334146d0dd"
+    },
+    {
+      "path": "docs/api/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/team/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/adr/reference-application-orchestration-and-llm.md",
+      "sha256": "82647d9450e015fe3b71a74aaa6858b5228a5e3cc3e1c081bc64688e1c1dad40"
+    },
+    {
+      "path": "docs/architecture/governance/governance-contract.md",
+      "sha256": "2abeecc3a31cc9bc85f33673217813276588f14265ec61016430415d67db73f8"
+    },
+    {
+      "path": "docs/architecture/governance/decision-flow.md",
+      "sha256": "7b196b734006ca7961d15c429a1fe53a9abaf5089b388c8bd96b90b8e6c51f28"
+    },
+    {
+      "path": "docs/architecture/dashboard/README.md",
+      "sha256": "6b7f22745062836d4d7301bdacaf0133f3ddab13d00db4af965b672ec71f22bf"
+    },
+    {
+      "path": "docs/architecture/dashboard/reviewer-journeys.md",
+      "sha256": "0cfa00612496a2464a33f9f55ef1390754c515ad24c6a7c2ba8c3914247ea4d6"
+    },
+    {
+      "path": "docs/architecture/dashboard/story-traceability.md",
+      "sha256": "d06d6b0229cb1292b3c62290ca930b930b7a518fe8996ba0e919e7e8de70736b"
+    },
+    {
+      "path": "docs/architecture/dashboard/information-architecture.md",
+      "sha256": "0ca4223797ab612609fe27624b409306496c7bdb8272be04f66b4815b4dc60de"
+    },
+    {
+      "path": "docs/architecture/dashboard/field-owner-matrix.md",
+      "sha256": "4c7d07048c620cd590a003a67e08602a2c5cb9270c261e142b8e058fd128f32e"
+    },
+    {
+      "path": "docs/architecture/dashboard/status-vocabulary.md",
+      "sha256": "46ca7a75903f9ef75d6f20f2afd6d0a07e0311b9c2cf6b26ee057807c9254c73"
+    },
+    {
+      "path": "docs/architecture/dashboard/paper-walkthroughs.md",
+      "sha256": "919493077d866033404fcc2dd4cf82066b775ab1a2ad3db65ad4c039af85b507"
+    },
+    {
+      "path": "docs/architecture/dashboard/roles-and-access.md",
+      "sha256": "3e0b9d20d84b0e0ef475b9320373a3e42379faa09736b77252289c3941a43ed2"
+    },
+    {
+      "path": "docs/architecture/dashboard/owner-review-packet.md",
+      "sha256": "c831d2b6d1f1140e68c8f435331d3ae5d4a907c95b576fdb622224e9f0fbfec7"
+    },
+    {
+      "path": "docs/architecture/dashboard/open-decisions-both-options.md",
+      "sha256": "96aa1d3bd56fdcddd4997d63fc628f542e60d2913cee41755d8083c7777bbec1"
+    },
+    {
+      "path": "docs/architecture/schemas/Week 1 Execution Deliverable Trace Schema v1 (Draft) & Interface Boundaries.md",
+      "sha256": "0c91ae29041e75177f18b1bdfb4068c960447bf5fcab18a79c90627f1be040b3"
+    },
+    {
+      "path": "docs/architecture/reference-applications/acceptance.md",
+      "sha256": "525d6f5f2748408e955b9aa5aad7068721037ecf5918d1877f9e112accd05f50"
+    },
+    {
+      "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
+      "sha256": "1f7e2327db0c356a575f082d50e4efcd0a7863980d1cfeabe6656ec66976a61b"
+    },
+    {
+      "path": "docs/architecture/reference-applications/repository-integration.md",
+      "sha256": "801df7e4bc9de5d2edb1cf3a3fd78e3a063048a8274d165bc43cde1912770890"
+    },
+    {
+      "path": "docs/architecture/reference-applications/rag-contract.md",
+      "sha256": "315a698825b63a105c90e619c8e34450170d040b63f0d470dbf33c44d3a63a37"
+    },
+    {
+      "path": "docs/architecture/reference-applications/README.md",
+      "sha256": "04f65a2a24a5daae00ac1b9fd3460c51b909b406fb8c2e9cd5bca61c4c7f8c65"
+    },
+    {
+      "path": "docs/architecture/reference-applications/handoffs.md",
+      "sha256": "70e6bb42aa8c5b660cc16c559646f60c21da3b1ac267b891bf74ada9fd6f723e"
+    },
+    {
+      "path": "docs/architecture/reference-applications/overview.md",
+      "sha256": "785b26ad9d73536397296b0d836e0261408b77aeb7bc56340eb88d8ed365a5e3"
+    },
+    {
+      "path": "docs/architecture/reference-applications/open-decisions.md",
+      "sha256": "7e5a77015e0502987ec3f6c188be1b7fc668b8974ceb324531affc1ec6d250f4"
+    },
+    {
+      "path": "docs/architecture/reference-applications/audit.md",
+      "sha256": "5b8f755d5ca1cccea50b0c217716db9f744df7e7170149d353ba0d327dc99d7e"
+    },
+    {
+      "path": "docs/architecture/reference-applications/procurement-tool-contracts.md",
+      "sha256": "5a0800ea9e34452e1d50fa8bac75d2a7ff43a70ce74d1da100e46daf28d91912"
+    },
+    {
+      "path": "docs/architecture/reference-applications/failure-planning-matrix.md",
+      "sha256": "eeac16dcf44001fbcb98da8f0320e8a65040f30a6977db5742e8550d9f29c0ff"
+    },
+    {
+      "path": "docs/architecture/reference-applications/procurement-state-contract.md",
+      "sha256": "69a4c8674c7e228ac4e3c12436f194c000ec7f2f2181341863d032396c795d72"
+    }
+  ]
+}
