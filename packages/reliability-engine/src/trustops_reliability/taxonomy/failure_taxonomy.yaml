@@ -66,8 +66,8 @@ governance_rules:
         name: "Structural & State-Machine Precondition Priority (Same Triggering Event)"
         rule: "If two same-tier failure classes share the exact same triggering event, select the structural/state-machine precondition failure over the parameter-level or claim-level defect: in Tier 3, TOOL_SELECTION_ERROR > WORKFLOW_VIOLATION > INVALID_TOOL_ARGUMENTS; in Tier 5, UNSUPPORTED_COMPLETION > HALLUCINATION."
       - step: 3
-        name: "Higher Evaluator Finding Severity"
-        rule: "If still tied on the same event, select the failure class with the higher evaluator finding severity (critical > high > medium > low)."
+        name: "Prediction-Only Evaluator Finding Severity"
+        rule: "During prediction processing only, if candidates remain tied, select the failure class with the higher evaluator finding severity(critical > high > medium > low). Ground-truth annotation and label-generation tools MUST skip this step and proceed directly to step 4 (Canonical Intra-Tier Array Order). Evaluator output MUST NOT influence ground-truth labels"
       - step: 4
         name: "Canonical Intra-Tier Array Order"
         rule: "As a final deterministic fallback, select the class listed first in precedence_hierarchy.classes for that tier."
