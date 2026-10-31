@@ -92,7 +92,7 @@ In accordance with Sprint 1 scope discipline (`S1-03`), Week 1 delivers the decl
 
 ## 4. Related Authoritative Documentation
 
-- **Declarative Taxonomy & RCA Spec:** [`src/trustops_reliability/taxonomy/failure_taxonomy.yaml`](src/trustops_reliability/taxonomy/failure_taxonomy.yaml)
+- **Declarative Taxonomy & RCA Spec:** [`src/trustops_reliability/taxonomy/failure_taxonomy.yaml`](../src/trustops_reliability/taxonomy/failure_taxonomy.yaml)
 - **Evaluation Pipeline, Taxonomy, Evaluator Contracts & RCA Specification:** [`../../docs/architecture/evaluation-pipeline.md`](../../docs/architecture/evaluation-pipeline.md)
 - **Annotation Guide & Worked Examples (`EX-01` to `EX-11`):** [`../../docs/architecture/annotation-guide.md`](../../docs/architecture/annotation-guide.md)
 - **Trace Evidence Requirements & Teammate Interface Contracts:** [`../../docs/architecture/trace-evidence-requirements.md`](../../docs/architecture/trace-evidence-requirements.md)
