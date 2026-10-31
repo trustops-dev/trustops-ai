@@ -1,0 +1,8 @@
+[ERR_PNPM_UPDATE_VERSION_ON_INDIRECT_DEP] "undici" (requested "8.12.2") is not a direct dependency, so the requested version cannot be recorded.
+
+An update resolves a transitive dependency the way a fresh install would, so a version on the command line has no effect on it. To pin one, add an override scoped to the range its dependents declare to pnpm-workspace.yaml:
+
+  overrides:
+    undici@<declared range>: 8.12.2
+
+To update it within the range its dependents already declare, drop the version: pnpm update undici

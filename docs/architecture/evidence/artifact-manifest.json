@@ -1,0 +1,62 @@
+[
+  {
+    "path": "apps/dashboard/package.json",
+    "status": "M",
+    "sha256": "af88f3a3fa7e6a82a727c38198e665902b0a16aa12508beaf1a86452e629af6d"
+  },
+  {
+    "path": "docs/architecture/annotation-guide.md",
+    "status": "A",
+    "sha256": "31d91d0473af5944d5bf0e97545a9a176aa4125442b9ec7669560bb2e4d8164a"
+  },
+  {
+    "path": "docs/architecture/evaluation-pipeline.md",
+    "status": "A",
+    "sha256": "e5125691f018c02d59bc468bdb653bfa355541183cc6cb7f07f168734566c356"
+  },
+  {
+    "path": "docs/architecture/trace-evidence-requirements.md",
+    "status": "A",
+    "sha256": "23d07535529d0e86e8604d87636ccde7883ef8da6d4567dd27f77ebdbc0a090e"
+  },
+  {
+    "path": "docs/team/week1-s1-03-index-and-handoff.md",
+    "status": "A",
+    "sha256": "c9bcec06c92f58b4ea1c38c11f47d6084e3dc5d3125a588dcc7bfb45231b373a"
+  },
+  {
+    "path": "packages/reliability-engine/README.md",
+    "status": "A",
+    "sha256": "2655551dfbc3ea3fce607b092f8190c50fa88f5251ac9e9337218be965d0e44b"
+  },
+  {
+    "path": "packages/reliability-engine/src/trustops_reliability/taxonomy/failure_taxonomy.yaml",
+    "status": "A",
+    "sha256": "1c4782b2a898db29a06efaa752ea24914bd4d68f2aec834b3b3b7d35d695eb05"
+  },
+  {
+    "path": "pnpm-lock.yaml",
+    "status": "M",
+    "sha256": "038457409fd5693b294991629a615e87dbc55ae47c96ba3c41f921e97beb8942"
+  },
+  {
+    "path": "pyproject.toml",
+    "status": "M",
+    "sha256": "2dd358f2de710a8c1557a750fbb4dd994d56a1a0b880688fdb75b833529ba149"
+  },
+  {
+    "path": "research/README.md",
+    "status": "M",
+    "sha256": "41dd5e5fe3c48fabef696adf5696b20e68c4960cbf98d2bd69d4fe75f8806738"
+  },
+  {
+    "path": "tests/unit/reliability_engine/test_failure_taxonomy_yaml.py",
+    "status": "A",
+    "sha256": "4ab485484a354c4de70446dbb18496edf5ac8363df6b7c797d040feba47fabf8"
+  },
+  {
+    "path": "uv.lock",
+    "status": "M",
+    "sha256": "252aa78b59219387c9694e1fbaec149c025d8427c625a1599146eb06a28e47a8"
+  }
+]

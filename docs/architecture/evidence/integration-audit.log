@@ -1,0 +1,6 @@
+PASS: nine members, Python constraints, tool settings and member manifests preserved
+PASS: only certifi/filelock baseline records updated; only YAML packages added
+PASS: CI workflows and policies unchanged
+PASS: all eight Week 1 artifacts integrated; content/test semantics and DRAFT status retained
+PASS: taxonomy YAML parses without duplicate keys; nine labels and nine RCA candidates
+PASS: 60 repository-relative document links and 6 JSON fences

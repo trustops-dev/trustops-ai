@@ -1,0 +1,20 @@
+Using CPython 3.12.14 interpreter at: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 57 packages in 1ms
+   Building trustops-reliability-engine @ file:///workspace/scratch/f02290d9f09d/integration/packages/reliability-engine
+   Building trustops-api @ file:///workspace/scratch/f02290d9f09d/integration/apps/api
+   Building trustops-contracts @ file:///workspace/scratch/f02290d9f09d/integration/packages/contracts
+   Building trustops-governance-engine @ file:///workspace/scratch/f02290d9f09d/integration/packages/governance-engine
+   Building trustops-instrumentation-sdk @ file:///workspace/scratch/f02290d9f09d/integration/packages/instrumentation-sdk
+   Building trustops-mlops @ file:///workspace/scratch/f02290d9f09d/integration/packages/mlops
+   Building trustops-platform-core @ file:///workspace/scratch/f02290d9f09d/integration/packages/platform-core
+   Building trustops-procurement-agent @ file:///workspace/scratch/f02290d9f09d/integration/apps/procurement-agent
+   Building trustops-rag-assistant @ file:///workspace/scratch/f02290d9f09d/integration/apps/rag-assistant
+      Built trustops-reliability-engine @ file:///workspace/scratch/f02290d9f09d/integration/packages/reliability-engine
+      Built trustops-contracts @ file:///workspace/scratch/f02290d9f09d/integration/packages/contracts
+      Built trustops-instrumentation-sdk @ file:///workspace/scratch/f02290d9f09d/integration/packages/instrumentation-sdk
+      Built trustops-governance-engine @ file:///workspace/scratch/f02290d9f09d/integration/packages/governance-engine
+      Built trustops-mlops @ file:///workspace/scratch/f02290d9f09d/integration/packages/mlops
+      Built trustops-procurement-agent @ file:///workspace/scratch/f02290d9f09d/integration/apps/procurement-agent
+      Built trustops-rag-assistant @ file:///workspace/scratch/f02290d9f09d/integration/apps/rag-assistant
+      Built trustops-platform-core @ file:///workspace/scratch/f02290d9f09d/integration/packages/platform-core

@@ -1,0 +1,10 @@
+$ vitest run
+
+ RUN  v5.0.4 /workspace/scratch/f02290d9f09d/integration
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:49:54
+   Duration  1.64s (environment 64%, tests 18%, setup 12%, transform 6%, import 1%)
+

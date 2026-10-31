@@ -1,0 +1,7 @@
+The bundle contains these 2 refs:
+31354fb1bcffa8a282bec9f1d497e5f0586f7f47 HEAD
+31354fb1bcffa8a282bec9f1d497e5f0586f7f47 refs/heads/fix/s1-03-final-integration-ci
+The bundle requires this ref:
+59767ba53a168c4bf39160d8a4620504852063b4 
+The bundle uses this hash algorithm: sha1
+/workspace/scratch/f02290d9f09d/TrustOps_Week1_Final_Integration/integration.bundle is okay

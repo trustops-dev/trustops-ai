@@ -1,0 +1,25 @@
+
+╔══╗─────────▶╔╗ ╔╗      ╔╗◀───┐
+╚╣╠╝◀─────┐  ╔╝╚╗║║────▶╔╝╚╗   │
+ ║║   ╔══╦══╦╩╗╔╝║║  ╔╦═╩╗╔╝╔═╦══╗
+ ║║╔══╣╔╗║╔╗║╔╣║ ║║ ╔╬╣╔╗║║ ║│║╔═╝
+╔╣╠╣║║║╚╝║╚╝║║║╚╗║╚═╝║║║║║╚╗║═╣║
+╚══╩╩╩╣╔═╩══╩╝╚═╝╚═══╩╩╝╚╩═╩╩═╩╝
+  └──▶║║                    ▲ 
+      ╚╝────────────────────┘
+
+
+---------
+Contracts
+---------
+
+Analyzed 9 files, 0 dependencies.
+---------------------------------
+
+Reusable packages must not import applications KEPT
+Contracts are the lowest shared layer KEPT
+Reliability and governance share contracts, not implementations KEPT
+Reliability and governance cannot depend on orchestration or instrumentation KEPT
+Instrumentation does not depend on backend implementation KEPT
+
+Contracts: 5 kept, 0 broken.

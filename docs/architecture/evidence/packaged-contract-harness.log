@@ -1,0 +1,35 @@
+Runtime: 3.12.14 Pydantic: 2.12.3
+PASS: all six evaluator JSON examples validate against the documented model
+PASS: valid primary and secondary labels
+PASS: reject NORMAL secondary
+PASS: reject NORMAL with secondary failures
+PASS: reject duplicate labels
+PASS: reject primary repeated as secondary
+PASS: valid NORMAL classification
+PASS: valid evidence-ranked failure
+PASS: valid NORMAL RCA
+PASS: valid insufficient evidence without fabricated cause
+PASS: reject inconsistent normal flag
+PASS: reject NORMAL insufficient-evidence flag
+PASS: reject cause on NORMAL
+PASS: reject ranked causes when evidence missing
+PASS: reject empty ranking with sufficient evidence
+PASS: reject noncontiguous ranks
+PASS: reject duplicate RCA causes
+PASS: reject unsorted evidence scores
+PASS: reject top-1 score mismatch
+PASS: reject top-1 evidence reference mismatch
+PASS: reject probability claim
+PASS: COMPLETED failure is a valid negative finding
+PASS: reject missing completed score
+PASS: SKIPPED_MISSING_EVIDENCE accepts null score/verdict
+PASS: SKIPPED_MISSING_EVIDENCE rejects fabricated zero score
+PASS: SKIPPED_MISSING_EVIDENCE rejects PASS verdict
+PASS: NOT_APPLICABLE accepts null score/verdict
+PASS: NOT_APPLICABLE rejects fabricated zero score
+PASS: NOT_APPLICABLE rejects PASS verdict
+PASS: ERROR accepts null score/verdict
+PASS: ERROR rejects fabricated zero score
+PASS: ERROR rejects PASS verdict
+PASS: ERROR requires error details
+PASS: 32 positive/negative contract cases plus six published JSON samples

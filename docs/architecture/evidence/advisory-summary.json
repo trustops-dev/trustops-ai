@@ -1,0 +1,264 @@
+[
+  {
+    "id": "PYSEC-2026-4320",
+    "fix_versions": [
+      "2026.10.18"
+    ],
+    "aliases": [
+      "GHSA-6q48-6c7w-9gw2"
+    ],
+    "package": "certifi",
+    "version": "2026.7.22",
+    "severity_text": []
+  },
+  {
+    "id": "PYSEC-2026-4320",
+    "fix_versions": [
+      "2026.10.18"
+    ],
+    "aliases": [
+      "GHSA-6q48-6c7w-9gw2"
+    ],
+    "package": "certifi",
+    "version": "2026.7.22",
+    "severity_text": []
+  },
+  {
+    "id": "CVE-2026-112906",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-2g95-wg33-c5x2"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N, 4.7 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:H` (high attack complexity): a "
+    ]
+  },
+  {
+    "id": "CVE-2026-112940",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-v4x8-3wr5-3wq8"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H` scores 7.1 (High).** `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privilege"
+    ]
+  },
+  {
+    "id": "CVE-2026-112914",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-crv4-6mhj-j5jh"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:H/A:N, 5.3 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:H` (high attack complexity): tw"
+    ]
+  },
+  {
+    "id": "CVE-2026-112913",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-9vhv-jxww-xfm5"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L` scores 3.3 (Low).**  `AV:L` (local): the other account needs a logon on the same host. `AC:L` (low attack co"
+    ]
+  },
+  {
+    "id": "CVE-2026-112937",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-jqc4-5cvw-7w85"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:L` scores 6.1 (Medium).** `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privile"
+    ]
+  },
+  {
+    "id": "CVE-2026-112907",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-567q-5qvw-pf92"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:L` scores 2.5 (Low).**  `AV:L` (local): the other account needs a logon on the same host. `AC:H` (high attack c"
+    ]
+  },
+  {
+    "id": "CVE-2026-112938",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-m462-7rxw-wvpg"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H, 5.8 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:H` (high attack complexity): th"
+    ]
+  },
+  {
+    "id": "CVE-2026-112910",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-8mx5-7m5m-r77g"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L` scores 5.3 (Medium).**  `AV:L` (local): the other account needs a logon on the same host. `PR:L` (low privil"
+    ]
+  },
+  {
+    "id": "CVE-2026-112934",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-fj95-fr6c-h845"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:H, 6.1 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:L` (low attack complexity): on "
+    ]
+  },
+  {
+    "id": "CVE-2026-112909",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-69hj-f68j-2879"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N` scores 6.1 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privil"
+    ]
+  },
+  {
+    "id": "CVE-2026-112911",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-9c4x-gm8v-wgc4"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:H` scores 6.3 (Medium).** `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privile"
+    ]
+  },
+  {
+    "id": "CVE-2026-112939",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-rfpc-qcw5-3pc4"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N` scores 4.7 (Medium).** `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privile"
+    ]
+  },
+  {
+    "id": "CVE-2026-112915",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-cwqr-hh33-gh44"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H` scores 5.5 (Medium).** `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privile"
+    ]
+  },
+  {
+    "id": "CVE-2026-112935",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-fq56-3cx3-fjxp"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N, 4.7 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:H` (high attack complexity): a "
+    ]
+  },
+  {
+    "id": "CVE-2026-112912",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-9j6q-wvj5-jgjg"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS 3.1 `CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N` scores 2.5 (Low).**  `AV:L` (local): the other user needs an account on the same host. `PR:L` (low privilege"
+    ]
+  },
+  {
+    "id": "CVE-2026-112908",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-6627-m3xw-93mp"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:L, 5.3 (Medium).**  `AV:L` (local): the other user needs an account on the same host. `AC:H` (high attack complexity): th"
+    ]
+  },
+  {
+    "id": "CVE-2026-112941",
+    "fix_versions": [
+      "4.2.1"
+    ],
+    "aliases": [
+      "GHSA-wfhq-q4j2-c37m"
+    ],
+    "package": "filelock",
+    "version": "4.1.1",
+    "severity_text": [
+      "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N, 3.3 (Low).**  `AV:L` (local): the other user needs an account on the same host. `AC:L` (low attack complexity): the sw"
+    ]
+  }
+]

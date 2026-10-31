@@ -1,0 +1,71 @@
+{
+  "pip-audit": {
+    "version": "2.10.1",
+    "requires": [
+      "CacheControl[filecache] >= 0.13.0",
+      "cyclonedx-python-lib >= 5,< 12",
+      "packaging>=23.0.0",
+      "pip-api>=0.0.28",
+      "pip-requirements-parser>=32.0.0",
+      "requests >= 2.31.0",
+      "rich >= 12.4",
+      "tomli >= 2.2.1",
+      "tomli-w >= 1.2.0",
+      "platformdirs >= 4.2.0",
+      "coverage[toml] ~= 7.0, != 7.3.3 ; extra == \"cov\"",
+      "build ; extra == \"dev\"",
+      "pip-audit[doc, test, lint] ; extra == \"dev\"",
+      "pdoc ; extra == \"doc\"",
+      "ruff >= 0.14 ; extra == \"lint\"",
+      "interrogate ~= 1.6 ; extra == \"lint\"",
+      "mypy ; extra == \"lint\"",
+      "types-requests ; extra == \"lint\"",
+      "types-toml ; extra == \"lint\"",
+      "typos ; extra == \"lint\"",
+      "pretend ; extra == \"test\"",
+      "pytest ; extra == \"test\"",
+      "pip-audit[cov] ; extra == \"test\""
+    ]
+  },
+  "requests": {
+    "version": "2.34.2",
+    "requires": [
+      "charset_normalizer<4,>=2",
+      "idna<4,>=2.5",
+      "urllib3<3,>=1.26",
+      "certifi>=2023.5.7",
+      "PySocks!=1.5.7,>=1.5.6; extra == \"socks\"",
+      "chardet<8,>=3.0.2; extra == \"use-chardet-on-py3\""
+    ]
+  },
+  "CacheControl": {
+    "version": "0.14.4",
+    "requires": [
+      "requests>=2.16.0",
+      "msgpack>=0.5.2,<2.0.0",
+      "cachecontrol[filecache,redis] ; extra == 'dev'",
+      "cherrypy ; extra == 'dev'",
+      "cheroot>=11.1.2 ; extra == 'dev'",
+      "codespell ; extra == 'dev'",
+      "furo ; extra == 'dev'",
+      "mypy ; extra == 'dev'",
+      "pytest ; extra == 'dev'",
+      "pytest-cov ; extra == 'dev'",
+      "ruff ; extra == 'dev'",
+      "sphinx ; extra == 'dev'",
+      "sphinx-copybutton ; extra == 'dev'",
+      "types-redis ; extra == 'dev'",
+      "types-requests ; extra == 'dev'",
+      "filelock>=3.8.0 ; extra == 'filecache'",
+      "redis>=2.10.5 ; extra == 'redis'"
+    ]
+  },
+  "certifi": {
+    "version": "2026.7.22",
+    "requires": null
+  },
+  "filelock": {
+    "version": "4.1.1",
+    "requires": null
+  }
+}

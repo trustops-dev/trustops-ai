@@ -1,0 +1,4 @@
+$ pnpm --filter @trustops/dashboard typecheck && tsc --project tsconfig.tests.json --noEmit
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully

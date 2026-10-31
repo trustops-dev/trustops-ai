@@ -1,0 +1,11 @@
+Using Python 3.12.14 environment at: example-env
+Resolved 5 packages in 9.37s
+Downloading pydantic-core (2.0MiB)
+ Downloaded pydantic-core
+Prepared 4 packages in 195ms
+Installed 5 packages in 12ms
+ + annotated-types==0.8.0
+ + pydantic==2.12.3
+ + pydantic-core==2.41.4
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4

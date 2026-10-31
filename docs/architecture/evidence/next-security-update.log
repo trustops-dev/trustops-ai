@@ -1,0 +1,21 @@
+✓ Lockfile passes supply-chain policies (verified 4m ago)
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 15, reused 15, downloaded 0, added 0
+.                                        | [WARN] deprecated eslint@9.39.5
+Progress: resolved 16, reused 15, downloaded 0, added 0
+Progress: resolved 20, reused 19, downloaded 0, added 0
+Progress: resolved 20, reused 20, downloaded 0, added 0
+Progress: resolved 21, reused 20, downloaded 0, added 0
+Progress: resolved 126, reused 92, downloaded 0, added 0
+Progress: resolved 150, reused 145, downloaded 0, added 0
+Progress: resolved 152, reused 145, downloaded 0, added 0
+Progress: resolved 152, reused 145, downloaded 1, added 0
+Progress: resolved 152, reused 145, downloaded 2, added 0
+Progress: resolved 185, reused 168, downloaded 2, added 0
+Progress: resolved 291, reused 268, downloaded 2, added 0
+Progress: resolved 292, reused 268, downloaded 2, added 0
+Progress: resolved 421, reused 360, downloaded 5, added 0
+.                                        |   +3   -3 +-
+Progress: resolved 436, reused 376, downloaded 5, added 0
+Progress: resolved 436, reused 376, downloaded 5, added 3, done
+Done in 25.7s using pnpm v11.28.2

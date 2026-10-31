@@ -1,0 +1,47 @@
+Scope: all 2 workspace projects
+? Verifying lockfile against supply-chain policies (436 entries)...
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +379
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 379, reused 0, downloaded 0, added 0
+Update available! 11.28.2 → 12.16.1.
+Changelog: https://pnpm.io/v/12.16.1
+To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -
+Progress: resolved 379, reused 0, downloaded 1, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /root/.local/share/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 379, reused 0, downloaded 63, added 63
+Progress: resolved 379, reused 0, downloaded 64, added 64
+Progress: resolved 379, reused 0, downloaded 119, added 113
+Progress: resolved 379, reused 0, downloaded 182, added 181
+Progress: resolved 379, reused 0, downloaded 248, added 248
+Progress: resolved 379, reused 0, downloaded 316, added 316
+Progress: resolved 379, reused 0, downloaded 371, added 370
+Progress: resolved 379, reused 0, downloaded 379, added 379, done
+✓ Lockfile passes supply-chain policies (436 entries in 13.6s)
+
+devDependencies:
++ @eslint/js 9.39.5
++ @testing-library/dom 10.4.2
++ @testing-library/jest-dom 7.0.1
++ @testing-library/react 16.3.3
++ @types/node 24.19.2
++ @types/react 19.3.0
++ @types/react-dom 19.3.0
++ @vitejs/plugin-react 6.1.2
++ eslint 9.39.5
++ eslint-plugin-jsx-a11y 6.10.2
++ eslint-plugin-react 7.37.5
++ eslint-plugin-react-hooks 7.1.1
++ globals 16.4.0
++ jsdom 30.1.2
++ react 19.3.0
++ react-dom 19.3.0
++ typescript 5.9.3
++ typescript-eslint 8.71.2
++ vite 8.3.4
++ vitest 5.0.4
+
+Done in 14.5s using pnpm v11.28.2
