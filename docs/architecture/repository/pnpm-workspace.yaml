@@ -1,0 +1,13 @@
+packages:
+  - apps/dashboard
+
+engineStrict: true
+strictPeerDependencies: true
+saveExact: true
+
+# Reject a different package manager version instead of silently switching it.
+pmOnFail: error
+
+# Native support for Next.js images. Review new install scripts explicitly.
+allowBuilds:
+  sharp: true
