@@ -1,0 +1,10 @@
+{
+  "id": "P12",
+  "title": "Optional record-only final wording",
+  "objective": "Demonstrate a supported model-written candidate without granting automatic delivery.",
+  "templates": [
+    "procurement/final_candidate.md"
+  ],
+  "compliance": "This is an authored expected output for the optional disabled-by-default profile, not an extra default call or delivered model response. If that profile is explicitly enabled for record-only evaluation, it consumes another logical call: seven on the main illustrative path plus this one equals eight. Runtime still renders delivery from trusted confirmed evidence.",
+  "gate": "DISABLED BY DEFAULT: record-only profile; any enablement must preserve the existing budget and delivery decision."
+}

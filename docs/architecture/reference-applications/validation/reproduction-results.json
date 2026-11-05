@@ -1,0 +1,179 @@
+{
+  "result": "PASS",
+  "date": "2026-11-05",
+  "scope": "Fresh owner artifact checks after documentation PR helper lint/format fixes; no live application or supplied-schema rerun.",
+  "environment": {
+    "python": "3.12.14",
+    "pydantic": "2.14.1",
+    "working_directory": "/workspace/scratch/6b23bd2d9369/pr-checkout",
+    "dependency_install": "NOT_RUN; existing interpreter",
+    "snapshot_git": "PR checkout; prompt check in disposable docs copy",
+    "manual_and_corpus_site_packages": "DISABLED (-S)"
+  },
+  "instructions": "docs/architecture/reference-applications/validation/README.md",
+  "manifest_binding": "The overall week1-closeout-validation.json binds these payload reports to the final manifest; no self-referential hash is stored here.",
+  "runs": {
+    "manual_artifacts": {
+      "result": "PASS",
+      "checks": 814,
+      "report": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_manual_fixtures.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/manual-fixtures.json\"",
+      "exit_code": 0
+    },
+    "corpus_boundaries": {
+      "result": "PASS",
+      "checks": 280,
+      "report": "docs/architecture/reference-applications/corpus-boundary-validation.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_corpus_boundaries.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/corpus-boundaries.json\"",
+      "exit_code": 0
+    },
+    "prompt_examples": {
+      "result": "PASS",
+      "checks": 180,
+      "report": "docs/architecture/reference-applications/prompt-pack/validation-report.json",
+      "command": "python \"$PROMPT_COPY/docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py\"",
+      "disposable_copy": true,
+      "exit_code": 0
+    },
+    "working_tree_whitespace": {
+      "commands": [
+        "git diff --check",
+        "git diff --cached --check"
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "ruff_lint": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff check .",
+      "result": "PASS",
+      "diagnostics": 0
+    },
+    "ruff_format": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff format --check .",
+      "result": "PASS"
+    }
+  },
+  "helper_hashes": {
+    "docs/architecture/reference-applications/validation/verify_manual_fixtures.py": "170d0132962dc1545779375652e5d4408416a8fa22f16d30f1b44d112201e33e",
+    "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
+    "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py": "341233cf99a6c7493985a21f4781c6f2eb2266bf2274541bf9e5d001c6a22379"
+  },
+  "current_reference_checks": [
+    {
+      "check": "open-decisions.md: consolidated decisions preserved byte-for-byte",
+      "status": "PASS"
+    },
+    {
+      "check": "handoffs.md: consolidated decisions preserved byte-for-byte",
+      "status": "PASS"
+    },
+    {
+      "check": "README.md: current review v1.6 identified",
+      "status": "PASS"
+    },
+    {
+      "check": "week1-owner-closeout.md: current review v1.6 identified",
+      "status": "PASS"
+    },
+    {
+      "check": "acceptance.md: current review v1.6 identified",
+      "status": "PASS"
+    },
+    {
+      "check": "trace-evidence-contract.md: current review v1.6 identified",
+      "status": "PASS"
+    },
+    {
+      "check": "schema-v1.5-review.md: current review v1.6 identified",
+      "status": "PASS"
+    },
+    {
+      "check": "trace-evidence-contract.md: v1.5 mapping explicitly scoped",
+      "status": "PASS"
+    },
+    {
+      "check": "schema-v1.5-review.md: v1.5 mapping explicitly scoped",
+      "status": "PASS"
+    },
+    {
+      "check": "v1.5 machine-readable mapping preserved",
+      "status": "PASS"
+    }
+  ],
+  "historical_packaging_record_not_rerun": {
+    "result": "PASS",
+    "date": "2026-11-02",
+    "scope": "Packaging/reproduction checks only; no production application execution",
+    "environment": {
+      "python": "3.12.14",
+      "platform": "linux",
+      "pydantic": "2.14.1",
+      "dependency_install": "NOT_RUN; existing interpreter used",
+      "powershell_commands": "DOCUMENTED_NOT_EXECUTED"
+    },
+    "copied_snapshot": {
+      "git_directory_present": false,
+      "run_from_unrelated_working_directory": true,
+      "stdlib_helpers_passed_with_site_packages_disabled": true,
+      "input_files_unchanged_by_two_helpers": true,
+      "original_content_assertions_preserved": true
+    },
+    "runs": {
+      "manual_artifacts": {
+        "result": "PASS",
+        "checks": 764,
+        "git_checks": "NOT_REQUESTED"
+      },
+      "corpus_boundaries": {
+        "result": "PASS",
+        "checks": 265
+      },
+      "existing_prompt_examples": {
+        "result": "PASS",
+        "checks": 180,
+        "run_in_disposable_copy": true
+      },
+      "manual_with_optional_git": {
+        "result": "PASS",
+        "checks": 767,
+        "git_checks": "REQUESTED_AND_PASSED"
+      }
+    },
+    "negative_checks": {
+      "invalid_event_order_rejected": "PASS",
+      "previous_pass_report_replaced_with_fail": "PASS",
+      "corrupt_source_hash_rejected_under_python_optimization": "PASS",
+      "invalid_root_rejected": "PASS",
+      "in_tree_output_rejected_without_write": "PASS"
+    },
+    "helper_hashes": {
+      "verify_manual_fixtures.py": "c758996586f5d892415b78cdcf64d5b5fc9a255c5bee67de85c22a605215707a",
+      "verify_corpus_boundaries.py": "d23e2008c3d1e18b201391b4825904fbbec37fcd534c91a27f8e28e2059d1f32"
+    },
+    "limits": [
+      "Canonical trace validation pending",
+      "Provider/embedding/database/tools not run",
+      "No general entailment/semantic quality measured",
+      "No stakeholder approvals",
+      "No push, PR or merge performed"
+    ]
+  },
+  "limits": [
+    "Owner artifact consistency only; shared acceptance remains pending.",
+    "Current v1.6 review remains CHANGES REQUIRED; its validator was not rerun here.",
+    "E01–E27 mapping remains a v1.5 assessment; v1.6 remapping is pending.",
+    "No provider, embedding, database, tool or runtime execution.",
+    "Local documentation commit prepared; no new approvals, messages, remote push, PR or merge."
+  ],
+  "pr_preparation": {
+    "base_branch": "dev",
+    "base_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "branch": "docs/nour-week1-owner-review",
+    "publication": "PENDING_AUTHENTICATED_ACCESS",
+    "shared_acceptance": "PENDING"
+  }
+}

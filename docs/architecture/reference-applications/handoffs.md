@@ -1,8 +1,87 @@
 # Cross-team handoff checklist
 
+**2026-11-02 confirmation received:** Mohamed and Mohab confirmed the approval-observation distinction, as reported by the user. [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation) records trusted read-only observation of the existing approval request, distinct from retrying its initial submission. This closes that wording/interface-meaning item; full schema/governance sign-offs and implementation verification remain pending.
+
+**2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
+
+**Decision/handoff consolidation — 2026-11-05.** Owner drafting history is preserved below; current questions and routing are in the targeted review table. No new acceptance or sent message is recorded.
+
+The current handoff is [week1-owner-closeout.md](week1-owner-closeout.md); use [week1-review-manifest.json](week1-review-manifest.json) to identify each actual file revision/hash. Do not request acceptance of every document as revision 0.6: the bundle contains independently versioned documents. The owner requests below remain valid; their old revision references are historical. Messages are prepared, not sent by this task. Scoped observation confirmation is recorded above; complete specialist acceptance has not been recorded.
+
+**Historical freeze-candidate label — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+**Latest supplied review — 2026-11-05:** [v1.6 schema / governance 0.4 joint review](https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal), R16-01–09. Preserve verified prior fixes. The [v1.5 review](schema-v1.5-review.md) is historical; its E01–E27 mapping has not yet been promoted to v1.6. Current suite reproduction does not imply acceptance.
+
+## Week 2 cross-team review and sign-off matrix
+
+This is a completed source review and prepared response packet, **not a meeting, sent message or teammate approval**. No reviewer accepted revision 0.6 in the available evidence. Existing merged imports and author self-checklists do not establish acceptance of this revision.
+
+| Reviewer | Review area | Status | Issues | Resolution / evidence required |
+|---|---|---|---|---|
+| Mohab | Trace/schema fit | PENDING — CHANGES REQUIRED | R16-01–06 and R16-09 corrections; R16-07/08 joint alignment | Return exact hashes, focused regression evidence and dispositions; retain prior fixes; complete current E01–E27 mapping under OD-05 |
+| Ahmed | Failure/evaluator fit | PENDING | Source/claim gaps, unknown timeout, matching action results, supplier scope, overlap, numeric examples | Accept qualitative sufficiency/citation evidence, corrected examples and independent annotation; no evaluator required |
+| Mohamed | Governance fit | PENDING | Governance 0.4 versus v1.6; R16-07/08; GD-24–28 and existing applicability/validity questions | Return lossless interface/digest/outcome mapping and named decision dispositions; governance-local decisions are not joint approval |
+| Alaa | Versioning fit | PENDING | WG-06/07; effective model and embedding config, immutable sources, split grouping and recipe timing | Approve lineage/projection conventions and frozen configuration identities; keep ground truth separate |
+| Malak | UI evidence fit / S1-07 | PENDING | Q-12/Q-15; unknown effects and enum gaps; no owner acknowledgments | Acknowledge paper fields and visibility distinctions; independently close S1-07 after specialist sign-offs |
+
+## Targeted review routing
+
+The [pending-decision table](open-decisions.md#pending-decisions-and-exact-requests) holds the complete proposal, responsible reviewer, exact question and closure evidence for each ID below. Use those questions verbatim or send a scoped subset; the detailed checklists later in this file are supporting acceptance criteria, not extra unassigned decisions. All requests are PREPARED; sending and reviewer acceptance are not recorded by this edit.
+
+| Recipient / coordinator | Decision IDs to answer | Exact requested response and evidence | Nour's next action |
+|---|---|---|---|
+| Mohab | OD-05, OD-05-MAP, OD-12-CLAIM/RETRY/OUTCOME/BUDGET; technical parts of OD-04/10/13/LLM-01/RAG-01 | Return R16-01–09 dispositions and exact corrected files/tests; agree the canonical mapping, claim timing, attempt/outcome evidence and environment/provenance interfaces. Use each linked question's closure criteria. | Supply the current joint-review ZIP and comparison contracts; compare returned tests and E01–E27 mapping, without writing his canonical schema. |
+| Mohamed | OD-02/03/04/06/09/16, OD-05-MAP, OD-12-CLAIM/RETRY/OUTCOME/BUDGET | Return governance meanings and truth tables, explicit approval-validity/replay dispositions and interface mapping. State which decisions are governance-local and which have named joint acceptance. | Provide the synthetic policy-value candidate and application-side responses. Retain symbolic T until accepted; do not reopen OD-APP-OBS-01. |
+| Ahmed | OD-09, interpretation portions of OD-12-OUTCOME, OD-13 and OD-05; sufficiency/metric-unit parts of OD-10 | Return outcome/label/precedence/RCA examples, source-versus-claim interpretation, relevance-unit rubric and GD-26 disposition. Identify missing evidence explicitly. | Supply candidate/delivered, supplier-boundary, unknown-effect and conflicting-RAG cases; retain qualitative sufficiency as the application design. |
+| Alaa | OD-13, OD-LLM-01/02, OD-RAG-01; dataset order in OD-08; workload in OD-12-BUDGET; gate interpretation in OD-09 | Return immutable lineage/projection/hash conventions, config/workload dispositions, recipe/split order and GD-26 gate mapping; future empirical thresholds stay deferred. | Supply ADR/config/source identities and recipe grouping; keep live access/quality evidence separate from design approval. |
+| Malak | OD-14 UX acknowledgement; presentation consequences of OD-05-MAP/12-OUTCOME | Confirm proposal versus invocation, unknown versus no effect, original versus new effect, N/A/error versus PASS and claim-to-source navigation. Identify exact affected rows; no UI inference of policy or RCA. | Send paper examples and agreed canonical mapping once returned; request independent S1-07 only after specialist conditions close. |
+| Designated plan owner — personal name still missing | OD-02/06/08/16 and GD-26 extension within OD-09 | Accept/amend the specific scope/milestone proposals and identify the authorized approver; no plan change inferred from another owner's self-approval. | Nour identifies the person/authority and records it before routing final plan acceptance. |
+| Nour — own preparation | OD-03 candidate, OD-04 application response, OD-12-CLAIM proposal, OD-12-BUDGET profile, routing/record updates | Supply a versioned synthetic value candidate; accept/amend validity and claim designs within application scope; collect exact-revision replies. No signature is prefilled. | Work can proceed while Mohab corrects validators and Mohamed updates governance; implementation stays at its planned milestone. |
+
+For final acceptance, each of Mohab, Ahmed, Mohamed and Alaa answers OD-14 for their scope. Malak's acknowledgement and later independent closeout are separate. No recipient is asked to approve an entire bundle merely because one semantic distinction was confirmed.
+
+### Scoped response format
+
+```text
+Reviewer:
+Date:
+Reviewed files/revisions/hashes:
+Decision IDs:
+Response for each ID: ACCEPT / AMEND / DECLINE
+Replacement wording or values if AMEND:
+Evidence / fixture / test references:
+Conditions still open and responsible person:
+Scope: design / offline fixture verification / runtime verification
+```
+
+Nour records the response once in the owning decision row, links its evidence and updates the sign-off record only for the accepted scope. A runtime check cannot be marked executed from a paper fixture or validator result.
+
+### Concrete response to Malak's 37 Nour-owned rows
+
+| Field group | Application evidence / response | Remaining fit |
+|---|---|---|
+| APP-01/02/03; TRX-04 | Application identity/behavior/config refs, run state separate from reliability decision | WG-01/06; application completion never implies reliability PASS |
+| TRD-01/02/10/11/12/13/14 | Run/request/model/provenance details, manual/replay/live mode, known versus absent metadata | WG-06/08; no fictitious provider response or measurement |
+| TRD-22/23 | E09/E10: accepted/attempted fine transitions and separate coarse stage | WG-01; preserve pending/in-flight state and mapping version |
+| TRD-30/31 | E03/E11: policy lookup and raw/normalized supplier snapshot | WG-03/05; exact source versions |
+| TRD-40/41/44/45/46/47 | E15–20/E25: proposals, raw/parsed args, stop layer, calls/results, recovery | WG-02/04/08; change TRD-45 yes/no-only side effect to represent unknown and original-vs-new effect |
+| TRD-50/51 | E21/E25: candidate/delivered response, exact supporting result, pending/error | WG-04/08; raw false claim remains visible even when corrected before delivery |
+| RAG-01/02/04/05/06/07/08 | E04–07: query/config, retrieval outcome, returned docs, score semantics, selection/sufficiency | WG-05/06; empty success ≠ retrieval error; no inferred metric zero |
+| RAG-11/12/13/14/16/18/19 | E22–25: answer/claims/citations/structural checks, abstention, snapshot, outcome | WG-05/08; structural citation validity ≠ semantic support |
+
+This accounts for all 37 rows assigned to Nour in the owner packet. Mohamed continues to own approval/policy truth; Alaa version conventions; Ahmed evaluator scores. Mohab derives graph/API projections. No frontend design or implementation is added.
+
+### Alaa configuration freeze checklist
+
+Before implementation: agree provider/model and effective parameters/API/SDK surface, prompt/tool versions, retrieval/embedding/store/corpus/index settings, policy/approval rules, mock/continuation/idempotency budgets and their immutable references. Before dataset generation: freeze code revision, application/config/source hashes, corpus/index membership, scenario family/template/recipe versions, seed/mode, independent labels/qrels and group-split assignment; keep controls and variants in one group. Returned provider versions are recorded only if available; a stable alias is not proof of an immutable backend. API secrets are never lineage. Actual runtime compatibility, quota and workload tests remain separate future gates.
+
+The preserved owner checklists below remain detailed acceptance requests. Use the current manifest and its SHA-256 in every new response; the original revision 0.6 references identify the earlier request only.
+
 Prepared for review; **not sent, acknowledged or signed**. This task does not contact teammates. S1-01 requires written acceptance from Ahmed, Mohab, Mohamed and Alaa. Malak receives application/UX evidence and performs the S1-07 independent closeout.
 
 ## Mohab — S1-02: canonical trace and interfaces
+
+Confirmed semantic item: OD-APP-OBS-01. Remaining related work is canonical submission/observation evidence and adapter verification that observation cannot invoke the creating path; the semantics do not need to be requested again.
 
 Provide: [E01–E27](trace-evidence-contract.md), tool proposal/check/dispatch separation, state-stage map, per-call/request versions, pending continuation semantics and four manual walkthrough scripts.
 
@@ -10,6 +89,8 @@ Additional provider handoff: record Google Gemini API and its exact frozen model
 
 Require back:
 
+- [ ] Disposition and closure evidence for R16-01–09 against the exact v1.6 joint-review inputs; preserve verified fixes and distinguish expected failing application traces from inconsistent claims of verified success.
+- [ ] Corrected specification, validator, runner and fixtures with exact byte hashes and self-contained commands; explain optional regression cases and make reported mutations/counts match the code.
 - [ ] Every evidence row mapped to a canonical schema field/event in `packages/contracts`, including parent/order/evidence references.
 - [ ] Distinct proposed, blocked/not-executed, executed/failed, unknown-outcome and successful actions.
 - [ ] Canonical treatment of missing/null/not applicable/redacted/unavailable values; payload size and immutable source-snapshot resolution.
@@ -37,6 +118,8 @@ Require back:
 Nour does not implement the evaluator, classifier, security scorer or RCA ranking algorithm.
 
 ## Mohamed — S1-04: policy interaction and approval authority
+
+Confirmed semantic item: OD-APP-OBS-01. Approval validity, authoritative decision evidence, broader continuation rules and submission-replay policy retain their separate review scope.
 
 Provide: [state contract](procurement-state-contract.md), five tool contracts, trusted context vs model arguments, request revision binding, pre-check timing, no-dispatch conditions and supplier/approval evidence.
 
@@ -90,11 +173,11 @@ No eighth screen, dashboard implementation or fabricated run screenshots are sup
 
 | Reviewer | Required review | Status | Contract revision | Decision/date/evidence |
 |---|---|---|---|---|
-| Mohab | Schema fit | PENDING | 0.5 for review | Not received |
-| Ahmed | Taxonomy/evaluation fit | PENDING | 0.5 for review | Not received |
-| Mohamed | Policy evidence fit | PENDING | 0.5 for review | Not received |
-| Alaa | Versioning fit | PENDING | 0.5 for review | Not received |
-| Malak | UX acknowledgement / later S1-07 | PENDING | 0.5 for review | Not received |
+| Mohab | Schema fit | PENDING | Current manifest + reviewer scope | Not received |
+| Ahmed | Taxonomy/evaluation fit | PENDING | Current manifest + reviewer scope | Not received |
+| Mohamed | Policy evidence fit | PENDING | Current manifest + reviewer scope | Not received |
+| Alaa | Versioning fit | PENDING | Current manifest + reviewer scope | Not received |
+| Malak | UX acknowledgement / later S1-07 | PENDING | Current manifest + reviewer scope | Not received |
 
 Each acceptance must name exact document/config revision, accepted items, unresolved conditions, reviewer and date. Silence is not sign-off. Record changes once in the relevant contract and link the revision from this checklist.
 

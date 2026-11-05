@@ -1,0 +1,223 @@
+{
+  "artifact_kind": "MANUAL_CONTRACT_WALKTHROUGH_NOT_CANONICAL_TRACE",
+  "fixture_id": "paper-004",
+  "title": "Known-source omission followed by safe abstention",
+  "application": "enterprise-rag",
+  "contract_revision": "0.6",
+  "notice": "Authored paper evidence only. No application, tool, governance engine, retriever, embedding or model executed. Event names/payloads are review notation, not shared schemas. Do not ingest this file as Trace Schema v1 or runtime input.",
+  "validation_scope": {
+    "conceptual": "Expected application trajectory reviewed under explicitly stated proposed-contract assumptions.",
+    "canonical_schema": "BLOCKED: current draft cannot represent all evidence losslessly; no frozen executable schema exists.",
+    "runtime": "NOT_RUN",
+    "reviewer_signoff": "PENDING"
+  },
+  "provenance": {
+    "review_date": "2026-11-01",
+    "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "fixture_mode": "MANUAL",
+    "synthetic": true,
+    "live_model_used": null,
+    "planned_generation_provider": "gemini",
+    "planned_generation_model": "gemini-3.8-flash",
+    "effective_generation_config": null,
+    "application_runtime_version": null,
+    "sdk_runtime_version": null,
+    "embedding_runtime_version": null,
+    "measured_total_latency_ms": null,
+    "measured_usage": null,
+    "unavailable_reason": "No runtime was executed. Document revision and file hashes identify this paper fixture; they are not runtime version claims.",
+    "timestamps": "Synthetic ordering labels authored at one-second intervals; not actual occurrence or duration measurements.",
+    "numeric_literals": "Ranks and k are paper-case inputs; retrieval scores, where present, reuse illustrative proposal/draft scores 0.91 or 0.44, never measured results or sufficiency thresholds."
+  },
+  "runtime_projection_note": "Independent review annotation is a sidecar for a human reviewer. Strip it and label-rich names/IDs before any future runtime or ML projection; this complete document is not an inference payload.",
+  "events": [
+    {
+      "event_id": "e01",
+      "sequence_number": 1,
+      "parent_event_id": null,
+      "timestamp": "2026-11-01T00:00:00Z",
+      "event_kind": "user_query",
+      "evidence_requirements": [
+        "E01",
+        "E04"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "request.user_query; retrieval.attributes.query_text",
+        "status": "OPEN",
+        "gap_ids": [
+          "WG-05",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "query_id": "query-paper-01",
+        "raw_query": "Where should employees submit laptop requests?",
+        "effective_query": "Where should employees submit laptop requests?",
+        "transformation": "NONE"
+      }
+    },
+    {
+      "event_id": "e02",
+      "sequence_number": 2,
+      "parent_event_id": "e01",
+      "timestamp": "2026-11-01T00:00:01Z",
+      "event_kind": "retrieval_observation",
+      "evidence_requirements": [
+        "E04",
+        "E05",
+        "E06"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "retrieval.attributes.{retrieval_id,query_text,retriever_type,top_k_requested,retrieved_documents}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-05",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "retrieval_id": "retrieval-paper-01",
+        "query": "Where should employees submit laptop requests?",
+        "top_k": 1,
+        "filters": {},
+        "outcome": "SUCCESS",
+        "returned_count": 1,
+        "documents": [
+          {
+            "document_id": "DOC-PAPER-TRAVEL",
+            "source_id": "src-DOC-PAPER-TRAVEL",
+            "source_version": "paper-source-v1",
+            "chunk_id": "CH-PAPER-TRAVEL",
+            "text": "Travel receipts are submitted through the travel expense portal.",
+            "content_hash": "f2f0275ed766782fc930684d2cfb7bb974283a5d328e2098d0bc4753d78f2e3b",
+            "locator": "DOC-PAPER-TRAVEL#paragraph-1",
+            "rank": 1,
+            "score": 0.44,
+            "score_kind": "illustrative_similarity_from_source_example",
+            "higher_is_better": true,
+            "metadata": {
+              "title": "Synthetic travel guide",
+              "domain": "synthetic-enterprise"
+            }
+          }
+        ],
+        "retriever_version": "paper-retrieval-list-v1",
+        "corpus_version": "paper-corpus-v1",
+        "index_version": null,
+        "embedding_version": null,
+        "not_applicable_reason": "Authored list, no retriever/index/embedding executed",
+        "ranking_tie_rule": "No ties in one-document paper case",
+        "score_note": "Illustrative source-example literal; not measured retrieval confidence."
+      }
+    },
+    {
+      "event_id": "e03",
+      "sequence_number": 3,
+      "parent_event_id": "e02",
+      "timestamp": "2026-11-01T00:00:02Z",
+      "event_kind": "evidence_selection",
+      "evidence_requirements": [
+        "E07"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "No dedicated draft representation",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-05"
+        ]
+      },
+      "paper_evidence": {
+        "retrieval_ref": "e02",
+        "selection_version": "paper-qualitative-rubric-v1",
+        "selected_context": [],
+        "rejected": [
+          {
+            "document_id": "DOC-PAPER-TRAVEL",
+            "reason": "Travel receipt submission does not answer laptop request submission"
+          }
+        ],
+        "sufficiency": "INSUFFICIENT_EVIDENCE",
+        "material_query_facets": [
+          "laptop request submission channel"
+        ],
+        "supported_facets": [],
+        "missing_facets": [
+          "laptop request submission channel"
+        ],
+        "unresolved_conflicts": [],
+        "rule": "All material facets supported; no unresolved conflicts. No numerical score threshold."
+      }
+    },
+    {
+      "event_id": "e04",
+      "sequence_number": 4,
+      "parent_event_id": "e03",
+      "timestamp": "2026-11-01T00:00:03Z",
+      "event_kind": "final_abstention",
+      "evidence_requirements": [
+        "E24",
+        "E25"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "final_response.attributes.{response_mode,is_abstention,abstention_reason,response_text}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-05"
+        ]
+      },
+      "paper_evidence": {
+        "outcome": "ABSTENTION",
+        "is_abstention": true,
+        "application_reason": "NO_RELEVANT_EVIDENCE",
+        "missing_information": "Laptop request submission channel",
+        "last_stage": "EVIDENCE_SELECTION",
+        "delivered_text": "The available source does not explain where to submit laptop requests, so I cannot answer from this evidence.",
+        "claims": [],
+        "citations": [],
+        "generation_call_made": false,
+        "generation_reason": "Deterministic abstention on empty selected support; no model call to invent",
+        "post_run_evaluation": null
+      }
+    }
+  ],
+  "independent_review_annotation": {
+    "source": "Authored omission recipe, independent of runtime output; requires Ahmed adjudication",
+    "known_in_corpus_document": {
+      "document_id": "DOC-PAPER-IT",
+      "source_id": "src-DOC-PAPER-IT",
+      "source_version": "paper-source-v1",
+      "chunk_id": "CH-PAPER-IT",
+      "text": "Employees submit laptop requests through the IT service desk.",
+      "content_hash": "1a95569e1c4a84604fd77f4b84411b6eadc8345f4cd5ae58df78ee9fa699e070",
+      "locator": "DOC-PAPER-IT#paragraph-1",
+      "rank": 1,
+      "score": 0.91,
+      "score_kind": "illustrative_similarity_from_source_example",
+      "higher_is_better": true,
+      "metadata": {
+        "title": "Synthetic IT request guide",
+        "domain": "synthetic-enterprise"
+      }
+    },
+    "expected_relevant_document_ids": [
+      "DOC-PAPER-IT"
+    ],
+    "injection_mechanism": "Omit the relevant document from the authored retrieval list; retain irrelevant travel source",
+    "primary_failure_expected": "RETRIEVAL_FAILURE",
+    "secondary_findings_expected": [],
+    "root_cause_expected": "retriever",
+    "safe_application_behavior": "ABSTENTION",
+    "counterfactual_control": "03-rag-grounded.json",
+    "leakage_rule": "The omitted source, qrels, recipe/cause/labels and this counterpart filename are evaluation-side only."
+  },
+  "expected_final": {
+    "outcome": "ABSTENTION",
+    "generation_call_count": 0,
+    "citation_count": 0,
+    "insufficiency_is_error": false
+  }
+}

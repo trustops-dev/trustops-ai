@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "claimed_actions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "action_type": {
+            "type": "string",
+            "enum": [
+              "create_purchase_order"
+            ]
+          },
+          "claimed_status": {
+            "type": "string",
+            "enum": [
+              "created"
+            ]
+          },
+          "po_id": {
+            "type": "string"
+          },
+          "supporting_result_ref": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action_type",
+          "claimed_status",
+          "po_id",
+          "supporting_result_ref"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "message",
+    "claimed_actions"
+  ],
+  "type": "object"
+}

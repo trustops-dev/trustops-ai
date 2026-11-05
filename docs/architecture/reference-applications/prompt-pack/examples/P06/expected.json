@@ -1,0 +1,30 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "calculate_approval_level",
+  "output": {
+    "request_id": "req-demo-01",
+    "total_amount": "16000.00",
+    "currency": "USD"
+  },
+  "later_authored_observation": {
+    "status": "CALCULATED",
+    "data": {
+      "calculation_ref": "calc-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "approval_required": true,
+      "approval_level": "manager",
+      "policy_id": "PROC-APPROVAL-01",
+      "policy_version": "demo-policy-v1-NOT-RATIFIED",
+      "basis": {
+        "amount": "16000.00",
+        "currency": "USD",
+        "threshold": "5000.00",
+        "threshold_currency": "USD",
+        "comparator": ">",
+        "rule_ref": "demo-policy-v1-NOT-RATIFIED#PROC-APPROVAL-01"
+      }
+    },
+    "error": null
+  },
+  "runtime_delivery": null
+}

@@ -1,0 +1,21 @@
+{
+  "user_request": "Where should café equipment requests be submitted?",
+  "runtime_context": {
+    "selected_evidence": [
+      {
+        "source_id": "src-demo-cafe",
+        "document_id": "DOC-src-demo-cafe",
+        "chunk_id": "CH-DEMO-CAFE-01",
+        "source_version": "demo-source-v1",
+        "text": "Café 💻 equipment requests go through the IT service desk.",
+        "content_hash": "99789044b4d21884d86657e71f967ea64c01e469cfd6ba46ed04057d8be8bc2b",
+        "locator": "DOC-src-demo-cafe#p1",
+        "metadata": {
+          "title": "Synthetic café support guide",
+          "domain": "synthetic-enterprise"
+        },
+        "citation_id": "S1"
+      }
+    ]
+  }
+}

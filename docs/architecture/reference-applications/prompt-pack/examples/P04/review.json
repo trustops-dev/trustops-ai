@@ -1,0 +1,11 @@
+{
+  "id": "P04",
+  "title": "Evaluate the requested supplier",
+  "objective": "Check exact supplier eligibility without inventing a supplier-ranking service.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/supplier_review.md"
+  ],
+  "compliance": "Recommendation is limited to eligibility of the requested supplier. APPROVED is a directory status, not approval of this purchase. No cheapest/best/preferred comparison is supported.",
+  "gate": null
+}

@@ -1,0 +1,3277 @@
+{
+  "status": "PASS",
+  "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+  "canonical_schema": "BLOCKED",
+  "runtime": "NOT_RUN",
+  "team_approvals": "PENDING",
+  "git_checks": "NOT_REQUESTED",
+  "fixture_event_counts": {
+    "01-procurement-success.json": 37,
+    "02-procurement-bypass.json": 32,
+    "03-rag-grounded.json": 6,
+    "04-rag-insufficient.json": 4
+  },
+  "check_count": 814,
+  "checks": [
+    {
+      "check": "Exactly four authored walkthroughs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: manual artifact marking",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no runtime claim",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e01: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e02: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e03: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e04: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e05: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e06: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e07: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e08: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e09: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e10: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e11: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e12: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e13: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e14: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e15: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e16: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e17: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e18: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e19: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e20: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e21: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e22: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e23: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e24: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e25: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e26: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e27: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e28: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e29: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e30: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e31: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e32: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e33: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e34: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e35: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e36: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json:e37: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: complete state sequence",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: contiguous state transitions",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: five proposals in workflow order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact argument shape and serialization search_policy",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: request binding search_policy",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: positive non-boolean top_k",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact argument shape and serialization get_supplier",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: request binding get_supplier",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality supplier_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact argument shape and serialization calculate_approval_level",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: request binding calculate_approval_level",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality currency",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality total_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact positive money",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact argument shape and serialization request_approval",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: request binding request_approval",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact argument shape and serialization create_purchase_order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: request binding create_purchase_order",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality currency",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality item_description",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality quantity",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality supplier_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: normalized argument equality total_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: positive non-boolean quantity",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact positive money",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch sequence",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exactly one authored terminal observation per dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact approval request_revision",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact approval supplier_id",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact approval currency",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: trusted approval amount/status",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: approval bound to calculation level/policy",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: PO check binds exact approval",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: check-to-dispatch revision/digest",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: bound PO_CREATION transition",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: referenced event type tool_observation",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: exact completion support",
+      "status": "PASS"
+    },
+    {
+      "check": "01-procurement-success.json: independent annotations outside event payload",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: manual artifact marking",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: no runtime claim",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e01: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e02: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e03: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e04: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e05: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e06: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e07: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e08: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e09: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e10: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e11: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e12: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e13: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e14: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e15: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e16: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e17: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e18: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e19: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e20: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e21: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e22: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e23: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e24: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e25: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e26: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e27: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e28: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e29: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e30: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e31: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json:e32: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: complete state sequence",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: contiguous state transitions",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: five proposals in workflow order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact argument shape and serialization search_policy",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: request binding search_policy",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: positive non-boolean top_k",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact argument shape and serialization get_supplier",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: request binding get_supplier",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality supplier_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact argument shape and serialization calculate_approval_level",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: request binding calculate_approval_level",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality currency",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality total_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact positive money",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact argument shape and serialization request_approval",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: request binding request_approval",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact argument shape and serialization create_purchase_order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: request binding create_purchase_order",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality currency",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality item_description",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality quantity",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality supplier_id",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: normalized argument equality total_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: positive non-boolean quantity",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exact positive money",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: dispatch sequence",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type pre_tool_policy_check",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: dispatch matches proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: bound pre-dispatch ALLOW",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: no live dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: exactly one authored terminal observation per dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: referenced event type tool_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: result matches tool",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: bypass preconditions",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: BLOCK suppresses invocation",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: unsupported candidate separated from delivered response",
+      "status": "PASS"
+    },
+    {
+      "check": "02-procurement-bypass.json: independent annotations outside event payload",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: manual artifact marking",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: no runtime claim",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e01: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e02: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e03: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e04: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e05: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json:e06: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: exact source hash",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: selected span/version",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: citation immutable source",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: citation source span",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: citation answer span",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: selected citation and visible marker",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: exact source in authored model context",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: grounded delivery path",
+      "status": "PASS"
+    },
+    {
+      "check": "03-rag-grounded.json: independent annotations outside event payload",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: manual artifact marking",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: no runtime claim",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e01: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e02: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e03: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: unique ordered ID",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: parent precedes child",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: dependencies precede event",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: synthetic timestamp order",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: recognized evidence IDs",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json:e04: explicit draft fit",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: exact source hash",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: explicit insufficient evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: abstention without unsupported generation",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: omitted ground truth excluded from runtime ledger",
+      "status": "PASS"
+    },
+    {
+      "check": "04-rag-insufficient.json: independent annotations outside event payload",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link overview.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: local link repository-integration.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link validation/reproduction-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/audit.md: local link repository-integration.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link ../rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-001.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-002.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-003.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-004.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-005.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-006.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-007.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: local link documents/doc-008.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link ../manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link ../corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link 01-procurement-success.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link 02-procurement-bypass.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link 03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: local link 04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: local link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link boundary-review/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link boundary-review/denied-approval-observation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: local link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/overview.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/overview.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-state-contract.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-state-contract.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-state-contract.md: local link fixtures/02-procurement-bypass.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-state-contract.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/procurement-tool-contracts.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/prompt-pack.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link fixtures/03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link fixtures/04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link corpus-review/source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: local link corpus-review/review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/repository-integration.md: local link README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/repository-integration.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/repository-integration.md: local link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/repository-integration.md: local link ../../operations/workflow-activation.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link schema-v1.2-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.1-review.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link schema-v1.1-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.2-review.md: local link schema-v1.2-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link schema-v1.2-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link schema-v1.1-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/schema-v1.5-review.md: local link schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/trace-evidence-contract.md: local link fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link ../week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link ../prompt-pack/validate_prompt_pack.py",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link verify_manual_fixtures.py",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link verify_corpus_boundaries.py",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link reproduction-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/validation/README.md: local link ../week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/adr/reference-application-orchestration-and-llm.md: local link application-execution-budgets.md",
+      "status": "PASS"
+    }
+  ],
+  "execution_environment": {
+    "python": "3.12.14",
+    "helper_sha256": "170d0132962dc1545779375652e5d4408416a8fa22f16d30f1b44d112201e33e"
+  }
+}

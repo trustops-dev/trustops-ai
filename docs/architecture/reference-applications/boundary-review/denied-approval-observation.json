@@ -1,0 +1,13 @@
+{
+  "status": "DENIED",
+  "data": {
+    "approval_request_id": "areq-review-03",
+    "request_revision": "rev-review-03",
+    "calculation_ref": "calc-review-03",
+    "decision_status": "DENIED",
+    "approval_evidence": null,
+    "decision_ref": "decision-review-03",
+    "reason": "Synthetic reviewer declined this request."
+  },
+  "error": null
+}

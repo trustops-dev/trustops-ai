@@ -1,0 +1,11 @@
+{
+  "id": "P07",
+  "title": "Submit an approval request",
+  "objective": "Propose an initial request and honestly end the interaction when pending.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/approval_request.md"
+  ],
+  "compliance": "Initial arguments omit approval_request_id. Runtime supplies the stable key, calculation and request binding separately. The authored PENDING response permits APPROVAL_PENDING, not APPROVED, and no autonomous polling.",
+  "gate": "CONDITIONAL: accepted submission/idempotency contract; no automatic write replay."
+}

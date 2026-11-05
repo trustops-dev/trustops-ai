@@ -1,0 +1,440 @@
+{
+  "review_date": "2026-11-04",
+  "document_version": "Draft v1.5",
+  "disposition": "CHANGES_REQUIRED",
+  "scope": "Offline specification/fixture/validator review; recorded evidence does not certify canonical schema acceptance or backend implementation",
+  "latest_main_verified": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+  "main_verification_method": "Read-only git ls-remote and git show; web viewer unavailable",
+  "new_stakeholder_acceptance": "NONE",
+  "runtime_verification": "NOT_RUN",
+  "canonical_contract_acceptance": "BLOCKED",
+  "inputs": [
+    {
+      "name": "updated_schemas_v5.md",
+      "document_version": "Draft v1.5",
+      "sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+      "size_bytes": 296719,
+      "review_role": "LATEST_SUPPLIED_SCHEMA",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred"
+    },
+    {
+      "name": "validate_s1_01_schema_v1_4(1).py",
+      "document_version": "1.5.0",
+      "sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+      "size_bytes": 99387,
+      "review_role": "LATEST_SUPPLIED_VALIDATOR",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred"
+    },
+    {
+      "name": "run_s1_01_regression_suite.py",
+      "document_version": null,
+      "sha256": "e90eb47584d720fa132bfcee2688a72ce82b9c710b2b1ab2defb7e075578e8a0",
+      "size_bytes": 11891,
+      "review_role": "LATEST_SUPPLIED_REGRESSION_RUNNER",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred"
+    },
+    {
+      "name": "s1_01_validation_report.json",
+      "document_version": "1.5.0 report",
+      "sha256": "c1d9b7d2e8e32473e802c585ccf876f556ba5c85fa876af9e9ac7737666763ae",
+      "size_bytes": 122193,
+      "review_role": "LATEST_SUPPLIED_REPORT",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred"
+    }
+  ],
+  "comparison_baselines": [
+    {
+      "path": "docs/architecture/reference-applications/procurement-tool-contracts.md",
+      "document_revision": "0.8",
+      "comparison_sha256_before_status_pointer_update": "7caefccc50e52b40071425599f1726d2c90ba7fe21ee401d6fab67c5411c29a6",
+      "current_sha256": "7caefccc50e52b40071425599f1726d2c90ba7fe21ee401d6fab67c5411c29a6",
+      "requirements_changed_this_update": false
+    },
+    {
+      "path": "docs/architecture/reference-applications/procurement-state-contract.md",
+      "document_revision": "0.7",
+      "comparison_sha256_before_status_pointer_update": "a2bde86d92b5c9d1df643abe825d04129b325e308ba38148463e4bc2ac40ace5",
+      "current_sha256": "a2bde86d92b5c9d1df643abe825d04129b325e308ba38148463e4bc2ac40ace5",
+      "requirements_changed_this_update": false
+    },
+    {
+      "path": "docs/architecture/reference-applications/rag-contract.md",
+      "document_revision": "0.9",
+      "comparison_sha256_before_status_pointer_update": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
+      "current_sha256": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
+      "requirements_changed_this_update": false
+    },
+    {
+      "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
+      "document_revision": "Original E01–E27/WG-01–08; historical mapping retained",
+      "comparison_sha256_before_status_pointer_update": "08bab7acedd4402af18e2dac507a93ac4b19012509dfacae4ac075df2d595e28",
+      "current_sha256": "017c80798c0ba4fc56a5d039731f26e45f0d1477120cbbbc9ee83deb6f108a93",
+      "requirements_changed_this_update": false
+    },
+    {
+      "path": "docs/adr/application-execution-budgets.md",
+      "document_revision": "0.1 proposed",
+      "comparison_sha256_before_status_pointer_update": "05534790755d6f15b54586724af36e61ac1b66e6ca11b99654f8401967a60af6",
+      "current_sha256": "05534790755d6f15b54586724af36e61ac1b66e6ca11b99654f8401967a60af6",
+      "requirements_changed_this_update": false
+    }
+  ],
+  "baseline": {
+    "input_sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+    "walkthrough_bundle_sha256": "907aea127e57f71b12496b1b6cb46e8319b95a564f306659ff7fc2ab740a58fe",
+    "assertions": 2023,
+    "failures": [],
+    "categories": {
+      "cat1_envelope_and_syntax": 167,
+      "cat2_ordering_and_refs": 1064,
+      "cat3_digests_hashes_spans": 198,
+      "cat4_contracts_snapshots_bindings": 550,
+      "cat5_isolation_and_report": 44
+    }
+  },
+  "self_contained_regression_suite": {
+    "validator_version": "1.5.0",
+    "validator_sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+    "baseline_file": "updated_schemas_v4.md",
+    "baseline_sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+    "total_cases_executed": 13,
+    "all_cases_matched_expectations": true,
+    "false_acceptances_on_negative_probes": 0,
+    "false_rejections_on_positive_cases": 0,
+    "uncaught_exceptions": 0
+  },
+  "supplied_report_case_count": 18,
+  "suite_scope_note": "13 self-contained cases; supplied report contains 18 including five optional old probes from a machine-specific directory. Runner uses alias filenames for byte-identical inputs; no original uploaded file modified. Assertions/substrings from this runner do not establish zero unrelated failures.",
+  "validator_byte_difference": {
+    "received_sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+    "reported_sha256": "39a71e9e9741275a701d2bc80cb86bc6a4abf29ffc02f57d2da48afada935bea",
+    "received_plus_one_final_LF_sha256": "39a71e9e9741275a701d2bc80cb86bc6a4abf29ffc02f57d2da48afada935bea",
+    "match": true,
+    "semantic_difference_claimed": false
+  },
+  "independent_probe_summary": {
+    "cases": 20,
+    "unchanged_controls_passed": 2,
+    "inconsistent_mutations_accepted": 15,
+    "targeted_permitted_shapes_or_provenance_rejected": 3,
+    "uncaught_exceptions": 0,
+    "full_abstention_fixture_validated": false
+  },
+  "independent_probes": [
+    {
+      "case": "control_WT1",
+      "expected_review_result": "PASS",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "dccc214b543c5e4a9a66405f036979bf17aedb450f03142c941e2cec366dca75",
+      "trace_label": "WT1",
+      "finding_id": "CONTROL",
+      "mutation": "Unchanged WT1",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "supplier_not_approved_but_PO_dispatched",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "702d4f4a84ba7bf28a67cf81bb4928bc2e311b7d0cc63d3481e7137e1318e662",
+      "trace_label": "WT1",
+      "finding_id": "V15-01",
+      "mutation": "WT1 e13: result_payload.data.supplier.status := NOT_APPROVED; retain subsequent APPROVED snapshots",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "approval_event_denied_but_snapshot_approved",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "c5c736cf22b19c832b307970bfb2abbaa0465232e25f93a00356d89e3fdcd4d2",
+      "trace_label": "WT1",
+      "finding_id": "V15-01",
+      "mutation": "WT1 e27: approval_status := DENIED; retain later approved snapshot",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "root_request_amount_mismatches_PO",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "ad917b514794bc8e3f244cf2b5d3f4dcf468860843a5adbfe69aa3aee1af39a7",
+      "trace_label": "WT1",
+      "finding_id": "V15-01",
+      "mutation": "WT1 request.structured_input.total_amount := decimal string 1.00; tool/PO amount remains 16000",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "missing_mandatory_policies_duplicate_IDs",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "7969ea5d6823e0c4e5ceb1dcaa740040b7238fa2e7b1f5091bf81335482f55fc",
+      "trace_label": "WT1",
+      "finding_id": "V15-01",
+      "mutation": "WT1 e32: set every evaluated_policies[].policy_id to PROC-TOOL-STAGE-01, preserving list length",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "snapshot_claim_id_differs_dispatch",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "69703fc5db55cb876a7a6d1ffcad8e327528e8288b512f8e62f064b9f6875419",
+      "trace_label": "WT1",
+      "finding_id": "V15-01",
+      "mutation": "WT1 e32: authorization_snapshot.dispatch_claim.dispatch_claim_id := dclaim_unrelated",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "recovery_wrong_original_idempotency_key",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 349,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "1a4b69141c4cdfb72ebd4be1b203700ba8b71d1005b0c58ccbda77dc75c3b798",
+      "trace_label": "WT3",
+      "finding_id": "V15-02",
+      "mutation": "WT3 e8: queried_idempotency_key := idem_another_request",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "recovery_wrong_business_digest",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 349,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "92d6d85e928a7e383c5503e66ecff69df421ed6dc57f0c7a82e365138880d4f7",
+      "trace_label": "WT3",
+      "finding_id": "V15-02",
+      "mutation": "WT3 e8: queried_business_payload_sha256 := 64 zeros",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "unknown_timeout_falsely_no_effect",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 349,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "d2369cad2d571c200ceba1bd86e58957b72820c6127cd3c8fb18ed8bebb5e082",
+      "trace_label": "WT3",
+      "finding_id": "V15-02",
+      "mutation": "WT3 e7: side_effect_state := NONE; retain TIMEOUT/UNKNOWN_OUTCOME",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "negative_budget_counter",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "089cde56e32dda38644af5742d767ac7c0aeb5fda9e8f0fd085b0b41df2b6a54",
+      "trace_label": "WT1",
+      "finding_id": "V15-03",
+      "mutation": "WT1 execution_budget_telemetry.counters.tool_attempt_debits.spent_count := -1",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "missing_budget_counters",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "d8f0cdb0d437433b7b26d3501f150cdadbd0114e54c5487b07cd4d846f0d3f13",
+      "trace_label": "WT1",
+      "finding_id": "V15-03",
+      "mutation": "WT1 execution_budget_telemetry.counters := empty object",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "stale_dispatch_fencing_token",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "66dbae8d8a1f52370b5c72f2fdb469596c8d00df50e0a9c78a2864a0ea4f1a8c",
+      "trace_label": "WT1",
+      "finding_id": "V15-03",
+      "mutation": "WT1 e34: trusted_runtime_context.budget_context.fencing_token := 2; no matching new lease/root context",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "raw_arguments_malformed_but_validated",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1205,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "64571bd0f3f519eebe32324c1377101fbcf0734984012deff9cac2cd00009741",
+      "trace_label": "WT1",
+      "finding_id": "V15-06",
+      "mutation": "WT1 e2: raw_arguments_serialized := {\"query\": ; retain PARSED_OBJECT and VALID records",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "visible_citation_wrong_version",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 160,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "8c2c604de29e4dbc501c4a9c9d7dd0a75a3c5f36eecdb71cf415c4004e780a07",
+      "trace_label": "WT4",
+      "finding_id": "V15-05",
+      "mutation": "WT4 e3: visible_citations[0].cited_doc_version := v999",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "control_WT3_standalone_label",
+      "expected_review_result": "PASS",
+      "observed_validator_result": "PASS",
+      "assertions": 349,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "607777faf6abfca3331e3bbf2fb00366c85f290a576823e7958f78cc0d848eff",
+      "trace_label": "timeout_recovery",
+      "finding_id": "CONTROL",
+      "mutation": "Unchanged WT3 validated under label timeout_recovery",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "known_relevant_document_legitimately_retrieved",
+      "expected_review_result": "PASS",
+      "observed_validator_result": "REJECT",
+      "assertions": 1206,
+      "failure_count": 1,
+      "failures": [
+        "[cat5_isolation_and_report] WT1: ground-truth token 'POL-114' from scenario_metadata leaked into runtime/inference-visible fields"
+      ],
+      "input_sha256": "c6fae567e904e3d2a659f47833a2f040a42cf3a52ee4791fd44061b2433c9d90",
+      "trace_label": "WT1",
+      "finding_id": "V15-04",
+      "mutation": "WT1 scenario_metadata.expected_relevant_doc_ids := [POL-114]; this document already exists as independently retrieved runtime evidence",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "empty_RAG_retrieval",
+      "expected_review_result": "PASS",
+      "observed_validator_result": "REJECT",
+      "assertions": 61,
+      "failure_count": 1,
+      "failures": [
+        "[cat3_digests_hashes_spans] WT4 e1: retrieved_documents must be non-empty list"
+      ],
+      "input_sha256": "824c82592ce1ebd5070c8faa29058b4e82a358aeb634fde74208c7d81b687bdd",
+      "trace_label": "WT4",
+      "finding_id": "V15-06",
+      "mutation": "WT4: retain only e1; execution_status ACTIVE, last_rag_stage RETRIEVAL, completed_at null; e1 retrieved_documents := []; evidence_sufficiency status := INSUFFICIENT_NO_RELEVANT_EVIDENCE and selected_document_count := 0. Tests rejection of empty retrieval shape only, not a full abstention path",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "documented_optional_retry_accounting",
+      "expected_review_result": "PASS",
+      "observed_validator_result": "REJECT",
+      "assertions": 1205,
+      "failure_count": 1,
+      "failures": [
+        "[cat2_ordering_and_refs] WT1 e5 (tool_call): keys mismatch {'retry_accounting'}"
+      ],
+      "input_sha256": "b5ab0093701cf7c87691fac314b11340a4dbeda696b4e680f8bec8193fa5dd2c",
+      "trace_label": "WT1",
+      "finding_id": "V15-06",
+      "mutation": "WT1 e5: add documented retry_accounting initial-attempt object: attempt_number=1, max_attempts_configured=2, is_retry=false, prior_attempt_id=null, retry_eligibility_class=NONE_INITIAL_ATTEMPT, backoff_strategy=NONE, computed_jitter_delay_ms=null, retry_after_raw=null, retry_after_parsed_ms=null, applied_wait_ms=0",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "duplicate_terminal_result_same_call",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 1230,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "86498a096b8c8807b645e2c79b15c1262e5aaf85a01e12d311219f9c47bba456",
+      "trace_label": "WT1",
+      "finding_id": "V15-02",
+      "mutation": "WT1: copy e35 to e35_duplicate, parent e35, same call_id; use result_id res_po_01_duplicate and matching payload result ref; insert before e36 and renumber event sequences",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    },
+    {
+      "case": "citation_quote_outside_selected_slice",
+      "expected_review_result": "REJECT",
+      "observed_validator_result": "PASS",
+      "assertions": 160,
+      "failure_count": 0,
+      "failures": [],
+      "input_sha256": "2bccf7833e0725851519ad7ec188739a0fe05424b5e000f7b772ecbde367e5a9",
+      "trace_label": "WT4",
+      "finding_id": "V15-05",
+      "mutation": "WT4: shorten selected FAQ slice to Standard office supply; update selected canonical span/text, assembled context and rendered message consistently; retain final full source quote and in_supplied_prompt_context=true, so quote lies outside the actual supplied slice",
+      "interpretation": "Probe expectation concerns evidence consistency or permitted shape; not a blanket ingestion rejection policy for business failures."
+    }
+  ],
+  "remaining_findings": [
+    {
+      "id": "V15-01",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-02",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-03",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-04",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-05",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-06",
+      "status": "CHANGES_REQUIRED"
+    },
+    {
+      "id": "V15-07",
+      "status": "CHANGES_REQUIRED"
+    }
+  ],
+  "preserved_decision": {
+    "id": "OD-APP-OBS-01",
+    "status": "CLOSED_SEMANTICS_ONLY",
+    "new_confirmation_requested": false,
+    "pending": [
+      "adapter verification",
+      "approval validity/expiry/revocation",
+      "broader trusted continuation",
+      "numeric budgets",
+      "full specialist acceptance"
+    ]
+  },
+  "limits": [
+    "Supplied validator PASS is not full evidence consistency or semantic entailment.",
+    "Independent probe payloads were reviewed in scratch; this record pins hashes and mutations but does not claim they are part of the supplied regression runner.",
+    "Detailed application-to-schema mapping is not reauthored or accepted by this status update.",
+    "No canonical schema, provider API, tool, database, SDK, policy engine or dashboard implementation changed or executed.",
+    "No commit, push, PR or external message performed."
+  ]
+}
