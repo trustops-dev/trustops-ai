@@ -127,8 +127,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "c6878ab788a18f84d7f268795f4de806d048ec8fcb3206f09b8a91f80f89bd7b",
-      "size_bytes": 9138,
+      "sha256": "8504f88ad59889c2acaa56bc7ad6ba85c7dc8c7c181e98238e9565253dea79b9",
+      "size_bytes": 9309,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -956,8 +956,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "aecd8af0e1e72debe7812bd5b686548bed782f60727e266955f350c737059ffe",
-      "size_bytes": 29020
+      "sha256": "e3d6543dc3d8f4d26de156861bf871bc9c47db07c1a9d007f2a1f5d2d817bf9f",
+      "size_bytes": 31404
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -981,14 +981,24 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "8468a19302f687eda27926f421940e95e9217f8cb0fdad8f5cec94818abfec6a",
-      "size_bytes": 15512,
+      "sha256": "295303e57a84d1561af08e77e2c7f5954a4b856f43bc5727c97e8af4c1950d4c",
+      "size_bytes": 15683,
       "document_revision": "0.14"
     },
     {
       "path": "docs/operations/workflow-activation.md",
       "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
       "size_bytes": 12656
+    },
+    {
+      "path": "docs/architecture/reference-applications/publication-handoff.md",
+      "sha256": "2dc3baeed6c3fc4061f82f6aff0eac6a42f3bceb219f82362547035e250e0419",
+      "size_bytes": 3068
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/publication-refresh.json",
+      "sha256": "7a03bbaf6b07f89341885303425d62dd1b593a523fa64a8a7a0b4846b68b6a8c",
+      "size_bytes": 151303
     }
   ],
   "revision_reference_cleanup": {
@@ -1247,5 +1257,50 @@
     "manual_checks": 837,
     "corpus_checks": 294,
     "check_count_note": "Counts decreased by two because the revised closeout paragraph removes two duplicate local links; fixture/corpus assets and checking logic are unchanged."
+  },
+  "pre_publication_snapshot_context": {
+    "source_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "label": "PRE_PUBLICATION_SNAPSHOT",
+    "scope": "Original preparation, branch, commit_push_pr, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Current publication is recorded in current_publication; fresh checks are in publication_refresh.",
+    "historical_validation_evidence": "RETAINED_UNCHANGED",
+    "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6"
+  },
+  "current_publication": {
+    "record": "docs/architecture/reference-applications/publication-handoff.md",
+    "pull_request": 27,
+    "url": "https://github.com/trustops-dev/trustops-ai/pull/27",
+    "status": "PUBLISHED_DRAFT",
+    "branch": "docs/nour-week1-review-014",
+    "target": "dev",
+    "published_packet_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "superseded_pull_request": 26,
+    "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
+    "email_sent_status": "USER_REPORTED_SENT",
+    "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
+    "specialist_acceptance": "PENDING",
+    "runtime_verification": "PENDING",
+    "email_sent_date": "2026-11-06",
+    "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
+    "email_recipients": "Teammates; individual names and addresses unspecified",
+    "email_subject": null,
+    "email_message_references": [],
+    "email_independently_verified": false,
+    "email_reply_status": "AWAITING_REPLIES",
+    "teammate_acceptance": "PENDING"
+  },
+  "publication_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/publication-refresh.json",
+    "scope": "Publication metadata, handoff and affected owner-artifact checks; external schema suite remains historical evidence.",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "python": "3.12.15",
+    "check_counts": {
+      "manual_fixture_link_checks": 844,
+      "optional_git_checks": 3,
+      "manual_total": 847,
+      "corpus_boundary_checks": 296
+    },
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
   }
 }

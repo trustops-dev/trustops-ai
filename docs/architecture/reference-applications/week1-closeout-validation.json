@@ -2,7 +2,7 @@
   "date": "2026-11-06",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Status-wording cleanup and affected owner-artifact verification; earlier v1.6 mapping/schema rerun retained as prior evidence.",
-  "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6",
+  "manifest_sha256": "9c7169aad042aba492688008540adf095195d656b97ad79a79188da1051f4b92",
   "check_counts": {
     "manual_fixture_link_checks": 837,
     "corpus_boundary_checks": 294,
@@ -15601,5 +15601,50 @@
     "manual_checks": 837,
     "corpus_checks": 294,
     "check_count_note": "Counts decreased by two because the revised closeout paragraph removes two duplicate local links; fixture/corpus assets and checking logic are unchanged."
+  },
+  "pre_publication_snapshot_context": {
+    "source_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "label": "PRE_PUBLICATION_SNAPSHOT",
+    "scope": "Original preparation, branch, commit_push_pr, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Current publication is recorded in current_publication; fresh checks are in publication_refresh.",
+    "historical_validation_evidence": "RETAINED_UNCHANGED",
+    "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6"
+  },
+  "current_publication": {
+    "record": "docs/architecture/reference-applications/publication-handoff.md",
+    "pull_request": 27,
+    "url": "https://github.com/trustops-dev/trustops-ai/pull/27",
+    "status": "PUBLISHED_DRAFT",
+    "branch": "docs/nour-week1-review-014",
+    "target": "dev",
+    "published_packet_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "superseded_pull_request": 26,
+    "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
+    "email_sent_status": "USER_REPORTED_SENT",
+    "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
+    "specialist_acceptance": "PENDING",
+    "runtime_verification": "PENDING",
+    "email_sent_date": "2026-11-06",
+    "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
+    "email_recipients": "Teammates; individual names and addresses unspecified",
+    "email_subject": null,
+    "email_message_references": [],
+    "email_independently_verified": false,
+    "email_reply_status": "AWAITING_REPLIES",
+    "teammate_acceptance": "PENDING"
+  },
+  "publication_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/publication-refresh.json",
+    "scope": "Publication metadata, handoff and affected owner-artifact checks; external schema suite remains historical evidence.",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "python": "3.12.15",
+    "check_counts": {
+      "manual_fixture_link_checks": 844,
+      "optional_git_checks": 3,
+      "manual_total": 847,
+      "corpus_boundary_checks": 296
+    },
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
   }
 }

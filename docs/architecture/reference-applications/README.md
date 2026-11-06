@@ -1,5 +1,7 @@
 # TrustOps AI — Week 1 Reference Application Contracts
 
+**Current publication and handoff** is recorded in [the PR #27 publication record](publication-handoff.md). Earlier preparation metadata is the pre-publication snapshot.
+
 **Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
 
 **Reproducible review checks:** the [validation guide and packaged helpers](validation/README.md) provide repository/output arguments and exact commands for the paper fixtures, corpus/boundaries and existing prompt examples. These remain offline artifact checks; shared acceptance and runtime validation are pending.
