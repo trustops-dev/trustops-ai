@@ -1,0 +1,877 @@
+{
+  "result": "PASS",
+  "date": "2026-11-06",
+  "scope": "Status-wording cleanup and affected owner-artifact verification; earlier v1.6 mapping/schema rerun retained as prior evidence.",
+  "environment": {
+    "python": "3.12.14",
+    "pydantic": "2.14.1",
+    "working_directory": "/workspace/scratch/6b23bd2d9369/pr-checkout",
+    "dependency_install": "NOT_RUN; existing interpreter",
+    "snapshot_git": "PR checkout; prompt check in disposable docs copy",
+    "manual_and_corpus_site_packages": "DISABLED (-S)"
+  },
+  "instructions": "docs/architecture/reference-applications/validation/README.md",
+  "manifest_binding": "The overall week1-closeout-validation.json binds these payload reports to the final manifest; no self-referential hash is stored here.",
+  "runs": {
+    "manual_artifacts": {
+      "result": "PASS",
+      "checks": 837,
+      "report": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_manual_fixtures.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/manual-fixtures.json\"",
+      "exit_code": 0
+    },
+    "corpus_boundaries": {
+      "result": "PASS",
+      "checks": 294,
+      "report": "docs/architecture/reference-applications/corpus-boundary-validation.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_corpus_boundaries.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/corpus-boundaries.json\"",
+      "exit_code": 0
+    },
+    "prompt_examples": {
+      "result": "PASS",
+      "checks": 180,
+      "report": "docs/architecture/reference-applications/prompt-pack/validation-report.json",
+      "command": "python \"$PROMPT_COPY/docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py\"",
+      "disposable_copy": true,
+      "exit_code": 0,
+      "evidence_status": "Prior 180-check result preserved; all prompt assets verified byte-identical to b5633a91796997e53e843476dd7b8eccc9b1953a"
+    },
+    "working_tree_whitespace": {
+      "commands": [
+        "git diff --check",
+        "git diff --cached --check"
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "ruff_lint": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff check .",
+      "result": "PASS",
+      "diagnostics": 0
+    },
+    "ruff_format": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff format --check .",
+      "result": "PASS"
+    },
+    "od03_candidate": {
+      "result": "PASS",
+      "review_cases": 31,
+      "checks": 63,
+      "negative_copies_rejected": 2,
+      "command": "python -S docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py --output \"$REVIEW_REPORTS/od03.json\"",
+      "evidence_status": "Prior 63-check / 31-case result preserved; all candidate bytes unchanged in this task."
+    },
+    "od04_response": {
+      "result": "PASS",
+      "clauses": 8,
+      "paper_cases": 27,
+      "structural_checks": 149,
+      "negative_copy_checks": 2,
+      "command": "python -S docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py --output \"$REVIEW_REPORTS/od04.json\"",
+      "scope": "Authored review structure and stated expectation consistency only; not execution or proof of approval validity, canonical schema fit, currentness or race safety"
+    },
+    "v16_mapping": {
+      "result": "PASS",
+      "checks": 280,
+      "paths": 69,
+      "rows": 27,
+      "report": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
+      "instructions": "validation/README.md#v16-evidence-mapping-reproduction",
+      "exit_code": 0,
+      "execution_context": "Earlier 2026-11-06 mapping task; inputs/results unchanged and not rerun for this wording cleanup."
+    },
+    "v16_external_schema": {
+      "result": "CHANGES_REQUIRED",
+      "baseline_assertions": 2106,
+      "supplied_expectations_met": "27/27",
+      "independent_expectations_met": "19/35",
+      "independent_exit_code": 1,
+      "unmet_expectations": 16,
+      "report": "docs/architecture/reference-applications/schema-v1.6-review-observations.json",
+      "instructions": "validation/README.md#v16-evidence-mapping-reproduction",
+      "execution_context": "Earlier 2026-11-06 mapping task; inputs/results unchanged and not rerun for this wording cleanup."
+    }
+  },
+  "helper_hashes": {
+    "docs/architecture/reference-applications/validation/verify_manual_fixtures.py": "b81fd5ea4c7318895d1d756a3fc320e3aa9a0c5fd304e11ce7849c0261a61aca",
+    "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
+    "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py": "341233cf99a6c7493985a21f4781c6f2eb2266bf2274541bf9e5d001c6a22379",
+    "docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5",
+    "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8",
+    "docs/architecture/reference-applications/validation/verify_v16_mapping.py": "cb10ef51e65fb94d5768a2fc171463c09dace5530acf5248b254fcad57b54f83"
+  },
+  "current_reference_checks": [
+    {
+      "check": "Unchanged prior artifact: prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: overview.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: repository-integration.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.2-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.2-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.1-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/01-procurement-success.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/02-procurement-bypass.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/validation-report.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/prompt-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/validate_prompt_pack.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: boundary-review/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: boundary-review/denied-approval-observation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_manual_fixtures.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_corpus_boundaries.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_v16_mapping.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/v16-mapping-report.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/truth-table.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/validation-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/candidate-config.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/verify_candidate.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/policy-text.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-tool-arguments.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/rag-candidate.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-extraction.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/generation-profiles-reference.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/generation-configuration-reference.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-final.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/rag/assistant_system.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/po_proposal.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/final_candidate.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/supplier_review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/approval_calculation.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/system.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/request_extraction.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/policy_search.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/approval_request.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-005.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-008.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-001.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-004.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-006.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-002.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-003.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-007.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/validation-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/verify_review.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/response.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Current closeout revision/date",
+      "status": "PASS"
+    },
+    {
+      "check": "Historical refresh separated from mapping rerun",
+      "status": "PASS"
+    },
+    {
+      "check": "Remaining defects and acceptance limits preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "Handoff requests correction and reassessment",
+      "status": "PASS"
+    }
+  ],
+  "historical_packaging_record_not_rerun": {
+    "result": "PASS",
+    "date": "2026-11-02",
+    "scope": "Packaging/reproduction checks only; no production application execution",
+    "environment": {
+      "python": "3.12.14",
+      "platform": "linux",
+      "pydantic": "2.14.1",
+      "dependency_install": "NOT_RUN; existing interpreter used",
+      "powershell_commands": "DOCUMENTED_NOT_EXECUTED"
+    },
+    "copied_snapshot": {
+      "git_directory_present": false,
+      "run_from_unrelated_working_directory": true,
+      "stdlib_helpers_passed_with_site_packages_disabled": true,
+      "input_files_unchanged_by_two_helpers": true,
+      "original_content_assertions_preserved": true
+    },
+    "runs": {
+      "manual_artifacts": {
+        "result": "PASS",
+        "checks": 764,
+        "git_checks": "NOT_REQUESTED"
+      },
+      "corpus_boundaries": {
+        "result": "PASS",
+        "checks": 265
+      },
+      "existing_prompt_examples": {
+        "result": "PASS",
+        "checks": 180,
+        "run_in_disposable_copy": true
+      },
+      "manual_with_optional_git": {
+        "result": "PASS",
+        "checks": 767,
+        "git_checks": "REQUESTED_AND_PASSED"
+      }
+    },
+    "negative_checks": {
+      "invalid_event_order_rejected": "PASS",
+      "previous_pass_report_replaced_with_fail": "PASS",
+      "corrupt_source_hash_rejected_under_python_optimization": "PASS",
+      "invalid_root_rejected": "PASS",
+      "in_tree_output_rejected_without_write": "PASS"
+    },
+    "helper_hashes": {
+      "verify_manual_fixtures.py": "c758996586f5d892415b78cdcf64d5b5fc9a255c5bee67de85c22a605215707a",
+      "verify_corpus_boundaries.py": "d23e2008c3d1e18b201391b4825904fbbec37fcd534c91a27f8e28e2059d1f32"
+    },
+    "limits": [
+      "Canonical trace validation pending",
+      "Provider/embedding/database/tools not run",
+      "No general entailment/semantic quality measured",
+      "No stakeholder approvals",
+      "No push, PR or merge performed"
+    ]
+  },
+  "limits": [
+    "Owner mapping/fixture consistency only; full schema acceptance remains pending.",
+    "Pinned v1.6 baseline and supplied suite pass; independent suite still has 16 unmet expectations.",
+    "All E01–E27 rows now assess v1.6; v1.5 mapping remains unchanged history.",
+    "No provider, database, tool, runtime integration or concurrency execution.",
+    "OD-03 and OD-04 preparation preserved; no new approvals, sent messages, commits, push or PR."
+  ],
+  "pr_preparation": {
+    "base_branch": "dev",
+    "base_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "branch": "docs/nour-week1-owner-review",
+    "publication": "PENDING_AUTHENTICATED_ACCESS",
+    "shared_acceptance": "PENDING"
+  },
+  "od03_candidate": {
+    "proposal_preparation": "COMPLETE",
+    "acceptance": "PENDING_MOHAMED",
+    "contract_examples": "SYMBOLIC_UNCHANGED",
+    "base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "new_edits_committed": false
+  },
+  "od04_response": {
+    "date": "2026-11-06",
+    "response_version": "0.1",
+    "overall_draft_disposition": "AMEND",
+    "application_response_preparation": "COMPLETE",
+    "submission": "NOT_SENT",
+    "joint_acceptance": "PENDING_MOHAMED_AND_MOHAB",
+    "runtime": "NOT_RUN",
+    "new_commit_push_pr": "NOT_PERFORMED",
+    "prior_owner_base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "includes_uncommitted_od03_addition": true
+  },
+  "status_wording_cleanup": {
+    "date": "2026-11-06",
+    "closeout_revision": "0.14",
+    "scope": "Status wording only: historical 0.13 refresh versus later v1.6 rerun; current mapping complete; returned corrections require reassessment.",
+    "canonical_schema_changed": false,
+    "mapping_changed": false,
+    "schema_validator_rerun_in_this_cleanup": false,
+    "runtime_run": false,
+    "new_acceptance": false,
+    "manual_checks": 837,
+    "corpus_checks": 294,
+    "check_count_note": "Counts decreased by two because the revised closeout paragraph removes two duplicate local links; fixture/corpus assets and checking logic are unchanged."
+  }
+}

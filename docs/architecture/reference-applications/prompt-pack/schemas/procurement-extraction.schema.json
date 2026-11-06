@@ -1,0 +1,85 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "COMPLETE",
+        "NEEDS_CLARIFICATION"
+      ],
+      "type": "string"
+    },
+    "item_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "quantity": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "total_amount": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "currency": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "supplier_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "missing_fields": {
+      "items": {
+        "enum": [
+          "item_description",
+          "quantity",
+          "total_amount",
+          "currency",
+          "supplier_id"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "item_description",
+    "quantity",
+    "total_amount",
+    "currency",
+    "supplier_id",
+    "missing_fields"
+  ],
+  "type": "object"
+}

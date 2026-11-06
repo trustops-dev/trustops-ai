@@ -1,0 +1,103 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "outcome": {
+      "enum": [
+        "ANSWER",
+        "ABSTENTION"
+      ],
+      "type": "string"
+    },
+    "answer": {
+      "type": "string"
+    },
+    "abstention_reason": {
+      "enum": [
+        "NONE",
+        "NO_RELEVANT_EVIDENCE",
+        "INCOMPLETE_SUPPORT",
+        "CONFLICTING_EVIDENCE",
+        "INVALID_CITATION_BINDING"
+      ],
+      "type": "string"
+    },
+    "missing_information": {
+      "type": "string"
+    },
+    "claims": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "answer_start": {
+            "type": "integer"
+          },
+          "answer_end": {
+            "type": "integer"
+          },
+          "citations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "citation_id": {
+                  "type": "string"
+                },
+                "source_id": {
+                  "type": "string"
+                },
+                "chunk_id": {
+                  "type": "string"
+                },
+                "source_version": {
+                  "type": "string"
+                },
+                "source_start": {
+                  "type": "integer"
+                },
+                "source_end": {
+                  "type": "integer"
+                },
+                "quote": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "citation_id",
+                "source_id",
+                "chunk_id",
+                "source_version",
+                "source_start",
+                "source_end",
+                "quote"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "answer_start",
+          "answer_end",
+          "citations"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "outcome",
+    "answer",
+    "abstention_reason",
+    "missing_information",
+    "claims"
+  ],
+  "type": "object"
+}

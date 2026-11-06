@@ -1,0 +1,10 @@
+{
+  "kind": "NO_MODEL_CALL",
+  "tool_name": null,
+  "output": null,
+  "later_authored_observation": null,
+  "runtime_delivery": {
+    "message": "The original PO outcome is unknown. No additional creation attempt was sent; the original transaction is held for reconciliation.",
+    "claimed_actions": []
+  }
+}

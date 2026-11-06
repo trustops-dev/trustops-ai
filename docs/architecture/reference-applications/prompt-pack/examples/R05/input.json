@@ -1,0 +1,35 @@
+{
+  "user_request": "Where should employees submit laptop requests?",
+  "runtime_context": {
+    "selected_evidence": [
+      {
+        "source_id": "src-demo-it",
+        "document_id": "DOC-src-demo-it",
+        "chunk_id": "CH-DEMO-IT-01",
+        "source_version": "demo-source-v1",
+        "text": "Employees submit laptop requests through the IT service desk.",
+        "content_hash": "1a95569e1c4a84604fd77f4b84411b6eadc8345f4cd5ae58df78ee9fa699e070",
+        "locator": "DOC-src-demo-it#p1",
+        "metadata": {
+          "title": "Synthetic IT request guide",
+          "domain": "synthetic-enterprise"
+        },
+        "citation_id": "S1"
+      },
+      {
+        "source_id": "src-demo-it-exception",
+        "document_id": "DOC-src-demo-it-exception",
+        "chunk_id": "CH-DEMO-IT-EX-01",
+        "source_version": "demo-source-v1",
+        "text": "Employees submit laptop requests through the Procurement portal.",
+        "content_hash": "8bb5842b10d9bd7b5aed66f4aff5ac375467149cd42b4565381c74c0e0f3183d",
+        "locator": "DOC-src-demo-it-exception#p1",
+        "metadata": {
+          "title": "Synthetic conflicting request guide",
+          "domain": "synthetic-enterprise"
+        },
+        "citation_id": "S2"
+      }
+    ]
+  }
+}

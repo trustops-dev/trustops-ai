@@ -1,0 +1,261 @@
+{
+  "artifact_kind": "OFFLINE_PROMPT_REVIEW_PACK_NOT_CANONICAL_TRACE",
+  "version": "prompt-pack-v1-proposed",
+  "status": "PROPOSED_NOT_RATIFIED",
+  "code_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+  "code_snapshot_note": "Commit is the checkout base; these prompt/doc assets are uncommitted review additions. This is not an installed runtime version.",
+  "templates": [
+    {
+      "application": "procurement-agent",
+      "role": "procurement/system.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "c37546b68421c5b3c3a447b63b24ed41e56b8f14cb7a422e3382d57127550416",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/system.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/request_extraction.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "39cc2d3568a29f89603ac6f374d0daaac0edee52c9aec9fc07d49059eb3214cf",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": "10757d4fd28bc04b236d3606f1257008635bff528950ba3a9742838655973fe9",
+      "tool_catalog_sha256": null,
+      "generation_profile_id": "procurement.extract.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/request_extraction.md",
+      "generation_profile_sha256": "2a30d29e11ed548de9c63b09c2d93aeba0bf0740759b0d1bcf954ce7f38a63b6"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/policy_search.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "e31997abfc87c13a399d2de602b6dc54e0842887d0bfb839de8c2ecb8f3ce559",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/policy_search.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/supplier_review.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "beb6df45464f3b926a42b227d4f1017450a43736d0062d5dca77e9eb70694a66",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/supplier_review.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/approval_calculation.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "20b8d3f52599c420b3b1000b713f3ab86a173ab6ca70c4cfcd9d7c92a0072641",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/approval_calculation.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/approval_request.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "a0d5e0e441d6ecc40dd54a942a392eb759df21b5d1e47f57254da55b8ebca158",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/approval_request.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/po_proposal.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "cfb45748cf198614c0c44bf03b4a7f1a28f067ac1b76faf980f783d1df6858ba",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": null,
+      "tool_catalog_sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "generation_profile_id": "procurement.propose.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/po_proposal.md",
+      "generation_profile_sha256": "0d8b9ccf146cff1261e8ce8bc952188a5e93cf5f07e64ec99bce016b3568186a"
+    },
+    {
+      "application": "procurement-agent",
+      "role": "procurement/final_candidate.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "b1091f70506fd644651f836f0acd3b9531491016ddd58602917f0ca757c25203",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": "1a6d18521bc18d9a64969d5221f7e6fe3b231e295a002219859455e1892c6328",
+      "tool_catalog_sha256": null,
+      "generation_profile_id": "procurement.final.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/procurement-agent/src/trustops_procurement_agent/prompts/final_candidate.md",
+      "generation_profile_sha256": "89e7358c4a23ae010ecc93f571d8ba5500a3c05c2c923ba5720e30fc473f6d04"
+    },
+    {
+      "application": "rag-assistant",
+      "role": "rag/assistant_system.md",
+      "version": "prompt-pack-v1-proposed",
+      "template_sha256": "46b78f160de82c07362256a4485b0f2a1c8524fa7819ca18f30b297c5d10f362",
+      "variable_contract": "input.json user_request + runtime_context; template adapter notation, not a shared API",
+      "output_schema_sha256": "15a3d8a5925847b304a8ca120b5a73a6f6b0dd75545d14bb48c9a57a7f3afb19",
+      "tool_catalog_sha256": null,
+      "generation_profile_id": "rag.answer.v2-proposed",
+      "generation_configuration_sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "planned_application_home": "apps/rag-assistant/src/trustops_rag_assistant/generation/prompts/assistant_system.md",
+      "generation_profile_sha256": "a1e282fe951082c708b8a2d390ac799b25b2e948e4653eeae2d2c0c981848d5f"
+    }
+  ],
+  "examples": [
+    {
+      "id": "P01",
+      "rendered_prompt_sha256": "ac3d27d2f9ff030cf8874dde1cced23b37122dc57a69de878700b1dd13497989",
+      "input_path": "examples/P01/input.json",
+      "expected_path": "examples/P01/expected.json"
+    },
+    {
+      "id": "P02",
+      "rendered_prompt_sha256": "d3151e1514638635a5ff58d224b24260dd135e66cc09bc57a8e519188c75c1b6",
+      "input_path": "examples/P02/input.json",
+      "expected_path": "examples/P02/expected.json"
+    },
+    {
+      "id": "P03",
+      "rendered_prompt_sha256": "66bc0c161353783b6491ae7983958412d02360288837dc41781a7d02b5f2ba97",
+      "input_path": "examples/P03/input.json",
+      "expected_path": "examples/P03/expected.json"
+    },
+    {
+      "id": "P04",
+      "rendered_prompt_sha256": "448467682be1820d711530e4be5b1aac9339a0bdcd50fccaf0ca6d368bf1233d",
+      "input_path": "examples/P04/input.json",
+      "expected_path": "examples/P04/expected.json"
+    },
+    {
+      "id": "P05",
+      "rendered_prompt_sha256": "e911e5af68ca265a31ae59392535b984e5bcb3df8e5235a4af025f87695f20e0",
+      "input_path": "examples/P05/input.json",
+      "expected_path": "examples/P05/expected.json"
+    },
+    {
+      "id": "P06",
+      "rendered_prompt_sha256": "b6b958a60b96416a3d85cefa160486c6a046e8e8126487e9051488efd3971c33",
+      "input_path": "examples/P06/input.json",
+      "expected_path": "examples/P06/expected.json"
+    },
+    {
+      "id": "P07",
+      "rendered_prompt_sha256": "380e5fd16aed4de5aeef641e58fc353a2df963d20e0dc02b7770c3f129df0dae",
+      "input_path": "examples/P07/input.json",
+      "expected_path": "examples/P07/expected.json"
+    },
+    {
+      "id": "P08",
+      "rendered_prompt_sha256": "439bf39676257a1334602577f033cb500a9b4f58ad9eb9ecc12508bcf9538bd6",
+      "input_path": "examples/P08/input.json",
+      "expected_path": "examples/P08/expected.json"
+    },
+    {
+      "id": "P09",
+      "rendered_prompt_sha256": "f55f1dd4c2ad66e1d0cdadee886fd982fe99eb9b75d157a8a7f7882025612a22",
+      "input_path": "examples/P09/input.json",
+      "expected_path": "examples/P09/expected.json"
+    },
+    {
+      "id": "P10",
+      "rendered_prompt_sha256": "8da28716ca06df89da18c368aacc2bdd3b88860f21a8b981c2c4ced977e96b43",
+      "input_path": "examples/P10/input.json",
+      "expected_path": "examples/P10/expected.json"
+    },
+    {
+      "id": "P11",
+      "rendered_prompt_sha256": "10364de6f3aaf21c7bfa5f524f43df8dd50f2374c56c2e1102f83cdb0f3b9bee",
+      "input_path": "examples/P11/input.json",
+      "expected_path": "examples/P11/expected.json"
+    },
+    {
+      "id": "P12",
+      "rendered_prompt_sha256": "b260caadca26af51f2adf2c03007c2a6ab881f2c11b00df9a6d063ccd2d61d62",
+      "input_path": "examples/P12/input.json",
+      "expected_path": "examples/P12/expected.json"
+    },
+    {
+      "id": "R01",
+      "rendered_prompt_sha256": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+      "input_path": "examples/R01/input.json",
+      "expected_path": "examples/R01/expected.json"
+    },
+    {
+      "id": "R02",
+      "rendered_prompt_sha256": "72876081a07e289c1fdbe4989f42bc322dc097f047a2c8a8fa797bd7b50f63ec",
+      "input_path": "examples/R02/input.json",
+      "expected_path": "examples/R02/expected.json"
+    },
+    {
+      "id": "R03",
+      "rendered_prompt_sha256": "ed1682621e373fedbe58d9cdd8315cee763a518a5f88e4b242670ed89fcbcaf0",
+      "input_path": "examples/R03/input.json",
+      "expected_path": "examples/R03/expected.json"
+    },
+    {
+      "id": "R04",
+      "rendered_prompt_sha256": "b6ad29a048716dc68dc6c208056a0b4997bcfca377c1f49ef878890854cc8001",
+      "input_path": "examples/R04/input.json",
+      "expected_path": "examples/R04/expected.json"
+    },
+    {
+      "id": "R05",
+      "rendered_prompt_sha256": "5fd7ecb7574cbf9276328a1b9fda749f49229ad05b1de5700748ba98e9744a0d",
+      "input_path": "examples/R05/input.json",
+      "expected_path": "examples/R05/expected.json"
+    },
+    {
+      "id": "R06",
+      "rendered_prompt_sha256": "98fbb96d4d72de57b539035107aa4fe64103bb81fe58aa6798a7c698e67ee395",
+      "input_path": "examples/R06/input.json",
+      "expected_path": "examples/R06/expected.json"
+    },
+    {
+      "id": "R07",
+      "rendered_prompt_sha256": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+      "input_path": "examples/R07/input.json",
+      "expected_path": "examples/R07/expected.json"
+    },
+    {
+      "id": "R08",
+      "rendered_prompt_sha256": "6cf80b753101b596e63abe9eecd1bd0446e1ddc5c60711c5262a26de65c297bb",
+      "input_path": "examples/R08/input.json",
+      "expected_path": "examples/R08/expected.json"
+    },
+    {
+      "id": "R09",
+      "rendered_prompt_sha256": "b80e085290bf6559cf9c254a2b6fc78ab12045e53a5e4c7bb48a103bada2d4ad",
+      "input_path": "examples/R09/input.json",
+      "expected_path": "examples/R09/expected.json"
+    },
+    {
+      "id": "R10",
+      "rendered_prompt_sha256": "55b49c31f62ad9f91b99af91b50366ba2ffd6aa2194f13be643816cd67b87d31",
+      "input_path": "examples/R10/input.json",
+      "expected_path": "examples/R10/expected.json"
+    }
+  ],
+  "review_revision": "1.1"
+}

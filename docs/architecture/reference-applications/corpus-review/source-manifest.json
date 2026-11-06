@@ -1,0 +1,367 @@
+{
+  "artifact_kind": "SYNTHETIC_CORPUS_REVIEW_SPEC_NOT_RUNTIME_INDEX",
+  "version": "corpus-review-v1-proposed",
+  "status": "PROPOSED_NOT_RATIFIED",
+  "text_convention": "UTF-8, NFC, LF, exact bytes; zero-based Unicode code-point offsets, end exclusive",
+  "dates": "No effective dates invented; records have explicit null intervals for this paper review",
+  "documents": [
+    {
+      "document_id": "doc-001",
+      "source_id": "src-001",
+      "source_version": "review-r1",
+      "title": "Purchasing approval conditions",
+      "domain": "procurement",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-001.txt",
+      "content_hash": "5e1a0e46a4df89a8e655d98e559ee814f6e59046848821f7016eb5125add0d3f",
+      "locator": {
+        "section": "Approval conditions",
+        "document_char_span": {
+          "start": 0,
+          "end": 583
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 583
+        }
+      ],
+      "preserve_phrases": [
+        "a request with A > T requires approval",
+        "When A <= T, this rule does not require approval",
+        "Urgency does not waive approval or supplier checks.",
+        "If T, C or the applicable policy version is unresolved"
+      ],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-002",
+      "source_id": "src-002",
+      "source_version": "review-r1",
+      "title": "Supplier eligibility",
+      "domain": "procurement",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-002.txt",
+      "content_hash": "9e0b3f630b9c89bf76968f1506b1b9cd54369130f012dc397cb563702881a33e",
+      "locator": {
+        "section": "Supplier checks",
+        "document_char_span": {
+          "start": 0,
+          "end": 361
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 361
+        }
+      ],
+      "preserve_phrases": [
+        "A NOT_APPROVED, UNKNOWN or missing supplier record stops the application",
+        "This requirement still applies to urgent requests."
+      ],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-003",
+      "source_id": "src-003",
+      "source_version": "review-r1",
+      "title": "Leave request guidance",
+      "domain": "hr",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-003.txt",
+      "content_hash": "a0ddf7a477906b28bd28172850effc10d9f4eb49d04f5767d2cdb8374bcd6139",
+      "locator": {
+        "section": "Notice and exceptions",
+        "document_char_span": {
+          "start": 0,
+          "end": 332
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 332
+        }
+      ],
+      "preserve_phrases": [
+        "planned leave requests should be submitted five working days",
+        "Unplanned emergency leave is exempt",
+        "does not establish approval of the leave"
+      ],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-004",
+      "source_id": "src-004",
+      "source_version": "review-r1",
+      "title": "Internal service maintenance",
+      "domain": "ops",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-004.txt",
+      "content_hash": "8feaf07a2f35e93979eff6e68cbc590aa6583884c3ec163f40d50101a6bedc5c",
+      "locator": {
+        "section": "Maintenance windows",
+        "document_char_span": {
+          "start": 0,
+          "end": 367
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 367
+        }
+      ],
+      "preserve_phrases": [
+        "routine service maintenance requires an approved maintenance window",
+        "only when the incident commander has authorized the exception",
+        "An urgent label by itself is not authorization."
+      ],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-005",
+      "source_id": "src-005",
+      "source_version": "review-r1",
+      "title": "Laptop support FAQ",
+      "domain": "faq",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-005.txt",
+      "content_hash": "c344443a4e1b819df01354913250b00965bdbd126b83e2b0b74063cbe0f9c384",
+      "locator": {
+        "section": "Request routing",
+        "document_char_span": {
+          "start": 0,
+          "end": 300
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 300
+        }
+      ],
+      "preserve_phrases": [
+        "submit a laptop support request through the internal service portal",
+        "does not authorize buying a replacement device"
+      ],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-006",
+      "source_id": "src-006",
+      "source_version": "review-r1",
+      "title": "Travel expense handbook",
+      "domain": "hr",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-006.txt",
+      "content_hash": "8ef5e2134a0ac1d9688f056a2581d416abae3372476597b056c35defaeb84dd7",
+      "locator": {
+        "section": "Receipt submission",
+        "document_char_span": {
+          "start": 0,
+          "end": 214
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 214
+        }
+      ],
+      "preserve_phrases": [],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-007",
+      "source_id": "src-007",
+      "source_version": "review-r1",
+      "title": "Travel expense guidance bulletin",
+      "domain": "hr",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-007.txt",
+      "content_hash": "18c8307a3fb42afe5e6cef04987ffae9c6d2465fdf99769eb9651bef5e1d6a2a",
+      "locator": {
+        "section": "Receipt submission",
+        "document_char_span": {
+          "start": 0,
+          "end": 218
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 218
+        }
+      ],
+      "preserve_phrases": [],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    },
+    {
+      "document_id": "doc-008",
+      "source_id": "src-008",
+      "source_version": "review-r1",
+      "title": "Visitor access FAQ",
+      "domain": "faq",
+      "language": "en",
+      "synthetic": true,
+      "visibility": "mvp_shared",
+      "corpus_scope": "synthetic-review",
+      "publication_status": "PUBLISHED",
+      "publication_status_note": "Assumed eligibility in a paper fixture only; no deployed publication",
+      "effective_from": null,
+      "effective_to": null,
+      "canonical_text_path": "documents/doc-008.txt",
+      "content_hash": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
+      "locator": {
+        "section": "Visitor requests",
+        "document_char_span": {
+          "start": 0,
+          "end": 266
+        }
+      },
+      "protected_units": [
+        {
+          "start": 0,
+          "end": 266
+        }
+      ],
+      "preserve_phrases": [],
+      "token_counts": null,
+      "token_count_status": "NOT_RUN; chunker and native-provider limits remain implementation checks"
+    }
+  ],
+  "snapshots": [
+    {
+      "snapshot_id": "corpus-review-s01",
+      "source_versions": [
+        {
+          "document_id": "doc-001",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-002",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-003",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-004",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-005",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-006",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-008",
+          "source_version": "review-r1"
+        }
+      ]
+    },
+    {
+      "snapshot_id": "corpus-review-s02",
+      "source_versions": [
+        {
+          "document_id": "doc-001",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-002",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-003",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-004",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-005",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-006",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-007",
+          "source_version": "review-r1"
+        },
+        {
+          "document_id": "doc-008",
+          "source_version": "review-r1"
+        }
+      ]
+    }
+  ],
+  "index_version": null,
+  "embedding_execution": "NOT_RUN",
+  "pgvector_availability": "Unconfirmed — conditional on environment verification"
+}

@@ -1,5 +1,31 @@
 # TrustOps AI — Week 1 Reference Application Contracts
 
+**Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
+
+**Reproducible review checks:** the [validation guide and packaged helpers](validation/README.md) provide repository/output arguments and exact commands for the paper fixtures, corpus/boundaries and existing prompt examples. These remain offline artifact checks; shared acceptance and runtime validation are pending.
+
+**2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
+
+**Owner closeout revision 0.13 — 2026-11-05.** References and offline validation refreshed after decision consolidation; shared acceptance remains PENDING.
+
+Start with [Week 1 owner closeout](week1-owner-closeout.md), the [latest v1.6 joint review](https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal), [20 focused decision requests](open-decisions.md#pending-decisions-and-exact-requests) and the [exact-file manifest](week1-review-manifest.json). R16-01–09 are the current review findings; disposition remains CHANGES REQUIRED. The [v1.5 review](schema-v1.5-review.md) and its row mapping are historical comparison evidence; the current v1.6 mapping is linked above; full schema acceptance remains pending. Provider ADR 0.9, tool contract 0.8, state contract 0.7, RAG contract 0.9, budget ADR 0.1 and prompt pack 1.1 remain proposed baselines. No live provider or application verification is claimed.
+
+**Historical Sprint 1 freeze-candidate label — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Earlier Week 2 review context — preserved
+
+The Week 1 contracts have been reviewed against the supplied proposal, sprint plan, repository architecture, Figures 1–5 and the available team drafts on `dev`. This revision preserves the application designs and adds actual draft-field mapping, concrete owner correction requests, four manual evidence fixtures, validation outcomes and an unsigned review matrix. It is a **review-ready freeze candidate**, not a completed freeze or permission to start production implementation.
+
+Repository inspection on 2026-11-01 found `main` at `3ef7da1f190cd5a22efdcd6798af59199924bac3` and the newer team documentation on `dev` at `72e7975384d5e8b32d1e0e68ff4742cce96fa336`. The local task branch is based on that `dev` commit, following CONTRIBUTING. No remote branch, PR, message or approval was created by this task.
+
+Start with the [Week 2 audit](audit.md), [27-row actual-schema mapping](trace-evidence-contract.md#week-2-mapping-to-mohabs-actual-draft), [manual fixture record](fixtures/README.md), [current decisions](open-decisions.md) and [acceptance](acceptance.md). The detailed Week 1 state/tool/RAG/scenario specifications remain the maintained contracts.
+
+**Results:** four manual application trajectories pass their stated conceptual checks. None is certified as a canonical Trace Schema v1 trace: Mohab's current document is a draft, its enum/field gaps remain, and no frozen executable trace model is present in `packages/contracts`. The fixtures are expressly paper evidence ledgers, not an alternative shared schema. JSON and referential checks do not establish runtime behavior or schema approval.
+
+**Retained decisions:** Google Gemini API, selected `gemini-3.8-flash`; explicit Python state machine and staged RAG pipeline. Orchestration is **APPROVED FOR SPRINT 2 IMPLEMENTATION** as the requested technical design disposition; overall S1-01 remains BLOCKED pending schema/policy/configuration alignment and named acceptance. No live provider, embedding, tool, SDK, API, evaluator or database execution was performed.
+
+## Revision history (preserved)
+
 Task S1-01 · Nour El-Rouby · 7 October 2026 · Revision 0.5
 
 **Status: review-complete draft; NOT frozen or team-approved.** Documentation only. This package is ready for the freeze review, but source conflicts, canonical-schema alignment and named sign-offs remain open. No production functionality, experimental result or runtime validation is claimed.
@@ -25,6 +51,8 @@ Revision 0.5 completes the detailed SC-01–SC-03 scenario specifications and pr
 9. [Cross-team handoffs](handoffs.md)
 10. [Open decisions](open-decisions.md)
 11. [Acceptance and Week 2 review](acceptance.md)
+
+The [Procurement and RAG prompt pack](prompt-pack.md) adds reusable template candidates, synthetic input/output examples, citation bindings and an offline review validator. It preserves the existing five-tool scope and pending contract gates; these assets are not live model results or canonical traces.
 
 ## Status vocabulary
 

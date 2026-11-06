@@ -1,0 +1,1 @@
+For this synthetic service-desk FAQ, submit a laptop support request through the internal service portal and include the device asset tag and a description of the fault. The support ticket does not authorize buying a replacement device; replacement purchases follow the purchasing approval workflow.

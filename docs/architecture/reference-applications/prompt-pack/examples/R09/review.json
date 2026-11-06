@@ -1,0 +1,10 @@
+{
+  "id": "R09",
+  "title": "Preserve exact Unicode citation offsets",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "The accented character and astral laptop symbol remain unchanged. Offsets count Unicode code points, not UTF-8 bytes or frontend UTF-16 units; no normalization is applied.",
+  "gate": null
+}

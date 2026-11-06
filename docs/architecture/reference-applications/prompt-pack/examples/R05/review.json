@@ -1,0 +1,10 @@
+{
+  "id": "R05",
+  "title": "Abstain on contradictory applicable documents",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Both fixtures are eligible/current for the same domain; no precedence exists in the provided evidence. Neither rank nor a guessed newer version resolves the conflict.",
+  "gate": null
+}

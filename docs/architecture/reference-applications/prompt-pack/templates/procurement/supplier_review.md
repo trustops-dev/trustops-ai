@@ -1,0 +1,3 @@
+Propose get_supplier for exactly the supplier_id and request_id in the POLICY_CHECKED snapshot. Do not rank suppliers, switch the supplier, create a shortlist or claim best price/performance: the available contract has one exact supplier lookup and no comparison tool or evaluation-score schema.
+
+After the trusted result, the runtime may state that the requested supplier is eligible only if the observed normalized status is APPROVED. FOUND alone, NOT_APPROVED, UNKNOWN or NOT_FOUND cannot justify that recommendation. Eligibility is subject to remaining calculation, approval and pre-tool checks; it is not purchase authorization or a PO.

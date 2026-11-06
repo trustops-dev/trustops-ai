@@ -1,0 +1,1085 @@
+{
+  "mapping_revision": "1.0",
+  "review_date": "2026-11-05",
+  "schema_document_version": "Draft v1.5",
+  "source_file": "updated_schemas_v5.md",
+  "source_sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+  "validator_version": "1.5.0",
+  "validator_filename": "validate_s1_01_schema_v1_4(1).py",
+  "validator_sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+  "latest_main_verified": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+  "original_requirement_file": "docs/architecture/reference-applications/trace-evidence-contract.md",
+  "original_requirement_file_sha256_before_mapping_update": "017c80798c0ba4fc56a5d039731f26e45f0d1477120cbbbc9ee83deb6f108a93",
+  "status_definitions": {
+    "OK": "Required structural evidence is concretely representable in the inspected v1.5 scope. Not runtime proof, semantic correctness of every example, policy approval or full schema acceptance.",
+    "CHANGE REQUIRED": "An existing reproduced V15 finding prevents reliable validation of this evidence relationship or rejects a supported case. Preserve intentionally failing traces; do not conflate business failure with ingestion rejection.",
+    "OPEN": "Some evidence is mapped, but an exact mapping convention, policy rule or interpretation still needs a named owner decision. Unassigned keys are not invented."
+  },
+  "status_counts": {
+    "OK": 5,
+    "OPEN": 7,
+    "CHANGE REQUIRED": 15
+  },
+  "path_notation": "a denotes attributes on the named event. Braced names list existing sibling keys. Optional/prose-only declarations are explicitly labelled. representative_field_checks are concrete JSON paths into the indicated fixture event/envelope, not complete coverage tests.",
+  "review_record": "schema-v1.5-review.md",
+  "reproduced_findings_record": "schema-v1.5-review-observations.json",
+  "requirements_changed": false,
+  "canonical_schema_changed": false,
+  "new_signoff": "NONE",
+  "runtime_verification": "NOT_RUN",
+  "full_schema_acceptance": "PENDING",
+  "rows": [
+    {
+      "id": "E01",
+      "application_step": "User request, both",
+      "minimum_evidence": "Raw request, normalized fields/query, revision, application identity, synthetic-data marker",
+      "status": "OK",
+      "v1_5_representation": "`application_id`, `application_type`; `request.{request_id,request_revision,user_query,structured_input,synthetic_data,session_metadata}`.",
+      "source_sections_and_walkthroughs": "§3.1; WT1–WT4 request envelopes.",
+      "assessment": "Request identity, raw query, normalized input container, revision and synthetic marker have concrete representations. Correctness of normalization is separately E08.",
+      "next_action_or_question": "Retain the envelope fields; do not infer approval or authorization from request/session data.",
+      "owners_and_reviewers": [
+        "Nour",
+        "Mohab"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": null,
+          "path": "request.request_revision"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "request.synthetic_data"
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "application_step": "Model call, both",
+      "minimum_evidence": "Prompt/template version, actual rendered input/context reference, selected provider, configured model identifier, returned model identifier/version when available, model/configuration version, generation parameters, model response/refusal/error, latency and token/usage metadata when available",
+      "status": "OPEN",
+      "v1_5_representation": "`model_call.a.{model_call_id,step_purpose,provider,model_id,prompt_template_id,selected_context_ref,rendered_prompt_or_messages,output_text,proposed_tool_calls,token_usage}`; event `timestamp`/`latency_ms`; `versions`, `metadata_availability`. §4.6 declares nullable `versions.returned_model_version`.",
+      "source_sections_and_walkthroughs": "§§3.2, 4.5–4.6; WT1 e29/e37, WT2 e3, WT4 e2.",
+      "assessment": "Normal model input/output and selected context are mapped. These examples do not establish the complete provider refusal/error representation, per-call effective-configuration exceptions or returned-version availability rules.",
+      "next_action_or_question": "Mohab/Alaa confirm the exact refusal/error and per-call configuration/missingness mapping; Nour checks it against the provider ADR. Do not add guessed provider keys or claim live compatibility.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Alaa",
+        "Nour"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-LLM-01",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e2",
+          "path": "attributes.rendered_prompt_or_messages"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e29",
+          "path": "attributes.selected_context_ref"
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "application_step": "Procurement policy retrieval",
+      "minimum_evidence": "Raw/effective query, filters/k, policy set and retriever versions",
+      "status": "OPEN",
+      "v1_5_representation": "`search_policy` `tool_call.a.arguments.{query,request_id,top_k}` plus optional `policy_ids` (§4.2.1); `tool_result.a.linked_retrieval_id` and `result_payload.data.{query,requested_top_k,returned_count,matches,policy_set_version,retriever_version,applicability}`; `retrieval.a.{retrieval_id,query_text,source_snapshot_id}`.",
+      "source_sections_and_walkthroughs": "§§4.2.1–4.2.2, 4.5; WT1 e2–e7; WT2 e1 is a partial prerequisite slice.",
+      "assessment": "Policy search/result linkage and versions are represented. The agreed raw/effective-query rule and complete trusted filter/applicability snapshot still need an explicit mapping; policy_ids alone must not imply all filters were recorded.",
+      "next_action_or_question": "Confirm where effective query and applied trusted filters (including an explicit no-filter case) are recorded or resolved from a versioned reference, without inventing new event keys.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e5",
+          "path": "attributes.arguments.query"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e7",
+          "path": "attributes.linked_retrieval_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e7",
+          "path": "attributes.result_payload.data.policy_set_version"
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "application_step": "RAG retrieval",
+      "minimum_evidence": "Query, effective query, k, filters, corpus/index/embedding/retriever configuration",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`retrieval.a.{retrieval_id,query_text,effective_query,retriever_type,source_snapshot_id,top_k_requested,retrieved_documents}`; `versions.{retriever_version,corpus_version,index_version,embedding_model_version,effective_config_ref,config_digest}`.",
+      "source_sections_and_walkthroughs": "§§4.5–4.6; WT4 e1 and versions; V15-06 empty_RAG_retrieval probe.",
+      "assessment": "Effective RAG query and source/index lineage are expressible, but the validator rejects an empty successful retrieval. The effective ACL/tenant/filter and embedding-dimension/configuration references also require agreed resolution.",
+      "next_action_or_question": "Permit empty successful retrieval and a separate technical-error path; agree the complete effective retrieval/filter configuration mapping. Keep pgvector availability conditional.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed",
+        "Alaa"
+      ],
+      "finding_ids": [
+        "V15-06"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-10",
+        "OD-RAG-01",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.effective_query"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "versions.index_version"
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "application_step": "Retrieved documents",
+      "minimum_evidence": "Full ordered returned list; document/source/chunk IDs, versions, text/snapshot, hashes and locators",
+      "status": "OK",
+      "v1_5_representation": "`retrieval.a.source_snapshot_id`; `retrieved_documents[].{doc_id,doc_version,chunk_id,source_locator,rank,content_snippet,content_hash,source_metadata,canonical_chunk_slice,canonical_chunk_char_span,formatting_prefix_applied,exact_selected_text}`.",
+      "source_sections_and_walkthroughs": "§§4.2.2.F, 4.5; WT1 e6, WT4 e1; v1.5 baseline source-hash/slice checks.",
+      "assessment": "Ordered source/chunk identities, version, exact retrieved text, hashes, locator and source-to-prompt formatting are concrete. Citation use of this evidence is still defective under E23.",
+      "next_action_or_question": "Retain exact source snapshots and span conventions. Retention/availability approval remains part of E26; no storage implementation is certified.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.retrieved_documents.0.content_hash"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.retrieved_documents.0.source_locator"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.retrieved_documents.0.canonical_chunk_char_span"
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "application_step": "Retrieval scores/ranks",
+      "minimum_evidence": "Raw finite score, metric kind/direction, returned rank, tie rule, returned count",
+      "status": "OPEN",
+      "v1_5_representation": "`retrieval.a.score_semantics.{metric_type,score_direction,score_availability}` and `retrieved_documents[].{rank,score}`; `metadata_availability.retriever_scores`; policy-search result `data.returned_count`.",
+      "source_sections_and_walkthroughs": "§4.5 and §8 E06; WT1 e6/e7, WT4 e1.",
+      "assessment": "Score kind/direction, availability and rank are represented. A tie-rule identity and the general RAG returned-count convention are not assigned a definitive path by this mapping.",
+      "next_action_or_question": "Ahmed/Alaa/Mohab confirm the tie rule, finite/null score handling and whether RAG returned_count is explicitly recorded or derived from the complete returned list; bind the rule to the retriever configuration.",
+      "owners_and_reviewers": [
+        "Ahmed",
+        "Alaa",
+        "Mohab",
+        "Nour"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.score_semantics.metric_type"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.retrieved_documents.0.rank"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e7",
+          "path": "attributes.result_payload.data.returned_count"
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "application_step": "Evidence selection",
+      "minimum_evidence": "Selected IDs/order/text spans, rejected IDs/reasons, sufficiency outcome, unresolved facets/conflicts, selection version",
+      "status": "OPEN",
+      "v1_5_representation": "`retrieved_documents[].{included_in_prompt,selection_or_exclusion_reason,prompt_context_order,canonical_chunk_char_span,exact_selected_text}`; `retrieval.a.evidence_sufficiency`; `model_call.a.selected_context_ref.{selected_chunk_ids,context_formatting_rule,rendered_context_block}`.",
+      "source_sections_and_walkthroughs": "§4.5; WT1 e6/e29 and WT4 e1/e2.",
+      "assessment": "Selection, exclusions, exact context, missing facets and conflicts are expressible. The selector/version reference and qualitative sufficiency rubric still require agreed interpretation. WT4 is an intentional unsupported-answer example, not a positive grounding fixture.",
+      "next_action_or_question": "Agree the selector/configuration version reference and Ahmed’s facet/conflict rubric. Preserve the separate citation-containment correction under E23; scores alone do not establish sufficiency.",
+      "owners_and_reviewers": [
+        "Nour",
+        "Ahmed",
+        "Mohab",
+        "Alaa"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-11",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.evidence_sufficiency.missing_or_unsupported_facets"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e2",
+          "path": "attributes.selected_context_ref.selected_chunk_ids"
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "application_step": "Request normalization",
+      "minimum_evidence": "Raw-to-normalized field links, validation details, amount/currency/request revision",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`request.{user_query,request_revision,structured_input}`; `tool_proposal.a.{raw_arguments_serialized,arguments_parse_status,proposed_arguments}`; `argument_validation.a.{target_proposal_id,normalized_arguments,validation_errors,arguments_digest}`.",
+      "source_sections_and_walkthroughs": "§§3.1, 4.2.2.A/B; WT1 request/e2/e3; V15-01 root_request_amount_mismatches_PO and V15-06 raw_arguments_malformed_but_validated.",
+      "assessment": "Decimal strings and raw/parsed/normalized containers are restored, but inconsistent root amount and malformed raw JSON can still be certified as valid. Tool normalization does not by itself establish the initial raw-request-to-normalized-field audit trail.",
+      "next_action_or_question": "Check actual root-request and normalized-argument consistency, parse raw JSON, and agree the initial normalization/clarification evidence linkage. Preserve invalid proposals as failure evidence.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed"
+      ],
+      "finding_ids": [
+        "V15-01",
+        "V15-06"
+      ],
+      "open_decision_ids": [
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": null,
+          "path": "request.structured_input.total_amount"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e3",
+          "path": "attributes.normalized_arguments"
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "application_step": "Agent state transition",
+      "minimum_evidence": "Previous/new state, reason, input/result references, transition attempted vs accepted, state revision",
+      "status": "OK",
+      "v1_5_representation": "`agent_state.a.{state_revision_id,from_app_state,to_app_state,app_state,transition_attempted,transition_accepted,transition_reason,bound_authorization_check_id,bound_dispatch_claim_id}`; event `parent_event_id`; root `last_app_state`.",
+      "source_sections_and_walkthroughs": "§4.1 and §4.2.2.D; WT1 e1/e8/e14/e20/e26/e28/e33/e36, WT3 e1/e5/e9.",
+      "assessment": "Fine-state transitions, accepted/attempted flags, revision and causal linkage are concrete; checked and dispatch revisions are separated. Source-evidence consistency and permission ratification remain E10–E18.",
+      "next_action_or_question": "Retain the corrected state representation and bound PO transition; do not treat this structural mapping as authorization or runtime concurrency proof.",
+      "owners_and_reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed",
+        "Malak"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e33",
+          "path": "attributes.bound_authorization_check_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e33",
+          "path": "attributes.state_revision_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e14",
+          "path": "parent_event_id"
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "application_step": "Workflow stage",
+      "minimum_evidence": "Coarse stage at proposal/check/dispatch, state-to-stage mapping version",
+      "status": "OPEN",
+      "v1_5_representation": "`agent_state.a.policy_stage`; `tool_proposal.a.policy_stage_at_proposal`; `policy_check.a.authorization_snapshot.checked_policy_stage`; `tool_call.a.policy_stage_at_dispatch`; `policy_bundle_version`.",
+      "source_sections_and_walkthroughs": "§4.1 state/allowlist table; §4.2.2; WT1 e30/e32/e34.",
+      "assessment": "Proposal/check/dispatch stages are explicit. Calculation permission, agreed coarse-stage aliases and the state-to-stage mapping-version identity remain unratified; policy_bundle_version is not silently assumed to identify all state-mapping semantics.",
+      "next_action_or_question": "Mohamed/Mohab/Nour ratify the allowlist and identify the authoritative version reference for the state/stage map, preserving the restricted PO transition.",
+      "owners_and_reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-02",
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e30",
+          "path": "attributes.policy_stage_at_proposal"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e32",
+          "path": "attributes.authorization_snapshot.checked_policy_stage"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e34",
+          "path": "attributes.policy_stage_at_dispatch"
+        }
+      ]
+    },
+    {
+      "id": "E11",
+      "application_step": "Supplier check",
+      "minimum_evidence": "Requested/returned ID, status, source/directory/record version, lookup outcome",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`get_supplier` `tool_call.a.arguments.supplier_id`; `tool_result.a.result_payload.data.{requested_supplier_id,supplier,directory_version}`; `supplier.{supplier_id,status,raw_status,record_version,source_ref,observed_at}`; snapshot `supplier_evidence_ref`.",
+      "source_sections_and_walkthroughs": "§§4.2.1, 4.4.1; WT1 e12/e13/e32; V15-01 supplier_not_approved_but_PO_dispatched.",
+      "assessment": "Source supplier data and normalized status are present, but changing the source result to NOT_APPROVED leaves later APPROVED snapshots passing.",
+      "next_action_or_question": "Resolve the actual supplier result and compare identity/status/version with the checked snapshot. Report contradictory evidence; do not certify the PO binding from a copied status.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "finding_ids": [
+        "V15-01"
+      ],
+      "open_decision_ids": [
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e13",
+          "path": "attributes.result_payload.data.supplier.status"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e32",
+          "path": "attributes.authorization_snapshot.supplier_evidence_ref"
+        }
+      ]
+    },
+    {
+      "id": "E12",
+      "application_step": "Approval calculation",
+      "minimum_evidence": "Amount/currency, configured rule basis, threshold/comparator/version, requirement/level or unresolved reason",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`calculate_approval_level` result `data.{calculation_ref,request_revision,approval_required,approval_level,policy_id,policy_version,basis}`; `basis.{amount,amount_currency,threshold,threshold_currency,comparator,rule_ref}`; snapshot `calculation_evidence_ref`.",
+      "source_sections_and_walkthroughs": "§§4.1, 4.2.1, 4.4.1; WT1 e18/e19/e20/e32; V15-01 root-request amount discrepancy.",
+      "assessment": "CALCULATED/UNRESOLVED shapes and unknown-before-calculation are restored. The source request amount can disagree with the calculation/PO chain without a finding; numeric policy and equality rules remain unratified.",
+      "next_action_or_question": "Compare calculation source, request revision, amount/currency, rule basis and copied evidence. Mohamed ratifies below/equal/above T and calculation permission; example amounts are not approved policy.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "finding_ids": [
+        "V15-01"
+      ],
+      "open_decision_ids": [
+        "OD-02",
+        "OD-03",
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e19",
+          "path": "attributes.result_payload.data.basis"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e20",
+          "path": "attributes.approval_required"
+        }
+      ]
+    },
+    {
+      "id": "E13",
+      "application_step": "Approval submission",
+      "minimum_evidence": "Request and approval-request IDs, calculation ref, required level, idempotency identity",
+      "status": "OPEN",
+      "v1_5_representation": "`request_approval` call `a.trusted_runtime_context.domain_context.operation_mode`, domain request/calculation/level/idempotency bindings; result `data.{approval_request_id,request_revision,calculation_ref,decision_status,approval_evidence,decision_ref,reason}`.",
+      "source_sections_and_walkthroughs": "§§4.1, 4.2.1, 4.7; WT1 e24/e25/e26; WT2 fixture_provenance declares prior submission.",
+      "assessment": "Submission identity and CREATE_APPROVAL_REQUEST versus OBSERVE_APPROVAL are represented. Initial-write replay/transport and trusted continuation acceptance remain open; a submission/ID does not itself grant approval.",
+      "next_action_or_question": "Ratify initial-submission replay/continuation and record the trusted decision-evidence source. Do not request confirmation of the already-closed observation/submission distinction again.",
+      "owners_and_reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-04",
+        "OD-05",
+        "OD-12"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e25",
+          "path": "attributes.result_payload.data.approval_request_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e25",
+          "path": "attributes.result_payload.data.calculation_ref"
+        }
+      ]
+    },
+    {
+      "id": "E14",
+      "application_step": "Approval observation",
+      "minimum_evidence": "Required/received flags, status, approval ID, actor/time/source, request/supplier/amount/currency/level/version binding",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`approval.a.{approval_id,approval_request_id,request_id,bound_calculation_ref,bound_request_revision,bound_supplier_id,bound_amount,bound_currency,approval_level,policy_version,approval_status,approver_id,approver_role,approval_timestamp,trusted_source}`; request_approval result `decision_ref` and snapshot `approval_evidence_ref`.",
+      "source_sections_and_walkthroughs": "§§4.1, 4.2.1, 4.4.1; WT1 e25/e27/e32; V15-01 approval_event_denied_but_snapshot_approved.",
+      "assessment": "Full binding fields and DENIED/CANCELLED are represented, but a DENIED source approval can coexist with a passing APPROVED snapshot. Validity, expiry/revocation and continuation decisions remain open.",
+      "next_action_or_question": "Compare the actual approval event/record and exact bindings; reject a claim of verified approval when evidence contradicts it. Preserve OD-APP-OBS-01 as CLOSED — SEMANTICS ONLY; adapter proof remains future work.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "finding_ids": [
+        "V15-01"
+      ],
+      "open_decision_ids": [
+        "OD-04",
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e27",
+          "path": "attributes.approval_status"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e27",
+          "path": "attributes.bound_request_revision"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e32",
+          "path": "attributes.authorization_snapshot.approval_evidence_ref"
+        }
+      ]
+    },
+    {
+      "id": "E15",
+      "application_step": "Tool proposal",
+      "minimum_evidence": "Exact proposed tool, tool catalog/schema version, model call ref, proposal identity",
+      "status": "OK",
+      "v1_5_representation": "`tool_proposal.a.{proposal_id,raw_proposed_tool_name,known_tool_name,app_state_at_proposal,policy_stage_at_proposal,is_risky_action}`; `parent_event_id` to generating model event when applicable; `versions.tool_schema_version` and linked `argument_validation.a.tool_schema_version`.",
+      "source_sections_and_walkthroughs": "§§3.2, 4.2.2.A/B; WT1 e29→e30→e31, WT2 e3→e4→e5.",
+      "assessment": "A proposal has its own identity and raw/known tool name before validation/dispatch. Model-produced proposals have an observed model-event parent; deterministic/manual proposals need no invented model call. Raw-argument correctness is separately E16.",
+      "next_action_or_question": "Retain proposal/validation/call separation and the actual parent/version linkage. An OK proposal mapping does not authorize execution.",
+      "owners_and_reviewers": [
+        "Nour",
+        "Mohab",
+        "Ahmed"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e30",
+          "path": "attributes.proposal_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e30",
+          "path": "parent_event_id"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e31",
+          "path": "attributes.tool_schema_version"
+        }
+      ]
+    },
+    {
+      "id": "E16",
+      "application_step": "Tool arguments",
+      "minimum_evidence": "Raw serialized arguments, parsed values, trusted runtime context separately, validation outcome/field errors",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`tool_proposal.a.{raw_arguments_serialized,arguments_parse_status,proposed_arguments,trusted_runtime_context}`; `argument_validation.a.{validation_id,target_proposal_id,validation_status,normalized_arguments,arguments_digest,validation_errors}`.",
+      "source_sections_and_walkthroughs": "§4.2.2.A/B; WT1 e2/e3; V15-06 raw_arguments_malformed_but_validated.",
+      "assessment": "Raw malformed/non-object inputs now have fields and statuses, but malformed raw JSON can still pass as PARSED_OBJECT/VALID.",
+      "next_action_or_question": "Parse the raw string, compare the parsed/normalized representation under explicit normalization rules and validate failure/null branches; retain malformed evidence without dispatch.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-06"
+      ],
+      "open_decision_ids": [
+        "OD-05"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e2",
+          "path": "attributes.raw_arguments_serialized"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e3",
+          "path": "attributes.validation_errors"
+        }
+      ]
+    },
+    {
+      "id": "E17",
+      "application_step": "Pre-execution policy request",
+      "minimum_evidence": "Proposal/tool, argument digest, request/state revision, stage, supplier/approval/calculation evidence refs, policy version",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`policy_check.a.{check_id,target_proposal_id,authorization_snapshot}`; snapshot request/proposal/validation/digest/state/policy/evidence fields and `dispatch_claim`; `tool_call.a.{checked_source_state_revision,dispatch_state_revision,dispatch_claim_id,runtime_binding_verification}`.",
+      "source_sections_and_walkthroughs": "§§4.2.2.D, 4.4.1; WT1 e32/e33/e34; V15-01 source-evidence and dispatch-claim probes.",
+      "assessment": "Snapshot completeness and atomic state-revision linkage improved. Actual evidence can contradict copied snapshot values, and snapshot claim identity can disagree with dispatch while validation passes.",
+      "next_action_or_question": "Resolve and compare source evidence and dispatch claim identity; never rely on model-written or copied verification flags. Keep authorization and single-dispatch agreement pending until scoped review.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "finding_ids": [
+        "V15-01"
+      ],
+      "open_decision_ids": [
+        "OD-04",
+        "OD-05",
+        "OD-12"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e32",
+          "path": "attributes.authorization_snapshot"
+        },
+        {
+          "walkthrough": "WT1",
+          "event_id": "e34",
+          "path": "attributes.dispatch_claim_id"
+        }
+      ]
+    },
+    {
+      "id": "E18",
+      "application_step": "Pre-execution policy result",
+      "minimum_evidence": "ALLOW/BLOCK, per-policy findings/reasons/version, referenced inputs; explicit timeout/error/missing result",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`policy_check.a.{check_id,check_mode,policy_bundle_version,evaluated_policies,action_verdict,verdict_basis}`; each policy includes `policy_id`, `policy_version`, `policy_result`, `binding_verification`, `observed_evidence`, `failure_or_error_reason`.",
+      "source_sections_and_walkthroughs": "§4.4.2; WT1 e32, WT2 e6; V15-01 missing_mandatory_policies_duplicate_IDs.",
+      "assessment": "PASS/FAIL/NOT_APPLICABLE/ERROR and ALLOW/BLOCK are representable, but three duplicate IDs can replace the required three-policy set without rejection.",
+      "next_action_or_question": "Enforce the required unique policy identities and the agreed verdict/basis/binding rules. Ratify technical-error/missing-result and procurement-only applicability handling with Mohamed.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-01"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-16"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e32",
+          "path": "attributes.evaluated_policies.0.policy_result"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": "e6",
+          "path": "attributes.action_verdict"
+        }
+      ]
+    },
+    {
+      "id": "E19",
+      "application_step": "Dispatch suppression",
+      "minimum_evidence": "NOT_EXECUTED, execution_started=false, blocking/check-error reference, reason",
+      "status": "OK",
+      "v1_5_representation": "`tool_suppression.a.{suppression_id,target_proposal_id,validation_id,suppression_source,blocking_check_id,blocking_policy_ids,suppression_reason,execution_started,tool_dispatched,side_effect_state}`.",
+      "source_sections_and_walkthroughs": "§4.2.2.C; WT2 e6→e7→e8, with no PO invocation/result.",
+      "assessment": "Suppression is a separate runtime record with false execution/dispatch flags and NONE effect. Pre-validation stops and policy-check failure sources are defined without inventing a tool-body result.",
+      "next_action_or_question": "Retain the suppression representation and absent invocation/result. Final false claims remain separately observable under E21.",
+      "owners_and_reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed",
+        "Malak"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT2",
+          "event_id": "e7",
+          "path": "attributes.execution_started"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": "e7",
+          "path": "attributes.blocking_check_id"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": "e7",
+          "path": "attributes.tool_dispatched"
+        }
+      ]
+    },
+    {
+      "id": "E20",
+      "application_step": "Tool invocation/result",
+      "minimum_evidence": "Invocation identity, proposal/check refs, start/end, mock marker, idempotency key, outcome/result/error, PO ID only if confirmed",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`tool_call.a.{call_id,proposal_id,validation_id,authorization_check_id,arguments,arguments_digest,trusted_runtime_context,dispatch_claim_id}`; `tool_result.a.{result_id,call_id,execution_status,side_effect_state,result_payload,transport_diagnostics}`; event timing; PO data `mock`, `idempotency_key`, `result_ref`.",
+      "source_sections_and_walkthroughs": "§4.2.1 and §4.2.2.D/E; WT1 e34/e35, WT3 e6/e7; V15-02 duplicate-terminal-result and unknown-timeout probes; V15-03 counters.",
+      "assessment": "Business/execution/effect states and original-result references are explicit. Duplicate terminal results, unknown effects relabelled NONE and inconsistent accounting still pass.",
+      "next_action_or_question": "Enforce one terminal result per call, compatible outcomes, exact call/result identity and truthful budget accounting; reconciliation must be a separate observation.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-02",
+        "V15-03"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-12"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e35",
+          "path": "attributes.result_payload.data.result_ref"
+        },
+        {
+          "walkthrough": "WT3",
+          "event_id": "e7",
+          "path": "attributes.side_effect_state"
+        }
+      ]
+    },
+    {
+      "id": "E21",
+      "application_step": "Final response, Procurement",
+      "minimum_evidence": "Exact raw generated text and delivered text, which was shown, final app outcome/state, supporting successful action references or reason for no action",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`final_response.a.{generating_model_call_id,raw_model_candidate_text,delivered_response_text,response_text,runtime_modification_status,runtime_correction_or_suppression_reason,response_mode,claimed_actions}`; action `supporting_call_id`, `supporting_result_id`, `supporting_recovery_id`.",
+      "source_sections_and_walkthroughs": "§4.5.5; WT1 e37/e38, WT2 e8, WT3 e10; V15-02 invocation/result/recovery consistency.",
+      "assessment": "Candidate/delivered output and supporting references are restored. Mere reference existence is insufficient while duplicate terminal outcomes or unrelated recovery identity can pass; claimed success must match the same action.",
+      "next_action_or_question": "Resolve exact supporting call/result/recovery relationships and preserve both unsupported candidate claims and corrected delivery. Ahmed’s post-run support signal must not be accepted from model-written content.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Ahmed",
+        "Nour",
+        "Malak"
+      ],
+      "finding_ids": [
+        "V15-02"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-09"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT1",
+          "event_id": "e38",
+          "path": "attributes.claimed_actions.0.supporting_result_id"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": "e8",
+          "path": "attributes.raw_model_candidate_text"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": "e8",
+          "path": "attributes.delivered_response_text"
+        }
+      ]
+    },
+    {
+      "id": "E22",
+      "application_step": "Grounded answer, RAG",
+      "minimum_evidence": "Candidate and final text, exact generation context, claim IDs/text/answer spans",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`model_call.a.{model_call_id,selected_context_ref,rendered_prompt_or_messages,output_text}`; `final_response.a.{generating_model_call_id,raw_model_candidate_text,delivered_response_text,claim_to_source_spans}`; claim `claim_id`, `claim_text`, `response_char_span`.",
+      "source_sections_and_walkthroughs": "§4.5; WT4 e2/e3; V15-05 citation_quote_outside_selected_slice.",
+      "assessment": "Candidate, delivery and claim spans can be captured, but final support can still be marked supplied when the quotation is outside the generating call’s selected text. WT4 intentionally demonstrates a bad answer.",
+      "next_action_or_question": "Link answer support to the exact generating context and preserve failure evidence; review a separate positive grounded-RAG canonical fixture. Semantic support remains Ahmed’s review, not a structural-PASS claim.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-05"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-11"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e3",
+          "path": "attributes.generating_model_call_id"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e3",
+          "path": "attributes.claim_to_source_spans.0.response_char_span"
+        }
+      ]
+    },
+    {
+      "id": "E23",
+      "application_step": "Citations",
+      "minimum_evidence": "Claim→retrieved source/chunk/version/span→visible marker; validation findings; selected-context membership",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`final_response.a.visible_citations[].{citation_id,visible_citation_label,cited_doc_id,cited_doc_version,cited_chunk_id,present_in_selected_context}`; `claim_to_source_spans[].{linked_citation_ids,source_evidence_spans}`; source `retrieval_id`, `doc_id`, `chunk_id`, `source_text_basis`, `source_char_span`, `source_quote`, `in_supplied_prompt_context`.",
+      "source_sections_and_walkthroughs": "§4.5; WT4 e1/e2/e3; V15-05 wrong-version and outside-selected-slice probes.",
+      "assessment": "Citation/claim/source fields exist, but visible version v999 and a quote outside the supplied selected slice pass. Chunk membership alone does not prove passage containment or entailment.",
+      "next_action_or_question": "Validate exact retrieval/document/chunk/version, nonnegative in-bounds spans, selected-slice containment and recomputed membership flags. Keep structural validity separate from semantic support.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-05"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-11"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e3",
+          "path": "attributes.visible_citations.0.cited_doc_version"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e3",
+          "path": "attributes.claim_to_source_spans.0.source_evidence_spans.0.source_char_span"
+        }
+      ]
+    },
+    {
+      "id": "E24",
+      "application_step": "Abstention",
+      "minimum_evidence": "Reason, missing facets/conflicts, available/selected evidence, last stage, delivery text",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "`retrieval.a.evidence_sufficiency.{sufficiency_status,missing_or_unsupported_facets,unresolved_conflicts}`; `final_response.a.{response_mode,is_abstention,abstention_details,delivered_response_text}`; §4.5 declares `abstention_details.abstention_reason_code`; root `last_rag_stage`, `execution_status`.",
+      "source_sections_and_walkthroughs": "§§3.1, 4.5.2/4; WT4 e1/e3 expose insufficiency and non-abstention; V15-06 empty_RAG_retrieval.",
+      "assessment": "Abstention reason enums are defined, but the supplied validator rejects zero-document retrieval. WT4 is not a successful abstention example, and the existing active-stage probe does not validate a full abstention trajectory.",
+      "next_action_or_question": "Allow empty success, add/review a complete canonical abstention fixture with honest reasons and final stage, and keep technical ERROR distinct. Do not claim the app-generated abstention ran.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ],
+      "finding_ids": [
+        "V15-06"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-11"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.evidence_sufficiency.sufficiency_status"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e3",
+          "path": "attributes.abstention_details"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "last_rag_stage"
+        }
+      ]
+    },
+    {
+      "id": "E25",
+      "application_step": "Technical failure/cancel/pending",
+      "minimum_evidence": "Stage, known/unknown outcome, error category, retry/replay/continuation references",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "Root `execution_status`, `last_app_state`, `last_rag_stage`, `is_partial_walkthrough`, `fixture_provenance`, `execution_budget_telemetry`; `tool_result.a.transport_diagnostics`; `recovery_check.a.{recovery_of_call_id,recovery_of_result_id,queried_idempotency_key,queried_business_payload_sha256,reconciliation_status,resolved_side_effect_state,unresolved_reason_code,recovered_result_envelope}`; documented §4.7 retry metadata.",
+      "source_sections_and_walkthroughs": "§§3.1, 4.3, 4.7; WT2 waiting/prerequisites and WT3 e7/e8/e9/e10; V15-02/03/06.",
+      "assessment": "Waiting, cancellation, unknown outcomes and read-only recovery are expressible. Recovery key/digest mismatch, budget inconsistency and the documented retry-field rejection remain unresolved.",
+      "next_action_or_question": "Bind recovery to original evidence without redispatch; correct counter/fencing and retry-field rules; preserve partial/cancelled traces and the last reached state. Numeric budgets and continuation authority remain unratified.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour",
+        "Ahmed",
+        "Alaa"
+      ],
+      "finding_ids": [
+        "V15-02",
+        "V15-03",
+        "V15-06"
+      ],
+      "open_decision_ids": [
+        "OD-04",
+        "OD-05",
+        "OD-12"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT3",
+          "event_id": "e8",
+          "path": "attributes.queried_idempotency_key"
+        },
+        {
+          "walkthrough": "WT3",
+          "event_id": "e8",
+          "path": "attributes.unresolved_reason_code"
+        },
+        {
+          "walkthrough": "WT2",
+          "event_id": null,
+          "path": "fixture_provenance"
+        }
+      ]
+    },
+    {
+      "id": "E26",
+      "application_step": "Run/version provenance",
+      "minimum_evidence": "Provider, exact configured model identifier and available version, application, prompt, model/config, retriever, corpus/index, tools, policy, scenario/config references",
+      "status": "OPEN",
+      "v1_5_representation": "`versions.{provider,configured_model_id,application_version,prompt_version,retriever_version,corpus_version,index_version,embedding_model_version,policy_kb_version,policy_bundle_version,tool_schema_version,sdk_version,effective_config_ref,config_digest}`; §4.6 declares `returned_model_version`, `chunker_version`; root `ingestion_mode`, `metadata_availability`, `fixture_provenance`/`replay_provenance`.",
+      "source_sections_and_walkthroughs": "§§3.1, 4.6; WT1/WT4 versions and availability records; §8 WG-06 pending review.",
+      "assessment": "Version/configuration containers and explicit missingness are represented. Immutable configuration resolution, code/source lineage, returned-value availability and retention/redaction conventions remain unaccepted. Fixture strings and hashes do not establish real deployed versions.",
+      "next_action_or_question": "Alaa/Mohab confirm exact configuration and code/source reference resolution plus null/unavailable/redacted semantics. Record requested versus observed values; never infer API entitlement or measurements from illustrative metadata.",
+      "owners_and_reviewers": [
+        "Alaa",
+        "Mohab",
+        "Nour"
+      ],
+      "finding_ids": [],
+      "open_decision_ids": [
+        "OD-13",
+        "OD-LLM-01",
+        "OD-LLM-02"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "versions.effective_config_ref"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "versions.config_digest"
+        },
+        {
+          "walkthrough": "WT3",
+          "event_id": null,
+          "path": "metadata_availability.token_usage.status"
+        }
+      ]
+    },
+    {
+      "id": "E27",
+      "application_step": "Controlled scenario association",
+      "minimum_evidence": "Opaque scenario/version/run reference; independent label/cause/recipe records kept outside runtime inference input",
+      "status": "CHANGE REQUIRED",
+      "v1_5_representation": "Root `scenario_metadata` and scenario/recipe/ground-truth references; §4.6.4 excludes labels/qrels/recipes, poisoned-document flags, fixture expectations, label-bearing IDs and post-run analysis from inference projections.",
+      "source_sections_and_walkthroughs": "§§3.1, 4.6.4; WT1/WT4 scenario_metadata; V15-04 known_relevant_document_legitimately_retrieved.",
+      "assessment": "Projection exclusions are specified, but the validator rejects a legitimate retrieved document ID merely because it also appears in expected-relevant metadata. An identifier overlap is not proof of leakage.",
+      "next_action_or_question": "Validate provenance/projection boundaries and opaque association IDs; test both legitimate source/sidecar overlap and actual label/recipe leakage. Ahmed/Alaa retain ground-truth ownership.",
+      "owners_and_reviewers": [
+        "Mohab",
+        "Alaa",
+        "Ahmed",
+        "Nour"
+      ],
+      "finding_ids": [
+        "V15-04"
+      ],
+      "open_decision_ids": [
+        "OD-05",
+        "OD-13"
+      ],
+      "representative_field_checks": [
+        {
+          "walkthrough": "WT4",
+          "event_id": null,
+          "path": "scenario_metadata.expected_relevant_doc_ids"
+        },
+        {
+          "walkthrough": "WT4",
+          "event_id": "e1",
+          "path": "attributes.retrieved_documents.0.source_metadata.is_poisoned_test_doc"
+        }
+      ]
+    }
+  ],
+  "working_group_summary": [
+    {
+      "id": "WG-01",
+      "status": "OPEN",
+      "evidence_ids": [
+        "E09",
+        "E10",
+        "E25"
+      ],
+      "remaining": "Fine-state representation restored; stage-map/permission/run-outcome interpretation still needs joint acceptance."
+    },
+    {
+      "id": "WG-02",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E17",
+        "E18"
+      ],
+      "remaining": "V15-01 source-backed authorization, unique policies and claim identity."
+    },
+    {
+      "id": "WG-03",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E08",
+        "E11",
+        "E12",
+        "E13",
+        "E14"
+      ],
+      "remaining": "V15-01/06 source/binding and normalization checks; policy validity/continuation decisions pending; observation semantics confirmed."
+    },
+    {
+      "id": "WG-04",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E19",
+        "E20",
+        "E25"
+      ],
+      "remaining": "Suppression representation restored; V15-02/03/06 terminal outcome/recovery/budget/retry validation remains."
+    },
+    {
+      "id": "WG-05",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E03",
+        "E04",
+        "E05",
+        "E06",
+        "E07",
+        "E22",
+        "E23",
+        "E24"
+      ],
+      "remaining": "Sources/context represented; V15-05/06 citation/empty-retrieval defects plus explicit retrieval/sufficiency mapping decisions."
+    },
+    {
+      "id": "WG-06",
+      "status": "OPEN",
+      "evidence_ids": [
+        "E02",
+        "E26"
+      ],
+      "remaining": "Version/configuration resolution, missingness and immutable lineage conventions need Alaa/Mohab confirmation."
+    },
+    {
+      "id": "WG-07",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E27"
+      ],
+      "remaining": "V15-04 provenance-aware inference isolation; approved projections pending."
+    },
+    {
+      "id": "WG-08",
+      "status": "CHANGE REQUIRED",
+      "evidence_ids": [
+        "E02",
+        "E15",
+        "E16",
+        "E21",
+        "E22",
+        "E23"
+      ],
+      "remaining": "Proposal/delivery separation restored; V15-02/05/06 raw argument and exact supporting evidence checks remain."
+    }
+  ],
+  "shared_limits": [
+    "V15-07 regression packaging applies across all rows; no row count closes that finding.",
+    "WT2 and WT3 are declared partial; omitted prerequisites are not newly observed events.",
+    "WT4 is an intentional unsupported-answer fixture, not a demonstrated grounded answer or valid abstention.",
+    "OD-APP-OBS-01 remains CLOSED — SEMANTICS ONLY; adapter, validity and continuation verification remain separate."
+  ]
+}
