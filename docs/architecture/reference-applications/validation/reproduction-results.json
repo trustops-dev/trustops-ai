@@ -893,7 +893,7 @@
     "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
     "email_sent_status": "USER_REPORTED_SENT",
     "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
-    "specialist_acceptance": "PENDING",
+    "specialist_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SIGNOFFS_PENDING",
     "runtime_verification": "PENDING",
     "email_sent_date": "2026-11-06",
     "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
@@ -901,8 +901,10 @@
     "email_subject": null,
     "email_message_references": [],
     "email_independently_verified": false,
-    "email_reply_status": "AWAITING_REPLIES",
-    "teammate_acceptance": "PENDING"
+    "email_reply_status": "PARTIAL_RESPONSE_RECEIVED_ALAA",
+    "teammate_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+    "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED"
   },
   "publication_refresh": {
     "date": "2026-11-06",
@@ -918,5 +920,33 @@
     },
     "external_schema_suite": "HISTORICAL_NOT_RERUN",
     "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
+  },
+  "owner_review_responses": [
+    {
+      "record_id": "ALAA-REVIEW-479CAB0-01",
+      "reviewer": "Alaa",
+      "recorded_on": "2026-11-06",
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "source_status": "USER_SUPPLIED_REVIEW_TEXT",
+      "email_date": null,
+      "email_message_reference": null,
+      "status": "RESPONSE_RECEIVED_PARTIAL_CONDITIONAL",
+      "full_specialist_signoff": false,
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED",
+      "record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "structured_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
+      "base_commit": "283fe866e3a2332409e179445a9f62c8cb876728"
+    }
+  ],
+  "alaa_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+    "scope": "User-supplied Alaa scoped response, decision/handoff/acceptance records and affected offline owner checks; no contract behavior or canonical schema changes.",
+    "manual_checks": 861,
+    "corpus_boundary_checks": 311,
+    "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
   }
 }

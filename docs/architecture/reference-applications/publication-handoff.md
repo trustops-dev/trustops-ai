@@ -15,11 +15,11 @@ Recorded on 2026-11-06 for Nour's owner packet revision 0.14.
 | Email-sent confirmation | `USER_REPORTED_SENT` on 2026-11-06 |
 | Sender and recipients | Nour reports sending emails to teammates; individual names and addresses unspecified |
 | Email subject and message references | Unspecified |
-| Reply status | `AWAITING_REPLIES` as of the user confirmation |
+| Reply status | `PARTIAL_RESPONSE_RECEIVED`: Alaa scoped response to 479cab0 recorded; other specialist responses/acceptance remain pending |
 
 The published packet commit identifies the initial GitHub publication. Later publication-record and hash refresh commits are recorded in this branch's Git history. This record's own commit is resolved from Git rather than embedding a self-referential commit hash.
 
-On 2026-11-06, Nour reported, “I sent emails for teammate now, and i don't have replay until this time”. This is a user-reported email-sent confirmation with replies pending. The date follows the user's “now” statement in the Africa/Cairo session. The assistant has no independent sent-message or delivery evidence. No teammate reply or acceptance is recorded.
+On 2026-11-06, Nour reported, “I sent emails for teammate now, and i don't have replay until this time”. This was a user-reported email-sent confirmation with replies pending at that time. The date follows the user's “now” statement in the Africa/Cairo session. The assistant has no independent sent-message or delivery evidence. That was the earlier outreach status. Nour has since supplied Alaa’s reply text; [the scoped review record](reviews/alaa-479cab0-review.md) now records partial/conditional acceptance against 479cab0. The email date, subject, sender address and message reference were not supplied. No full specialist or joint acceptance is inferred.
 
 The older branch, local commit, pending-publication fields and preparation metadata in the packet manifest and reports describe the **pre-publication snapshot**. Historical validation reports remain dated evidence for their original revisions. Current publication facts are recorded here and in the manifest's `current_publication` section. Fresh validation for this record is stored separately in [the publication refresh report](validation/publication-refresh.json).
 

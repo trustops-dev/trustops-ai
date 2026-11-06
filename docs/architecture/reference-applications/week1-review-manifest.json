@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-week1-owner-review-2026-11-06-status-cleanup-0.14",
+  "packet_id": "nour-owner-review-2026-11-06-alaa-response-0.1",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-06",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-owner-review",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
   "commit_push_pr": "BASE_LOCAL_COMMIT_b5633a9; OD03_OD04_AND_V16_MAPPING_UNCOMMITTED; NO_REMOTE_PUBLICATION",
-  "approval_status": "FULL_SPECIALIST_SIGNOFFS_PENDING; OD-APP-OBS-01_SEMANTICS_CONFIRMED_USER_REPORTED",
+  "approval_status": "ALAA_SCOPED_RESPONSE_RECEIVED_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING; OD-APP-OBS-01_SEMANTICS_CONFIRMED",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -127,14 +127,14 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "8504f88ad59889c2acaa56bc7ad6ba85c7dc8c7c181e98238e9565253dea79b9",
-      "size_bytes": 9309,
+      "sha256": "06c12e75fdc4cb461dbe43c087cae286dc2f14a44e11b41391e6c7c69340830a",
+      "size_bytes": 9684,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "f6fd2777fdd747c61463845fef9d1dea8ab557ea7107296a745409bb3a4c95ef",
-      "size_bytes": 12563,
+      "sha256": "cca2ef772f8ca1f62f991e1008ddd2d7aeb25ad6200b5e9250b5fe6dc5bfdaba",
+      "size_bytes": 13052,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -269,8 +269,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "a1304402f847b69a6345c5ed787309220a945f37fa01bc9c9246d6baca352f04",
-      "size_bytes": 22411,
+      "sha256": "678fc7ae7d2dcccfa3702878cef58a7d77b9ec2aa2fb75ec6f6467d5faa2eefd",
+      "size_bytes": 23329,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -281,8 +281,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "6b645660b7ed667b4910bbe7a89976e8bcdfa421fa856aa95e78d0532096c39e",
-      "size_bytes": 20326,
+      "sha256": "e1c0c8d47f1e2650803a249c4e185e78791f19145c2c51aebe0327beae365299",
+      "size_bytes": 22826,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -874,6 +874,11 @@
       "size_bytes": 17830
     },
     {
+      "path": "docs/architecture/reference-applications/publication-handoff.md",
+      "sha256": "91a3e202692e14872e0f47c94cb2b52617eb7de68c04adaf02c16543c5a18b3a",
+      "size_bytes": 3449
+    },
+    {
       "path": "docs/architecture/reference-applications/rag-contract.md",
       "sha256": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
       "size_bytes": 56059,
@@ -884,6 +889,16 @@
       "sha256": "6a34b41af6c38f376883d5822b768b6902bc4d4db287a0cafaa42f9a6ab64658",
       "size_bytes": 7248,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "sha256": "ebbb98f49cc1000f44e555afcb1686eb7784fba5c11b26a0cd3753d7bbd07ce8",
+      "size_bytes": 16282
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "sha256": "30a5cdd1f739617e332a9b41483c2aeb0248b6f5acaaee7dfba4608f5ce7a798",
+      "size_bytes": 13870
     },
     {
       "path": "docs/architecture/reference-applications/schema-v1.1-review.md",
@@ -950,14 +965,24 @@
       "size_bytes": 10835
     },
     {
+      "path": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+      "sha256": "b74374f7d7453e737fb412874fb0d871434719a12d6078578e00762dc6f8253c",
+      "size_bytes": 32879
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
       "sha256": "44d6732572ae3ec6189bcc1d885a420f1c9253bdd014e9fb43824548f0d96aa3",
       "size_bytes": 101495
     },
     {
+      "path": "docs/architecture/reference-applications/validation/publication-refresh.json",
+      "sha256": "7a03bbaf6b07f89341885303425d62dd1b593a523fa64a8a7a0b4846b68b6a8c",
+      "size_bytes": 151303
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "e3d6543dc3d8f4d26de156861bf871bc9c47db07c1a9d007f2a1f5d2d817bf9f",
-      "size_bytes": 31404
+      "sha256": "69f34a89ccab6cc749d2094f7d00c673a152195ef4441f00609814b6df1114e2",
+      "size_bytes": 33063
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -981,24 +1006,14 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "295303e57a84d1561af08e77e2c7f5954a4b856f43bc5727c97e8af4c1950d4c",
-      "size_bytes": 15683,
+      "sha256": "c0fc3054f84c537c9ae56284192366199fb0271a9bf69165d8a584b743b1fdb5",
+      "size_bytes": 16058,
       "document_revision": "0.14"
     },
     {
       "path": "docs/operations/workflow-activation.md",
       "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
       "size_bytes": 12656
-    },
-    {
-      "path": "docs/architecture/reference-applications/publication-handoff.md",
-      "sha256": "2dc3baeed6c3fc4061f82f6aff0eac6a42f3bceb219f82362547035e250e0419",
-      "size_bytes": 3068
-    },
-    {
-      "path": "docs/architecture/reference-applications/validation/publication-refresh.json",
-      "sha256": "7a03bbaf6b07f89341885303425d62dd1b593a523fa64a8a7a0b4846b68b6a8c",
-      "size_bytes": 151303
     }
   ],
   "revision_reference_cleanup": {
@@ -1277,7 +1292,7 @@
     "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
     "email_sent_status": "USER_REPORTED_SENT",
     "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
-    "specialist_acceptance": "PENDING",
+    "specialist_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SIGNOFFS_PENDING",
     "runtime_verification": "PENDING",
     "email_sent_date": "2026-11-06",
     "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
@@ -1285,8 +1300,10 @@
     "email_subject": null,
     "email_message_references": [],
     "email_independently_verified": false,
-    "email_reply_status": "AWAITING_REPLIES",
-    "teammate_acceptance": "PENDING"
+    "email_reply_status": "PARTIAL_RESPONSE_RECEIVED_ALAA",
+    "teammate_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+    "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED"
   },
   "publication_refresh": {
     "date": "2026-11-06",
@@ -1302,5 +1319,33 @@
     },
     "external_schema_suite": "HISTORICAL_NOT_RERUN",
     "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
+  },
+  "owner_review_responses": [
+    {
+      "record_id": "ALAA-REVIEW-479CAB0-01",
+      "reviewer": "Alaa",
+      "recorded_on": "2026-11-06",
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "source_status": "USER_SUPPLIED_REVIEW_TEXT",
+      "email_date": null,
+      "email_message_reference": null,
+      "status": "RESPONSE_RECEIVED_PARTIAL_CONDITIONAL",
+      "full_specialist_signoff": false,
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED",
+      "record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "structured_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
+      "base_commit": "283fe866e3a2332409e179445a9f62c8cb876728"
+    }
+  ],
+  "alaa_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+    "scope": "User-supplied Alaa scoped response, decision/handoff/acceptance records and affected offline owner checks; no contract behavior or canonical schema changes.",
+    "manual_checks": 861,
+    "corpus_boundary_checks": 311,
+    "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
   }
 }

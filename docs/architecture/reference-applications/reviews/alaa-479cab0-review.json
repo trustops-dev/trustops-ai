@@ -1,0 +1,302 @@
+{
+  "record_id": "ALAA-REVIEW-479CAB0-01",
+  "record_revision": "0.1",
+  "recorded_on": "2026-11-06",
+  "recorded_on_timezone": "Africa/Cairo",
+  "reviewer": "Alaa",
+  "source": "Email reply text supplied by Nour in this conversation; no email headers or mailbox message were provided.",
+  "source_status": "USER_SUPPLIED_REVIEW_TEXT",
+  "email_date": null,
+  "email_message_reference": null,
+  "email_subject": null,
+  "email_sender_address": null,
+  "email_metadata_status": "NOT_PROVIDED; recorded_on is the documentation date, not an inferred email date.",
+  "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+  "reviewed_commit_url": "https://github.com/trustops-dev/trustops-ai/commit/479cab00c021db7a58b826b46a653c3e2308b798",
+  "editing_base_commit": "283fe866e3a2332409e179445a9f62c8cb876728",
+  "review_scope": "Reproducibility, dataset lineage, inference projection, embedding identity and workload accounting.",
+  "overall_specialist_status": "RESPONSE_RECEIVED_PARTIAL_CONDITIONAL",
+  "full_specialist_signoff": false,
+  "joint_acceptance": false,
+  "runtime_verification": "NOT_CLAIMED",
+  "contract_freeze": "PENDING",
+  "source_file_index_note": "Relevant file revisions/hashes resolved from the reviewed commit for traceability; not a claim that Alaa individually signed every indexed file. Scope and conditions in the response govern acceptance.",
+  "reviewed_file_index": [
+    {
+      "path": "docs/adr/reference-application-orchestration-and-llm.md",
+      "revision_label": "0.9",
+      "sha256": "1493e2115ffa87e8548ca4adc3b49f57b376b2a1dd638ae644b82a8b56d964da",
+      "size_bytes": 62372
+    },
+    {
+      "path": "docs/adr/application-execution-budgets.md",
+      "revision_label": "0.1",
+      "sha256": "05534790755d6f15b54586724af36e61ac1b66e6ca11b99654f8401967a60af6",
+      "size_bytes": 50963
+    },
+    {
+      "path": "docs/architecture/reference-applications/rag-contract.md",
+      "revision_label": "0.9",
+      "sha256": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
+      "size_bytes": 56059
+    },
+    {
+      "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
+      "revision_label": "original baseline 0.6; current v1.6 mapping addendum",
+      "sha256": "6b79c3796f5940a2bcd3eea353232220b6e844224f61368109af318fe8ce2761",
+      "size_bytes": 54577
+    },
+    {
+      "path": "docs/architecture/reference-applications/failure-planning-matrix.md",
+      "revision_label": "0.6 baseline with later schedule addenda",
+      "sha256": "bb07ac7cb96ca5d1e9ead3c7496e689bbf029d84fc42843b38039dc3324a0ae9",
+      "size_bytes": 38016
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.json",
+      "revision_label": "1.0",
+      "sha256": "4f76c2fc9e853b9ddf5ab586fafad28260f78fe4cd8df18fc32114815a8fb295",
+      "size_bytes": 72616
+    },
+    {
+      "path": "docs/architecture/reference-applications/open-decisions.md",
+      "revision_label": "2026-11-05 consolidation with 2026-11-06 additions",
+      "sha256": "6b645660b7ed667b4910bbe7a89976e8bcdfa421fa856aa95e78d0532096c39e",
+      "size_bytes": 20326
+    },
+    {
+      "path": "docs/architecture/reference-applications/handoffs.md",
+      "revision_label": "2026-11-05 consolidation with 2026-11-06 additions",
+      "sha256": "a1304402f847b69a6345c5ed787309220a945f37fa01bc9c9246d6baca352f04",
+      "size_bytes": 22411
+    },
+    {
+      "path": "docs/architecture/reference-applications/week1-review-manifest.json",
+      "revision_label": "owner packet status-cleanup 0.14",
+      "sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6",
+      "size_bytes": 57388
+    }
+  ],
+  "items": [
+    {
+      "review_item": "ALA-01",
+      "decision_ids": [
+        "OD-13"
+      ],
+      "email_disposition": "ACCEPT, subject to explicit conventions",
+      "recorded_disposition": "ACCEPT_WITH_CONDITIONS",
+      "accepted_scope_or_position": "Separate requested configuration, credential-free serialized provider request and observed provider metadata; reference immutable versioned app/prompt/provider-model/retriever/embedding/corpus-index/scenario artifacts. Requested values are not observed values without provider evidence.",
+      "remaining_condition": "Explicit versioned reference-resolution and requested/serialized/observed conventions; unavailable observed metadata stays explicitly unavailable.",
+      "condition_owners": [
+        "Alaa: lineage conventions",
+        "Mohab: serialization and retention",
+        "Nour: application provenance"
+      ],
+      "closure_evidence": "Versioned convention and example provenance records.",
+      "verification_scope": "Design convention; runtime emission verification later.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-02",
+      "decision_ids": [
+        "OD-13"
+      ],
+      "email_disposition": "AMEND / JOINT AGREEMENT REQUIRED",
+      "recorded_disposition": "AMEND_JOINT_AGREEMENT_REQUIRED",
+      "accepted_scope_or_position": "Keep exact-file SHA-256 distinct from runtime JSON canonicalization. Proposed meanings: missing = absent field; null = present null; unavailable = could not obtain; not_applicable = does not apply; redacted = intentionally withheld.",
+      "remaining_condition": "Jointly define runtime serialization, digest inputs, Unicode handling, numeric representation and retention/redaction rules.",
+      "condition_owners": [
+        "Alaa",
+        "Mohab"
+      ],
+      "closure_evidence": "Deterministic digest vectors covering key order, Unicode, numeric representation and missing versus null; retention/redaction table.",
+      "verification_scope": "Joint design agreement and offline vector verification; no convention implemented here.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-03",
+      "decision_ids": [
+        "OD-13",
+        "OD-05"
+      ],
+      "email_disposition": "ACCEPT WITH A REQUIRED PROJECTION CORRECTION",
+      "recorded_disposition": "ACCEPT_WITH_REQUIRED_CORRECTION",
+      "accepted_scope_or_position": "Exclude evaluation-only labels, injected causes, recipes, qrels, poisoned-document flags, fixture expectations and ground-truth sidecars. Preserve actual retrieved document IDs despite overlap with evaluation metadata.",
+      "remaining_condition": "Correct R16-05 projection enforcement and distinguish runtime retrieval provenance from evaluation-only expected references.",
+      "condition_owners": [
+        "Alaa: requirements",
+        "Mohab: serialization/schema enforcement",
+        "Ahmed: evaluation-side validation",
+        "Nour: application provenance"
+      ],
+      "closure_evidence": "Positive/negative cases: injected cause/evaluation-only fields excluded; legitimate retrieved IDs retained; expected IDs supplied only through evaluation metadata excluded.",
+      "verification_scope": "Projection design and correction tests; runtime integration proof still pending.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-04",
+      "decision_ids": [
+        "OD-LLM-01"
+      ],
+      "email_disposition": "ACCEPT THE PROPOSED PROFILE; ACCESS AND COMPATIBILITY REMAIN PENDING",
+      "recorded_disposition": "CANDIDATE_ACCEPTED_BY_ALAA",
+      "accepted_scope_or_position": "Pinned generation profile accepted as a reproducibility candidate; requested settings, documented capabilities, actual access and executed checks remain separate.",
+      "remaining_condition": "Provider/SDK/API and interface compatibility still require evidence and the relevant shared review.",
+      "condition_owners": [
+        "Nour",
+        "Alaa",
+        "Mohab: compatibility/interface verification"
+      ],
+      "closure_evidence": "Pinned configuration and scoped compatibility/interface results when executed.",
+      "verification_scope": "Candidate design only; no live compatibility verified.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-05",
+      "decision_ids": [
+        "OD-LLM-02"
+      ],
+      "email_disposition": "ACCESS AND COMPATIBILITY REMAIN PENDING",
+      "recorded_disposition": "PENDING",
+      "accepted_scope_or_position": "No project access, quota, billing or live compatibility confirmation was given.",
+      "remaining_condition": "Identify the API project owner and supply quota and budget/workload assessment before workload generation.",
+      "condition_owners": [
+        "Nour: project/access information and workload proposal",
+        "Alaa: workload/quota review",
+        "Mohab: relevant compatibility/interface evidence"
+      ],
+      "closure_evidence": "Non-secret project/environment/owner confirmation, applicable quotas and budget/workload assessment.",
+      "verification_scope": "Access/workload evidence pending; no live check performed by this record.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-06",
+      "decision_ids": [
+        "OD-RAG-01"
+      ],
+      "email_disposition": "ACCEPT AS A CANDIDATE, NOT AS A FROZEN INDEX CONFIGURATION",
+      "recorded_disposition": "CANDIDATE_ACCEPTED_BY_ALAA",
+      "accepted_scope_or_position": "gemini-embedding-001, 768 dimensions, retrieval task types and client L2 normalization accepted for candidate evaluation. Model/dimensions/task/preprocessing/normalization changes create a new embedding configuration and corresponding index version; incompatible vectors must not mix.",
+      "remaining_condition": "Complete embedding integration and configuration/index identity, compatibility and evaluation evidence before freezing.",
+      "condition_owners": [
+        "Nour: embedding integration",
+        "Mohab: storage compatibility",
+        "Alaa and Ahmed: lineage/evaluation implications"
+      ],
+      "closure_evidence": "Immutable embedding/index configuration identities and integration/compatibility/evaluation evidence when executed.",
+      "verification_scope": "Candidate design only; no frozen index or measured quality claimed.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-07",
+      "decision_ids": [
+        "OD-10"
+      ],
+      "email_disposition": "Storage/index availability remains subject to Mohab environment verification",
+      "recorded_disposition": "PENDING_ENVIRONMENT_VERIFICATION",
+      "accepted_scope_or_position": "Candidate acceptance does not confirm pgvector or an accepted storage/index implementation.",
+      "remaining_condition": "Mohab verifies the target environment and storage compatibility; resolve accepted backend/index choice.",
+      "condition_owners": [
+        "Mohab: environment/storage",
+        "Nour: retrieval integration",
+        "Alaa and Ahmed: relevant lineage/evaluation implications"
+      ],
+      "closure_evidence": "Environment verification output and accepted storage/index configuration.",
+      "verification_scope": "Environment/design evidence pending; not run here.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-08",
+      "decision_ids": [
+        "OD-12-BUDGET"
+      ],
+      "email_disposition": "AMEND / CONDITIONAL ACCEPTANCE",
+      "recorded_disposition": "AMEND_CONDITIONAL_ACCEPTANCE",
+      "accepted_scope_or_position": "Support root-scoped accounting, shared parallel counters, no reset across retries/restarts/resumes, logical-operation versus attempt accounting, same-root retry debits, parallel reservations, root/profile identity on resume, durable counters/leases/checkpoints and fail-closed behavior if accounting is unavailable.",
+      "remaining_condition": "Numeric limits remain proposed until workload assumptions and actual provider quotas are reviewed; implementation contract must preserve the stated accounting requirements.",
+      "condition_owners": [
+        "Nour: application configuration",
+        "Mohab: ledger/persistence",
+        "Alaa: workload/experiment review",
+        "Mohamed: purchasing boundaries"
+      ],
+      "closure_evidence": "Row-level numeric disposition, quota/workload assessment and ledger/reservation/resume/exhaustion contract; later accounting-unavailable and concurrency/restart tests.",
+      "verification_scope": "Design conditions and workload review now; runtime ledger verification later.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-09",
+      "decision_ids": [
+        "OD-08"
+      ],
+      "email_disposition": "ACCEPT THE GROUPING PRINCIPLE; PLAN APPROVAL PENDING",
+      "recorded_disposition": "GROUPING_PRINCIPLE_ACCEPTED_SCHEDULE_PENDING",
+      "accepted_scope_or_position": "Group scenario family/template/recipe variants/controls before split assignment. Post-freeze recipe admission requires versioned dataset/split impact review.",
+      "remaining_condition": "Schedule and capacity require the designated plan owner; dataset/split conventions and admission evidence remain to be finalized.",
+      "condition_owners": [
+        "Alaa: grouping/split review",
+        "Nour: scenario provenance and coordination",
+        "Ahmed: relevant scenario/evaluation review",
+        "Designated plan owner: schedule/capacity"
+      ],
+      "closure_evidence": "Grouping and split/admission convention plus named plan-owner schedule/capacity disposition.",
+      "verification_scope": "Design/schedule decision; no dataset split or schedule amendment executed.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-10",
+      "decision_ids": [
+        "OD-09"
+      ],
+      "email_disposition": "PENDING JOINT MAPPING",
+      "recorded_disposition": "PENDING_JOINT_MAPPING",
+      "accepted_scope_or_position": "Support independent labels and distinct prevented, realized, definitively no-effect and unknown outcomes.",
+      "remaining_condition": "Ahmed/Mohamed agree exact label precedence and policy outcome interpretation before Alaa finalizes dataset and GD-26 gate mapping.",
+      "condition_owners": [
+        "Ahmed: label precedence",
+        "Mohamed: policy outcome interpretation",
+        "Alaa: dataset/gate mapping"
+      ],
+      "closure_evidence": "Joint outcome/precedence examples and versioned GD-26 mapping; any scope extension retains its existing plan-approval gate.",
+      "verification_scope": "Joint design mapping only; not completed here.",
+      "condition_status": "OPEN",
+      "evidence_executed_by_this_record": false
+    },
+    {
+      "review_item": "ALA-11",
+      "decision_ids": [
+        "OD-15"
+      ],
+      "email_disposition": "OD-15 remains deferred pending measured baselines",
+      "recorded_disposition": "DEFERRED_PRESERVED",
+      "accepted_scope_or_position": "No numeric reliability or regression thresholds proposed.",
+      "remaining_condition": "Retain deferral until measured baselines and the existing designated stage.",
+      "condition_owners": [
+        "Ahmed",
+        "Mohamed",
+        "Alaa"
+      ],
+      "closure_evidence": "Measured baseline evidence and later versioned threshold proposal at the existing OD-15 stage.",
+      "verification_scope": "Existing deferral retained; no new Week 1/2 threshold task.",
+      "condition_status": "DEFERRED",
+      "evidence_executed_by_this_record": false
+    }
+  ],
+  "preserved_gates": [
+    "OD-03 and OD-04 joint acceptance remain pending and were not granted in this reply.",
+    "OD-APP-OBS-01 semantics remain confirmed; validity, continuation and adapter proof stay separate.",
+    "E01–E27 status remains 9 OK / 9 CHANGE REQUIRED / 9 OPEN; 16 independent unmet expectations remain.",
+    "OD-14 receives a scoped Alaa response, not an unconditional specialist signature or shared freeze.",
+    "Other owner responses are not inferred from this email."
+  ],
+  "recording_task_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED"
+}
