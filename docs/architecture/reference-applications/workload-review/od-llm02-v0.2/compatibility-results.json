@@ -1,0 +1,41 @@
+{
+  "status": "NOT_RUN",
+  "prepared_on": "2026-11-07",
+  "provider_requests_sent": 0,
+  "blockers": [
+    "Exposed credential replacement unconfirmed; no private replacement credential available in this execution environment.",
+    "SDK transport/retry/endpoint and quota headroom require verification before dispatch."
+  ],
+  "tests": [
+    {
+      "id": "G01",
+      "status": "NOT_RUN",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "G02",
+      "status": "NOT_RUN",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "G03",
+      "status": "NOT_RUN",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "E01",
+      "status": "NOT_RUN",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "E02",
+      "status": "NOT_RUN",
+      "attempts": 0,
+      "result": null
+    }
+  ]
+}

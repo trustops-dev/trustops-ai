@@ -127,8 +127,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "d9ea934edf4653f6502f71e9fb3b9e3f2db7818555070f9f47f8f938819c98a6",
-      "size_bytes": 10092,
+      "sha256": "1d5b716579176221ca47347831a7b78dc90f365e8fd5aa67c4428f68e55045cd",
+      "size_bytes": 10883,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -269,8 +269,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "06d802b36e1eedc829543f78172b82ee4056c7abe2b4d04879281e0bcb872d76",
-      "size_bytes": 24324,
+      "sha256": "7222405ec68162cc70a052498101db1e494cada6dcdc3ede741240a8d4535784",
+      "size_bytes": 25115,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -281,8 +281,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "2fc0152f4501d133aabb17231245497edb72c73f714c74f53609dfc708a12ac3",
-      "size_bytes": 23126,
+      "sha256": "2970bcfde95862286d07e3069eea0d9b76ef310934d293c7c512e84b0fe12ae4",
+      "size_bytes": 23917,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -961,8 +961,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/README.md",
-      "sha256": "1b46fcb20d231e9bead6ec01c017682f83707e6ce2effd586f81a06d890ab36d",
-      "size_bytes": 10835
+      "sha256": "3b5f317e71ee1f633361d0174f47c578d96851922343deba96150d7638d4e987",
+      "size_bytes": 11541
     },
     {
       "path": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
@@ -981,8 +981,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "f8570e500580e703d85c586d7b9f0676ca9767c321a08e680d6e99f949d027fa",
-      "size_bytes": 34854
+      "sha256": "7c2e98f010443a41cf957a91b29757a707f1c1ad93e76870dc346d5269a71b21",
+      "size_bytes": 35588
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -996,8 +996,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_manual_fixtures.py",
-      "sha256": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2",
-      "size_bytes": 20931
+      "sha256": "d7b27575e4969fe310263e317cc0fc618d20cc5ef54c8f0210cc1af8b48cba12",
+      "size_bytes": 21146
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_v16_mapping.py",
@@ -1011,21 +1011,21 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "b0f45335d7059705aa84390b3caea54f406dee52897cfed63b0d199650a56806",
-      "size_bytes": 16466,
+      "sha256": "6f1bde307be1508d636c479fabedb94d2181fab5312a4b0c1876ad8eafb96c7e",
+      "size_bytes": 17257,
       "document_revision": "0.14"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
       "document_revision": "0.1",
-      "sha256": "2639e35a21f223d397e8620f145a5a670cf3db103612ae6174748feffe39226a",
-      "size_bytes": 16515
+      "sha256": "9e8011a7717c7bc0b956ff94e9358473c50803b4f3be5eb8d6ac71e4cffb91e9",
+      "size_bytes": 16999
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
       "document_revision": "0.1",
-      "sha256": "2445bd706124db5464e39d5fceb68bbadc6f33a2f7576750d8074044dcbe0218",
-      "size_bytes": 2623
+      "sha256": "a3d4d07687eb932b62579145db3983fd27330c3f99663277d99fee02cb33c472",
+      "size_bytes": 8678
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
@@ -1060,6 +1060,76 @@
       "path": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
       "sha256": "5714adc27b81e387b71cf281cea947462864cd0662bbe1c69f9ad542a8d8a78f",
       "size_bytes": 2213
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/README.md",
+      "sha256": "6d3f47db90d96bda3fa946d9fd6740200e48d9d497aa1e870c82d5c714e7c281",
+      "size_bytes": 7305
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-results.json",
+      "sha256": "e7b7b170b71c0ce769740ddcc7a582dd8d8a2735330a902e2b060946a0a63f18",
+      "size_bytes": 849
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-tests.md",
+      "sha256": "f009f571874f5f09b0e026ebb4f6c725d4eee0d9b47d8aef4fd4a04f435ee595",
+      "size_bytes": 7342
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
+      "sha256": "3e3374716deaa0cdffb83255420fd2cf25a7ba6509cfaf9f9101235b0f44954b",
+      "size_bytes": 757
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+      "sha256": "511668426779146b813229e5768a0096e497cfae9dd24dd3f7b0cde88ea1058f",
+      "size_bytes": 3007
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/workload-candidate.json",
+      "sha256": "784d163ae117fef2583d5dc6faf238e4977b5a3e9aca8cf623d2d8ed9bdbd715",
+      "size_bytes": 3334
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/README.md",
+      "sha256": "534190c1ba297ab68b3388fd5f415a6e54e4d87378fb653d7ddeb53f67019ecf",
+      "size_bytes": 9406
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/candidate.json",
+      "sha256": "f5032195eccce1e30b92254ca0d1aa4f509631baf59d6f3c7e0ac71216cef000",
+      "size_bytes": 2049
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/offline-validation.json",
+      "sha256": "7e168cd1f3a02a9cfac9899d1d756afb877c7e75770dead939a55fa07ecfaa5f",
+      "size_bytes": 1408
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/references.json",
+      "sha256": "edeaca969d5fa43243e19ee78402956d37c0ed60b734cce69ebd793fe9612448",
+      "size_bytes": 622
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/results.json",
+      "sha256": "5f9ec0a4ffba4bd38090f49884340f9abbba60e1c6a9e84ec8a92dfe70c9c2ff",
+      "size_bytes": 1300
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/review-cases.json",
+      "sha256": "fff61962819e697471020dd9325c163955dd73b0a9b2d7b8288c716365ebe682",
+      "size_bytes": 3258
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py",
+      "sha256": "828c2c77dceaaa42583163c9b030edc262dd44e2d9b971aa7fe3212244858fd3",
+      "size_bytes": 3695
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json",
+      "sha256": "288094543c9be4235199a3ee51a497a28f06168a5d90147d6aee6aea92a7f93d",
+      "size_bytes": 4261
     }
   ],
   "revision_reference_cleanup": {
@@ -1429,5 +1499,20 @@
     "corpus_checks": 316,
     "arithmetic_boundary_checks": 13,
     "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
+  },
+  "flash_lite_integration": {
+    "date": "2026-11-07",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "python": "3.12.15",
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "manual_fixture_link_checks": 881,
+    "optional_git_checks": 3,
+    "manual_total": 884,
+    "corpus_boundary_checks": 324,
+    "provider_calls": 0,
+    "scope": "Fresh offline integration checks; packaged offline reports remain preparation evidence. Candidate 0.3 is not activated; compatibility and regression results remain NOT_RUN.",
+    "formatting": "Two new helpers formatted with Ruff 0.17.0; lint and format checks pass.",
+    "report": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json"
   }
 }

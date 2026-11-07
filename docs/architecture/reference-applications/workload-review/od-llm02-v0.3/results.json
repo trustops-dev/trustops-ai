@@ -1,0 +1,77 @@
+{
+  "status": "NOT_RUN",
+  "provider_requests_sent": 0,
+  "reason": "Replacement credential and authorized private execution environment are unavailable; schema/fixture mapping and SDK/accounting verification remain pending.",
+  "primary_model_switched": false,
+  "specialist_acceptance": false,
+  "tests": [
+    {
+      "id": "G01",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G02",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G03",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "E01",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "E02",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P01",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P02",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P03",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P04",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P05",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "P06",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R01",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R02",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R03",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R04",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R05",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "R06",
+      "status": "NOT_RUN"
+    }
+  ]
+}

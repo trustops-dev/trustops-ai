@@ -984,5 +984,20 @@
     "corpus_checks": 316,
     "arithmetic_boundary_checks": 13,
     "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
+  },
+  "flash_lite_integration": {
+    "date": "2026-11-07",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "python": "3.12.15",
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "manual_fixture_link_checks": 881,
+    "optional_git_checks": 3,
+    "manual_total": 884,
+    "corpus_boundary_checks": 324,
+    "provider_calls": 0,
+    "scope": "Fresh offline integration checks; packaged offline reports remain preparation evidence. Candidate 0.3 is not activated; compatibility and regression results remain NOT_RUN.",
+    "formatting": "Two new helpers formatted with Ruff 0.17.0; lint and format checks pass.",
+    "report": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json"
   }
 }

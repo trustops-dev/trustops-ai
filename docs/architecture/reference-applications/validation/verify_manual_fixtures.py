@@ -392,6 +392,8 @@ def validate(root, include_git_checks=False):
             "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py",
             "docs/architecture/reference-applications/validation/verify_v16_mapping.py",
             "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
+            "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+            "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py",
         }
         check(
             all(

@@ -1,0 +1,16 @@
+{
+  "official_documentation": [
+    {
+      "url": "https://aistudio.google.com/docs/models/gemini-3.5-flash-lite",
+      "retrieved_on": "2026-11-07",
+      "sha256": "99e65942e858db4d043892ab14a06a2690ff523eed9ea272ab56aa19b1c3dd04"
+    },
+    {
+      "url": "https://aistudio.google.com/docs/thinking",
+      "retrieved_on": "2026-11-07",
+      "sha256": "cd37209705d99ba9bdde9fded72b416d3749e9915fc2f25b204d801a6cc541f9"
+    }
+  ],
+  "account_limits_source": "User-supplied image(5).png received 2026-11-07; exact capture time not supplied.",
+  "scope": "Documentation and screenshot evidence; no model executions."
+}

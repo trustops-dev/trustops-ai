@@ -1,0 +1,76 @@
+{
+  "version": "0.3",
+  "status": "CANDIDATE_NOT_ACTIVATED",
+  "prepared_on": "2026-11-07",
+  "baseline_commit": "6f9d99ee37e8e976fbaf6ca20337c4571c196f67",
+  "current_proposed_primary": "gemini-3.8-flash",
+  "candidate_primary": "gemini-3.5-flash-lite",
+  "candidate_live_execution_enabled": false,
+  "automatic_fallback": false,
+  "automatic_routing": false,
+  "authorized_paid_spend_usd": 0,
+  "sdk_candidate": "google-genai==2.34.0",
+  "api_candidate": "Gemini Developer API / Interactions v1beta",
+  "embedding_candidate": "gemini-embedding-001",
+  "embedding_dimensions": 768,
+  "observed_candidate_limits": {
+    "rpm": 15,
+    "input_tpm": 250000,
+    "rpd": 500
+  },
+  "observed_baseline_limits": {
+    "rpm": 5,
+    "input_tpm": 250000,
+    "rpd": 20
+  },
+  "pilot_limits": {
+    "in_flight": 1,
+    "all_http_attempts_per_rolling_minute": 2,
+    "generation_input_tpm": 125000,
+    "embedding_input_tpm": 15000,
+    "embedding_daily_attempts": 200
+  },
+  "root_reservations": {
+    "procurement": {
+      "generation": 12,
+      "preflight": 8
+    },
+    "rag": {
+      "generation": 2,
+      "preflight": 1,
+      "embedding": 2
+    }
+  },
+  "profiles": [
+    {
+      "id": "candidate_smoke_day",
+      "procurement_roots": 0,
+      "rag_roots": 0,
+      "extra_generation_attempts": 5,
+      "extra_preflights": 3,
+      "generation_reserve": 2,
+      "embedding_attempts": 4
+    },
+    {
+      "id": "candidate_regression_day",
+      "procurement_roots": 12,
+      "rag_roots": 12,
+      "extra_generation_attempts": 0,
+      "extra_preflights": 0,
+      "generation_reserve": 20,
+      "embedding_attempts": 24
+    },
+    {
+      "id": "candidate_development_day",
+      "procurement_roots": 10,
+      "rag_roots": 20,
+      "extra_generation_attempts": 0,
+      "extra_preflights": 0,
+      "generation_reserve": 20,
+      "embedding_attempts": 40
+    }
+  ],
+  "promotion_status": "PENDING_COMPATIBILITY_APPLICATION_REGRESSION_AND_SCOPED_REVIEW",
+  "key_replacement_status": "UNCONFIRMED",
+  "quota_headroom_status": "UNCONFIRMED"
+}

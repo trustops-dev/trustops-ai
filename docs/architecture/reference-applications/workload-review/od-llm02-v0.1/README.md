@@ -1,3 +1,7 @@
+> **New alternative under review:** [Flash Lite candidate 0.3](../od-llm02-v0.3/README.md). It is not activated. Candidate 0.2 remains the proposed Flash 3.8 free-only baseline until promotion evidence exists.
+
+> **Current free-only proposal: [candidate 0.2](../od-llm02-v0.2/README.md).** Nour requires USD 0 paid usage. The USD 10 proposal and workload volumes below are historical and are not authorized for the observed free-tier quota. Historical calculations remain unchanged.
+
 # API ownership, quotas and workload candidate — OD-LLM-02 / OD-12-BUDGET
 
 Version **0.1**, prepared **2026-11-06** against PR #27 commit `d07d23338090e1106bdf55645643daa6fb62eb1c`. **PROPOSED; NOT AUTHORIZED FOR LIVE EXECUTION.** This is Nour’s workload/access preparation in response to Alaa review items ALA-04/05/06/07/08. It does not close the account, numeric-budget or compatibility gates.
