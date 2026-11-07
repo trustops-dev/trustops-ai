@@ -192,3 +192,9 @@ Provide the [three specifications and schedule proposal](failure-planning-matrix
 ## v1.6 mapping handoff — 2026-11-06
 
 Nour has completed the current row assessment. Mohab should use [the detailed mapping](schema-v1.6-evidence-mapping.md) and exact input hashes to correct E09, E13, E14, E17, E18, E20, E21, E25 and E27. Return corrected schema, validator, runner, fixtures and targeted positive/negative results. The nine OPEN rows name the responsible reviewers and exact questions; do not treat them as confirmed defects. Mohamed reviews approval/policy semantics and R16-07/08 with Mohab; Ahmed reviews evidence/failure meaning; Alaa reviews configuration/projection lineage. Nour reassesses the returned revision. OD-03 and OD-04 preparation remain complete but unaccepted, and OD-APP-OBS-01 semantics remain closed.
+
+## Workload/access follow-up to Alaa — prepared, not sent
+
+**Workload proposal prepared — 2026-11-06:** [API ownership and workload candidate 0.1](workload-review/od-llm02-v0.1/README.md) supplies execution/call/token/retry/concurrency estimates and public-price token subtotals. Actual API project/access/billing owner, account quotas and applicable charges remain unconfirmed. ALA-05/ALA-08 and OD-LLM-02/OD-12-BUDGET stay open; no live execution is authorized.
+
+Nour has prepared the estimate and explicit unknown-owner/access record. Next, obtain the actual owner/admin and project/tier/quota evidence, then ask Alaa to ACCEPT/AMEND the assumptions and allocation. Mohab confirms preflight/usage/embedding-admission and storage/accounting interfaces; Mohamed retains purchasing-boundary review. Candidate preparation is complete; account identification and execution readiness are not. Do not reopen Alaa’s accepted design principles or mark his conditions closed from this estimate.

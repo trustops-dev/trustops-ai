@@ -1,5 +1,5 @@
 {
-  "packet_id": "nour-owner-review-2026-11-06-alaa-response-0.1",
+  "packet_id": "nour-owner-review-2026-11-06-workload-candidate-0.1",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-06",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
@@ -127,8 +127,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "06c12e75fdc4cb461dbe43c087cae286dc2f14a44e11b41391e6c7c69340830a",
-      "size_bytes": 9684,
+      "sha256": "d9ea934edf4653f6502f71e9fb3b9e3f2db7818555070f9f47f8f938819c98a6",
+      "size_bytes": 10092,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -269,8 +269,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "678fc7ae7d2dcccfa3702878cef58a7d77b9ec2aa2fb75ec6f6467d5faa2eefd",
-      "size_bytes": 23329,
+      "sha256": "06d802b36e1eedc829543f78172b82ee4056c7abe2b4d04879281e0bcb872d76",
+      "size_bytes": 24324,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -281,8 +281,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "e1c0c8d47f1e2650803a249c4e185e78791f19145c2c51aebe0327beae365299",
-      "size_bytes": 22826,
+      "sha256": "2fc0152f4501d133aabb17231245497edb72c73f714c74f53609dfc708a12ac3",
+      "size_bytes": 23126,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -981,8 +981,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "69f34a89ccab6cc749d2094f7d00c673a152195ef4441f00609814b6df1114e2",
-      "size_bytes": 33063
+      "sha256": "f8570e500580e703d85c586d7b9f0676ca9767c321a08e680d6e99f949d027fa",
+      "size_bytes": 34854
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -996,8 +996,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_manual_fixtures.py",
-      "sha256": "b81fd5ea4c7318895d1d756a3fc320e3aa9a0c5fd304e11ce7849c0261a61aca",
-      "size_bytes": 20823
+      "sha256": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2",
+      "size_bytes": 20931
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_v16_mapping.py",
@@ -1005,15 +1005,61 @@
       "size_bytes": 7182
     },
     {
+      "path": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+      "sha256": "391435cc61df846615539099c4f4a14936fdc0edd0d4bc221223b3b300bf0652",
+      "size_bytes": 39767
+    },
+    {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "c0fc3054f84c537c9ae56284192366199fb0271a9bf69165d8a584b743b1fdb5",
-      "size_bytes": 16058,
+      "sha256": "b0f45335d7059705aa84390b3caea54f406dee52897cfed63b0d199650a56806",
+      "size_bytes": 16466,
       "document_revision": "0.14"
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+      "document_revision": "0.1",
+      "sha256": "2639e35a21f223d397e8620f145a5a670cf3db103612ae6174748feffe39226a",
+      "size_bytes": 16515
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+      "document_revision": "0.1",
+      "sha256": "2445bd706124db5464e39d5fceb68bbadc6f33a2f7576750d8074044dcbe0218",
+      "size_bytes": 2623
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
+      "document_revision": "0.1",
+      "sha256": "5fcc5db4e398e9136206b502015054bbe6d548dc1c0aef4a8273268c0a3c84b3",
+      "size_bytes": 8118
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculation-results.json",
+      "document_revision": "0.1",
+      "sha256": "56fd6f44cbe6e927d3eb71e06bc60358903631b78e2b3d97fac70c989228db43",
+      "size_bytes": 5743
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/references.json",
+      "document_revision": "0.1",
+      "sha256": "4f684d130994c66871fb8fa691bf407f17791c1b843b9c5f38968049f95edd71",
+      "size_bytes": 3306
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/workload-candidate.json",
+      "document_revision": "0.1",
+      "sha256": "dca06b1d4e2e344f22607654dd8893160f0c95d0cfd5dc87fefe3c1d848d4195",
+      "size_bytes": 5394
     },
     {
       "path": "docs/operations/workflow-activation.md",
       "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
       "size_bytes": 12656
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+      "sha256": "5714adc27b81e387b71cf281cea947462864cd0662bbe1c69f9ad542a8d8a78f",
+      "size_bytes": 2213
     }
   ],
   "revision_reference_cleanup": {
@@ -1347,5 +1393,41 @@
     "corpus_boundary_checks": 311,
     "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
     "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
+  },
+  "workload_candidate": {
+    "prepared_on": "2026-11-06",
+    "version": "0.1",
+    "status": "PROPOSED_NOT_AUTHORIZED",
+    "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+    "access_record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+    "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+    "preparation_owner": "Nour",
+    "api_project_owner": "UNCONFIRMED",
+    "account_access_quotas_prices": "UNCONFIRMED",
+    "public_price_basis": "Official standard paid token listings retrieved 2026-11-06; not account applicability or actual spend.",
+    "development_week_estimated_paid_token_subtotal_usd": "4.9630176",
+    "conditional_cap_exposure_paid_token_subtotal_usd": "36.9647616",
+    "proposed_planning_allocation_usd": "10.00",
+    "allocation_accepted": false,
+    "alaas_conditions_closed": false,
+    "runtime_executed": false,
+    "new_commit_push_pr": "NOT_PERFORMED"
+  },
+  "workload_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+    "manual_checks": 870,
+    "corpus_boundary_checks": 316,
+    "arithmetic_checks": 13,
+    "scope": "Workload/access candidate arithmetic, provenance, affected documentation checks and manifest; no account/API execution."
+  },
+  "workload_integration_validation": {
+    "date": "2026-11-07",
+    "report": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "manual_total": 873,
+    "corpus_checks": 316,
+    "arithmetic_boundary_checks": 13,
+    "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
   }
 }

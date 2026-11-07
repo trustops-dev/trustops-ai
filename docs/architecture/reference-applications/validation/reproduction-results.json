@@ -948,5 +948,41 @@
     "corpus_boundary_checks": 311,
     "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
     "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
+  },
+  "workload_candidate": {
+    "prepared_on": "2026-11-06",
+    "version": "0.1",
+    "status": "PROPOSED_NOT_AUTHORIZED",
+    "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+    "access_record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+    "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+    "preparation_owner": "Nour",
+    "api_project_owner": "UNCONFIRMED",
+    "account_access_quotas_prices": "UNCONFIRMED",
+    "public_price_basis": "Official standard paid token listings retrieved 2026-11-06; not account applicability or actual spend.",
+    "development_week_estimated_paid_token_subtotal_usd": "4.9630176",
+    "conditional_cap_exposure_paid_token_subtotal_usd": "36.9647616",
+    "proposed_planning_allocation_usd": "10.00",
+    "allocation_accepted": false,
+    "alaas_conditions_closed": false,
+    "runtime_executed": false,
+    "new_commit_push_pr": "NOT_PERFORMED"
+  },
+  "workload_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+    "manual_checks": 870,
+    "corpus_boundary_checks": 316,
+    "arithmetic_checks": 13,
+    "scope": "Workload/access candidate arithmetic, provenance, affected documentation checks and manifest; no account/API execution."
+  },
+  "workload_integration_validation": {
+    "date": "2026-11-07",
+    "report": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "manual_total": 873,
+    "corpus_checks": 316,
+    "arithmetic_boundary_checks": 13,
+    "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
   }
 }
