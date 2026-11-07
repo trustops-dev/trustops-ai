@@ -1,0 +1,1433 @@
+{
+  "packet_id": "nour-owner-review-2026-11-06-workload-candidate-0.1",
+  "status": "REVIEW_CANDIDATE_NOT_FROZEN",
+  "date": "2026-11-06",
+  "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+  "branch": "docs/nour-week1-owner-review",
+  "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
+  "commit_push_pr": "BASE_LOCAL_COMMIT_b5633a9; OD03_OD04_AND_V16_MAPPING_UNCOMMITTED; NO_REMOTE_PUBLICATION",
+  "approval_status": "ALAA_SCOPED_RESPONSE_RECEIVED_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING; OD-APP-OBS-01_SEMANTICS_CONFIRMED",
+  "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
+  "excluded_self_and_generated_report": [
+    "docs/architecture/reference-applications/week1-review-manifest.json",
+    "docs/architecture/reference-applications/week1-closeout-validation.json"
+  ],
+  "inputs_reviewed": [
+    {
+      "name": "updated_schemas.md",
+      "document_version": "Draft v1.1",
+      "sha256": "0dd5a8c33ec97661f2de5b2f0c8f52fcaf0f8537dd468798b6ff065d7508abe3",
+      "size_bytes": 151863,
+      "scope": "External read-only review input; no repository commit or reviewer agreement inferred",
+      "review_role": "HISTORICAL_PRIOR_REVISION"
+    },
+    {
+      "name": "TrustOps_AI_Nour_16_Week_Execution_Roadmap.md",
+      "sha256": "3fd8401a03b3e99298439a33ddcb89c18df3651f840fbc09e5643f0c575085eb",
+      "scope": "Role/scope planning input; weekly allocation is an inference per document"
+    },
+    {
+      "name": "updated_schemas_v2.md",
+      "document_version": "Draft v1.2",
+      "sha256": "ca31d98649f51a02fc92cabb586ea9772c6c8bd529cfd79869434c149f528bca",
+      "size_bytes": 170524,
+      "review_role": "HISTORICAL_PRIOR_REVISION",
+      "scope": "External read-only uploaded specification; CHANGES_REQUIRED; not evidence of a pushed commit, implemented behavior or full stakeholder acceptance",
+      "review_document": "docs/architecture/reference-applications/schema-v1.2-review.md",
+      "observation_record": "docs/architecture/reference-applications/schema-v1.2-review-observations.json"
+    },
+    {
+      "name": "updated_schemas_v5.md",
+      "document_version": "Draft v1.5",
+      "sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+      "size_bytes": 296719,
+      "review_role": "HISTORICAL_PRIOR_REVISION",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred",
+      "review_document": "docs/architecture/reference-applications/schema-v1.5-review.md",
+      "observation_record": "docs/architecture/reference-applications/schema-v1.5-review-observations.json"
+    },
+    {
+      "name": "validate_s1_01_schema_v1_4(1).py",
+      "document_version": "1.5.0",
+      "sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+      "size_bytes": 99387,
+      "review_role": "HISTORICAL_PRIOR_REVISION",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred",
+      "review_document": "docs/architecture/reference-applications/schema-v1.5-review.md",
+      "observation_record": "docs/architecture/reference-applications/schema-v1.5-review-observations.json"
+    },
+    {
+      "name": "run_s1_01_regression_suite.py",
+      "document_version": null,
+      "sha256": "e90eb47584d720fa132bfcee2688a72ce82b9c710b2b1ab2defb7e075578e8a0",
+      "size_bytes": 11891,
+      "review_role": "HISTORICAL_PRIOR_REVISION",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred",
+      "review_document": "docs/architecture/reference-applications/schema-v1.5-review.md",
+      "observation_record": "docs/architecture/reference-applications/schema-v1.5-review-observations.json"
+    },
+    {
+      "name": "s1_01_validation_report.json",
+      "document_version": "1.5.0 report",
+      "sha256": "c1d9b7d2e8e32473e802c585ccf876f556ba5c85fa876af9e9ac7737666763ae",
+      "size_bytes": 122193,
+      "review_role": "HISTORICAL_PRIOR_REVISION",
+      "scope": "Read-only supplied review input; no pushed revision, runtime correctness or stakeholder approval inferred",
+      "review_document": "docs/architecture/reference-applications/schema-v1.5-review.md",
+      "observation_record": "docs/architecture/reference-applications/schema-v1.5-review-observations.json"
+    },
+    {
+      "name": "run_s1_01_regression_suite(1).py",
+      "sha256": "d43592f352a3741882440e50c7595d330abfff41d82f7d8b190695902991c784",
+      "size_bytes": 36295,
+      "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
+      "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    },
+    {
+      "name": "validate_s1_01_schema_v1_6.py",
+      "sha256": "29bf239d0fbd3070e37ef9287be38fc31337e5f032e9a6c5e68c14c102b2679e",
+      "size_bytes": 175704,
+      "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
+      "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    },
+    {
+      "name": "updated_schemas_v6.md",
+      "sha256": "84b749967df6cab5dd8f71d15768647ca10625554eb3f09ed76d6a77dd1a6997",
+      "size_bytes": 303820,
+      "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
+      "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    },
+    {
+      "name": "evidence-consistency-and-recovery.zip",
+      "sha256": "641ab6e98634a0c04780e89e66e4247708813ca49f8f66ae864b49b3bb44daa4",
+      "size_bytes": 51877,
+      "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
+      "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    },
+    {
+      "name": "s1_01_validation_report(1).json",
+      "sha256": "9fc344ea6e187c44b3a851a808f2d4aec1730deab7532bb48b5b70cd98dd365e",
+      "size_bytes": 20306,
+      "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
+      "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/adr/application-execution-budgets.md",
+      "sha256": "05534790755d6f15b54586724af36e61ac1b66e6ca11b99654f8401967a60af6",
+      "size_bytes": 50963,
+      "document_revision": "0.1"
+    },
+    {
+      "path": "docs/adr/reference-application-orchestration-and-llm.md",
+      "sha256": "1493e2115ffa87e8548ca4adc3b49f57b376b2a1dd638ae644b82a8b56d964da",
+      "size_bytes": 62372,
+      "document_revision": "0.9"
+    },
+    {
+      "path": "docs/architecture/reference-applications/README.md",
+      "sha256": "d9ea934edf4653f6502f71e9fb3b9e3f2db7818555070f9f47f8f938819c98a6",
+      "size_bytes": 10092,
+      "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
+    },
+    {
+      "path": "docs/architecture/reference-applications/acceptance.md",
+      "sha256": "cca2ef772f8ca1f62f991e1008ddd2d7aeb25ad6200b5e9250b5fe6dc5bfdaba",
+      "size_bytes": 13052,
+      "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
+      "sha256": "08a547253efbb09c96d0925e8a928f68c2dd02e11c144645913971c9f473f5e1",
+      "size_bytes": 15434
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/cases.json",
+      "sha256": "e18099e6ae3c8b3a417ebc8d921698c3ea6f369da442e4e599eacf5d443d6be6",
+      "size_bytes": 32955
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/response.json",
+      "sha256": "3d5c37cb6f4d9eafcd15358998ee2c50b1f661bf2d89dd0201fd902306e73b3b",
+      "size_bytes": 4186
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/validation-results.json",
+      "sha256": "1582d399762893e61b4ad942696ade615ad32aa34566008a99b46992896f5dad",
+      "size_bytes": 14911
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py",
+      "sha256": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8",
+      "size_bytes": 6714
+    },
+    {
+      "path": "docs/architecture/reference-applications/audit.md",
+      "sha256": "ddf5b1e8ced0151afe9687a715b2edaf63cb6d9f57ab0b774d6a2dbcbedda1ae",
+      "size_bytes": 16667
+    },
+    {
+      "path": "docs/architecture/reference-applications/boundary-review/cases.json",
+      "sha256": "b0fd93bd23e92c58a0ec0b5eb64b8c27850ac45f4c4eb3e3d11300ed594935cd",
+      "size_bytes": 6309
+    },
+    {
+      "path": "docs/architecture/reference-applications/boundary-review/denied-approval-observation.json",
+      "sha256": "71c1f1831989b2ef0495b34532794f7641f2a0e83bff1fcc657f1661347d2048",
+      "size_bytes": 350
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-boundary-validation.json",
+      "sha256": "8c08117356fc57f7bd63590fd27b6585821e9ed874fc9d5bbfc8cbfbaa291e3a",
+      "size_bytes": 36078
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/README.md",
+      "sha256": "bf94a99bb79a0cb649698927ce66937c8742c9c69237d9d1782009409c588885",
+      "size_bytes": 3105
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-001.txt",
+      "sha256": "5e1a0e46a4df89a8e655d98e559ee814f6e59046848821f7016eb5125add0d3f",
+      "size_bytes": 583
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-002.txt",
+      "sha256": "9e0b3f630b9c89bf76968f1506b1b9cd54369130f012dc397cb563702881a33e",
+      "size_bytes": 361
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-003.txt",
+      "sha256": "a0ddf7a477906b28bd28172850effc10d9f4eb49d04f5767d2cdb8374bcd6139",
+      "size_bytes": 332
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-004.txt",
+      "sha256": "8feaf07a2f35e93979eff6e68cbc590aa6583884c3ec163f40d50101a6bedc5c",
+      "size_bytes": 367
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-005.txt",
+      "sha256": "c344443a4e1b819df01354913250b00965bdbd126b83e2b0b74063cbe0f9c384",
+      "size_bytes": 300
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-006.txt",
+      "sha256": "8ef5e2134a0ac1d9688f056a2581d416abae3372476597b056c35defaeb84dd7",
+      "size_bytes": 214
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-007.txt",
+      "sha256": "18c8307a3fb42afe5e6cef04987ffae9c6d2465fdf99769eb9651bef5e1d6a2a",
+      "size_bytes": 218
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-008.txt",
+      "sha256": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
+      "size_bytes": 266
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/review-cases.json",
+      "sha256": "24eda330125b55ea5372c16fe234399b9aaba59611cbb55cf0def791ee2567dd",
+      "size_bytes": 7775
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/source-manifest.json",
+      "sha256": "c83a2cae8315806e9b81ae561c478b3b08329632fdee64fe89cfde924004a7c2",
+      "size_bytes": 11644
+    },
+    {
+      "path": "docs/architecture/reference-applications/failure-planning-matrix.md",
+      "sha256": "bb07ac7cb96ca5d1e9ead3c7496e689bbf029d84fc42843b38039dc3324a0ae9",
+      "size_bytes": 38016
+    },
+    {
+      "path": "docs/architecture/reference-applications/fixtures/01-procurement-success.json",
+      "sha256": "57ec72862384f8c795ff796e883ec57dc57893bfa04280c1d0016216e4c1ec08",
+      "size_bytes": 54603
+    },
+    {
+      "path": "docs/architecture/reference-applications/fixtures/02-procurement-bypass.json",
+      "sha256": "ffe1ade44e0c0e5ceb65171e168daa62ba9169476ac50b64f0839ee7ed5ec61c",
+      "size_bytes": 48515
+    },
+    {
+      "path": "docs/architecture/reference-applications/fixtures/03-rag-grounded.json",
+      "sha256": "e9e628d4361395b5afacc2521b9e609ed2daa0941e5d3c31f69d22f077828c00",
+      "size_bytes": 10853
+    },
+    {
+      "path": "docs/architecture/reference-applications/fixtures/04-rag-insufficient.json",
+      "sha256": "76339890dc83c8d1f45afd162fda9d5ef2d85b6a9b3897f584ab0e71ee65e815",
+      "size_bytes": 8711
+    },
+    {
+      "path": "docs/architecture/reference-applications/fixtures/README.md",
+      "sha256": "ecfb41f86760a3f1d9a19401cdac7d6d55a438167e8f87b27a857e376ab0380b",
+      "size_bytes": 9111
+    },
+    {
+      "path": "docs/architecture/reference-applications/handoffs.md",
+      "sha256": "06d802b36e1eedc829543f78172b82ee4056c7abe2b4d04879281e0bcb872d76",
+      "size_bytes": 24324,
+      "document_revision": "decision-consolidation-2026-11-05"
+    },
+    {
+      "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
+      "sha256": "1f41e80e1399207cfd53db76284f61de579fe153a5aeee8f92cc325c5575b886",
+      "size_bytes": 9279,
+      "document_revision": "1.0"
+    },
+    {
+      "path": "docs/architecture/reference-applications/open-decisions.md",
+      "sha256": "2fc0152f4501d133aabb17231245497edb72c73f714c74f53609dfc708a12ac3",
+      "size_bytes": 23126,
+      "document_revision": "decision-consolidation-2026-11-05"
+    },
+    {
+      "path": "docs/architecture/reference-applications/overview.md",
+      "sha256": "3461931847e5b90e20519eecb87cc8671bdfd895d4076f452eb43782130dc266",
+      "size_bytes": 5400
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
+      "sha256": "90892700a0aa38f532326d9f8dd8ad3a63effd5efdcab8bddb9bfc4b5da009f2",
+      "size_bytes": 9019
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/candidate-config.json",
+      "sha256": "7bdc0cd5a514f2f0a0bb58ffe06a5c44d45c4cedb6ed00688852cde0689c35f5",
+      "size_bytes": 1161
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/policy-text.txt",
+      "sha256": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+      "size_bytes": 928
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/truth-table.json",
+      "sha256": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "size_bytes": 9790
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/validation-results.json",
+      "sha256": "1e91673b72d80d8544d8eb4bdec72e22c73eead06a6671c999d3f6c25eb8b5ea",
+      "size_bytes": 6402
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py",
+      "sha256": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5",
+      "size_bytes": 5907
+    },
+    {
+      "path": "docs/architecture/reference-applications/procurement-state-contract.md",
+      "sha256": "11eb76b60d35d10fffbc79396d76a6f77848822c8c74e87ce6763d7400d13ad3",
+      "size_bytes": 23985,
+      "document_revision": "0.7"
+    },
+    {
+      "path": "docs/architecture/reference-applications/procurement-tool-contracts.md",
+      "sha256": "34ea7f43b5bd61714070f05521b8afcad74a4403ca646933c32bd673e64050b7",
+      "size_bytes": 34626,
+      "document_revision": "0.8"
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack.md",
+      "sha256": "23a6728824fcc2ee0c32e2ce1d5aacd7092e65b98437bad226311d9b0e65db91",
+      "size_bytes": 79156,
+      "document_revision": "1.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/README.md",
+      "sha256": "dbc833f92a2867d10e334f634aaa14d64b7f93c0b369bf3dd93cd9152fe34ef3",
+      "size_bytes": 1546
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P01/expected.json",
+      "sha256": "7cd92b936e19b4626d1c5649e4ac3175a06756a99b0a2b5a757ff687455d8ce4",
+      "size_bytes": 333
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P01/input.json",
+      "sha256": "32492d16e8ff0095b79c7deefcca222b7d359bf16fa01d3d20c18bbe617d8fcc",
+      "size_bytes": 135
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P01/rendered-prompt.txt",
+      "sha256": "ac3d27d2f9ff030cf8874dde1cced23b37122dc57a69de878700b1dd13497989",
+      "size_bytes": 1613
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P01/review.json",
+      "sha256": "387fbd4d0af4e24fb9595c717097c8657018453b4cbaf819a7a3c26885ac5799",
+      "size_bytes": 473
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P02/expected.json",
+      "sha256": "c5c72619159e9cb0c5da90aa9a9ea8239906fbeca102c5d5c923bbb8bc995480",
+      "size_bytes": 385
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P02/input.json",
+      "sha256": "7e5c08022acc96e48204318bb611c40ca1e8716b0a02e07b5bb1bc50b3e793b3",
+      "size_bytes": 121
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P02/rendered-prompt.txt",
+      "sha256": "d3151e1514638635a5ff58d224b24260dd135e66cc09bc57a8e519188c75c1b6",
+      "size_bytes": 1599
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P02/review.json",
+      "sha256": "79d90dfb8c50c68f52f5fc2f98557481101a5fda274d576240298b1d51b75520",
+      "size_bytes": 381
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P03/expected.json",
+      "sha256": "67d6dfd04ca1e8ae2cf99e0342c7486909c560a4fe1bac6b0e6f17ffe0eeddf9",
+      "size_bytes": 1431
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P03/input.json",
+      "sha256": "ea3695dfd72004364bcef3149872904d2daed296b58e425302cb10826d530245",
+      "size_bytes": 488
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P03/rendered-prompt.txt",
+      "sha256": "66bc0c161353783b6491ae7983958412d02360288837dc41781a7d02b5f2ba97",
+      "size_bytes": 3954
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P03/review.json",
+      "sha256": "c6cffd76331023ff37689c093fa9f1d5c148e1741545bfc504bcba50462f57df",
+      "size_bytes": 509
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P04/expected.json",
+      "sha256": "0e26b4208e2b77f23de8294dee0566d88779cfa53399195e469da88ce62c8d26",
+      "size_bytes": 869
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P04/input.json",
+      "sha256": "88b985909988261e867e09c83c5b0f53a19e6f40296432dfbf24e0d79194ac19",
+      "size_bytes": 1766
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P04/rendered-prompt.txt",
+      "sha256": "448467682be1820d711530e4be5b1aac9339a0bdcd50fccaf0ca6d368bf1233d",
+      "size_bytes": 5392
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P04/review.json",
+      "sha256": "512122cf94ca090c2fb8b1c19ed5bdbd70d0acb6c7200552238e1e46af93ee3d",
+      "size_bytes": 467
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P05/expected.json",
+      "sha256": "6f6e9e4f90f79de66db0bfbd1576cc1b692e1a0ccab6661522157901d2b63561",
+      "size_bytes": 814
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P05/input.json",
+      "sha256": "252496c710aa72b7b681a493d4b32cede4ac837914242e0a1f3f574de68b65ca",
+      "size_bytes": 1782
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P05/rendered-prompt.txt",
+      "sha256": "e911e5af68ca265a31ae59392535b984e5bcb3df8e5235a4af025f87695f20e0",
+      "size_bytes": 5408
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P05/review.json",
+      "sha256": "9184a9d8a3ade65602d08e684c1a58dfdc03023ab2c64c21ef8ac00d6ebad1c8",
+      "size_bytes": 427
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P06/expected.json",
+      "sha256": "aeec5970c12c8accefdc315c86fd5b4621dfd336121fd264cd8151bc3c9749ce",
+      "size_bytes": 813
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P06/input.json",
+      "sha256": "fa89efa24f3b64d419c26d617db677bb344d00596888a9ff018c6dda479714d5",
+      "size_bytes": 2420
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P06/rendered-prompt.txt",
+      "sha256": "b6b958a60b96416a3d85cefa160486c6a046e8e8126487e9051488efd3971c33",
+      "size_bytes": 5936
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P06/review.json",
+      "sha256": "c818171d63117a36d6cabd45015d655a579957062bb6f24a2b57c5e4ca38b1dc",
+      "size_bytes": 642
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P07/expected.json",
+      "sha256": "712e30ddbe25ac8ecd11ac02318d750fcfaa556927ad81f720c230008cc6a9e1",
+      "size_bytes": 741
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P07/input.json",
+      "sha256": "39cb52c5b5904077ad57d471e7960ca721b39d7b02e3e2dbdbab555d29b6ec12",
+      "size_bytes": 1652
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P07/rendered-prompt.txt",
+      "sha256": "380e5fd16aed4de5aeef641e58fc353a2df963d20e0dc02b7770c3f129df0dae",
+      "size_bytes": 5447
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P07/review.json",
+      "sha256": "ebecdbde51a585d639d5261452009e9c235e724781038959ceed5dc7d31d7698",
+      "size_bytes": 572
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P08/expected.json",
+      "sha256": "e4cf67982e02cbb34d47d82ccffda9da9d411d02cd576d266a98de76c5ec7515",
+      "size_bytes": 1414
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P08/input.json",
+      "sha256": "5d88187d2357143be55fe569bc042df071737127ef974d3adb3f2f14c9fe2ec9",
+      "size_bytes": 1705
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P08/rendered-prompt.txt",
+      "sha256": "439bf39676257a1334602577f033cb500a9b4f58ad9eb9ecc12508bcf9538bd6",
+      "size_bytes": 5500
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P08/review.json",
+      "sha256": "2b4bf285d761194e71060c1d00db813fe1856388ac0371635ba0682873b3b4c1",
+      "size_bytes": 829
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P09/expected.json",
+      "sha256": "411bf6a26343cdf63c59193cee97c1233ca226e62ad4688387454835747b694e",
+      "size_bytes": 1076
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P09/input.json",
+      "sha256": "789851c9d900bce5f7713ae51c42fac11d2ab26682af24300b041933b34bdf53",
+      "size_bytes": 2754
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P09/rendered-prompt.txt",
+      "sha256": "f55f1dd4c2ad66e1d0cdadee886fd982fe99eb9b75d157a8a7f7882025612a22",
+      "size_bytes": 6628
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P09/review.json",
+      "sha256": "6a9cc0ea00326426222c06017b4eae44d1fa2c99e3887baa44ac770ad2fbf7dc",
+      "size_bytes": 847
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P10/expected.json",
+      "sha256": "bfe81da115612e03e9bcb0c3f6eebf52c48854c278683ce888ee659096364056",
+      "size_bytes": 236
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P10/input.json",
+      "sha256": "89fcf125ad9b15ed03ff9c313d87a62ab8404b209a9fa6740fdf2d7558d9fe78",
+      "size_bytes": 1559
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P10/rendered-prompt.txt",
+      "sha256": "8da28716ca06df89da18c368aacc2bdd3b88860f21a8b981c2c4ced977e96b43",
+      "size_bytes": 5433
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P10/review.json",
+      "sha256": "3467d345a98e31730830b65d39be996287fb79a34234a712395afb38f653e628",
+      "size_bytes": 627
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P11/expected.json",
+      "sha256": "c0a55b47f63b619095b8315b22006809a4023b29745e9a529ed899ee85560bd8",
+      "size_bytes": 310
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P11/input.json",
+      "sha256": "53b9d9e309ea99ab919e514af3c0442f33b2bb98bde935b799edbec6eae9066a",
+      "size_bytes": 655
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P11/rendered-prompt.txt",
+      "sha256": "10364de6f3aaf21c7bfa5f524f43df8dd50f2374c56c2e1102f83cdb0f3b9bee",
+      "size_bytes": 3638
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P11/review.json",
+      "sha256": "864073bdc876db1fd8de5858e10f43a727f1aaeaed65b56ac457f920e7b421d7",
+      "size_bytes": 630
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P12/expected.json",
+      "sha256": "cc36d050437efbdc2431d4e2cfe4f494a36ec80b2e8258000344781339b8d4b0",
+      "size_bytes": 475
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P12/input.json",
+      "sha256": "c6654bafc634d9d039dee450eb3b07246232adc68aa4938bd5d18ce366a9561e",
+      "size_bytes": 948
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P12/rendered-prompt.txt",
+      "sha256": "b260caadca26af51f2adf2c03007c2a6ab881f2c11b00df9a6d063ccd2d61d62",
+      "size_bytes": 2057
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/P12/review.json",
+      "sha256": "df14fb9092fd563416113857adb4d6f8063164e3479b6c31393c3da013195079",
+      "size_bytes": 740
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R01/expected.json",
+      "sha256": "f5f3fc08f647f3f1ec8194bde842c39c87573dcee39d0164327f71273fa318c3",
+      "size_bytes": 879
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R01/input.json",
+      "sha256": "8c265d5730a99ddad131bff9ed86c9ba5cdedae7f7dfd2d57404c7cc89212882",
+      "size_bytes": 674
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R01/rendered-prompt.txt",
+      "sha256": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+      "size_bytes": 3603
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R01/review.json",
+      "sha256": "1353543921929c200494a84867d9832fb97dc91867074073d59abb3a129d6c3e",
+      "size_bytes": 419
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R02/expected.json",
+      "sha256": "e8d5373e860180d6b8215900530cc64c7db934e1396d25229f6b471a0b51d6c9",
+      "size_bytes": 1509
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R02/input.json",
+      "sha256": "95f35e82ebe733210848d89aca2747635ee593ef4ca7569ef97c2ff69e53f177",
+      "size_bytes": 1289
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R02/rendered-prompt.txt",
+      "sha256": "72876081a07e289c1fdbe4989f42bc322dc097f047a2c8a8fa797bd7b50f63ec",
+      "size_bytes": 4218
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R02/review.json",
+      "sha256": "fab77d93dbef15e3aa38ba72f34ef715bd2599e3052392a9e0b4183435f7eaef",
+      "size_bytes": 483
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R03/expected.json",
+      "sha256": "7797b2bc45cdea5800f79c24b545ce77337eefc7cc72ff693f51182326ada838",
+      "size_bytes": 352
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R03/input.json",
+      "sha256": "e6d9cb35b5ce3a2cb08fb393821f7426538be658758e74383d539f6606d4b4e9",
+      "size_bytes": 125
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R03/rendered-prompt.txt",
+      "sha256": "ed1682621e373fedbe58d9cdd8315cee763a518a5f88e4b242670ed89fcbcaf0",
+      "size_bytes": 3054
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R03/review.json",
+      "sha256": "df34d82a39dfb8b654e8b60bfac9bfada4cc499d9076e9b2be81c3c8f4ac919e",
+      "size_bytes": 417
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R04/expected.json",
+      "sha256": "949b8877126de917a2f78917c6ef6ac4ec9f9b22045c7c3ee868a493a3c76da7",
+      "size_bytes": 391
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R04/input.json",
+      "sha256": "1a49ecdebfbb30570526791d0789daf00926975c7e2c96fe972dc0f3659c07ad",
+      "size_bytes": 713
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R04/rendered-prompt.txt",
+      "sha256": "b6ad29a048716dc68dc6c208056a0b4997bcfca377c1f49ef878890854cc8001",
+      "size_bytes": 3642
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R04/review.json",
+      "sha256": "48990addde8fd11c24d3fe3bfd2f74b644b7026949a532999135916cb0360e46",
+      "size_bytes": 380
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R05/expected.json",
+      "sha256": "46b1d17514a9ac960de89af86882494c19335298d77ab7530e2a9d2cc8209eb7",
+      "size_bytes": 419
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R05/input.json",
+      "sha256": "3df0806f53c729c7d6fa137e231f9230d441719b7aa7a3dbbac6607d5b8c5a7b",
+      "size_bytes": 1262
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R05/rendered-prompt.txt",
+      "sha256": "5fd7ecb7574cbf9276328a1b9fda749f49229ad05b1de5700748ba98e9744a0d",
+      "size_bytes": 4191
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R05/review.json",
+      "sha256": "85c184d7d454335de5c781bce12bd13454ebec5181af51d0cf6fb6084b833176",
+      "size_bytes": 421
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R06/expected.json",
+      "sha256": "ec1d325bcb1576236bcc075ebc8443ae72ae1b573e3b89a83043c38fd6463c7b",
+      "size_bytes": 394
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R06/input.json",
+      "sha256": "127c94efe2ea5c41def8c1b47625ca09a058b5f876cc29bd1c696a6757772c09",
+      "size_bytes": 126
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R06/rendered-prompt.txt",
+      "sha256": "98fbb96d4d72de57b539035107aa4fe64103bb81fe58aa6798a7c698e67ee395",
+      "size_bytes": 3055
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R06/review.json",
+      "sha256": "3bdb2b0ecf08a95d4b09d0ffd563f64a84c00f50738d59447ff2fa20380db701",
+      "size_bytes": 474
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R07/expected.json",
+      "sha256": "514ec218a1010cd402d6ba0cc81d4fc8ce593cb17ac922b852eed64bdf80bcc1",
+      "size_bytes": 1102
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R07/input.json",
+      "sha256": "8c265d5730a99ddad131bff9ed86c9ba5cdedae7f7dfd2d57404c7cc89212882",
+      "size_bytes": 674
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R07/rendered-prompt.txt",
+      "sha256": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+      "size_bytes": 3603
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R07/review.json",
+      "sha256": "caeb98a7d635c665d81ce8247edd45befc38501bab279ebba7f9e0293c5571ea",
+      "size_bytes": 469
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R08/expected.json",
+      "sha256": "2b2e50e2754a49492dcd3f4a22cf872e590437480504e0537bdb511c289abbce",
+      "size_bytes": 893
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R08/input.json",
+      "sha256": "e030016116d8d9670a5152433e355206bd5a198292db59288635d0447afdeee9",
+      "size_bytes": 758
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R08/rendered-prompt.txt",
+      "sha256": "6cf80b753101b596e63abe9eecd1bd0446e1ddc5c60711c5262a26de65c297bb",
+      "size_bytes": 3687
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R08/review.json",
+      "sha256": "135abdfef9e683014e2991cb7aaeda8f8f0d97d2cdd0a8ffc3f1779cdf823bcb",
+      "size_bytes": 523
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R09/expected.json",
+      "sha256": "7cd0d81d0437e45eb9ba56905bd4051d60f730cca2c82cb14bdd9bf76789e340",
+      "size_bytes": 883
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R09/input.json",
+      "sha256": "de51391882c2b6789827cb8fa4c9dec3a2bda7dd338ecf58b2002f2638423080",
+      "size_bytes": 690
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R09/rendered-prompt.txt",
+      "sha256": "b80e085290bf6559cf9c254a2b6fc78ab12045e53a5e4c7bb48a103bada2d4ad",
+      "size_bytes": 3619
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R09/review.json",
+      "sha256": "e461315e50a3659ce737e6476e7ae769cc10bce5458ffbb02bfe0e7e6989cd49",
+      "size_bytes": 420
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R10/expected.json",
+      "sha256": "cc11b1c6962eb415c8dc9c174602549317dab51f2721a498c3fe07929ea42922",
+      "size_bytes": 135
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R10/input.json",
+      "sha256": "0fb937e6caa4b58caf29fec15ff9ac613e3279641fb186acf754ac159f7f5d68",
+      "size_bytes": 220
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R10/rendered-prompt.txt",
+      "sha256": "55b49c31f62ad9f91b99af91b50366ba2ffd6aa2194f13be643816cd67b87d31",
+      "size_bytes": 3149
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/examples/R10/review.json",
+      "sha256": "ecd9d3965f95cb5f4ee1024d4b3c7fdb9331e0500cf2773aea36d460d5973dfb",
+      "size_bytes": 563
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/prompt-manifest.json",
+      "sha256": "ed73c9c38d2e29ae0224b6faf7286e1b27ac8865aff74566caa0fbcf24691fbf",
+      "size_bytes": 13452
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/generation-configuration-reference.json",
+      "sha256": "364fb230a8c160d02c556e87ea509bf6492dc531d573dc4f7fb5c239492f1ce9",
+      "size_bytes": 648
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/generation-profiles-reference.json",
+      "sha256": "8c149ddcfa8c309396dccbb3b7856274ebaad0b828b1e65328713aa687144d13",
+      "size_bytes": 1270
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/procurement-extraction.schema.json",
+      "sha256": "10757d4fd28bc04b236d3606f1257008635bff528950ba3a9742838655973fe9",
+      "size_bytes": 1338
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/procurement-final.schema.json",
+      "sha256": "1a6d18521bc18d9a64969d5221f7e6fe3b231e295a002219859455e1892c6328",
+      "size_bytes": 919
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/procurement-tool-arguments.json",
+      "sha256": "85faebd859bf7ead6a3ea044e70e9f05780fc7dff97985ac010c68f7601a2de9",
+      "size_bytes": 2567
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/schemas/rag-candidate.schema.json",
+      "sha256": "15a3d8a5925847b304a8ca120b5a73a6f6b0dd75545d14bb48c9a57a7f3afb19",
+      "size_bytes": 2300
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_calculation.md",
+      "sha256": "20b8d3f52599c420b3b1000b713f3ab86a173ab6ca70c4cfcd9d7c92a0072641",
+      "size_bytes": 532
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_request.md",
+      "sha256": "a0d5e0e441d6ecc40dd54a942a392eb759df21b5d1e47f57254da55b8ebca158",
+      "size_bytes": 811
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/final_candidate.md",
+      "sha256": "b1091f70506fd644651f836f0acd3b9531491016ddd58602917f0ca757c25203",
+      "size_bytes": 1025
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/po_proposal.md",
+      "sha256": "cfb45748cf198614c0c44bf03b4a7f1a28f067ac1b76faf980f783d1df6858ba",
+      "size_bytes": 890
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/policy_search.md",
+      "sha256": "e31997abfc87c13a399d2de602b6dc54e0842887d0bfb839de8c2ecb8f3ce559",
+      "size_bytes": 482
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/request_extraction.md",
+      "sha256": "39cc2d3568a29f89603ac6f374d0daaac0edee52c9aec9fc07d49059eb3214cf",
+      "size_bytes": 1394
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/supplier_review.md",
+      "sha256": "beb6df45464f3b926a42b227d4f1017450a43736d0062d5dca77e9eb70694a66",
+      "size_bytes": 642
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/procurement/system.md",
+      "sha256": "c37546b68421c5b3c3a447b63b24ed41e56b8f14cb7a422e3382d57127550416",
+      "size_bytes": 2899
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/templates/rag/assistant_system.md",
+      "sha256": "46b78f160de82c07362256a4485b0f2a1c8524fa7819ca18f30b297c5d10f362",
+      "size_bytes": 2845
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py",
+      "sha256": "341233cf99a6c7493985a21f4781c6f2eb2266bf2274541bf9e5d001c6a22379",
+      "size_bytes": 33867
+    },
+    {
+      "path": "docs/architecture/reference-applications/prompt-pack/validation-report.json",
+      "sha256": "5cc6894ac2775e732b43d4961519400c5caf0fc4ab2cb27d6a5977e2da924d9f",
+      "size_bytes": 17830
+    },
+    {
+      "path": "docs/architecture/reference-applications/publication-handoff.md",
+      "sha256": "91a3e202692e14872e0f47c94cb2b52617eb7de68c04adaf02c16543c5a18b3a",
+      "size_bytes": 3449
+    },
+    {
+      "path": "docs/architecture/reference-applications/rag-contract.md",
+      "sha256": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
+      "size_bytes": 56059,
+      "document_revision": "0.9"
+    },
+    {
+      "path": "docs/architecture/reference-applications/repository-integration.md",
+      "sha256": "6a34b41af6c38f376883d5822b768b6902bc4d4db287a0cafaa42f9a6ab64658",
+      "size_bytes": 7248,
+      "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "sha256": "ebbb98f49cc1000f44e555afcb1686eb7784fba5c11b26a0cd3753d7bbd07ce8",
+      "size_bytes": 16282
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "sha256": "30a5cdd1f739617e332a9b41483c2aeb0248b6f5acaaee7dfba4608f5ce7a798",
+      "size_bytes": 13870
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.1-review.md",
+      "sha256": "6d217952eedb68e8938d9fc0149d79ea70052763ed365fc72765f1a52bec774c",
+      "size_bytes": 7236,
+      "document_revision": "Historical 2026-11-02 review of uploaded v1.1; superseded by v1.2 review"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.2-review-observations.json",
+      "sha256": "9969a8ba16284e6d5e5031a86456ca57c065ec098dd0bc610ad3f4f972e8c8bd",
+      "size_bytes": 5499,
+      "document_revision": "2026-11-02 static input-pinned observations"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.2-review.md",
+      "sha256": "771adb10c52b5baa1c6602bb0dc53044a15e756821f51655536ac902b3dbafec",
+      "size_bytes": 15666,
+      "document_revision": "2026-11-02 review of uploaded Draft v1.2"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.5-evidence-mapping.json",
+      "document_revision": "Mapping 1.0, Draft v1.5, 2026-11-05",
+      "sha256": "554d459dce0e48a9221bfdfa4758643de35bb080602fef26785095c0557ec1b5",
+      "size_bytes": 51136
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.5-review-observations.json",
+      "document_revision": "Draft v1.5 review, 2026-11-04",
+      "sha256": "84a000b9caf8b74ec5c56e3969984d6458cc49b8e885f6d0874e6c9022df310d",
+      "size_bytes": 21145
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.5-review.md",
+      "document_revision": "Draft v1.5 review 2026-11-04; mapping addendum 2026-11-05",
+      "sha256": "3ed1dda4fc834c7f7a95e691b8725410b713db83dfb81a3d8cf72ff7d0349755",
+      "size_bytes": 18468
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.json",
+      "sha256": "4f76c2fc9e853b9ddf5ab586fafad28260f78fe4cd8df18fc32114815a8fb295",
+      "size_bytes": 72616,
+      "document_revision": "1.0 (v1.6 assessment)"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.md",
+      "sha256": "3f9420afe3b40451fa1100c442982f0cc44cdcce59af339a1b491f2f697c7b5b",
+      "size_bytes": 45489,
+      "document_revision": "1.0 (v1.6 assessment)"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.6-review-observations.json",
+      "sha256": "db2c5be71b343fbf2165b0a032feef076b484e2504d4669baa084b12ef6f86d4",
+      "size_bytes": 28683
+    },
+    {
+      "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
+      "sha256": "6b79c3796f5940a2bcd3eea353232220b6e844224f61368109af318fe8ce2761",
+      "size_bytes": 54577,
+      "document_revision": "Original requirements retained; v1.5 mapping 1.0, 2026-11-05"
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/README.md",
+      "sha256": "1b46fcb20d231e9bead6ec01c017682f83707e6ce2effd586f81a06d890ab36d",
+      "size_bytes": 10835
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+      "sha256": "b74374f7d7453e737fb412874fb0d871434719a12d6078578e00762dc6f8253c",
+      "size_bytes": 32879
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
+      "sha256": "44d6732572ae3ec6189bcc1d885a420f1c9253bdd014e9fb43824548f0d96aa3",
+      "size_bytes": 101495
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/publication-refresh.json",
+      "sha256": "7a03bbaf6b07f89341885303425d62dd1b593a523fa64a8a7a0b4846b68b6a8c",
+      "size_bytes": 151303
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
+      "sha256": "f8570e500580e703d85c586d7b9f0676ca9767c321a08e680d6e99f949d027fa",
+      "size_bytes": 34854
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
+      "sha256": "9e3d24f002bc1a2e9a7ae535695a059a585b78c8d57344f77d46d4c3d6172e78",
+      "size_bytes": 26290
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py",
+      "sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
+      "size_bytes": 11208
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/verify_manual_fixtures.py",
+      "sha256": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2",
+      "size_bytes": 20931
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/verify_v16_mapping.py",
+      "sha256": "cb10ef51e65fb94d5768a2fc171463c09dace5530acf5248b254fcad57b54f83",
+      "size_bytes": 7182
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+      "sha256": "391435cc61df846615539099c4f4a14936fdc0edd0d4bc221223b3b300bf0652",
+      "size_bytes": 39767
+    },
+    {
+      "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
+      "sha256": "b0f45335d7059705aa84390b3caea54f406dee52897cfed63b0d199650a56806",
+      "size_bytes": 16466,
+      "document_revision": "0.14"
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+      "document_revision": "0.1",
+      "sha256": "2639e35a21f223d397e8620f145a5a670cf3db103612ae6174748feffe39226a",
+      "size_bytes": 16515
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+      "document_revision": "0.1",
+      "sha256": "2445bd706124db5464e39d5fceb68bbadc6f33a2f7576750d8074044dcbe0218",
+      "size_bytes": 2623
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
+      "document_revision": "0.1",
+      "sha256": "5fcc5db4e398e9136206b502015054bbe6d548dc1c0aef4a8273268c0a3c84b3",
+      "size_bytes": 8118
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculation-results.json",
+      "document_revision": "0.1",
+      "sha256": "56fd6f44cbe6e927d3eb71e06bc60358903631b78e2b3d97fac70c989228db43",
+      "size_bytes": 5743
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/references.json",
+      "document_revision": "0.1",
+      "sha256": "4f684d130994c66871fb8fa691bf407f17791c1b843b9c5f38968049f95edd71",
+      "size_bytes": 3306
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/workload-candidate.json",
+      "document_revision": "0.1",
+      "sha256": "dca06b1d4e2e344f22607654dd8893160f0c95d0cfd5dc87fefe3c1d848d4195",
+      "size_bytes": 5394
+    },
+    {
+      "path": "docs/operations/workflow-activation.md",
+      "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
+      "size_bytes": 12656
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+      "sha256": "5714adc27b81e387b71cf281cea947462864cd0662bbe1c69f9ad542a8d8a78f",
+      "size_bytes": 2213
+    }
+  ],
+  "revision_reference_cleanup": {
+    "date": "2026-11-02",
+    "scope": "Current RAG references aligned to 0.9; historical retrieval 0.7 and budget-integration 0.8 explicitly labelled; no contract semantics changed",
+    "changed_files": [
+      "docs/architecture/reference-applications/README.md",
+      "docs/architecture/reference-applications/open-decisions.md",
+      "docs/architecture/reference-applications/prompt-pack.md",
+      "docs/architecture/reference-applications/rag-contract.md"
+    ]
+  },
+  "validation_reproducibility": {
+    "date": "2026-11-02",
+    "instructions": "docs/architecture/reference-applications/validation/README.md",
+    "record": "docs/architecture/reference-applications/validation/reproduction-results.json",
+    "new_files": [
+      "docs/architecture/reference-applications/validation/README.md",
+      "docs/architecture/reference-applications/validation/reproduction-results.json",
+      "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py",
+      "docs/architecture/reference-applications/validation/verify_manual_fixtures.py"
+    ],
+    "helpers": "Repository root/output CLI; standard-library artifact checks, optional Git checks; existing prompt runner unchanged",
+    "contract_and_approval_changes": "NONE"
+  },
+  "approval_observation_clarification": {
+    "decision_id": "OD-APP-OBS-01",
+    "recorded_date": "2026-11-02",
+    "status": "CONFIRMED_SEMANTICS_ONLY_USER_REPORTED",
+    "reported_reviewers": [
+      "Mohamed",
+      "Mohab"
+    ],
+    "evidence": "User stated: go on this and i have confirmation from them; selected scope: replace request_approval replay to observe with trusted read-only observation of the existing approval request, distinct from retrying initial submission.",
+    "scope": "Existing approval-request read-only observation; no submission retry or fallback to creation.",
+    "remaining_gates": [
+      "read-only adapter verification",
+      "canonical interface/trace mapping",
+      "approval validity/expiry/revocation",
+      "broader trusted continuation",
+      "initial-submission replay safety",
+      "numeric budgets",
+      "full specialist sign-off"
+    ],
+    "updated_documents": [
+      "docs/adr/application-execution-budgets.md",
+      "docs/architecture/reference-applications/README.md",
+      "docs/architecture/reference-applications/handoffs.md",
+      "docs/architecture/reference-applications/open-decisions.md",
+      "docs/architecture/reference-applications/procurement-state-contract.md",
+      "docs/architecture/reference-applications/procurement-tool-contracts.md",
+      "docs/architecture/reference-applications/prompt-pack.md",
+      "docs/architecture/reference-applications/week1-owner-closeout.md"
+    ],
+    "previous_manifest_sha256": "c6e233c23ba27e0d336058ca69686e55a83d7ceb5309c881c27f06e5dc85c3d5"
+  },
+  "schema_v1_2_review": {
+    "date": "2026-11-02",
+    "review_document": "docs/architecture/reference-applications/schema-v1.2-review.md",
+    "observation_record": "docs/architecture/reference-applications/schema-v1.2-review-observations.json",
+    "input_sha256": "ca31d98649f51a02fc92cabb586ea9772c6c8bd529cfd79869434c149f528bca",
+    "disposition": "CHANGES_REQUIRED",
+    "corrected_items": "Fine states and PO order; decimal money/opaque revisions; DENIED/CANCELLED; PO arguments; no-redispatch read-only recovery; partial labels; citation offsets; draft/pending status separation",
+    "remaining_finding_ids": [
+      "V12-01",
+      "V12-02",
+      "V12-03",
+      "V12-04",
+      "V12-05",
+      "V12-06",
+      "V12-07",
+      "V12-08"
+    ],
+    "previous_review": "Historical Draft v1.1 retained",
+    "scoped_approval": "OD-APP-OBS-01 remains confirmed semantics only, user-reported",
+    "previous_manifest_sha256": "1bb7b0e4e2558242dc6d9ee74f76af2453a7ec1de80fe589f530ea5bacae2d44",
+    "reviewed_schema": "Draft v1.2",
+    "review_role": "HISTORICAL_PRIOR_REVISION",
+    "superseded_for_current_status_by": "schema_v1_5_review"
+  },
+  "p08_gate_clarification": {
+    "date": "2026-11-02",
+    "decision_reference": "OD-APP-OBS-01",
+    "scope": "P08 review wording only; confirmed observation semantics separated from remaining execution gates",
+    "confirmed": "Trusted read-only observation of the existing approval request, distinct from initial-submission retry; existing user-reported Mohamed/Mohab confirmation retained",
+    "pending": [
+      "read-only adapter verification",
+      "approval validity",
+      "trusted continuation"
+    ],
+    "gate_text": "Observation semantics confirmed under OD-APP-OBS-01. Execution remains conditional: read-only adapter verification, approval validity and trusted continuation remain pending.",
+    "updated_documents": [
+      "docs/architecture/reference-applications/prompt-pack.md",
+      "docs/architecture/reference-applications/prompt-pack/examples/P08/review.json"
+    ],
+    "previous_manifest_sha256": "6bbfca7e6635888bddaa3a5e31bab76c92adbb1eba4d48322f76274c77223224",
+    "runtime_templates_inputs_outputs_and_schemas": "UNCHANGED",
+    "additional_stakeholder_approval": "NONE"
+  },
+  "latest_reviewed_schema": "Draft v1.6 — current E01–E27 mapping complete; full acceptance pending",
+  "schema_v1_5_review": {
+    "date": "2026-11-04",
+    "reviewed_schema": "Draft v1.5",
+    "review_role": "HISTORICAL_PRIOR_REVISION",
+    "review_document": "docs/architecture/reference-applications/schema-v1.5-review.md",
+    "observation_record": "docs/architecture/reference-applications/schema-v1.5-review-observations.json",
+    "input_sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+    "validator_sha256": "5c4dbaa3f4ba457f855445e055032b0362003c57048202c4d79d897abbfc169c",
+    "disposition": "CHANGES_REQUIRED",
+    "verified_fixes": "Snapshot representation, atomic state-revision linkage, business payload/lifecycle shapes, selected-source provenance, prior validator rules and proposed budget mapping; no blanket requirement closure",
+    "remaining_finding_ids": [
+      "V15-01",
+      "V15-02",
+      "V15-03",
+      "V15-04",
+      "V15-05",
+      "V15-06",
+      "V15-07"
+    ],
+    "baseline_assertions": 2023,
+    "baseline_failures": 0,
+    "reproduced_self_contained_suite_cases": 13,
+    "supplied_report_cases": 18,
+    "independent_probe_summary": {
+      "cases": 20,
+      "unchanged_controls_passed": 2,
+      "inconsistent_mutations_accepted": 15,
+      "targeted_permitted_shapes_or_provenance_rejected": 3,
+      "uncaught_exceptions": 0,
+      "full_abstention_fixture_validated": false
+    },
+    "prior_reviews": "v1.1 and v1.2 retained as historical; v1.3/v1.4 review findings are not newly reconstructed here",
+    "scoped_approval": "OD-APP-OBS-01 remains closed for confirmed observation semantics only; full acceptance pending",
+    "previous_manifest_sha256": "c9d4868b349fc852c03d4f105e2665fb556fa53e9ba2911bfb788f908b82461f",
+    "requirements_and_runtime_changes": "None; current-review pointer changed in trace-evidence-contract, historical mapping preserved"
+  },
+  "application_schema_mapping": {
+    "date": "2026-11-06",
+    "mapping_revision": "1.0",
+    "schema_version_reviewed": "Draft v1.6",
+    "source_sha256": "84b749967df6cab5dd8f71d15768647ca10625554eb3f09ed76d6a77dd1a6997",
+    "mapping_document": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.md",
+    "mapping_record": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.json",
+    "status_counts": {
+      "OK": 9,
+      "OPEN": 9,
+      "CHANGE REQUIRED": 9
+    },
+    "requirements": 27,
+    "representative_paths_checked": 69,
+    "full_acceptance": "PENDING_CORRECTIONS_AND_JOINT_REVIEW",
+    "requirements_changed": false,
+    "new_signoff": false
+  },
+  "decision_consolidation": {
+    "date": "2026-11-05",
+    "scope": "Decision and handoff consolidation only; prior full closeout and v1.5 mapping retained as historical records",
+    "request_rows": 20,
+    "review_reference": "https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal",
+    "review_findings": "R16-01–09",
+    "approvals_added": false,
+    "messages_sent": false,
+    "runtime_executed": false,
+    "plan_approver_name": "NOT_RECORDED; Nour must identify authorized person",
+    "preserved_closed_semantics": "OD-APP-OBS-01",
+    "changed_document_paths": [
+      "docs/architecture/reference-applications/handoffs.md",
+      "docs/architecture/reference-applications/open-decisions.md"
+    ]
+  },
+  "schema_v1_6_review": {
+    "status": "CHANGES_REQUIRED",
+    "review_reference": "https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal",
+    "scope": "Pinned baseline, supplied suite and independent helper freshly rerun offline on 2026-11-06; earlier independent CLI cross-check not separately rerun.",
+    "supplied_suite_cases": 27,
+    "independent_cases": 35,
+    "unmet_independent_expectations": 16,
+    "mapping_update": "COMPLETE_FOR_PINNED_V16_DRAFT_ACCEPTANCE_PENDING",
+    "observation_record": "docs/architecture/reference-applications/schema-v1.6-review-observations.json"
+  },
+  "validation_refresh": {
+    "date": "2026-11-06",
+    "scope": "Active version pointers, offline owner checks and exact-byte packet regeneration",
+    "manual_checks": 837,
+    "corpus_boundary_checks": 294,
+    "prompt_checks": 180,
+    "reproduction_record": "docs/architecture/reference-applications/validation/reproduction-results.json",
+    "mapping_version": "v1.6 current; v1.5 historical",
+    "shared_schema_status": "CHANGES_REQUIRED",
+    "new_approvals": false,
+    "runtime_run": false,
+    "od03_checks": 63,
+    "od04_structural_checks": 149,
+    "mapping_checks": 280,
+    "mapping_paths": 69
+  },
+  "pr_preparation": {
+    "base_branch": "dev",
+    "base_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "branch": "docs/nour-week1-owner-review",
+    "publication": "PENDING_AUTHENTICATED_ACCESS",
+    "shared_acceptance": "PENDING"
+  },
+  "od03_candidate": {
+    "proposal_preparation": "COMPLETE",
+    "acceptance": "PENDING_MOHAMED",
+    "contract_examples": "SYMBOLIC_UNCHANGED",
+    "base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "new_edits_committed": false
+  },
+  "od04_response": {
+    "date": "2026-11-06",
+    "response_version": "0.1",
+    "overall_draft_disposition": "AMEND",
+    "application_response_preparation": "COMPLETE",
+    "submission": "NOT_SENT",
+    "joint_acceptance": "PENDING_MOHAMED_AND_MOHAB",
+    "runtime": "NOT_RUN",
+    "new_commit_push_pr": "NOT_PERFORMED",
+    "prior_owner_base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "includes_uncommitted_od03_addition": true
+  },
+  "historical_application_schema_mapping": {
+    "date": "2026-11-05",
+    "mapping_revision": "1.0",
+    "schema_version_reviewed": "Draft v1.5",
+    "source_sha256": "41292bd17ff225977b6c9c6c52b6247f7b223b00798b2a21638caa6a7d5d4321",
+    "mapping_document": "docs/architecture/reference-applications/trace-evidence-contract.md",
+    "mapping_record": "docs/architecture/reference-applications/schema-v1.5-evidence-mapping.json",
+    "review_addendum": "docs/architecture/reference-applications/schema-v1.5-review.md",
+    "rows": 27,
+    "working_groups": 8,
+    "status_counts": {
+      "OK": 5,
+      "OPEN": 7,
+      "CHANGE REQUIRED": 15
+    },
+    "representative_field_paths_verified": 66,
+    "original_requirements_and_historical_mapping": "PRESERVED",
+    "schema_or_runtime_changes": "NONE",
+    "new_stakeholder_acceptance": "NONE",
+    "full_schema_acceptance": "PENDING",
+    "previous_manifest_sha256": "d41bb93895c4db4b1ddee6533bad72e604de26165eea5915d5980e744432eebd",
+    "latest_main_reverified": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+    "retained_observations": "The 2026-11-04 observation record remains unchanged; its comparison hashes identify that earlier review, not newly edited mapping bytes."
+  },
+  "status_wording_cleanup": {
+    "date": "2026-11-06",
+    "closeout_revision": "0.14",
+    "scope": "Status wording only: historical 0.13 refresh versus later v1.6 rerun; current mapping complete; returned corrections require reassessment.",
+    "canonical_schema_changed": false,
+    "mapping_changed": false,
+    "schema_validator_rerun_in_this_cleanup": false,
+    "runtime_run": false,
+    "new_acceptance": false,
+    "manual_checks": 837,
+    "corpus_checks": 294,
+    "check_count_note": "Counts decreased by two because the revised closeout paragraph removes two duplicate local links; fixture/corpus assets and checking logic are unchanged."
+  },
+  "pre_publication_snapshot_context": {
+    "source_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "label": "PRE_PUBLICATION_SNAPSHOT",
+    "scope": "Original preparation, branch, commit_push_pr, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Current publication is recorded in current_publication; fresh checks are in publication_refresh.",
+    "historical_validation_evidence": "RETAINED_UNCHANGED",
+    "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6"
+  },
+  "current_publication": {
+    "record": "docs/architecture/reference-applications/publication-handoff.md",
+    "pull_request": 27,
+    "url": "https://github.com/trustops-dev/trustops-ai/pull/27",
+    "status": "PUBLISHED_DRAFT",
+    "branch": "docs/nour-week1-review-014",
+    "target": "dev",
+    "published_packet_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "superseded_pull_request": 26,
+    "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
+    "email_sent_status": "USER_REPORTED_SENT",
+    "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
+    "specialist_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SIGNOFFS_PENDING",
+    "runtime_verification": "PENDING",
+    "email_sent_date": "2026-11-06",
+    "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
+    "email_recipients": "Teammates; individual names and addresses unspecified",
+    "email_subject": null,
+    "email_message_references": [],
+    "email_independently_verified": false,
+    "email_reply_status": "PARTIAL_RESPONSE_RECEIVED_ALAA",
+    "teammate_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+    "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED"
+  },
+  "publication_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/publication-refresh.json",
+    "scope": "Publication metadata, handoff and affected owner-artifact checks; external schema suite remains historical evidence.",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "python": "3.12.15",
+    "check_counts": {
+      "manual_fixture_link_checks": 844,
+      "optional_git_checks": 3,
+      "manual_total": 847,
+      "corpus_boundary_checks": 296
+    },
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
+  },
+  "owner_review_responses": [
+    {
+      "record_id": "ALAA-REVIEW-479CAB0-01",
+      "reviewer": "Alaa",
+      "recorded_on": "2026-11-06",
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "source_status": "USER_SUPPLIED_REVIEW_TEXT",
+      "email_date": null,
+      "email_message_reference": null,
+      "status": "RESPONSE_RECEIVED_PARTIAL_CONDITIONAL",
+      "full_specialist_signoff": false,
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED",
+      "record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "structured_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
+      "base_commit": "283fe866e3a2332409e179445a9f62c8cb876728"
+    }
+  ],
+  "alaa_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+    "scope": "User-supplied Alaa scoped response, decision/handoff/acceptance records and affected offline owner checks; no contract behavior or canonical schema changes.",
+    "manual_checks": 861,
+    "corpus_boundary_checks": 311,
+    "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
+  },
+  "workload_candidate": {
+    "prepared_on": "2026-11-06",
+    "version": "0.1",
+    "status": "PROPOSED_NOT_AUTHORIZED",
+    "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+    "access_record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+    "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+    "preparation_owner": "Nour",
+    "api_project_owner": "UNCONFIRMED",
+    "account_access_quotas_prices": "UNCONFIRMED",
+    "public_price_basis": "Official standard paid token listings retrieved 2026-11-06; not account applicability or actual spend.",
+    "development_week_estimated_paid_token_subtotal_usd": "4.9630176",
+    "conditional_cap_exposure_paid_token_subtotal_usd": "36.9647616",
+    "proposed_planning_allocation_usd": "10.00",
+    "allocation_accepted": false,
+    "alaas_conditions_closed": false,
+    "runtime_executed": false,
+    "new_commit_push_pr": "NOT_PERFORMED"
+  },
+  "workload_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+    "manual_checks": 870,
+    "corpus_boundary_checks": 316,
+    "arithmetic_checks": 13,
+    "scope": "Workload/access candidate arithmetic, provenance, affected documentation checks and manifest; no account/API execution."
+  },
+  "workload_integration_validation": {
+    "date": "2026-11-07",
+    "report": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "manual_total": 873,
+    "corpus_checks": 316,
+    "arithmetic_boundary_checks": 13,
+    "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
+  }
+}

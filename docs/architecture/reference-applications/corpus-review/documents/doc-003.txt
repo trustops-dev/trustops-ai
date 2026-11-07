@@ -1,0 +1,1 @@
+In this synthetic HR example, planned leave requests should be submitted five working days before the first leave day. Unplanned emergency leave is exempt from the five-day notice requirement; notify the manager as soon as practicable. The exception changes the notice requirement only and does not establish approval of the leave.

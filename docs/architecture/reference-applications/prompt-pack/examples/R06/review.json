@@ -1,0 +1,10 @@
+{
+  "id": "R06",
+  "title": "Abstain outside the retrieved scope",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "The fixture retrieved only the IT request guide and excludes it before generation as irrelevant. A nonempty returned list is not relevant support. Do not borrow targets from memory, another conversation or an unselected document.",
+  "gate": null
+}

@@ -1,0 +1,10 @@
+{
+  "id": "P02",
+  "title": "Clarify missing quantity and currency",
+  "objective": "Preserve missingness without calculating from unit prices.",
+  "templates": [
+    "procurement/request_extraction.md"
+  ],
+  "compliance": "Runtime asks: What quantity and currency should be used? It does not construct a complete PurchaseRequest or enter REQUEST_CAPTURED yet.",
+  "gate": null
+}

@@ -1,0 +1,207 @@
+{
+  "review_date": "2026-11-02",
+  "disposition": "CHANGES_REQUIRED",
+  "scope": "Static inspection of uploaded Draft v1.2 only; expected defects are observations, not a passing canonical validation result",
+  "canonical_schema_validation": "NOT_RUN",
+  "runtime_verification": "NOT_RUN",
+  "new_stakeholder_acceptance": "NONE",
+  "input_name": "updated_schemas_v2.md",
+  "input_sha256": "ca31d98649f51a02fc92cabb586ea9772c6c8bd529cfd79869434c149f528bca",
+  "input_size_bytes": 170524,
+  "document_version": "Draft v1.2",
+  "trace_count": 4,
+  "non_trace_fragments": [
+    {
+      "start_line": 358,
+      "classification": "Non-standalone configuration fragment; not a walkthrough parse failure"
+    }
+  ],
+  "walkthroughs": [
+    {
+      "trace_id": "tr_proc_101",
+      "event_count": 25,
+      "is_partial_walkthrough": false,
+      "event_order": [
+        "agent_state",
+        "tool_call",
+        "retrieval",
+        "tool_result",
+        "agent_state",
+        "tool_call",
+        "tool_result",
+        "agent_state",
+        "tool_call",
+        "tool_result",
+        "agent_state",
+        "tool_call",
+        "tool_result",
+        "agent_state",
+        "approval",
+        "agent_state",
+        "model_call",
+        "tool_proposal",
+        "argument_validation",
+        "policy_check",
+        "agent_state",
+        "tool_call",
+        "tool_result",
+        "agent_state",
+        "final_response"
+      ]
+    },
+    {
+      "trace_id": "tr_proc_102",
+      "event_count": 8,
+      "is_partial_walkthrough": true,
+      "event_order": [
+        "retrieval",
+        "agent_state",
+        "model_call",
+        "tool_proposal",
+        "argument_validation",
+        "policy_check",
+        "tool_suppression",
+        "final_response"
+      ]
+    },
+    {
+      "trace_id": "tr_proc_103",
+      "event_count": 10,
+      "is_partial_walkthrough": true,
+      "event_order": [
+        "agent_state",
+        "tool_proposal",
+        "argument_validation",
+        "policy_check",
+        "agent_state",
+        "tool_call",
+        "tool_result",
+        "recovery_check",
+        "agent_state",
+        "final_response"
+      ]
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "event_count": 3,
+      "is_partial_walkthrough": false,
+      "event_order": [
+        "retrieval",
+        "model_call",
+        "final_response"
+      ]
+    }
+  ],
+  "claim_spans": [
+    {
+      "trace_id": "tr_proc_101",
+      "claim_id": "clm_proc_01",
+      "span": {
+        "start": 96,
+        "end": 150
+      },
+      "exact_slice_matches": true
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "claim_id": "clm_rag_01",
+      "span": {
+        "start": 0,
+        "end": 68
+      },
+      "exact_slice_matches": true
+    }
+  ],
+  "source_spans": [
+    {
+      "trace_id": "tr_proc_101",
+      "chunk_id": "POL-114#chunk-01",
+      "exact_slice_matches": true,
+      "quote_present_in_selected_text": true
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "chunk_id": "FAQ-018#chunk-02",
+      "exact_slice_matches": true,
+      "quote_present_in_selected_text": true
+    }
+  ],
+  "unresolved_proposal_references": [
+    {
+      "trace_id": "tr_proc_101",
+      "event_id": "e2",
+      "tool": "search_policy",
+      "proposal_id": "prop_pol_01"
+    },
+    {
+      "trace_id": "tr_proc_101",
+      "event_id": "e6",
+      "tool": "get_supplier",
+      "proposal_id": "prop_sup_01"
+    },
+    {
+      "trace_id": "tr_proc_101",
+      "event_id": "e9",
+      "tool": "calculate_approval_level",
+      "proposal_id": "prop_calc_01"
+    },
+    {
+      "trace_id": "tr_proc_101",
+      "event_id": "e12",
+      "tool": "request_approval",
+      "proposal_id": "prop_reqapp_01"
+    }
+  ],
+  "selected_context_message_mismatches": [
+    {
+      "trace_id": "tr_proc_101",
+      "event_id": "e17",
+      "selected_context_ref_declared": true,
+      "rendered_context_block_found_in_recorded_messages": false
+    },
+    {
+      "trace_id": "tr_proc_102",
+      "event_id": "e3",
+      "selected_context_ref_declared": true,
+      "rendered_context_block_found_in_recorded_messages": false
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "event_id": "e2",
+      "selected_context_ref_declared": true,
+      "rendered_context_block_found_in_recorded_messages": false
+    }
+  ],
+  "source_hash_mismatches": [
+    {
+      "trace_id": "tr_proc_101",
+      "chunk_id": "POL-114#chunk-01",
+      "recorded_hash": "sha256:pol114_v3_chunk01_hash",
+      "actual_sha256_utf8": "cd7468c8ad20e6af0d7c4ccd2995d9a17be00a424b4e32cfdb07dd83a4e52397"
+    },
+    {
+      "trace_id": "tr_proc_102",
+      "chunk_id": "POL-114#chunk-01",
+      "recorded_hash": "sha256:pol114_v3_chunk01_hash",
+      "actual_sha256_utf8": "3c572f3a7641ebcad2d4da6fdd7dfe8da249a682688d0416363b476cac3ecbb2"
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "chunk_id": "POL-009#chunk-04",
+      "recorded_hash": "sha256:pol009_v21_chunk04_hash",
+      "actual_sha256_utf8": "cd0e0c1f36b0bc7f93667e46dd139b195d1326a040cd70095f61070fa88c9300"
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "chunk_id": "FAQ-018#chunk-02",
+      "recorded_hash": "sha256:faq018_v14_chunk02_hash",
+      "actual_sha256_utf8": "f12c93b3bd4b9ef8558aae7822611727cf4698c5e483f93c7519cad77a1ac4a4"
+    },
+    {
+      "trace_id": "tr_rag_210",
+      "chunk_id": "HR-002#chunk-01",
+      "recorded_hash": "sha256:hr002_v10_chunk01_hash",
+      "actual_sha256_utf8": "2f70bc37450552bb9ee83f98c49e4da50350dc86fbc56581b39d1cb7f9b934ac"
+    }
+  ]
+}

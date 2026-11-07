@@ -1,0 +1,1 @@
+In this synthetic operations policy, routine service maintenance requires an approved maintenance window. An urgent incident repair may occur outside that window only when the incident commander has authorized the exception and the incident reference is recorded. An urgent label by itself is not authorization. Record the change and its outcome in the incident log.

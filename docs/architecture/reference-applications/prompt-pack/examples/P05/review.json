@@ -1,0 +1,11 @@
+{
+  "id": "P05",
+  "title": "Stop for an ineligible supplier",
+  "objective": "Demonstrate that FOUND alone does not support a recommendation.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/supplier_review.md"
+  ],
+  "compliance": "The lookup is still the exact requested supplier. Runtime preserves POLICY_CHECKED and halts; it cannot mark SUPPLIER_CHECKED or substitute another supplier.",
+  "gate": null
+}

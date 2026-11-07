@@ -1,0 +1,133 @@
+{
+  "search_policy": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "query": {
+        "type": "string",
+        "minLength": 1
+      },
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "top_k": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "policy_ids": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "required": [
+      "query",
+      "request_id",
+      "top_k"
+    ]
+  },
+  "get_supplier": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "supplier_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "supplier_id",
+      "request_id"
+    ]
+  },
+  "calculate_approval_level": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "total_amount": {
+        "type": "string",
+        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+      },
+      "currency": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$"
+      }
+    },
+    "required": [
+      "request_id",
+      "total_amount",
+      "currency"
+    ]
+  },
+  "request_approval": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "justification": {
+        "type": "string",
+        "minLength": 1
+      },
+      "approval_request_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "request_id",
+      "justification"
+    ]
+  },
+  "create_purchase_order": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "supplier_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "item_description": {
+        "type": "string",
+        "minLength": 1
+      },
+      "quantity": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "total_amount": {
+        "type": "string",
+        "pattern": "^[0-9]+(?:\\.[0-9]+)?$"
+      },
+      "currency": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$"
+      }
+    },
+    "required": [
+      "request_id",
+      "supplier_id",
+      "item_description",
+      "quantity",
+      "total_amount",
+      "currency"
+    ]
+  }
+}

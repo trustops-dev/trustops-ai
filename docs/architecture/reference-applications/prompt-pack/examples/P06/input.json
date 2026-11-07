@@ -1,0 +1,67 @@
+{
+  "user_request": "Determine whether this request needs approval.",
+  "runtime_context": {
+    "request": {
+      "request_id": "req-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "item_description": "business laptops",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "supplier_id": "SUP-088",
+      "requester_ref": "actor-requester-demo"
+    },
+    "state": "SUPPLIER_CHECKED",
+    "observations": {
+      "policy": {
+        "status": "MATCHED",
+        "data": {
+          "query": "business laptop purchasing approval and supplier eligibility",
+          "requested_top_k": 1,
+          "returned_count": 1,
+          "matches": [
+            {
+              "policy_id": "PROC-APPROVAL-01",
+              "document_id": "DOC-DEMO-PROC",
+              "source_id": "src-demo-proc",
+              "source_version": "demo-policy-v1-NOT-RATIFIED",
+              "chunk_id": "CH-DEMO-PROC-01",
+              "text": "Purchases exceeding USD 5000.00 require manager approval. Purchase orders must use an approved supplier.",
+              "content_hash": "6de15b98be5991e8a443fe38362c279f5329de36df168fc2b3a9b80d3d06e2b0",
+              "locator": "DOC-DEMO-PROC#p1",
+              "rank": 1,
+              "score": 0.0,
+              "score_kind": "illustrative_mock_lookup_distance",
+              "higher_is_better": false,
+              "metadata": {
+                "title": "Synthetic purchasing policy",
+                "domain": "procurement-demo"
+              }
+            }
+          ],
+          "policy_set_version": "demo-policy-v1-NOT-RATIFIED",
+          "retriever_version": "demo-fixed-lookup-v1",
+          "applicability": "APPLICABLE"
+        },
+        "error": null
+      },
+      "supplier": {
+        "status": "FOUND",
+        "data": {
+          "requested_supplier_id": "SUP-088",
+          "supplier": {
+            "supplier_id": "SUP-088",
+            "display_name": "Cedar Office Supplies",
+            "status": "APPROVED",
+            "record_version": "supplier-demo-v1",
+            "source_ref": "supplier-directory-demo/SUP-088",
+            "observed_at": "2026-11-01T10:00:00Z"
+          },
+          "directory_version": "directory-demo-v1"
+        },
+        "error": null
+      },
+      "permission_note": "Hypothetical permission accepted inside this offline fixture only; real D3/GD-01 remains unresolved."
+    }
+  }
+}

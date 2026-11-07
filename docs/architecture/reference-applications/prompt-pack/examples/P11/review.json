@@ -1,0 +1,10 @@
+{
+  "id": "P11",
+  "title": "Hold an uncertain original PO outcome",
+  "objective": "Prevent timeout-driven creation replay and false success/failure.",
+  "templates": [
+    "procurement/system.md"
+  ],
+  "compliance": "There is no new model call, creating-tool replay or new key. Original dispatch is known in this case; its remote effect is unknown. The UNKNOWN_OUTCOME data payload is not serialized here because its precise conditional shape remains open. Preserve the existing result/error and perform only separately authorized, bounded, runtime-internal original-effect read-only lookup, or remain held.",
+  "gate": null
+}

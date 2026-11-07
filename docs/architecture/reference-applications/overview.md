@@ -1,5 +1,13 @@
 # Reference application architecture overview
 
+**Sprint 1 Contract Baseline / Freeze Candidate — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Week 2 architecture disposition
+
+No architecture change is required. Procurement uses the existing explicit Python state machine; RAG uses an explicit sequential pipeline; Google Gemini API is the only generation provider. Pre-tool policy enforcement stays synchronous and separate from post-run evaluation/classification/RCA/reliability decisions. Canonical cross-module definitions remain Mohab's `packages/contracts`; app behavior and eventual adapters remain Nour's apps. No schema, SDK, engine or app implementation was added.
+
+Review of latest team drafts identified representation gaps, not a need for LangGraph or a new provider. The fine-state/stage/run-status distinction, bound authorization and single dispatch, exact source/claim linkage, unknown effect handling and independent provenance are now mapped explicitly in [trace evidence](trace-evidence-contract.md). Orchestration is technically APPROVED FOR SPRINT 2 IMPLEMENTATION; this does not waive the [S1-01 entry blockers](open-decisions.md).
+
 FACT — Proposal I/N/V and Repository Architecture ownership rules: Nour owns the two reference applications and controlled scenario inputs. The applications generate observable behavior; backend packages own interpretation, persistence and decisions.
 
 | Responsibility | Single implementation home, planned after Sprint 1 |

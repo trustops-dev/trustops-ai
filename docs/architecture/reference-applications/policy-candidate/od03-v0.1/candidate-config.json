@@ -1,0 +1,40 @@
+{
+  "document_kind": "SYNTHETIC_POLICY_CANDIDATE",
+  "candidate_version": "0.1",
+  "decision_id": "OD-03",
+  "review_status": "PROPOSED_NOT_ACCEPTED",
+  "runtime_enabled": false,
+  "policy_id": "PROC-APPROVAL-01",
+  "proposed_policy_version": "synthetic-procurement-approval-v0.1-proposed",
+  "rules": [
+    {
+      "currency": "USD",
+      "threshold": "5000.00",
+      "comparator": "GT",
+      "approval_level": "manager",
+      "fraction_digits": 2,
+      "rounding": "REJECT_EXCESS_PRECISION",
+      "fx_conversion": "DISABLED"
+    }
+  ],
+  "no_approval_level": null,
+  "amount_input": {
+    "representation": "JSON_STRING",
+    "pattern": "(?:0|[1-9][0-9]*)(?:\\.[0-9]{1,2})?",
+    "positive_only": true,
+    "whitespace": "REJECT",
+    "exponent": "REJECT",
+    "numeric_json": "REJECT",
+    "canonical_fraction_digits": 2
+  },
+  "authority": {
+    "proposer": "Nour El-Rouby",
+    "required_value_reviewer": "Mohamed Elnaggar",
+    "accepted_by": null,
+    "accepted_at": null,
+    "acceptance_evidence": null,
+    "runtime_owner": "governance",
+    "text_config_disagreement": "STOP_UNRESOLVED",
+    "missing_rule_or_currency": "STOP_UNRESOLVED"
+  }
+}

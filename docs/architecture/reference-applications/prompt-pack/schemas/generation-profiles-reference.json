@@ -1,0 +1,42 @@
+{
+  "procurement.extract.v2-proposed": {
+    "thinking_level": "medium",
+    "max_output_tokens": 4096,
+    "max_input_tokens_app": 16384,
+    "request_timeout_s": 60,
+    "mode": "structured_json",
+    "schema": "procurement-input-v1-proposed",
+    "enabled_by_default": true,
+    "delivery_policy": "validate_before_use"
+  },
+  "procurement.propose.v2-proposed": {
+    "thinking_level": "medium",
+    "max_output_tokens": 8192,
+    "max_input_tokens_app": 16384,
+    "request_timeout_s": 60,
+    "mode": "native_function_call",
+    "schema": null,
+    "enabled_by_default": true,
+    "delivery_policy": "validate_before_use"
+  },
+  "procurement.final.v2-proposed": {
+    "thinking_level": "low",
+    "max_output_tokens": 4096,
+    "max_input_tokens_app": 16384,
+    "request_timeout_s": 60,
+    "mode": "structured_json",
+    "schema": "procurement-final-v1-proposed",
+    "enabled_by_default": false,
+    "delivery_policy": "record_candidate_only"
+  },
+  "rag.answer.v2-proposed": {
+    "thinking_level": "medium",
+    "max_output_tokens": 8192,
+    "max_input_tokens_app": 32768,
+    "request_timeout_s": 90,
+    "mode": "structured_json",
+    "schema": "rag-candidate-v1-proposed",
+    "enabled_by_default": true,
+    "delivery_policy": "validate_before_use"
+  }
+}

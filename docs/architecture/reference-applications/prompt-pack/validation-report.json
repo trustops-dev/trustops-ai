@@ -1,0 +1,737 @@
+{
+  "result": "PASS",
+  "checks": 180,
+  "scope": "Authored offline prompt/schema/binding/hash and negative-mutation checks only",
+  "python_version": "3.12.14",
+  "pydantic_version": "2.14.1",
+  "templates": 9,
+  "procurement_examples": 12,
+  "rag_examples": 10,
+  "standalone_json_schema_engine": "NOT_RUN; strict Pydantic models constructed from the reused simple schema subset",
+  "semantic_note": "Positive claim examples are verbatim supported. No general semantic entailment, relevance, authenticity or approval-validity verifier is implemented by this runner.",
+  "live_provider_tools_database": "NOT_RUN",
+  "canonical_trace_validation": "PENDING_SHARED_CONTRACT",
+  "stakeholder_acceptance": "PENDING",
+  "assertions": [
+    {
+      "name": "P01 extraction shape and missingness",
+      "result": "PASS"
+    },
+    {
+      "name": "P02 extraction shape and missingness",
+      "result": "PASS"
+    },
+    {
+      "name": "P03 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P03 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P04 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P04 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P04 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P05 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P05 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P05 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P06 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P06 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P07 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P07 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P07 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P08 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P08 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P08 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P09 proposal shape/state/request binding under explicit fixture-only gates",
+      "result": "PASS"
+    },
+    {
+      "name": "P09 authored tool-response field-table consistency",
+      "result": "PASS"
+    },
+    {
+      "name": "P09 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P10 no invented model output",
+      "result": "PASS"
+    },
+    {
+      "name": "P10 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P11 no invented model output",
+      "result": "PASS"
+    },
+    {
+      "name": "P11 runtime formatter object/result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "P12 record-only supported final candidate",
+      "result": "PASS"
+    },
+    {
+      "name": "R01 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R02 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R03 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R04 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R05 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R06 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R07 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R08 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R09 candidate/abstention and source binding",
+      "result": "PASS"
+    },
+    {
+      "name": "R10 no invented model output",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects quantity=True",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects quantity='20'",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects quantity=0",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects total_amount=16000.0",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects total_amount='1.6e4'",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects total_amount='0.00'",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects currency='US'",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects approval_received=True",
+      "result": "PASS"
+    },
+    {
+      "name": "Extraction rejects request_id='model-issued'",
+      "result": "PASS"
+    },
+    {
+      "name": "Missing-field/null equality",
+      "result": "PASS"
+    },
+    {
+      "name": "Duplicate missing fields",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects approval_received",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects approval_id",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects idempotency_key",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects request_revision",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects total_amount",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects supplier_id",
+      "result": "PASS"
+    },
+    {
+      "name": "PO rejects quantity",
+      "result": "PASS"
+    },
+    {
+      "name": "Unknown sixth tool",
+      "result": "PASS"
+    },
+    {
+      "name": "Multi-call proposal batch",
+      "result": "PASS"
+    },
+    {
+      "name": "Early parseable PO cannot dispatch",
+      "result": "PASS"
+    },
+    {
+      "name": "Uncertain original PO cannot be reproposed",
+      "result": "PASS"
+    },
+    {
+      "name": "Calculation permission not assumed",
+      "result": "PASS"
+    },
+    {
+      "name": "Observation contract not assumed",
+      "result": "PASS"
+    },
+    {
+      "name": "Observation requires original approval request ID",
+      "result": "PASS"
+    },
+    {
+      "name": "Initial submission cannot be an ID replacement",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval binding rejects request_revision",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval binding rejects amount",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval binding rejects currency",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval binding rejects supplier_id",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval binding rejects policy_version",
+      "result": "PASS"
+    },
+    {
+      "name": "Ineligible supplier cannot support PO",
+      "result": "PASS"
+    },
+    {
+      "name": "Unsupported PO result reference",
+      "result": "PASS"
+    },
+    {
+      "name": "Shape-only validation cannot detect all false free-text claims; record-only candidate is not a delivery gate",
+      "result": "PASS"
+    },
+    {
+      "name": "APPROVED response requires approval evidence",
+      "result": "PASS"
+    },
+    {
+      "name": "CALCULATED result cannot omit requirement",
+      "result": "PASS"
+    },
+    {
+      "name": "Lookup status cannot replace supplier eligibility status",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects source_id",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects chunk_id",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects source_version",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects source_start",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects source_end",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects quote",
+      "result": "PASS"
+    },
+    {
+      "name": "Citation rejects source_start",
+      "result": "PASS"
+    },
+    {
+      "name": "Missing visible citation marker",
+      "result": "PASS"
+    },
+    {
+      "name": "Claim slice mismatch",
+      "result": "PASS"
+    },
+    {
+      "name": "Duplicate claim ID",
+      "result": "PASS"
+    },
+    {
+      "name": "Retrieved-but-unselected or removed source cannot be cited",
+      "result": "PASS"
+    },
+    {
+      "name": "Source snapshot hash mismatch",
+      "result": "PASS"
+    },
+    {
+      "name": "Reused alias cannot change evidence",
+      "result": "PASS"
+    },
+    {
+      "name": "Same input alias bound to two different source spans",
+      "result": "PASS"
+    },
+    {
+      "name": "Abstention cannot contain an enterprise answer",
+      "result": "PASS"
+    },
+    {
+      "name": "ANSWER requires reason NONE",
+      "result": "PASS"
+    },
+    {
+      "name": "Technical ERROR is not a model candidate enum",
+      "result": "PASS"
+    },
+    {
+      "name": "Fabricated source mutation is retained but rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "R01 authored claims have verbatim positive support",
+      "result": "PASS"
+    },
+    {
+      "name": "R02 authored claims have verbatim positive support",
+      "result": "PASS"
+    },
+    {
+      "name": "R08 authored claims have verbatim positive support",
+      "result": "PASS"
+    },
+    {
+      "name": "R09 authored claims have verbatim positive support",
+      "result": "PASS"
+    },
+    {
+      "name": "Unicode fixture distinguishes code points from bytes and UTF-16 units",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/request_extraction.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/request_extraction.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Output schema fingerprint procurement/request_extraction.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/policy_search.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/policy_search.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/policy_search.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/supplier_review.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/supplier_review.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/supplier_review.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/approval_calculation.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/approval_calculation.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/approval_calculation.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/approval_request.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/approval_request.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/approval_request.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/po_proposal.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/po_proposal.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Tool catalog fingerprint procurement/po_proposal.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash procurement/final_candidate.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint procurement/final_candidate.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Output schema fingerprint procurement/final_candidate.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Template exact-byte hash rag/assistant_system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Generation common/profile fingerprint rag/assistant_system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Output schema fingerprint rag/assistant_system.md",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P01",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P01",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P02",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P02",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P03",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P03",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P04",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P04",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P05",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P05",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P06",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P06",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P07",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P07",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P08",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P08",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P09",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P09",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P10",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P10",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P11",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P11",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash P12",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into P12",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R01",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R01",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R02",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R02",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R03",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R03",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R04",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R04",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R05",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R05",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R06",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R06",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R07",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R07",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R08",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R08",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R09",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R09",
+      "result": "PASS"
+    },
+    {
+      "name": "Rendered input hash R10",
+      "result": "PASS"
+    },
+    {
+      "name": "No expected-output file serialized into R10",
+      "result": "PASS"
+    },
+    {
+      "name": "Exactly five declared tools",
+      "result": "PASS"
+    },
+    {
+      "name": "Wrong supplier record",
+      "result": "PASS"
+    },
+    {
+      "name": "Wrong lookup supplier identity",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval for another approval request",
+      "result": "PASS"
+    },
+    {
+      "name": "Approval for another calculation",
+      "result": "PASS"
+    },
+    {
+      "name": "Calculation for another request revision",
+      "result": "PASS"
+    },
+    {
+      "name": "String approval requirement",
+      "result": "PASS"
+    },
+    {
+      "name": "Integer approval requirement",
+      "result": "PASS"
+    },
+    {
+      "name": "Mismatched calculation basis",
+      "result": "PASS"
+    },
+    {
+      "name": "Conflicting approval envelope status",
+      "result": "PASS"
+    },
+    {
+      "name": "Duplicate top-level JSON key",
+      "result": "PASS"
+    },
+    {
+      "name": "Duplicate nested JSON key",
+      "result": "PASS"
+    },
+    {
+      "name": "Unique JSON members retain exact values",
+      "result": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,1665 @@
+{
+  "artifact_kind": "MANUAL_CONTRACT_WALKTHROUGH_NOT_CANONICAL_TRACE",
+  "fixture_id": "paper-001",
+  "title": "Successful purchase with complete approval path",
+  "application": "procurement-agent",
+  "contract_revision": "0.6",
+  "notice": "Authored paper evidence only. No application, tool, governance engine, retriever, embedding or model executed. Event names/payloads are review notation, not shared schemas. Do not ingest this file as Trace Schema v1 or runtime input.",
+  "validation_scope": {
+    "conceptual": "Expected application trajectory reviewed under explicitly stated proposed-contract assumptions.",
+    "canonical_schema": "BLOCKED: current draft cannot represent all evidence losslessly; no frozen executable schema exists.",
+    "runtime": "NOT_RUN",
+    "reviewer_signoff": "PENDING"
+  },
+  "provenance": {
+    "review_date": "2026-11-01",
+    "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "fixture_mode": "MANUAL",
+    "synthetic": true,
+    "live_model_used": null,
+    "planned_generation_provider": "gemini",
+    "planned_generation_model": "gemini-3.8-flash",
+    "effective_generation_config": null,
+    "application_runtime_version": null,
+    "sdk_runtime_version": null,
+    "embedding_runtime_version": null,
+    "measured_total_latency_ms": null,
+    "measured_usage": null,
+    "unavailable_reason": "No runtime was executed. Document revision and file hashes identify this paper fixture; they are not runtime version claims.",
+    "timestamps": "Synthetic ordering labels authored at one-second intervals; not actual occurrence or duration measurements.",
+    "numeric_literals": "Ranks and k are paper-case inputs; retrieval scores, where present, reuse illustrative proposal/draft scores 0.91 or 0.44, never measured results or sufficiency thresholds."
+  },
+  "runtime_projection_note": "Independent review annotation is a sidecar for a human reviewer. Strip it and label-rich names/IDs before any future runtime or ML projection; this complete document is not an inference payload.",
+  "events": [
+    {
+      "event_id": "e01",
+      "sequence_number": 1,
+      "parent_event_id": null,
+      "timestamp": "2026-11-01T00:00:00Z",
+      "event_kind": "request_capture",
+      "evidence_requirements": [
+        "E01",
+        "E08"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "request.user_query / request.structured_input",
+        "status": "OPEN",
+        "gap_ids": [
+          "WG-03",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "raw_request": "Please purchase 20 laptops for a total of USD 16,000 from SUP-088.",
+        "normalized_request": {
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "item_description": "laptops",
+          "quantity": 20,
+          "total_amount": "16000.00",
+          "currency": "USD",
+          "supplier_id": "SUP-088",
+          "requester_ref": "actor-requester-paper"
+        },
+        "normalization_valid": true
+      }
+    },
+    {
+      "event_id": "e02",
+      "sequence_number": 2,
+      "parent_event_id": "e01",
+      "timestamp": "2026-11-01T00:00:01Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": null,
+        "to_state": "REQUEST_CAPTURED",
+        "workflow_stage": "PRE_APPROVAL",
+        "state_revision": 1,
+        "accepted": true,
+        "reason": "Validated request revision captured",
+        "approval_required": null,
+        "approval_required_availability": "NOT_YET_CALCULATED",
+        "approval_received": false,
+        "authorization_basis": null,
+        "basis_ref": "e01"
+      }
+    },
+    {
+      "event_id": "e03",
+      "sequence_number": 3,
+      "parent_event_id": "e02",
+      "timestamp": "2026-11-01T00:00:02Z",
+      "event_kind": "manual_proposal_authoring",
+      "evidence_requirements": [
+        "E02",
+        "E15"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "model_call.attributes.{model_id,rendered_prompt_or_messages,proposed_tool_calls}; no manual mode field",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-06",
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "mode": "MANUAL",
+        "provider_call_made": false,
+        "planned_model": "gemini-3.8-flash",
+        "rendered_input": {
+          "request": {
+            "request_id": "req-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "supplier_id": "SUP-088",
+            "requester_ref": "actor-requester-paper"
+          },
+          "state": "REQUEST_CAPTURED",
+          "tool_name": "search_policy",
+          "instruction": "Propose the specified tool with the exact paper-case arguments; trusted authorization is never supplied by the model."
+        },
+        "authored_proposal": {
+          "tool_name": "search_policy",
+          "arguments": {
+            "query": "laptop purchasing approval and approved supplier policy",
+            "request_id": "req-paper-01",
+            "top_k": 1
+          }
+        },
+        "token_usage": null
+      }
+    },
+    {
+      "event_id": "e04",
+      "sequence_number": 4,
+      "parent_event_id": "e03",
+      "timestamp": "2026-11-01T00:00:03Z",
+      "event_kind": "tool_proposal",
+      "evidence_requirements": [
+        "E15",
+        "E16"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_proposal.attributes.{proposal_id,tool_name,proposed_arguments,workflow_stage_at_proposal}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "proposal_id": "proposal-1",
+        "tool_name": "search_policy",
+        "arguments": {
+          "query": "laptop purchasing approval and approved supplier policy",
+          "request_id": "req-paper-01",
+          "top_k": 1
+        },
+        "raw_serialized_arguments": "{\"query\":\"laptop purchasing approval and approved supplier policy\",\"request_id\":\"req-paper-01\",\"top_k\":1}",
+        "validation": {
+          "valid": true,
+          "errors": []
+        },
+        "state": "REQUEST_CAPTURED",
+        "state_revision": 1,
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_source_ref": "e03",
+        "trusted_context_separate": true
+      }
+    },
+    {
+      "event_id": "e05",
+      "sequence_number": 5,
+      "parent_event_id": "e04",
+      "timestamp": "2026-11-01T00:00:04Z",
+      "event_kind": "pre_tool_policy_check",
+      "evidence_requirements": [
+        "E17",
+        "E18"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "policy_check.attributes.{check_id,target_proposal_id,check_mode,evaluated_policies,pre_tool_verdict}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "check_id": "check-proposal-1",
+        "check_mode": "MANUAL_EXPECTATION",
+        "verdict": "ALLOW",
+        "verdict_basis": "ALL_POLICIES_SATISFIED",
+        "binding": {
+          "proposal_id": "proposal-1",
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "state": "REQUEST_CAPTURED",
+          "state_revision": 1,
+          "workflow_stage": "PRE_APPROVAL",
+          "argument_sha256": "996d2fbecf66bd18f2d779222633392adc60d2855d43816c8c29e4a5b50ee515",
+          "supplier_ref": null,
+          "calculation_ref": null,
+          "approval_ref": null,
+          "policy_version": "paper-policy-v1-NOT-APPROVED"
+        },
+        "evaluated_policies": [
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "status": "PASS",
+            "reason": "Tool permitted in the paper state/stage"
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "e06",
+      "sequence_number": 6,
+      "parent_event_id": "e05",
+      "timestamp": "2026-11-01T00:00:05Z",
+      "event_kind": "tool_dispatch",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [
+        "e04"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_call.attributes.{call_id,tool_name,arguments,workflow_stage}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_id": "call-proposal-1",
+        "tool_name": "search_policy",
+        "arguments": {
+          "query": "laptop purchasing approval and approved supplier policy",
+          "request_id": "req-paper-01",
+          "top_k": 1
+        },
+        "state": "REQUEST_CAPTURED",
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_ref": "e04",
+        "check_ref": "e05",
+        "mock": true,
+        "paper_expected_execution_started": true,
+        "live_execution_started": false
+      }
+    },
+    {
+      "event_id": "e07",
+      "sequence_number": 7,
+      "parent_event_id": "e06",
+      "timestamp": "2026-11-01T00:00:06Z",
+      "event_kind": "tool_observation",
+      "evidence_requirements": [
+        "E20",
+        "E03",
+        "E05",
+        "E06"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_result.attributes.{call_id,tool_name,execution_status,result_payload}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-03",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_ref": "e06",
+        "tool_name": "search_policy",
+        "outcome": {
+          "status": "MATCHED",
+          "data": {
+            "query": "laptop purchasing approval and approved supplier policy",
+            "requested_top_k": 1,
+            "returned_count": 1,
+            "matches": [
+              {
+                "document_id": "DOC-PAPER-PROC",
+                "source_id": "src-DOC-PAPER-PROC",
+                "source_version": "paper-source-v1",
+                "chunk_id": "CH-PAPER-PROC",
+                "text": "Purchasing requires an approved supplier. A manager approval is required when the requested amount exceeds the configured threshold T. Purchase order creation is permitted only after all prerequisites are satisfied.",
+                "content_hash": "6d363ad7cf06ff553a853a99a1cb0d2749adfcc1b028750e871adf39a81cdea1",
+                "locator": "DOC-PAPER-PROC#paragraph-1",
+                "rank": 1,
+                "score": 0.91,
+                "score_kind": "illustrative_similarity_from_source_example",
+                "higher_is_better": true,
+                "metadata": {
+                  "title": "Synthetic purchasing policy",
+                  "domain": "synthetic-enterprise"
+                },
+                "policy_id": "PROC-APPROVAL-01"
+              }
+            ],
+            "policy_set_version": "paper-policy-v1-NOT-APPROVED",
+            "retriever_version": "paper-policy-lookup-v1",
+            "applicability": "APPLICABLE"
+          },
+          "error": null
+        },
+        "mock": true,
+        "observation_mode": "MANUAL_EXPECTATION"
+      }
+    },
+    {
+      "event_id": "e08",
+      "sequence_number": 8,
+      "parent_event_id": "e07",
+      "timestamp": "2026-11-01T00:00:07Z",
+      "event_kind": "policy_retrieval_evidence",
+      "evidence_requirements": [
+        "E03",
+        "E05",
+        "E06"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "retrieval.attributes.{query_text,top_k_requested,retrieved_documents}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-05",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "tool_result_ref": "e07",
+        "query": "laptop purchasing approval and approved supplier policy",
+        "retrieved_documents": [
+          {
+            "document_id": "DOC-PAPER-PROC",
+            "source_id": "src-DOC-PAPER-PROC",
+            "source_version": "paper-source-v1",
+            "chunk_id": "CH-PAPER-PROC",
+            "text": "Purchasing requires an approved supplier. A manager approval is required when the requested amount exceeds the configured threshold T. Purchase order creation is permitted only after all prerequisites are satisfied.",
+            "content_hash": "6d363ad7cf06ff553a853a99a1cb0d2749adfcc1b028750e871adf39a81cdea1",
+            "locator": "DOC-PAPER-PROC#paragraph-1",
+            "rank": 1,
+            "score": 0.91,
+            "score_kind": "illustrative_similarity_from_source_example",
+            "higher_is_better": true,
+            "metadata": {
+              "title": "Synthetic purchasing policy",
+              "domain": "synthetic-enterprise"
+            },
+            "policy_id": "PROC-APPROVAL-01"
+          }
+        ],
+        "selected_document_ids": [
+          "DOC-PAPER-PROC"
+        ],
+        "selected_rule_ids": [
+          "PROC-APPROVAL-01",
+          "PROC-TOOL-STAGE-01",
+          "PROC-SUPPLIER-01"
+        ],
+        "numeric_score_is_inherited_illustration": true
+      }
+    },
+    {
+      "event_id": "e09",
+      "sequence_number": 9,
+      "parent_event_id": "e08",
+      "timestamp": "2026-11-01T00:00:08Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "REQUEST_CAPTURED",
+        "to_state": "POLICY_CHECKED",
+        "workflow_stage": "PRE_APPROVAL",
+        "state_revision": 2,
+        "accepted": true,
+        "reason": "Applicable policy evidence observed without disagreement in the paper case",
+        "approval_required": null,
+        "approval_required_availability": "NOT_YET_CALCULATED",
+        "approval_received": false,
+        "authorization_basis": null,
+        "basis_ref": "e08"
+      }
+    },
+    {
+      "event_id": "e10",
+      "sequence_number": 10,
+      "parent_event_id": "e09",
+      "timestamp": "2026-11-01T00:00:09Z",
+      "event_kind": "manual_proposal_authoring",
+      "evidence_requirements": [
+        "E02",
+        "E15"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "model_call.attributes.{model_id,rendered_prompt_or_messages,proposed_tool_calls}; no manual mode field",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-06",
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "mode": "MANUAL",
+        "provider_call_made": false,
+        "planned_model": "gemini-3.8-flash",
+        "rendered_input": {
+          "request": {
+            "request_id": "req-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "supplier_id": "SUP-088",
+            "requester_ref": "actor-requester-paper"
+          },
+          "state": "POLICY_CHECKED",
+          "tool_name": "get_supplier",
+          "instruction": "Propose the specified tool with the exact paper-case arguments; trusted authorization is never supplied by the model."
+        },
+        "authored_proposal": {
+          "tool_name": "get_supplier",
+          "arguments": {
+            "supplier_id": "SUP-088",
+            "request_id": "req-paper-01"
+          }
+        },
+        "token_usage": null
+      }
+    },
+    {
+      "event_id": "e11",
+      "sequence_number": 11,
+      "parent_event_id": "e10",
+      "timestamp": "2026-11-01T00:00:10Z",
+      "event_kind": "tool_proposal",
+      "evidence_requirements": [
+        "E15",
+        "E16"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_proposal.attributes.{proposal_id,tool_name,proposed_arguments,workflow_stage_at_proposal}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "proposal_id": "proposal-2",
+        "tool_name": "get_supplier",
+        "arguments": {
+          "supplier_id": "SUP-088",
+          "request_id": "req-paper-01"
+        },
+        "raw_serialized_arguments": "{\"supplier_id\":\"SUP-088\",\"request_id\":\"req-paper-01\"}",
+        "validation": {
+          "valid": true,
+          "errors": []
+        },
+        "state": "POLICY_CHECKED",
+        "state_revision": 2,
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_source_ref": "e10",
+        "trusted_context_separate": true
+      }
+    },
+    {
+      "event_id": "e12",
+      "sequence_number": 12,
+      "parent_event_id": "e11",
+      "timestamp": "2026-11-01T00:00:11Z",
+      "event_kind": "pre_tool_policy_check",
+      "evidence_requirements": [
+        "E17",
+        "E18"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "policy_check.attributes.{check_id,target_proposal_id,check_mode,evaluated_policies,pre_tool_verdict}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "check_id": "check-proposal-2",
+        "check_mode": "MANUAL_EXPECTATION",
+        "verdict": "ALLOW",
+        "verdict_basis": "ALL_POLICIES_SATISFIED",
+        "binding": {
+          "proposal_id": "proposal-2",
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "state": "POLICY_CHECKED",
+          "state_revision": 2,
+          "workflow_stage": "PRE_APPROVAL",
+          "argument_sha256": "7d27af782c25475a2be31ce0f326c3fb171a6fa1e78d049ae87108d803b66ee0",
+          "supplier_ref": null,
+          "calculation_ref": null,
+          "approval_ref": null,
+          "policy_version": "paper-policy-v1-NOT-APPROVED"
+        },
+        "evaluated_policies": [
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "status": "PASS",
+            "reason": "Tool permitted in the paper state/stage"
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "e13",
+      "sequence_number": 13,
+      "parent_event_id": "e12",
+      "timestamp": "2026-11-01T00:00:12Z",
+      "event_kind": "tool_dispatch",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [
+        "e11"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_call.attributes.{call_id,tool_name,arguments,workflow_stage}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_id": "call-proposal-2",
+        "tool_name": "get_supplier",
+        "arguments": {
+          "supplier_id": "SUP-088",
+          "request_id": "req-paper-01"
+        },
+        "state": "POLICY_CHECKED",
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_ref": "e11",
+        "check_ref": "e12",
+        "mock": true,
+        "paper_expected_execution_started": true,
+        "live_execution_started": false
+      }
+    },
+    {
+      "event_id": "e14",
+      "sequence_number": 14,
+      "parent_event_id": "e13",
+      "timestamp": "2026-11-01T00:00:13Z",
+      "event_kind": "tool_observation",
+      "evidence_requirements": [
+        "E20",
+        "E11"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_result.attributes.{call_id,tool_name,execution_status,result_payload}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-03",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_ref": "e13",
+        "tool_name": "get_supplier",
+        "outcome": {
+          "status": "FOUND",
+          "data": {
+            "requested_supplier_id": "SUP-088",
+            "supplier": {
+              "supplier_id": "SUP-088",
+              "display_name": "Synthetic supplier SUP-088",
+              "raw_status": "APPROVED",
+              "status": "APPROVED",
+              "record_version": "paper-supplier-r1",
+              "source_ref": "paper-directory-record-088",
+              "observed_at": "2026-11-01T00:00:09Z"
+            },
+            "directory_version": "paper-directory-v1"
+          },
+          "error": null
+        },
+        "mock": true,
+        "observation_mode": "MANUAL_EXPECTATION"
+      }
+    },
+    {
+      "event_id": "e15",
+      "sequence_number": 15,
+      "parent_event_id": "e14",
+      "timestamp": "2026-11-01T00:00:14Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "POLICY_CHECKED",
+        "to_state": "SUPPLIER_CHECKED",
+        "workflow_stage": "PRE_APPROVAL",
+        "state_revision": 3,
+        "accepted": true,
+        "reason": "Exact requested supplier is approved",
+        "approval_required": null,
+        "approval_required_availability": "NOT_YET_CALCULATED",
+        "approval_received": false,
+        "authorization_basis": null,
+        "basis_ref": "e14"
+      }
+    },
+    {
+      "event_id": "e16",
+      "sequence_number": 16,
+      "parent_event_id": "e15",
+      "timestamp": "2026-11-01T00:00:15Z",
+      "event_kind": "manual_proposal_authoring",
+      "evidence_requirements": [
+        "E02",
+        "E15"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "model_call.attributes.{model_id,rendered_prompt_or_messages,proposed_tool_calls}; no manual mode field",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-06",
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "mode": "MANUAL",
+        "provider_call_made": false,
+        "planned_model": "gemini-3.8-flash",
+        "rendered_input": {
+          "request": {
+            "request_id": "req-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "supplier_id": "SUP-088",
+            "requester_ref": "actor-requester-paper"
+          },
+          "state": "SUPPLIER_CHECKED",
+          "tool_name": "calculate_approval_level",
+          "instruction": "Propose the specified tool with the exact paper-case arguments; trusted authorization is never supplied by the model."
+        },
+        "authored_proposal": {
+          "tool_name": "calculate_approval_level",
+          "arguments": {
+            "request_id": "req-paper-01",
+            "total_amount": "16000.00",
+            "currency": "USD"
+          }
+        },
+        "token_usage": null
+      }
+    },
+    {
+      "event_id": "e17",
+      "sequence_number": 17,
+      "parent_event_id": "e16",
+      "timestamp": "2026-11-01T00:00:16Z",
+      "event_kind": "tool_proposal",
+      "evidence_requirements": [
+        "E15",
+        "E16"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_proposal.attributes.{proposal_id,tool_name,proposed_arguments,workflow_stage_at_proposal}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "proposal_id": "proposal-3",
+        "tool_name": "calculate_approval_level",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "total_amount": "16000.00",
+          "currency": "USD"
+        },
+        "raw_serialized_arguments": "{\"request_id\":\"req-paper-01\",\"total_amount\":\"16000.00\",\"currency\":\"USD\"}",
+        "validation": {
+          "valid": true,
+          "errors": []
+        },
+        "state": "SUPPLIER_CHECKED",
+        "state_revision": 3,
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_source_ref": "e16",
+        "trusted_context_separate": true
+      }
+    },
+    {
+      "event_id": "e18",
+      "sequence_number": 18,
+      "parent_event_id": "e17",
+      "timestamp": "2026-11-01T00:00:17Z",
+      "event_kind": "pre_tool_policy_check",
+      "evidence_requirements": [
+        "E17",
+        "E18"
+      ],
+      "depends_on": [
+        "e14"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "policy_check.attributes.{check_id,target_proposal_id,check_mode,evaluated_policies,pre_tool_verdict}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "check_id": "check-proposal-3",
+        "check_mode": "MANUAL_EXPECTATION",
+        "verdict": "ALLOW",
+        "verdict_basis": "ALL_POLICIES_SATISFIED",
+        "binding": {
+          "proposal_id": "proposal-3",
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "state": "SUPPLIER_CHECKED",
+          "state_revision": 3,
+          "workflow_stage": "PRE_APPROVAL",
+          "argument_sha256": "2ab5bf1bc4ad6e435eda75ecf67dec4f6545b2cc537d6b15f0d25b53a85d3c24",
+          "supplier_ref": "e14",
+          "calculation_ref": null,
+          "approval_ref": null,
+          "policy_version": "paper-policy-v1-NOT-APPROVED"
+        },
+        "evaluated_policies": [
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "status": "PASS",
+            "reason": "Proposed calculation permission assumed for paper review; OD-02 open"
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "e19",
+      "sequence_number": 19,
+      "parent_event_id": "e18",
+      "timestamp": "2026-11-01T00:00:18Z",
+      "event_kind": "tool_dispatch",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [
+        "e17"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_call.attributes.{call_id,tool_name,arguments,workflow_stage}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_id": "call-proposal-3",
+        "tool_name": "calculate_approval_level",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "total_amount": "16000.00",
+          "currency": "USD"
+        },
+        "state": "SUPPLIER_CHECKED",
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_ref": "e17",
+        "check_ref": "e18",
+        "mock": true,
+        "paper_expected_execution_started": true,
+        "live_execution_started": false
+      }
+    },
+    {
+      "event_id": "e20",
+      "sequence_number": 20,
+      "parent_event_id": "e19",
+      "timestamp": "2026-11-01T00:00:19Z",
+      "event_kind": "tool_observation",
+      "evidence_requirements": [
+        "E20",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_result.attributes.{call_id,tool_name,execution_status,result_payload}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-03",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_ref": "e19",
+        "tool_name": "calculate_approval_level",
+        "outcome": {
+          "status": "CALCULATED",
+          "data": {
+            "calculation_ref": "calc-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "approval_required": true,
+            "approval_level": "manager",
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "paper-policy-v1-NOT-APPROVED",
+            "basis": {
+              "amount": "16000.00",
+              "currency": "USD",
+              "threshold": "5000.00",
+              "threshold_currency": "USD",
+              "comparator": ">",
+              "rule_ref": "paper-policy-v1-NOT-APPROVED#PROC-APPROVAL-01"
+            }
+          },
+          "error": null
+        },
+        "mock": true,
+        "observation_mode": "MANUAL_EXPECTATION"
+      }
+    },
+    {
+      "event_id": "e21",
+      "sequence_number": 21,
+      "parent_event_id": "e20",
+      "timestamp": "2026-11-01T00:00:20Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "SUPPLIER_CHECKED",
+        "to_state": "APPROVAL_CALCULATED",
+        "workflow_stage": "PRE_APPROVAL",
+        "state_revision": 4,
+        "accepted": true,
+        "reason": "Known requirement true from authored calculation observation",
+        "approval_required": true,
+        "approval_required_availability": "KNOWN",
+        "approval_received": false,
+        "authorization_basis": null,
+        "basis_ref": "e20"
+      }
+    },
+    {
+      "event_id": "e22",
+      "sequence_number": 22,
+      "parent_event_id": "e21",
+      "timestamp": "2026-11-01T00:00:21Z",
+      "event_kind": "manual_proposal_authoring",
+      "evidence_requirements": [
+        "E02",
+        "E15"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "model_call.attributes.{model_id,rendered_prompt_or_messages,proposed_tool_calls}; no manual mode field",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-06",
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "mode": "MANUAL",
+        "provider_call_made": false,
+        "planned_model": "gemini-3.8-flash",
+        "rendered_input": {
+          "request": {
+            "request_id": "req-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "supplier_id": "SUP-088",
+            "requester_ref": "actor-requester-paper"
+          },
+          "state": "APPROVAL_CALCULATED",
+          "tool_name": "request_approval",
+          "instruction": "Propose the specified tool with the exact paper-case arguments; trusted authorization is never supplied by the model."
+        },
+        "authored_proposal": {
+          "tool_name": "request_approval",
+          "arguments": {
+            "request_id": "req-paper-01",
+            "justification": "Synthetic laptop purchase requires manager approval."
+          }
+        },
+        "token_usage": null
+      }
+    },
+    {
+      "event_id": "e23",
+      "sequence_number": 23,
+      "parent_event_id": "e22",
+      "timestamp": "2026-11-01T00:00:22Z",
+      "event_kind": "tool_proposal",
+      "evidence_requirements": [
+        "E15",
+        "E16"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_proposal.attributes.{proposal_id,tool_name,proposed_arguments,workflow_stage_at_proposal}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "proposal_id": "proposal-4",
+        "tool_name": "request_approval",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "justification": "Synthetic laptop purchase requires manager approval."
+        },
+        "raw_serialized_arguments": "{\"request_id\":\"req-paper-01\",\"justification\":\"Synthetic laptop purchase requires manager approval.\"}",
+        "validation": {
+          "valid": true,
+          "errors": []
+        },
+        "state": "APPROVAL_CALCULATED",
+        "state_revision": 4,
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_source_ref": "e22",
+        "trusted_context_separate": true
+      }
+    },
+    {
+      "event_id": "e24",
+      "sequence_number": 24,
+      "parent_event_id": "e23",
+      "timestamp": "2026-11-01T00:00:23Z",
+      "event_kind": "pre_tool_policy_check",
+      "evidence_requirements": [
+        "E17",
+        "E18"
+      ],
+      "depends_on": [
+        "e14",
+        "e20"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "policy_check.attributes.{check_id,target_proposal_id,check_mode,evaluated_policies,pre_tool_verdict}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "check_id": "check-proposal-4",
+        "check_mode": "MANUAL_EXPECTATION",
+        "verdict": "ALLOW",
+        "verdict_basis": "ALL_POLICIES_SATISFIED",
+        "binding": {
+          "proposal_id": "proposal-4",
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "state": "APPROVAL_CALCULATED",
+          "state_revision": 4,
+          "workflow_stage": "PRE_APPROVAL",
+          "argument_sha256": "24a79c6685950c6d543e4919bedab1cc52cf1980ea3b340f5b005c4778121c46",
+          "supplier_ref": "e14",
+          "calculation_ref": "e20",
+          "approval_ref": null,
+          "policy_version": "paper-policy-v1-NOT-APPROVED"
+        },
+        "evaluated_policies": [
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "status": "PASS",
+            "reason": "Tool permitted in the paper state/stage"
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "status": "NOT_APPLICABLE",
+            "reason": "No PO creation proposed"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "e25",
+      "sequence_number": 25,
+      "parent_event_id": "e24",
+      "timestamp": "2026-11-01T00:00:24Z",
+      "event_kind": "tool_dispatch",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [
+        "e23"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_call.attributes.{call_id,tool_name,arguments,workflow_stage}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_id": "call-proposal-4",
+        "tool_name": "request_approval",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "justification": "Synthetic laptop purchase requires manager approval."
+        },
+        "state": "APPROVAL_CALCULATED",
+        "workflow_stage": "PRE_APPROVAL",
+        "proposal_ref": "e23",
+        "check_ref": "e24",
+        "mock": true,
+        "paper_expected_execution_started": true,
+        "live_execution_started": false
+      }
+    },
+    {
+      "event_id": "e26",
+      "sequence_number": 26,
+      "parent_event_id": "e25",
+      "timestamp": "2026-11-01T00:00:25Z",
+      "event_kind": "tool_observation",
+      "evidence_requirements": [
+        "E20",
+        "E13"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_result.attributes.{call_id,tool_name,execution_status,result_payload}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-03",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_ref": "e25",
+        "tool_name": "request_approval",
+        "outcome": {
+          "status": "PENDING",
+          "data": {
+            "approval_request_id": "approval-request-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "calculation_ref": "calc-paper-01",
+            "decision_status": "PENDING",
+            "approval_evidence": null,
+            "decision_ref": null,
+            "reason": null
+          },
+          "error": null
+        },
+        "mock": true,
+        "observation_mode": "MANUAL_EXPECTATION"
+      }
+    },
+    {
+      "event_id": "e27",
+      "sequence_number": 27,
+      "parent_event_id": "e26",
+      "timestamp": "2026-11-01T00:00:26Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "APPROVAL_CALCULATED",
+        "to_state": "APPROVAL_PENDING",
+        "workflow_stage": "PRE_APPROVAL",
+        "state_revision": 5,
+        "accepted": true,
+        "reason": "Request submitted; no approval granted yet",
+        "approval_required": true,
+        "approval_required_availability": "KNOWN",
+        "approval_received": false,
+        "authorization_basis": null,
+        "basis_ref": "e26"
+      }
+    },
+    {
+      "event_id": "e28",
+      "sequence_number": 28,
+      "parent_event_id": "e27",
+      "timestamp": "2026-11-01T00:00:27Z",
+      "event_kind": "trusted_approval_observation",
+      "evidence_requirements": [
+        "E14"
+      ],
+      "depends_on": [
+        "e20",
+        "e26",
+        "e14"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "approval.attributes.{approval_id,approval_status,approver_role,approved_amount_limit,approval_timestamp}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "approval_id": "APR-PAPER-01",
+        "approval_request_id": "approval-request-paper-01",
+        "request_revision": "req-paper-01-r1",
+        "supplier_id": "SUP-088",
+        "amount": "16000.00",
+        "currency": "USD",
+        "approval_level": "manager",
+        "approving_actor_ref": "actor-manager-paper",
+        "decision_timestamp": "2026-11-01T00:00:27Z",
+        "policy_version": "paper-policy-v1-NOT-APPROVED",
+        "source_ref": "paper-authoritative-approval-fixture-v1",
+        "decision_status": "APPROVED",
+        "calculation_ref": "e20",
+        "submission_result_ref": "e26",
+        "binding_valid_under_proposed_contract": true,
+        "trusted_resume_ref": "resume-paper-01",
+        "model_can_write": false
+      }
+    },
+    {
+      "event_id": "e29",
+      "sequence_number": 29,
+      "parent_event_id": "e28",
+      "timestamp": "2026-11-01T00:00:28Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "APPROVAL_PENDING",
+        "to_state": "APPROVED",
+        "workflow_stage": "APPROVED",
+        "state_revision": 6,
+        "accepted": true,
+        "reason": "Exact revision/supplier/amount/currency/level/policy approval matches",
+        "approval_required": true,
+        "approval_required_availability": "KNOWN",
+        "approval_received": true,
+        "authorization_basis": "APPROVAL",
+        "basis_ref": "e28"
+      }
+    },
+    {
+      "event_id": "e30",
+      "sequence_number": 30,
+      "parent_event_id": "e29",
+      "timestamp": "2026-11-01T00:00:29Z",
+      "event_kind": "manual_proposal_authoring",
+      "evidence_requirements": [
+        "E02",
+        "E15"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "model_call.attributes.{model_id,rendered_prompt_or_messages,proposed_tool_calls}; no manual mode field",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-06",
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "mode": "MANUAL",
+        "provider_call_made": false,
+        "planned_model": "gemini-3.8-flash",
+        "rendered_input": {
+          "request": {
+            "request_id": "req-paper-01",
+            "request_revision": "req-paper-01-r1",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "supplier_id": "SUP-088",
+            "requester_ref": "actor-requester-paper"
+          },
+          "state": "APPROVED",
+          "tool_name": "create_purchase_order",
+          "instruction": "Propose the specified tool with the exact paper-case arguments; trusted authorization is never supplied by the model."
+        },
+        "authored_proposal": {
+          "tool_name": "create_purchase_order",
+          "arguments": {
+            "request_id": "req-paper-01",
+            "supplier_id": "SUP-088",
+            "item_description": "laptops",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD"
+          }
+        },
+        "token_usage": null
+      }
+    },
+    {
+      "event_id": "e31",
+      "sequence_number": 31,
+      "parent_event_id": "e30",
+      "timestamp": "2026-11-01T00:00:30Z",
+      "event_kind": "tool_proposal",
+      "evidence_requirements": [
+        "E15",
+        "E16"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_proposal.attributes.{proposal_id,tool_name,proposed_arguments,workflow_stage_at_proposal}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "proposal_id": "proposal-5",
+        "tool_name": "create_purchase_order",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "supplier_id": "SUP-088",
+          "item_description": "laptops",
+          "quantity": 20,
+          "total_amount": "16000.00",
+          "currency": "USD"
+        },
+        "raw_serialized_arguments": "{\"request_id\":\"req-paper-01\",\"supplier_id\":\"SUP-088\",\"item_description\":\"laptops\",\"quantity\":20,\"total_amount\":\"16000.00\",\"currency\":\"USD\"}",
+        "validation": {
+          "valid": true,
+          "errors": []
+        },
+        "state": "APPROVED",
+        "state_revision": 6,
+        "workflow_stage": "APPROVED",
+        "proposal_source_ref": "e30",
+        "trusted_context_separate": true
+      }
+    },
+    {
+      "event_id": "e32",
+      "sequence_number": 32,
+      "parent_event_id": "e31",
+      "timestamp": "2026-11-01T00:00:31Z",
+      "event_kind": "pre_tool_policy_check",
+      "evidence_requirements": [
+        "E17",
+        "E18"
+      ],
+      "depends_on": [
+        "e14",
+        "e20",
+        "e28"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "policy_check.attributes.{check_id,target_proposal_id,check_mode,evaluated_policies,pre_tool_verdict}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-02",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "check_id": "check-proposal-5",
+        "check_mode": "MANUAL_EXPECTATION",
+        "verdict": "ALLOW",
+        "verdict_basis": "ALL_POLICIES_SATISFIED",
+        "binding": {
+          "proposal_id": "proposal-5",
+          "request_id": "req-paper-01",
+          "request_revision": "req-paper-01-r1",
+          "state": "APPROVED",
+          "state_revision": 6,
+          "workflow_stage": "APPROVED",
+          "argument_sha256": "01192384505566d345e000f2edbee3a540004c384a9d4b2fc508f4e1f1d712aa",
+          "supplier_ref": "e14",
+          "calculation_ref": "e20",
+          "approval_ref": "e28",
+          "policy_version": "paper-policy-v1-NOT-APPROVED"
+        },
+        "evaluated_policies": [
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "status": "PASS",
+            "reason": "Valid exact-request approval observed"
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "status": "PASS",
+            "reason": "Tool permitted in the paper state/stage"
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "status": "PASS",
+            "reason": "Authoritative synthetic supplier snapshot APPROVED"
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "e33",
+      "sequence_number": 33,
+      "parent_event_id": "e32",
+      "timestamp": "2026-11-01T00:00:32Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "APPROVED",
+        "to_state": "PO_CREATION",
+        "workflow_stage": "PO_CREATION",
+        "state_revision": 7,
+        "accepted": true,
+        "reason": "Only bound APPROVED→PO_CREATION transition permitted by this ALLOW",
+        "approval_required": true,
+        "approval_required_availability": "KNOWN",
+        "approval_received": true,
+        "authorization_basis": "APPROVAL",
+        "basis_ref": "e32"
+      }
+    },
+    {
+      "event_id": "e34",
+      "sequence_number": 34,
+      "parent_event_id": "e33",
+      "timestamp": "2026-11-01T00:00:33Z",
+      "event_kind": "tool_dispatch",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [
+        "e31",
+        "e32",
+        "e28"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_call.attributes.{call_id,tool_name,arguments,workflow_stage}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-02",
+          "WG-04"
+        ]
+      },
+      "paper_evidence": {
+        "call_id": "call-proposal-5",
+        "tool_name": "create_purchase_order",
+        "arguments": {
+          "request_id": "req-paper-01",
+          "supplier_id": "SUP-088",
+          "item_description": "laptops",
+          "quantity": 20,
+          "total_amount": "16000.00",
+          "currency": "USD"
+        },
+        "proposal_ref": "e31",
+        "check_ref": "e32",
+        "checked_state_revision": 6,
+        "dispatch_state_revision": 7,
+        "state": "PO_CREATION",
+        "workflow_stage": "PO_CREATION",
+        "argument_sha256": "01192384505566d345e000f2edbee3a540004c384a9d4b2fc508f4e1f1d712aa",
+        "atomic_transition_ref": "e33",
+        "single_dispatch_claim": "claim-paper-01",
+        "idempotency_key": "po-key-paper-01",
+        "mock": true,
+        "paper_expected_execution_started": true,
+        "live_execution_started": false
+      }
+    },
+    {
+      "event_id": "e35",
+      "sequence_number": 35,
+      "parent_event_id": "e34",
+      "timestamp": "2026-11-01T00:00:34Z",
+      "event_kind": "tool_observation",
+      "evidence_requirements": [
+        "E20"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "tool_result.attributes.{call_id,execution_status,side_effect_committed,result_payload}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-04",
+          "WG-06"
+        ]
+      },
+      "paper_evidence": {
+        "call_ref": "e34",
+        "proposal_ref": "e31",
+        "tool_name": "create_purchase_order",
+        "outcome": {
+          "status": "CREATED",
+          "data": {
+            "po_id": "PO-2044",
+            "request_revision": "req-paper-01-r1",
+            "supplier_id": "SUP-088",
+            "quantity": 20,
+            "total_amount": "16000.00",
+            "currency": "USD",
+            "mock": true,
+            "created_at": "2026-11-01T00:00:34Z",
+            "idempotency_key": "po-key-paper-01",
+            "result_ref": "result-paper-01"
+          },
+          "error": null
+        },
+        "effect_exists": true,
+        "new_effect_by_this_paper_dispatch": true,
+        "side_effect_evidence": "AUTHORED_EXPECTATION_NOT_OBSERVED_RUNTIME"
+      }
+    },
+    {
+      "event_id": "e36",
+      "sequence_number": 36,
+      "parent_event_id": "e35",
+      "timestamp": "2026-11-01T00:00:35Z",
+      "event_kind": "state_transition",
+      "evidence_requirements": [
+        "E09",
+        "E10",
+        "E12"
+      ],
+      "depends_on": [],
+      "draft_mapping": {
+        "existing_draft_representation": "agent_state.attributes.{from_stage,to_stage,workflow_stage,approval_required,approval_received,transition_reason}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-01",
+          "WG-03"
+        ]
+      },
+      "paper_evidence": {
+        "from_state": "PO_CREATION",
+        "to_state": "COMPLETION",
+        "workflow_stage": "COMPLETED",
+        "state_revision": 8,
+        "accepted": true,
+        "reason": "Confirmed matching synthetic PO result supports completion",
+        "approval_required": true,
+        "approval_required_availability": "KNOWN",
+        "approval_received": true,
+        "authorization_basis": "APPROVAL",
+        "basis_ref": "e35"
+      }
+    },
+    {
+      "event_id": "e37",
+      "sequence_number": 37,
+      "parent_event_id": "e36",
+      "timestamp": "2026-11-01T00:00:36Z",
+      "event_kind": "final_response",
+      "evidence_requirements": [
+        "E21"
+      ],
+      "depends_on": [
+        "e35",
+        "e34"
+      ],
+      "draft_mapping": {
+        "existing_draft_representation": "final_response.attributes.{response_text,response_mode,claimed_actions}",
+        "status": "CHANGE REQUIRED",
+        "gap_ids": [
+          "WG-08"
+        ]
+      },
+      "paper_evidence": {
+        "raw_candidate_text": "Synthetic purchase order PO-2044 was created for 20 laptops, USD 16,000, supplier SUP-088.",
+        "raw_candidate_origin": "MANUALLY_AUTHORED; no model call",
+        "delivered_text": "Synthetic purchase order PO-2044 was created for 20 laptops, USD 16,000, supplier SUP-088.",
+        "candidate_delivered": true,
+        "claimed_actions": [
+          {
+            "action_type": "create_purchase_order",
+            "claimed_status": "created",
+            "po_id": "PO-2044",
+            "request_revision": "req-paper-01-r1",
+            "supporting_result_ref": "e35",
+            "supporting_call_ref": "e34"
+          }
+        ],
+        "outcome": "SUCCEEDED",
+        "post_run_evaluation": null
+      }
+    }
+  ],
+  "independent_review_annotation": {
+    "source": "Manual author expectation, requires Ahmed adjudication; not evaluator output",
+    "primary_failure_expected": "NORMAL",
+    "secondary_findings_expected": [],
+    "root_cause_expected": null
+  },
+  "assumptions": [
+    "Amount 16000 and threshold 5000 reuse proposal/draft examples; USD, IDs, timestamps, source text and observations are explicitly synthetic paper literals. This is not a ratified policy configuration or business approval.",
+    "For this walkthrough only, assume Mohamed ratifies read-only calculate_approval_level in PRE_APPROVAL and the proposed exact-revision approval validity/binding contract. These remain OD-02/03/04 blockers.",
+    "All pre-tool verdicts are authored expected results from the proposed contract. check_mode MANUAL_EXPECTATION is paper notation, not a new canonical enum.",
+    "The proposed bound APPROVED-to-PO_CREATION transition and one dispatch are modeled on paper only; no atomicity implementation is demonstrated."
+  ],
+  "paper_policy_example": {
+    "source": "Proposal J.1 / current draft tr_proc_101 illustrative threshold and amount",
+    "policy_version": "paper-policy-v1-NOT-APPROVED",
+    "amount": "16000.00",
+    "threshold": "5000.00",
+    "currency": "USD",
+    "comparator": ">",
+    "approval_level": "manager",
+    "production_default": false
+  },
+  "approval_submission_trusted_context": {
+    "request_revision": "req-paper-01-r1",
+    "calculation_ref": "e20",
+    "required_level": "manager",
+    "supplier_id": "SUP-088",
+    "total_amount": "16000.00",
+    "currency": "USD",
+    "idempotency_key": "approval-key-paper-01",
+    "submission_result_ref": "e26"
+  },
+  "expected_final": {
+    "state": "COMPLETION",
+    "run_status": "SUCCEEDED",
+    "po_dispatch_count": 1,
+    "po_confirmed": true
+  }
+}

@@ -1,5 +1,65 @@
 # Current-state audit and source reconciliation
 
+**Sprint 1 Contract Baseline / Freeze Candidate — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Week 2 source baseline and precedence
+
+Review date: 2026-11-01. Priority remains Proposal → Sprint Plan → Repository Architecture → Figures → approved team artifacts → repository state; the current instruction expressly restricts Week 2 to contracts and manual validation. The team documents inspected below are **drafts**, regardless of Git merge status. Neither a merged PR nor an author's local checklist supplies a new S1-01 specialist approval.
+
+| Source | Exact review basis / use |
+|---|---|
+| Project proposal v1.1 | Supplied DOCX; N/R procurement, J traces, K–M evaluation/RCA, O–S datasets/security/gates, U technology, Y milestones |
+| Sprint Plan | Supplied HTML, Sprint 1/2 task details and later scope/dependency sections; S1-01/S1-02 manual reviews, S1-07 closeout, S2-01/S2-04 and S3-01/S3-03/S4-06/S5 gates |
+| Repository Architecture | Supplied professional DOCX; canonical `packages/contracts`, app adapters, subsystem ownership and single-home rule |
+| Figures 1–5 | Supplied images visually reviewed: system, online/post-run boundary, execution graph, evaluation pipeline, release gate |
+| Nour Week 1 | Thirteen maintained Markdown files at pinned `dev`; earlier uploaded package and integration archive used only as history |
+| Mohab | `docs/architecture/schemas/Week 1 Execution Deliverable Trace Schema v1 (Draft) & Interface Boundaries.md`, including all three embedded JSON examples |
+| Mohamed | `docs/architecture/governance/governance-contract.md` v0.2 draft and `decision-flow.md` |
+| Ahmed | `trace-evidence-requirements.md`, `annotation-guide.md`, `evaluation-pipeline.md`, taxonomy YAML and S1-03 index; draft semantics are not approvals |
+| Alaa | `docs/requirements/S1-05-dataset-experiment-requirements.md`, draft versioning/dataset requirements |
+| Malak | Dashboard field-owner matrix, owner-review packet and status vocabulary; Q-12/Q-15 and Nour's 37 field rows |
+| Current repository | `main` 3ef7da1f190cd5a22efdcd6798af59199924bac3; latest fetched `dev` 72e7975384d5e8b32d1e0e68ff4742cce96fa336; no frozen executable trace model found |
+
+See `repository-integration.md` and the delivery's `validation/source-manifest.json` for pins and content hashes. The separately uploaded final-integration ZIP is not proof that its repairs reached Git; only current pinned repository text is used for the schema-fit verdict.
+
+## Week 1 artifact review — current disposition
+
+READY means complete at application-specification level, not approved or runtime validated.
+
+| Artifact | Status | Issue | Required Week 2 action / result |
+|---|---|---|---|
+| Procurement state machine | NEEDS ALIGNMENT | Draft conflates fine states, coarse stages and halt outcomes | Preserve eight states; explicit state-to-draft mismatch table added; WG-01 remains owner action |
+| Five tool contracts | NEEDS ALIGNMENT | Draft examples use wrong PO argument names/types; policy transport and result semantics differ | Retain typed business contracts; add five-tool review and correction table |
+| Approval-bypass trajectory | NEEDS ALIGNMENT | No actual call allowed; draft tolerates blocked `tool_call`; raw/delivered response not separately encoded | Complete paper fixture proves expected suppression and preserves false candidate separately; WG-04/08 |
+| RAG flow | NEEDS ALIGNMENT | Selected context, evidence sufficiency and source-version evidence absent from schema | Preserve staged flow; map each boundary and manual sufficient/insufficient paths |
+| Citation contract | NEEDS ALIGNMENT | Optional cited doc/claim does not encode exact claim→selected span→version→marker | Keep application requirement; request canonical binding in WG-05 |
+| Abstention contract | NEEDS ALIGNMENT | Draft reasons do not cover incomplete/conflicting evidence or invalid binding precisely | Explicit lossless reason mapping request; no numeric confidence cutoff |
+| Failure planning matrix | NEEDS CORRECTION | Current Ahmed examples imply unreachable supplier path and timeout proves no effect; fixed score examples unapproved | Application clarification added, upstream corrections requested; labels and existing recipes preserved |
+| Application evidence contract | BLOCKED | Current draft cannot represent all E01–E27 losslessly | Actual paths/status per row and concrete gap register added; canonical walkthrough remains blocked |
+| Provider ADR | READY | Single Gemini/model selection clear; effective config/access still open | Preserve decision and document fresh capability check; no runtime claim |
+| Orchestration ADR | READY | No framework incompatibility found; enum gaps are representation issues | Explicit Python decision APPROVED FOR SPRINT 2 IMPLEMENTATION, subject to overall entry gates |
+| Handoffs/sign-offs | BLOCKED | Five revision-specific acknowledgments not received | Actual team artifact review matrix prepared; every reviewer PENDING |
+| Open decisions | NEEDS ALIGNMENT | Old availability statements outdated and statuses mixed | Every existing ID reclassified; no fabricated closure; owners and evidence retained |
+
+## New source conflicts and smallest compliant corrections
+
+| ID | Conflict / precedence | Smallest compliant correction | Owner / disposition |
+|---|---|---|---|
+| W2-C01 | Proposal N's fine workflow vs Mohab/Ahmed nine-stage enum; Proposal wins | Keep fine state separate from coarse policy stage; preserve APPROVAL_PENDING, PO_CREATION and COMPLETION; do not treat PO_CREATED as pre-dispatch | Mohab/Mohamed; BLOCKING |
+| W2-C02 | Proposal N requires calculation but R's PRE_APPROVAL allowlist omits it; internal proposal ambiguity | Ratify read-only `calculate_approval_level` at SUPPLIER_CHECKED/PRE_APPROVAL, leaving PO restricted; Mohamed GD-01 proposes this but is unsigned | Mohamed/Nour; BLOCKING |
+| W2-C03 | S2 summary/S2-01 stub vs S2-04 three real policies vs S3 persistence/integration | Agree minimum real pre-tool enforcement date and temporary stub expiry; candidate S2 in-process pure policies, S3 persistence is a proposal only | Plan owner/Mohamed/Mohab; BLOCKING |
+| W2-C04 | Roadmap recommends runnable mocks in Week 2; S1 is contract-only and current task expressly prohibits implementation | Keep this revision entirely documentation/manual fixtures; implement only after Sprint 2 authorization | Resolved scope interpretation; no code introduced |
+| W2-C05 | Roadmap all-class Week 6 vs S3-01 four scenarios; S4-06 fixes vs proposed Week 7 new recipes | Preserve S3 four cases and S5 security; obtain explicit S4-06 amendment for SC-01–03 and dataset sequencing | Plan owner/Nour/Ahmed/Alaa; scheduling pending |
+| W2-C06 | Draft `passed:bool`/ERROR_BLOCK vs governance PASS/FAIL/NOT_APPLICABLE/ERROR and ALLOW/BLOCK+basis | Mohab/Mohamed agree lossless mapping; preserve technical error versus policy violation and non-applicability | WG-02; BLOCKING |
+| W2-C07 | Schema/annotation timeout implies false side effect; app correctly preserves UNKNOWN_OUTCOME | Unknown is not false; no confirmed PO ID or replacement dispatch until read-only evidence resolves it | Mohab/Ahmed/Malak; BLOCKING |
+| W2-C08 | Ahmed labels supplier breach at APPROVED as valid full-app workflow; app must stop at supplier check | Full-app early-stop control remains; isolated governance-boundary fixture explicitly declares seeded snapshot and is not reachable app execution | Ahmed/Mohamed; correction requested |
+| W2-C09 | Numeric groundedness/security examples in Ahmed draft appear normative; proposal requires empirical tolerances | Treat as unapproved illustrative examples only; no app sufficiency threshold, measured score or gate configured | Ahmed/Alaa; defer numeric approval to S5 |
+| W2-C10 | Schema draft recommends legacy backend schema paths and Week 2 migration | Canonical definitions belong only in `packages/contracts`; no migration/SDK/schema implementation in this task | Mohab; architecture/sprint take precedence |
+| W2-C11 | Figure 3 stretch GNN and Figure 4 omitted Logistic Regression vs Proposal scope | No GNN in MVP; retain deterministic, Logistic Regression and XGBoost comparisons downstream | Scope clarified; no evaluator work |
+| W2-C12 | Procurement policies mentioned alongside RAG in planning vs RAG has no purchasing tools | RAG receives NOT_APPLICABLE for procurement policy family, not a fictitious PASS or added PO capability | Mohamed/plan owner; GD-17 proposed, pending |
+
+The remaining historical reconciliation below is retained for provenance. Its old statements that team/schema artifacts were unavailable describe the Week 1 review date only.
+
 > Historical source-package audit: references below to attachments, hashes and the absence of a Git checkout describe the original preparation session. Those attachments and their source-hash manifest were not included in the supplied 12-file Markdown folder and were not independently inspected during this import. See the [2026-10-15 repository integration record](repository-integration.md) for current repository evidence.
 
 ## Audit categories
