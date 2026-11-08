@@ -61,5 +61,11 @@
   "source_package_report": "validation/compatibility-runner-refresh.json",
   "source_package_context": "Retained preparation evidence; this report contains fresh integration outcomes.",
   "model_promoted": false,
-  "shared_acceptance": "PENDING"
+  "shared_acceptance": "PENDING",
+  "provider_runner_portability_followup": {
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "status": "PORTABILITY_PATCH_OFFLINE_VERIFIED_NATIVE_WINDOWS_PENDING",
+    "native_windows_tests": "NOT_RUN",
+    "live_provider_calls": 0
+  }
 }

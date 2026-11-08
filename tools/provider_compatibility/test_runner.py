@@ -223,3 +223,43 @@ def test_missing_attestation_blocks_before_dispatch(tmp_path):
     with pytest.raises(RuntimeError, match="LIVE_ATTESTATIONS"):
         runner.run_live(args)
     assert not (tmp_path / "results").exists()
+
+
+def test_windows_lock_and_child_without_posix_fds(tmp_path, monkeypatch):
+    """Exercise the native Windows branch on a non-Windows CI host with a fake msvcrt."""
+    import types
+
+    monkeypatch.setattr(runner, "LOCK_PLATFORM", "win32")
+    monkeypatch.setattr(Path, "home", lambda: tmp_path)
+    monkeypatch.setenv("GEMINI_API_KEY", "private-test-value")
+    monkeypatch.setattr(runner.time, "sleep", lambda seconds: None)
+    calls = []
+
+    class FakeMsvcrt:
+        LK_NBLCK = 1
+        LK_UNLCK = 2
+
+        @staticmethod
+        def locking(fd, mode, length):
+            calls.append((mode, length))
+            assert length == 1
+
+    monkeypatch.setitem(sys.modules, "msvcrt", FakeMsvcrt)
+
+    def child(command, **kwargs):
+        assert "pass_fds" not in kwargs
+        return types.SimpleNamespace(returncode=0, stdout=b'{"status":"PASS"}')
+
+    monkeypatch.setattr(runner.subprocess, "run", child)
+    assert runner.run_live(live_args(tmp_path)) == 0
+    assert calls == [(1, 1), (2, 1)]
+    assert (tmp_path / ".trustops-compatibility/session.lock").read_bytes() == b"\0"
+
+
+def test_windows_failed_attestation_never_acquires_lock(tmp_path, monkeypatch):
+    monkeypatch.setattr(runner, "LOCK_PLATFORM", "win32")
+    args = live_args(tmp_path)
+    args.available_generation_requests = 9
+    with pytest.raises(RuntimeError, match="LIVE_ATTESTATIONS"):
+        runner.run_live(args)
+    assert not (tmp_path / "results").exists()

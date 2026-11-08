@@ -13,8 +13,10 @@ import subprocess
 import sys
 import time
 import uuid
+from contextlib import contextmanager
 from pathlib import Path
 
+LOCK_PLATFORM = sys.platform
 SDK = "2.34.0"
 MODELS = ("gemini-3.5-flash-lite", "gemini-3.8-flash")
 EMBEDDING = "gemini-embedding-001"
@@ -259,10 +261,34 @@ def reserve(db: sqlite3.Connection, run_id: str, now: float) -> None:
     db.commit()
 
 
-def run_live(args) -> int:
-    # fcntl serializes local invocations across the entire session. No distributed-ledger claim.
-    import fcntl
+@contextmanager
+def session_lock(lock):
+    """Nonblocking, single-host lock; keep the worker handle on POSIX only."""
+    if LOCK_PLATFORM == "win32":
+        import msvcrt
 
+        lock.seek(0, os.SEEK_END)
+        if lock.tell() == 0:
+            lock.write(b"\0")
+            lock.flush()
+        lock.seek(0)
+        msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+        try:
+            yield False
+        finally:
+            lock.seek(0)
+            msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+    else:
+        import fcntl
+
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        try:
+            yield True
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+
+
+def run_live(args) -> int:
     if not (
         args.confirm_free_tier
         and args.confirm_project
@@ -277,8 +303,7 @@ def run_live(args) -> int:
         raise RuntimeError("SDK_VERSION_MISMATCH")
     state = Path.home() / ".trustops-compatibility"
     state.mkdir(mode=0o700, exist_ok=True)
-    with (state / "session.lock").open("a") as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    with (state / "session.lock").open("a+b") as lock, session_lock(lock) as inherit_lock:
         output = Path(args.output)
         output.mkdir(parents=True, exist_ok=False)
         run_id = str(uuid.uuid4())
@@ -337,7 +362,7 @@ def run_live(args) -> int:
                             args.model,
                         ],
                         capture_output=True,
-                        pass_fds=(lock.fileno(),),
+                        **({"pass_fds": (lock.fileno(),)} if inherit_lock else {}),
                         timeout=limit,
                         check=False,
                         env={**os.environ, "TRUSTOPS_SMOKE_WORKER": "1"},

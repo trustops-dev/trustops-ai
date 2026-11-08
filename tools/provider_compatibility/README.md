@@ -7,8 +7,8 @@ It does not change the proposed primary model. Default testing targets the alter
 
 ## Setup and offline checks
 
-Run from repository root in Python 3.12 on Linux/macOS, or Windows through WSL. The live
-runner uses a POSIX file lock. Install these isolated developer dependencies; no application
+Run from repository root in Python 3.12 on Linux, macOS or Windows. The live
+runner uses a native nonblocking file lock (POSIX `fcntl` or Windows `msvcrt`). Install these isolated developer dependencies; no application
 package or repository lockfile dependency changes are required.
 
 ```bash
@@ -18,7 +18,11 @@ python3.12 -m venv /tmp/trustops-smoke-venv
 /tmp/trustops-smoke-venv/bin/python tools/provider_compatibility/runner.py
 ```
 
-The last command is a dry run and requires no credential. Wire tests use `httpx.MockTransport`;
+On Windows PowerShell, use `py -3.12 -m venv .venv`,
+`.venv\Scripts\python.exe -m pip install -r tools/provider_compatibility/requirements.txt`,
+`.venv\Scripts\python.exe -m pytest -q tools/provider_compatibility/test_runner.py`, and
+`.venv\Scripts\python.exe tools/provider_compatibility/runner.py`. The Windows local suite must show
+25 passing tests before attempting live execution. The last command is a dry run and requires no credential. Wire tests use `httpx.MockTransport`;
 no Google request is sent. Tests cover SDK serialization, retry suppression, continuation
 suppression, strict outputs, invalid vectors, durable reservations, timeout charging,
 stop-on-failure and sanitized errors. SDK transitive versions are not locked by this utility;
@@ -26,7 +30,7 @@ retain the environment's package-version evidence when comparing live results.
 
 ## Run locally after verifying free-tier headroom
 
-Use the replacement already stored privately as `GEMINI_API_KEY` in the process environment.
+Use the replacement already stored privately as `GEMINI_API_KEY` in the process environment. On Windows, verify that the same PowerShell session launching the runner sees the variable without printing its value: `python -c "import os; print(bool(os.environ.get('GEMINI_API_KEY')))"`. Set it privately in that process if needed; never paste it into the review packet.
 The runner does not read `.env` files, print credentials, or accept a key argument.
 Confirm this key belongs to project `gen-lang-client-0848818912`, the account remains Free tier,
 and at least **10 generation-bucket requests and 4 embedding requests** are available after
@@ -65,8 +69,8 @@ this first smoke session. Each generation/count worker has a hard 60-second loca
 deadline; embeddings have 10 seconds; session deadline is 900 seconds. Timeout cancels the
 local worker but cannot prove the provider did not process the request.
 
-`~/.trustops-compatibility/ledger.sqlite3` durably reserves each session before dispatch and
-each attempt before its child starts. A file lock serializes local sessions and is inherited by workers so a parent crash does not release it while its child is still running. An unfinished prior attempt incurs a conservative additional cooldown.
+`~/.trustops-compatibility/ledger.sqlite3` (or `%USERPROFILE%\.trustops-compatibility\ledger.sqlite3` on Windows) durably reserves each session before dispatch and
+each attempt before its child starts. A file lock serializes local sessions. On POSIX it is inherited by the child; on Windows the lock is held by the parent process. An unfinished prior attempt incurs a conservative cooldown (last dispatch plus 60 seconds, then a 31-second spacing) before another attempt. Never retry or refund an interrupted run.
 At most two reservations are admitted per rolling 24 hours (conservative 20 generation
 bucket/8 embedding total, including both candidate choices). Interrupted sessions retain
 charges and cannot resume or refund them. Keep this state intact across invocations; do not

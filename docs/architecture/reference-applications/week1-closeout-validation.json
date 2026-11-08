@@ -2,7 +2,7 @@
   "date": "2026-11-08",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Credential evidence correction and executable synthetic smoke runner; offline SDK tests and affected owner-document checks only.",
-  "manifest_sha256": "95cb753eda8ab114e3b09e0365eb131e16dbeb354053d4613fe442f868a38945",
+  "manifest_sha256": "78b4477686989ce791e1de7fab35bdcbf668bdb07a72a38c7cc7d767f954abef",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16167,5 +16167,28 @@
     "model_promoted": false,
     "shared_acceptance": "PENDING",
     "report": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json"
+  },
+  "provider_runner_portability_followup": {
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "status": "PORTABILITY_PATCH_OFFLINE_VERIFIED_NATIVE_WINDOWS_PENDING",
+    "native_windows_tests": "NOT_RUN",
+    "live_provider_calls": 0
+  },
+  "windows_integration_validation": {
+    "date": "2026-11-08",
+    "status": "NATIVE_WINDOWS_OFFLINE_VERIFIED_LIVE_PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "fresh_checks": {
+      "runner_tests_passed": 25,
+      "runner_tests_failed": 0,
+      "dry_run": "DRY_RUN_NO_REQUESTS",
+      "manual_fixture_link_checks": 886,
+      "optional_git_checks": 3,
+      "manual_total": 889,
+      "corpus_boundary_checks": 327,
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS"
+    },
+    "prior_windows_failures": "Historical evidence superseded by the fresh 25-test native Windows pass."
   }
 }

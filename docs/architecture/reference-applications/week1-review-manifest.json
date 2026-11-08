@@ -985,14 +985,24 @@
       "size_bytes": 101495
     },
     {
+      "path": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json",
+      "sha256": "11b262cb140870c85d889adef0a56f317f3fd895cbf351a17d90c7a374c09447",
+      "size_bytes": 2697
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+      "sha256": "a7cedbf62f1e83f098884dbbd2d6ece40834f3dbe8d6c411e683894ea249323e",
+      "size_bytes": 2137
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/publication-refresh.json",
       "sha256": "7a03bbaf6b07f89341885303425d62dd1b593a523fa64a8a7a0b4846b68b6a8c",
       "size_bytes": 151303
     },
     {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "2dab6367e5779f300c662c2f8afa2f8214b8a849c06a2d4b49098f8f6ebc35ad",
-      "size_bytes": 39738
+      "sha256": "e321fe90eae921aa3be4ed81361ebd36550ce343c76cebd59b25751ba7644972",
+      "size_bytes": 40712
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -1138,8 +1148,8 @@
     },
     {
       "path": "tools/provider_compatibility/README.md",
-      "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997",
-      "size_bytes": 8121
+      "sha256": "b6515ad08230821bc040e756a057fb5ed962042e5eca813266364adec351bbb3",
+      "size_bytes": 8992
     },
     {
       "path": "tools/provider_compatibility/requirements.txt",
@@ -1148,18 +1158,13 @@
     },
     {
       "path": "tools/provider_compatibility/runner.py",
-      "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399",
-      "size_bytes": 15888
+      "sha256": "8dce0d37e17051fdba6ba40362449f22b1b54df23496290bccefebc065a3d5ad",
+      "size_bytes": 16556
     },
     {
       "path": "tools/provider_compatibility/test_runner.py",
-      "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515",
-      "size_bytes": 7811
-    },
-    {
-      "path": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json",
-      "sha256": "e9c027c2f4d0a9254342985c781c1b0b36e931408ef87fd90b985775ea277cee",
-      "size_bytes": 2395
+      "sha256": "7e6a7ac4c9aed782fd61d819252b7e99999a334e2a574510984166cba1ff8aae",
+      "size_bytes": 9258
     }
   ],
   "revision_reference_cleanup": {
@@ -1644,5 +1649,46 @@
     "model_promoted": false,
     "shared_acceptance": "PENDING",
     "report": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json"
+  },
+  "provider_runner_portability_followup": {
+    "date": "2026-11-08",
+    "status": "PORTABILITY_PATCH_OFFLINE_VERIFIED_NATIVE_WINDOWS_PENDING",
+    "baseline_pr_head": "17948052ed1de126459a4bc8610e673fb0cc48f9",
+    "change": "Native Windows msvcrt single-byte nonblocking lock; POSIX keeps fcntl and inherited lock descriptor; Windows child no pass_fds.",
+    "checks": {
+      "pytest_linux_with_windows_branch_simulation": "25 PASSED",
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS",
+      "dry_run": "PASS"
+    },
+    "windows_native_runner_tests": "NOT_RUN_IN_THIS_ENVIRONMENT",
+    "live_provider_calls": 0,
+    "local_key_available_in_authoring_process": false,
+    "headroom": "NOT_VERIFIED",
+    "model_promoted": false,
+    "remaining": [
+      "Run 25 tests on the target Windows host.",
+      "Verify key is present in the SAME local process without revealing it.",
+      "Verify current free tier and model-specific headroom including other consumers.",
+      "Run bounded synthetic probes in an authorized local environment and share sanitized results.",
+      "Mohab to settle full-envelope token admission; Alaa to review workload/evidence."
+    ]
+  },
+  "windows_integration_validation": {
+    "date": "2026-11-08",
+    "status": "NATIVE_WINDOWS_OFFLINE_VERIFIED_LIVE_PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "fresh_checks": {
+      "runner_tests_passed": 25,
+      "runner_tests_failed": 0,
+      "dry_run": "DRY_RUN_NO_REQUESTS",
+      "manual_fixture_link_checks": 886,
+      "optional_git_checks": 3,
+      "manual_total": 889,
+      "corpus_boundary_checks": 327,
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS"
+    },
+    "prior_windows_failures": "Historical evidence superseded by the fresh 25-test native Windows pass."
   }
 }
