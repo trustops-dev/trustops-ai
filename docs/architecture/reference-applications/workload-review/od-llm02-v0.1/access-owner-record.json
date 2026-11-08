@@ -1,5 +1,5 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "status": "OWNER_CONFIRMED_FREE_TIER_QUOTAS_OBSERVED_RUNTIME_PENDING",
   "prepared_on": "2026-11-06",
   "preparation_owner": "Nour",
@@ -82,7 +82,6 @@
   ],
   "required_account_evidence": [
     "Confirm access administrator and intended environment; project owner and project identity are already recorded.",
-    "Confirm exposed key revocation/replacement without sharing the new key.",
     "Verify exact API model identifiers and applicable endpoint quota accounting, including preflight/count-token calls; dashboard quotas do not establish runtime compatibility.",
     "Confirm other consumers sharing the project and available quota headroom.",
     "Revise workload admission to fit observed free limits; obtain Alaa scoped acceptance. Preserve existing root execution limits until separately amended.",
@@ -101,10 +100,10 @@
     "evidence_reference": null,
     "status": "UNCONFIRMED"
   },
-  "source_note": "Owner and project identity supplied by Nour; Free tier and numeric model limits observed in supplied screenshots received 2026-11-07. Screenshot capture times and independent account access are unverified. API model identifiers remain candidate mappings. Paid spend is explicitly zero. Nulls remain unknown rather than false or zero. No API calls were made for this update.",
+  "source_note": "Ownership is user-reported. Project identity, replacement key listing, old key absence and Free tier were observed in AI Studio on 2026-11-07. Numeric quotas remain screenshot evidence; capture times and remaining headroom are unknown. Local credential storage is user-confirmed. API authentication/model execution remains untested. Paid spend authorization remains USD 0.",
   "secrets_policy": "Do not store API keys, authorization headers, billing-account numbers, payment details or secret values. Record sanitized evidence references only.",
-  "live_workload_gate": "BLOCKED_PENDING_KEY_REPLACEMENT_MODEL_MAPPING_COMPATIBILITY_QUOTA_HEADROOM_REVISED_WORKLOAD_ACCEPTANCE_AND_RELEVANT_SHARED_DECISIONS",
-  "updated_on": "2026-11-07",
+  "live_workload_gate": "BLOCKED_PENDING_MODEL_MAPPING_COMPATIBILITY_QUOTA_HEADROOM_REVISED_WORKLOAD_ACCEPTANCE_AND_RELEVANT_SHARED_DECISIONS",
+  "updated_on": "2026-11-08",
   "google_cloud_project_number": "830049341899",
   "ownership_evidence": {
     "type": "USER_REPORTED",
@@ -115,7 +114,8 @@
     "project_id": "USER_SUPPLIED_AND_SCREENSHOT_OBSERVED",
     "project_number": "USER_SUPPLIED_AND_SCREENSHOT_OBSERVED",
     "project_display_name": "Default Gemini Project",
-    "independent_account_verification": false
+    "independent_account_verification": true,
+    "verification_scope": "AI Studio project identity and masked credential listing observed; IAM roles and API execution not verified."
   },
   "usage_policy": {
     "mode": "FREE_TIER_ONLY",
@@ -135,9 +135,14 @@
     "billing_enabled_note": "No linked-billing-account inspection performed; billing_enabled remains null. No paid activation is authorized."
   },
   "credential_status": {
-    "creation": "SCREENSHOT_OBSERVED",
-    "exposed_key_replacement": "UNCONFIRMED",
-    "note": "A prior screenshot exposed a credential. No credential or secret-bearing screenshot is included in this update. Replacement must be confirmed before live testing."
+    "creation": "BROWSER_OBSERVED",
+    "exposed_key_replacement": "BROWSER_OBSERVED_REPLACEMENT_LISTED_OLD_KEY_ABSENT",
+    "replacement_key_name": "TrustOpsAI-dev",
+    "evidence_observed_on": "2026-11-07",
+    "local_environment_storage": "USER_CONFIRMED",
+    "local_storage_evidence": "Nour confirmed replacement and local storage; environment not inspected.",
+    "runtime_authentication": "NOT_TESTED",
+    "note": "AI Studio listed TrustOpsAI-dev and no longer listed TrustOpsAI in the same project. This is UI evidence, not a successful API authentication test. No key value or secret-bearing screenshot retained."
   },
   "quota_evidence_scope": {
     "source": "USER_SUPPLIED_SCREENSHOTS",
@@ -174,5 +179,6 @@
       }
     ]
   },
-  "generation_candidate_review": "../od-llm02-v0.3/README.md"
+  "generation_candidate_review": "../od-llm02-v0.3/README.md",
+  "runtime_access_status": "NOT_TESTED; project_access_confirmed refers to API/runtime access, not browser UI access."
 }

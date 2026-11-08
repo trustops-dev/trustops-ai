@@ -71,6 +71,6 @@
     }
   ],
   "promotion_status": "PENDING_COMPATIBILITY_APPLICATION_REGRESSION_AND_SCOPED_REVIEW",
-  "key_replacement_status": "UNCONFIRMED",
+  "key_replacement_status": "BROWSER_OBSERVED_REPLACEMENT_LISTED_OLD_KEY_ABSENT_LOCAL_STORAGE_USER_CONFIRMED",
   "quota_headroom_status": "UNCONFIRMED"
 }

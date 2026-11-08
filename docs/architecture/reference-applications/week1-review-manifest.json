@@ -269,8 +269,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "7222405ec68162cc70a052498101db1e494cada6dcdc3ede741240a8d4535784",
-      "size_bytes": 25115,
+      "sha256": "166cb2cd927943d24e366c35c003ff90f2dc96fae0fb5e690146bba9ce5bc138",
+      "size_bytes": 25805,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -281,8 +281,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "2970bcfde95862286d07e3069eea0d9b76ef310934d293c7c512e84b0fe12ae4",
-      "size_bytes": 23917,
+      "sha256": "55d6751fc811686632ea47b34c0a2e22de20b17c94bb670a8d921930f51a21d5",
+      "size_bytes": 24607,
       "document_revision": "decision-consolidation-2026-11-05"
     },
     {
@@ -970,6 +970,16 @@
       "size_bytes": 32879
     },
     {
+      "path": "docs/architecture/reference-applications/validation/compatibility-runner-refresh.json",
+      "sha256": "5d81ca2a5faa00d2715aeb9463499bc5ea2ea42159f220dca9c3a5154461b78f",
+      "size_bytes": 2519
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json",
+      "sha256": "288094543c9be4235199a3ee51a497a28f06168a5d90147d6aee6aea92a7f93d",
+      "size_bytes": 4261
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
       "sha256": "44d6732572ae3ec6189bcc1d885a420f1c9253bdd014e9fb43824548f0d96aa3",
       "size_bytes": 101495
@@ -981,8 +991,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/reproduction-results.json",
-      "sha256": "7c2e98f010443a41cf957a91b29757a707f1c1ad93e76870dc346d5269a71b21",
-      "size_bytes": 35588
+      "sha256": "2dab6367e5779f300c662c2f8afa2f8214b8a849c06a2d4b49098f8f6ebc35ad",
+      "size_bytes": 39738
     },
     {
       "path": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
@@ -996,13 +1006,18 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_manual_fixtures.py",
-      "sha256": "d7b27575e4969fe310263e317cc0fc618d20cc5ef54c8f0210cc1af8b48cba12",
-      "size_bytes": 21146
+      "sha256": "ed99b3532c8d901e3900912b113256f4d8d3b901b97952fda1e27531bdac4185",
+      "size_bytes": 21374
     },
     {
       "path": "docs/architecture/reference-applications/validation/verify_v16_mapping.py",
       "sha256": "cb10ef51e65fb94d5768a2fc171463c09dace5530acf5248b254fcad57b54f83",
       "size_bytes": 7182
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+      "sha256": "5714adc27b81e387b71cf281cea947462864cd0662bbe1c69f9ad542a8d8a78f",
+      "size_bytes": 2213
     },
     {
       "path": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
@@ -1011,8 +1026,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "6f1bde307be1508d636c479fabedb94d2181fab5312a4b0c1876ad8eafb96c7e",
-      "size_bytes": 17257,
+      "sha256": "1f1af140c6fbe072730fb943fb1a197ec96ae4940738667513e7617b93bf814f",
+      "size_bytes": 17947,
       "document_revision": "0.14"
     },
     {
@@ -1024,8 +1039,8 @@
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
       "document_revision": "0.1",
-      "sha256": "a3d4d07687eb932b62579145db3983fd27330c3f99663277d99fee02cb33c472",
-      "size_bytes": 8678
+      "sha256": "1aca362aa65538bb730aee8352f1ab68cd71dc4b048710d6b6dc7d9ab7dc279c",
+      "size_bytes": 9201
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
@@ -1052,29 +1067,19 @@
       "size_bytes": 5394
     },
     {
-      "path": "docs/operations/workflow-activation.md",
-      "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
-      "size_bytes": 12656
-    },
-    {
-      "path": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
-      "sha256": "5714adc27b81e387b71cf281cea947462864cd0662bbe1c69f9ad542a8d8a78f",
-      "size_bytes": 2213
-    },
-    {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/README.md",
-      "sha256": "6d3f47db90d96bda3fa946d9fd6740200e48d9d497aa1e870c82d5c714e7c281",
-      "size_bytes": 7305
+      "sha256": "da6bb75b66f207255c42c79c841aaabd8ed3b59295911368e5002e5ec36751c7",
+      "size_bytes": 7308
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-results.json",
-      "sha256": "e7b7b170b71c0ce769740ddcc7a582dd8d8a2735330a902e2b060946a0a63f18",
-      "size_bytes": 849
+      "sha256": "e95833661ccc30a561c05b518c111b56daf13c9ed3e35794b04a224f4b26e5b3",
+      "size_bytes": 972
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-tests.md",
-      "sha256": "f009f571874f5f09b0e026ebb4f6c725d4eee0d9b47d8aef4fd4a04f435ee595",
-      "size_bytes": 7342
+      "sha256": "4b1b1b53f4dd3ef4610e884a9c82a6fb4caefd2098c2154215d9d93dd4560d63",
+      "size_bytes": 7501
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
@@ -1088,18 +1093,18 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/workload-candidate.json",
-      "sha256": "784d163ae117fef2583d5dc6faf238e4977b5a3e9aca8cf623d2d8ed9bdbd715",
-      "size_bytes": 3334
+      "sha256": "043a6b59abae18e15ac63ddb308b07de8b121171b803da12d7b3c05557d844ce",
+      "size_bytes": 3402
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/README.md",
-      "sha256": "534190c1ba297ab68b3388fd5f415a6e54e4d87378fb653d7ddeb53f67019ecf",
-      "size_bytes": 9406
+      "sha256": "fe7ca7f86f1e9f0e38747802dc04a4c810842b94f7217fe0022bd6fe82d5bb82",
+      "size_bytes": 9591
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/candidate.json",
-      "sha256": "f5032195eccce1e30b92254ca0d1aa4f509631baf59d6f3c7e0ac71216cef000",
-      "size_bytes": 2049
+      "sha256": "0c099021f764b39aa9c87dfef94f3a6a78f33056cb77cf5cc654ad3d11ddd580",
+      "size_bytes": 2117
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/offline-validation.json",
@@ -1113,8 +1118,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/results.json",
-      "sha256": "5f9ec0a4ffba4bd38090f49884340f9abbba60e1c6a9e84ec8a92dfe70c9c2ff",
-      "size_bytes": 1300
+      "sha256": "6463dc536f11d0faf586ebda951e0fc53db7c1485eca690f3c567a0ba703087b",
+      "size_bytes": 1396
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/review-cases.json",
@@ -1127,9 +1132,34 @@
       "size_bytes": 3695
     },
     {
-      "path": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json",
-      "sha256": "288094543c9be4235199a3ee51a497a28f06168a5d90147d6aee6aea92a7f93d",
-      "size_bytes": 4261
+      "path": "docs/operations/workflow-activation.md",
+      "sha256": "9116f620096d61d664c08e25c38e98a8b44524841bf5384afc94c4e97d277cbe",
+      "size_bytes": 12656
+    },
+    {
+      "path": "tools/provider_compatibility/README.md",
+      "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997",
+      "size_bytes": 8121
+    },
+    {
+      "path": "tools/provider_compatibility/requirements.txt",
+      "sha256": "ea69614c34bb1c46b27826bf612fb07d73e686bcb1a00c58cfe3b12b442b3e88",
+      "size_bytes": 35
+    },
+    {
+      "path": "tools/provider_compatibility/runner.py",
+      "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399",
+      "size_bytes": 15888
+    },
+    {
+      "path": "tools/provider_compatibility/test_runner.py",
+      "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515",
+      "size_bytes": 7811
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json",
+      "sha256": "e9c027c2f4d0a9254342985c781c1b0b36e931408ef87fd90b985775ea277cee",
+      "size_bytes": 2395
     }
   ],
   "revision_reference_cleanup": {
@@ -1514,5 +1544,105 @@
     "scope": "Fresh offline integration checks; packaged offline reports remain preparation evidence. Candidate 0.3 is not activated; compatibility and regression results remain NOT_RUN.",
     "formatting": "Two new helpers formatted with Ruff 0.17.0; lint and format checks pass.",
     "report": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json"
+  },
+  "compatibility_runner_refresh": {
+    "date": "2026-11-08",
+    "status": "PASS_OFFLINE_ONLY",
+    "baseline": {
+      "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+      "head": "8adb7408568e637340d75f9ef6be165c377537c8",
+      "branch": "docs/nour-week1-review-014"
+    },
+    "credential_evidence": {
+      "replacement": "BROWSER_OBSERVED_2026_11_07",
+      "local_storage": "USER_CONFIRMED",
+      "api_authentication": "NOT_RUN"
+    },
+    "environment": {
+      "python": "3.12.14",
+      "google-genai": "2.34.0",
+      "pytest": "9.1.1",
+      "ruff": "0.17.0"
+    },
+    "checks": {
+      "runner_tests": 23,
+      "manual_fixture_link_checks": 886,
+      "corpus_boundary_checks": 327,
+      "baseline_workload_checks": 20,
+      "candidate_workload_checks": 23,
+      "ruff_check": "PASS_FULL_SNAPSHOT",
+      "ruff_format": "PASS_98_FILES"
+    },
+    "commands": [
+      "python -m pytest -q tools/provider_compatibility/test_runner.py",
+      "python tools/provider_compatibility/runner.py",
+      "ruff check .",
+      "ruff format --check .",
+      "python docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/trustops-manual-report.json",
+      "python docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/trustops-corpus-report.json",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py"
+    ],
+    "live_provider_calls": 0,
+    "model_promoted": false,
+    "application_acceptance": false,
+    "limits": [
+      "Offline SDK wire tests use a mock transport; no live provider success claimed.",
+      "Full-envelope and embedding input token admission remain unverified.",
+      "Local smoke ledger is not a distributed application root ledger.",
+      "Shared schema, policy and reviewer acceptance gates remain open."
+    ],
+    "runner_files": [
+      {
+        "path": "tools/provider_compatibility/README.md",
+        "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997"
+      },
+      {
+        "path": "tools/provider_compatibility/requirements.txt",
+        "sha256": "ea69614c34bb1c46b27826bf612fb07d73e686bcb1a00c58cfe3b12b442b3e88"
+      },
+      {
+        "path": "tools/provider_compatibility/runner.py",
+        "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399"
+      },
+      {
+        "path": "tools/provider_compatibility/test_runner.py",
+        "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515"
+      }
+    ],
+    "validation_report": "docs/architecture/reference-applications/validation/compatibility-runner-refresh.json"
+  },
+  "provider_runner_integration": {
+    "date": "2026-11-08",
+    "status": "OFFLINE_PACKET_PASS_RUNNER_PLATFORM_PARTIAL_LIVE_BLOCKED",
+    "python": "3.12.15",
+    "platform": "Windows",
+    "sdk": "google-genai==2.34.0",
+    "pytest": "9.1.1",
+    "runner_tests": {
+      "passed": 19,
+      "failed": 4,
+      "failure_reason": "POSIX fcntl is unavailable on Windows; three parent deadline/charging tests and one missing-attestation test failed at import.",
+      "full_linux_suite": "Package preparation evidence only; not rerun here."
+    },
+    "manual_total": 889,
+    "manual_fixture_link_checks": 886,
+    "optional_git_checks": 3,
+    "corpus_checks": 327,
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "ruff": "lint and formatting passed, version 0.17.0",
+    "live_provider_calls": 0,
+    "live_blockers": [
+      "WSL/Linux unavailable on this Windows host",
+      "GEMINI_API_KEY absent from executing process",
+      "Current project/free-tier/headroom and synthetic-scope operator confirmations pending"
+    ],
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "source_package_report": "validation/compatibility-runner-refresh.json",
+    "source_package_context": "Retained preparation evidence; this report contains fresh integration outcomes.",
+    "model_promoted": false,
+    "shared_acceptance": "PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json"
   }
 }

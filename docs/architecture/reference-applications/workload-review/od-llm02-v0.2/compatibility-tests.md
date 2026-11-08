@@ -1,10 +1,10 @@
 # Bounded compatibility test procedure
 
-Status: PREPARED, NOT RUN. User authorized preparation and testing, but the only supplied credential was exposed. Do not extract, use, store or log that value. The account owner must revoke it in AI Studio and put its replacement privately in the authorized local runtime's GEMINI_API_KEY environment variable. Do not request a replacement key in chat. No billing activation or paid usage is authorized.
+Status: PREPARED, LIVE TESTS NOT RUN. Credential replacement and old-key absence were observed on 2026-11-07; Nour confirmed local storage. Do not request or include key values. The [executable smoke runner](../../../../../tools/provider_compatibility/README.md) now supplies a bounded implementation and records the pinned SDK’s prompt-only counting limitation. Its explicitly accepted synthetic scope does not satisfy full-envelope production token admission. No paid usage is authorized.
 
 ## Entry requirements
 
-1. Owner confirms exposed key deletion and replacement; no credential value in evidence.
+1. Replacement is observed and local storage is user-confirmed. The local operator verifies the private environment is ready; no credential value in evidence.
 2. Confirm selected project is the stated Free-tier project, current quota/headroom, and no concurrent consumers. Reserve the compatibility-day profile before network requests.
 3. Use the existing proposed Python 3.12 / google-genai==2.34.0 / Developer API Interactions v1beta profile. Inspect the pinned SDK and official documentation before constructing calls: the existing ADR does not claim exact client retry/timeout knobs are runtime-verified. Disable implicit retries and provider tool execution; if unable to prove this, do not send.
 4. Keep store=false, streaming/background disabled and existing safety/profile choices. No Vertex mode, built-in tools, cache, batch API or real Procurement tool dispatch. Use synthetic inputs only.

@@ -82,7 +82,7 @@
     "actual_prepared_items": null
   },
   "execution_results": "NOT_RUN",
-  "key_replacement": "UNCONFIRMED",
+  "key_replacement": "BROWSER_OBSERVED_REPLACEMENT_LISTED_OLD_KEY_ABSENT_LOCAL_STORAGE_USER_CONFIRMED",
   "quota_accounting_verified": false,
   "shared_consumers_headroom_verified": false
 }

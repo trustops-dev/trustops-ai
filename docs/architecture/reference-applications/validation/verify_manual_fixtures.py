@@ -385,6 +385,10 @@ def validate(root, include_git_checks=False):
             "docs/adr/application-execution-budgets.md",
         }
         review_helpers = {
+            "tools/provider_compatibility/README.md",
+            "tools/provider_compatibility/requirements.txt",
+            "tools/provider_compatibility/runner.py",
+            "tools/provider_compatibility/test_runner.py",
             "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py",
             "docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py",
             "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py",

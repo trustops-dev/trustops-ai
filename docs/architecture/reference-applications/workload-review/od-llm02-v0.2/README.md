@@ -43,7 +43,7 @@ Separate index day: at most 64 prepared items, at most two attempts each = 128 r
 
 - Alaa: ACCEPT/AMEND profiles, conservative preflight accounting, reserved headroom and smaller experiment schedule. Prior acceptance of principles does not approve these numeric rows.
 - Mohab: verify quota bucket accounting, SDK retries, durable reservations, resume behavior and embedding storage/model mapping. Return evidence, not only a field mapping.
-- Nour: confirm replacement credential exists privately, identify all project consumers, run bounded compatibility checks when prerequisites are met and record actual outputs/usage.
+- Nour: replacement observed and private storage confirmed; identify all project consumers, run bounded compatibility checks when prerequisites are met and record actual outputs/usage.
 
 ## Reproduce offline checks
 

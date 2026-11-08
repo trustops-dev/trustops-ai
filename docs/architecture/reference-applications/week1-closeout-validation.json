@@ -1,19 +1,16 @@
 {
-  "date": "2026-11-06",
+  "date": "2026-11-08",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Status-wording cleanup and affected owner-artifact verification; earlier v1.6 mapping/schema rerun retained as prior evidence.",
-  "manifest_sha256": "7ed7c0850de1e7abd81210d10608ff51417b105adfb673f126fae54bd83bea7f",
+  "scope": "Credential evidence correction and executable synthetic smoke runner; offline SDK tests and affected owner-document checks only.",
+  "manifest_sha256": "95cb753eda8ab114e3b09e0365eb131e16dbeb354053d4613fe442f868a38945",
   "check_counts": {
-    "manual_fixture_link_checks": 837,
-    "corpus_boundary_checks": 294,
-    "od04_structural_checks": 149,
-    "od04_paper_cases": 27,
-    "od03_checks_prior_unchanged": 63,
-    "prompt_checks_prior_unchanged": 180,
-    "reference_and_manifest_checks": 166,
-    "mapping_integrity_checks": 280,
-    "mapping_representative_paths": 69,
-    "mapping_checks_execution_context": "280 checks / 69 paths from prior mapping task; unchanged, not rerun in this cleanup."
+    "runner_tests": 23,
+    "manual_fixture_link_checks": 886,
+    "corpus_boundary_checks": 327,
+    "baseline_workload_checks": 20,
+    "candidate_workload_checks": 23,
+    "ruff_check": "PASS_FULL_SNAPSHOT",
+    "ruff_format": "PASS_98_FILES"
   },
   "manual_review": {
     "status": "PASS",
@@ -28,7 +25,7 @@
       "03-rag-grounded.json": 6,
       "04-rag-insufficient.json": 4
     },
-    "check_count": 837,
+    "check_count": 886,
     "checks": [
       {
         "check": "Exactly four authored walkthroughs",
@@ -2591,6 +2588,26 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/README.md: local link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: local link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: local link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: local link publication-handoff.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/README.md: local link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -2704,6 +2721,10 @@
       },
       {
         "check": "docs/architecture/reference-applications/README.md: local link repository-integration.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/acceptance.md: local link reviews/alaa-479cab0-review.md",
         "status": "PASS"
       },
       {
@@ -2827,6 +2848,22 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/handoffs.md: local link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -2867,6 +2904,10 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/handoffs.md: local link open-decisions.md",
         "status": "PASS"
       },
@@ -2899,6 +2940,10 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: local link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link boundary-review/cases.json",
         "status": "PASS"
       },
@@ -2916,6 +2961,22 @@
       },
       {
         "check": "docs/architecture/reference-applications/manual-boundary-cases.md: local link boundary-review/denied-approval-observation.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
         "status": "PASS"
       },
       {
@@ -2944,6 +3005,50 @@
       },
       {
         "check": "docs/architecture/reference-applications/open-decisions.md: local link approval-validity/od04-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: local link workload-review/od-llm02-v0.1/README.md",
         "status": "PASS"
       },
       {
@@ -3019,6 +3124,30 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link validation/publication-refresh.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link validation/reproduction-results.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link week1-closeout-validation.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link schema-v1.6-review-observations.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/publication-handoff.md: local link week1-review-manifest.json",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/rag-contract.md: local link fixtures/03-rag-grounded.json",
         "status": "PASS"
       },
@@ -3060,6 +3189,10 @@
       },
       {
         "check": "docs/architecture/reference-applications/repository-integration.md: local link ../../operations/workflow-activation.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md: local link alaa-479cab0-review.json",
         "status": "PASS"
       },
       {
@@ -3267,6 +3400,30 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link publication-handoff.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/week1-owner-closeout.md: local link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -3375,19 +3532,55 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link ../od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link ../od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link access-owner-record.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link references.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link calculation-results.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md: local link workload-candidate.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-tests.md: local link ../../../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/README.md: local link ../od-llm02-v0.2/compatibility-tests.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/workload-review/od-llm02-v0.3/README.md: local link ../../../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/adr/reference-application-orchestration-and-llm.md: local link application-execution-budgets.md",
         "status": "PASS"
       }
     ],
     "execution_environment": {
       "python": "3.12.14",
-      "helper_sha256": "b81fd5ea4c7318895d1d756a3fc320e3aa9a0c5fd304e11ce7849c0261a61aca"
+      "helper_sha256": "d7b27575e4969fe310263e317cc0fc618d20cc5ef54c8f0210cc1af8b48cba12"
     }
   },
   "corpus_boundary_review": {
     "result": "PASS",
     "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
-    "checks": 294,
+    "checks": 327,
     "source_documents": 8,
     "snapshots": 2,
     "corpus_review_cases": 8,
@@ -4122,6 +4315,30 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link publication-handoff.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -4227,6 +4444,26 @@
       },
       {
         "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link week1-closeout-validation.json",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/README.md: link publication-handoff.md",
         "status": "PASS"
       },
       {
@@ -4346,6 +4583,10 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/acceptance.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -4394,6 +4635,22 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/handoffs.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -4434,6 +4691,10 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/handoffs.md: link open-decisions.md",
         "status": "PASS"
       },
@@ -4466,6 +4727,26 @@
         "status": "PASS"
       },
       {
+        "check": "docs/architecture/reference-applications/handoffs.md: link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link ../../../tools/provider_compatibility/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link workload-review/od-llm02-v0.2/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link workload-review/od-llm02-v0.3/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
         "check": "docs/architecture/reference-applications/open-decisions.md: link schema-v1.6-evidence-mapping.md",
         "status": "PASS"
       },
@@ -4491,6 +4772,50 @@
       },
       {
         "check": "docs/architecture/reference-applications/open-decisions.md: link approval-validity/od04-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link workload-review/od-llm02-v0.1/README.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link reviews/alaa-479cab0-review.md",
+        "status": "PASS"
+      },
+      {
+        "check": "docs/architecture/reference-applications/open-decisions.md: link workload-review/od-llm02-v0.1/README.md",
         "status": "PASS"
       },
       {
@@ -15727,5 +16052,120 @@
     "scope": "Fresh offline integration checks; packaged offline reports remain preparation evidence. Candidate 0.3 is not activated; compatibility and regression results remain NOT_RUN.",
     "formatting": "Two new helpers formatted with Ruff 0.17.0; lint and format checks pass.",
     "report": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json"
+  },
+  "previous_top_level_validation": {
+    "date": "2026-11-06",
+    "scope": "Status-wording cleanup and affected owner-artifact verification; earlier v1.6 mapping/schema rerun retained as prior evidence.",
+    "check_counts": {
+      "manual_fixture_link_checks": 837,
+      "corpus_boundary_checks": 294,
+      "od04_structural_checks": 149,
+      "od04_paper_cases": 27,
+      "od03_checks_prior_unchanged": 63,
+      "prompt_checks_prior_unchanged": 180,
+      "reference_and_manifest_checks": 166,
+      "mapping_integrity_checks": 280,
+      "mapping_representative_paths": 69,
+      "mapping_checks_execution_context": "280 checks / 69 paths from prior mapping task; unchanged, not rerun in this cleanup."
+    }
+  },
+  "compatibility_runner_refresh": {
+    "date": "2026-11-08",
+    "status": "PASS_OFFLINE_ONLY",
+    "baseline": {
+      "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+      "head": "8adb7408568e637340d75f9ef6be165c377537c8",
+      "branch": "docs/nour-week1-review-014"
+    },
+    "credential_evidence": {
+      "replacement": "BROWSER_OBSERVED_2026_11_07",
+      "local_storage": "USER_CONFIRMED",
+      "api_authentication": "NOT_RUN"
+    },
+    "environment": {
+      "python": "3.12.14",
+      "google-genai": "2.34.0",
+      "pytest": "9.1.1",
+      "ruff": "0.17.0"
+    },
+    "checks": {
+      "runner_tests": 23,
+      "manual_fixture_link_checks": 886,
+      "corpus_boundary_checks": 327,
+      "baseline_workload_checks": 20,
+      "candidate_workload_checks": 23,
+      "ruff_check": "PASS_FULL_SNAPSHOT",
+      "ruff_format": "PASS_98_FILES"
+    },
+    "commands": [
+      "python -m pytest -q tools/provider_compatibility/test_runner.py",
+      "python tools/provider_compatibility/runner.py",
+      "ruff check .",
+      "ruff format --check .",
+      "python docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/trustops-manual-report.json",
+      "python docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/trustops-corpus-report.json",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py"
+    ],
+    "live_provider_calls": 0,
+    "model_promoted": false,
+    "application_acceptance": false,
+    "limits": [
+      "Offline SDK wire tests use a mock transport; no live provider success claimed.",
+      "Full-envelope and embedding input token admission remain unverified.",
+      "Local smoke ledger is not a distributed application root ledger.",
+      "Shared schema, policy and reviewer acceptance gates remain open."
+    ],
+    "runner_files": [
+      {
+        "path": "tools/provider_compatibility/README.md",
+        "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997"
+      },
+      {
+        "path": "tools/provider_compatibility/requirements.txt",
+        "sha256": "ea69614c34bb1c46b27826bf612fb07d73e686bcb1a00c58cfe3b12b442b3e88"
+      },
+      {
+        "path": "tools/provider_compatibility/runner.py",
+        "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399"
+      },
+      {
+        "path": "tools/provider_compatibility/test_runner.py",
+        "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515"
+      }
+    ]
+  },
+  "provider_runner_integration": {
+    "date": "2026-11-08",
+    "status": "OFFLINE_PACKET_PASS_RUNNER_PLATFORM_PARTIAL_LIVE_BLOCKED",
+    "python": "3.12.15",
+    "platform": "Windows",
+    "sdk": "google-genai==2.34.0",
+    "pytest": "9.1.1",
+    "runner_tests": {
+      "passed": 19,
+      "failed": 4,
+      "failure_reason": "POSIX fcntl is unavailable on Windows; three parent deadline/charging tests and one missing-attestation test failed at import.",
+      "full_linux_suite": "Package preparation evidence only; not rerun here."
+    },
+    "manual_total": 889,
+    "manual_fixture_link_checks": 886,
+    "optional_git_checks": 3,
+    "corpus_checks": 327,
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "ruff": "lint and formatting passed, version 0.17.0",
+    "live_provider_calls": 0,
+    "live_blockers": [
+      "WSL/Linux unavailable on this Windows host",
+      "GEMINI_API_KEY absent from executing process",
+      "Current project/free-tier/headroom and synthetic-scope operator confirmations pending"
+    ],
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "source_package_report": "validation/compatibility-runner-refresh.json",
+    "source_package_context": "Retained preparation evidence; this report contains fresh integration outcomes.",
+    "model_promoted": false,
+    "shared_acceptance": "PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json"
   }
 }

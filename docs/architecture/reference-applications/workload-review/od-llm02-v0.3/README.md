@@ -44,7 +44,7 @@ A development day reserves 280 generation-side requests plus 40 query embedding 
 
 ## Compatibility and application review
 
-Use the existing [bounded procedure](../od-llm02-v0.2/compatibility-tests.md) under an explicit candidate configuration: replace the generation model only with gemini-3.5-flash-lite for G01–G03, retain E01/E02 unchanged. Execute only after replacement key and private environment setup are confirmed. Preserve all native preflight, timeout, credential, retry and no-dispatch protections. Candidate smoke profile uses the 500/day bucket; do not overwrite the baseline Flash quota record.
+Use the existing [bounded procedure](../od-llm02-v0.2/compatibility-tests.md) under an explicit candidate configuration: replace the generation model only with gemini-3.5-flash-lite for G01–G03, retain E01/E02 unchanged. Replacement is observed and local storage is user-confirmed; confirm the local execution environment and quota headroom before running. See the [executable runner and its explicit synthetic-scope limitations](../../../../../tools/provider_compatibility/README.md). Preserve all native preflight, timeout, credential, retry and no-dispatch protections. Candidate smoke profile uses the 500/day bucket; do not overwrite the baseline Flash quota record.
 
 Then run the 12 semantic cases in review-cases.json twice, using existing application schemas/tools and fixtures. These case descriptions are test objectives, not invented canonical payloads. Missing canonical mappings or fixture implementations block the affected case. Real purchasing side effects remain disabled. Count all failed attempts; record every result without cherry-picking. Stop a batch on auth/quota/configuration errors or a critical authorization-boundary failure.
 

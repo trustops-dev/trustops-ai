@@ -3,8 +3,8 @@
   "prepared_on": "2026-11-07",
   "provider_requests_sent": 0,
   "blockers": [
-    "Exposed credential replacement unconfirmed; no private replacement credential available in this execution environment.",
-    "SDK transport/retry/endpoint and quota headroom require verification before dispatch."
+    "Live execution not performed here; replacement observed, local storage user-confirmed, private credential unavailable in this authoring environment.",
+    "Quota headroom and account/model execution require verification. SDK wire shapes and single-request behavior are tested offline; full-envelope token admission remains unresolved."
   ],
   "tests": [
     {
