@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-09-od03-scoped-response",
+  "packet_id": "nour-owner-review-2026-11-09-od04-application-response",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-09",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
-  "commit_push_pr": "LOCAL_OD03_SCOPED_RESPONSE_PREPARED_ON_A780E17_NOT_COMMITTED_OR_PUSHED",
-  "approval_status": "ALAA_PARTIAL_CONDITIONAL; MOHAMED_OD03_ROWS_1_5_SYNTHETIC_ACCEPTED_ROW_6_AMENDED; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+  "commit_push_pr": "LOCAL_OD04_APPLICATION_FOLLOWUP_PREPARED_ON_7DECD09_NOT_COMMITTED_OR_PUSHED",
+  "approval_status": "ALAA_PARTIAL_CONDITIONAL; MOHAMED_OD03_AND_OD04_SCOPED_EMAIL_DISPOSITIONS; OD04_V06_JOINT_MECHANISM_PENDING; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,14 +133,15 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "cca2ef772f8ca1f62f991e1008ddd2d7aeb25ad6200b5e9250b5fe6dc5bfdaba",
-      "size_bytes": 13052,
-      "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
+      "sha256": "2ab3c34283a183ade4ccd197e9bb8c7ae9b752b43b3a7dfe7a12de5ac594491c",
+      "size_bytes": 13524,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
-      "sha256": "08a547253efbb09c96d0925e8a928f68c2dd02e11c144645913971c9f473f5e1",
-      "size_bytes": 15434
+      "sha256": "b89dcd698cfe8a23d6471096d45bfa0da30e01397dcaa50806e9e0ddb7d624bc",
+      "size_bytes": 15879,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/cases.json",
@@ -161,6 +162,12 @@
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py",
       "sha256": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8",
       "size_bytes": 6714
+    },
+    {
+      "path": "docs/architecture/reference-applications/approval-validity/od04-v0.2.md",
+      "sha256": "571cc555624443cee294e33547b9e74988bb3999aa83d77772bdae0de2fe4b6e",
+      "size_bytes": 9088,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/audit.md",
@@ -269,9 +276,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "efd94a7c336ba58ed76e3ff7f5ced421c4988edf32b46dc5af774bd135d9b627",
-      "size_bytes": 26809,
-      "document_revision": "2026-11-09-OD03-scoped-response"
+      "sha256": "1aa257fd76fc309377eee7c4c952a5e82f83cd3cbef8fcb96dc374522e76e2db",
+      "size_bytes": 27149,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -281,9 +288,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "f8622e252a4b28b5e3a1084ab7995838856ff1c941f0b6dac83fa63649ad5a78",
-      "size_bytes": 25375,
-      "document_revision": "2026-11-09-OD03-scoped-response"
+      "sha256": "3775cf8113e7ae96ddcdda1f390e8982155c57b2c0359b0b0a4d3c73c2e40178",
+      "size_bytes": 26105,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -323,15 +330,15 @@
     },
     {
       "path": "docs/architecture/reference-applications/procurement-state-contract.md",
-      "sha256": "11eb76b60d35d10fffbc79396d76a6f77848822c8c74e87ce6763d7400d13ad3",
-      "size_bytes": 23985,
-      "document_revision": "0.7"
+      "sha256": "7220baa167090bce3e89187196ae4ad4470ab3f32ac2bb29f4e650d239037d02",
+      "size_bytes": 25021,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/procurement-tool-contracts.md",
-      "sha256": "34ea7f43b5bd61714070f05521b8afcad74a4403ca646933c32bd673e64050b7",
-      "size_bytes": 34626,
-      "document_revision": "0.8"
+      "sha256": "0b71eb5304a425d9165a84eba4c8711b1d96821805133c524dc6e3752b1cea5e",
+      "size_bytes": 35665,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/prompt-pack.md",
@@ -998,6 +1005,12 @@
       "document_revision": "2026-11-09-scoped-response"
     },
     {
+      "path": "docs/architecture/reference-applications/validation/od04-application-response-refresh.json",
+      "sha256": "80a730ffc011a1de32fee3e8d34f57af030fa078e2b7fcd90b66dffa4eaad5d0",
+      "size_bytes": 68830,
+      "document_revision": "2026-11-09-OD04-application-response"
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json",
       "sha256": "11b262cb140870c85d889adef0a56f317f3fd895cbf351a17d90c7a374c09447",
       "size_bytes": 2697
@@ -1049,9 +1062,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "a0905bc97664563ae67976f031dc9bc6d0b30386d92cd5713ec01f6cb3910e71",
-      "size_bytes": 18530,
-      "document_revision": "2026-11-09-OD03-scoped-response"
+      "sha256": "28d168fc8799f8245025b6a5dd99dff8e0b19cac149ae08c981f1404f694100d",
+      "size_bytes": 19005,
+      "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -1399,7 +1412,8 @@
     "runtime": "NOT_RUN",
     "new_commit_push_pr": "NOT_PERFORMED",
     "prior_owner_base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
-    "includes_uncommitted_od03_addition": true
+    "includes_uncommitted_od03_addition": true,
+    "subsequent_application_position": "0.2 prepared 2026-11-09 after Mohamed scoped email; V04/V05 terminal and sequence wording accepted; V06 claim-bound approval/supplier versions and mechanism pending"
   },
   "historical_application_schema_mapping": {
     "date": "2026-11-05",
@@ -1520,6 +1534,23 @@
       "governance_yaml": "CLAIMED_NOT_RETRIEVED",
       "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
       "base_commit": "a780e17f7153fc1476b35519739667c4072e005e"
+    },
+    {
+      "record_id": "MOHAMED-OD04-479CAB0-01",
+      "reviewer": "Mohamed",
+      "recorded_on": "2026-11-09",
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "source_status": "USER_SUPPLIED_EMAIL_SUMMARY",
+      "email_date": null,
+      "email_message_reference": null,
+      "status": "V01_V02_V03_V07_V08_ACCEPT_V04_V05_AMENDED_V06_AMEND_MECHANISM_PENDING",
+      "full_specialist_signoff": false,
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED",
+      "record": "docs/architecture/reference-applications/approval-validity/od04-v0.2.md",
+      "governance_response_file": "CLAIMED_NOT_RETRIEVED",
+      "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
+      "base_commit": "7decd093a2fffda99f637ed972f7c050e73e85e2"
     }
   ],
   "alaa_review_refresh": {
@@ -1730,5 +1761,16 @@
     "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
     "actual_governance_yaml": "NOT_SUPPLIED",
     "operational_policy_enabled": false
+  },
+  "od04_application_followup": {
+    "date": "2026-11-09",
+    "record": "docs/architecture/reference-applications/approval-validity/od04-v0.2.md",
+    "validation_report": "docs/architecture/reference-applications/validation/od04-application-response-refresh.json",
+    "reviewed_by_mohamed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "source": "USER_SUPPLIED_EMAIL_SUMMARY_NOT_GOVERNANCE_FILE",
+    "application_disposition": "AMEND_V06_MECHANISM_OPEN",
+    "joint_acceptance": "PENDING_MOHAB_AND_MOHAMED",
+    "runtime": "NOT_RUN",
+    "fresh_validation": "validation/od04-application-response-refresh.json#integration_validation"
   }
 }

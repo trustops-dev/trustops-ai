@@ -2,7 +2,7 @@
   "date": "2026-11-08",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Credential evidence correction and executable synthetic smoke runner; offline SDK tests and affected owner-document checks only.",
-  "manifest_sha256": "8e552b3a5d852fa00cd5de3426e93bb4d20faca8e5a02b651c8cb56e37350123",
+  "manifest_sha256": "c0ba8b1d7efb3c375f447ca2d04c32440bf1bcc782a97ecea74a5b26854f23b7",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16201,5 +16201,33 @@
     "corpus_checks": 332,
     "joint_acceptance": "PENDING",
     "yaml_verification": "PENDING"
+  },
+  "od04_application_response_integration": {
+    "date": "2026-11-09",
+    "status": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "scope": "Nour OD-04 application position and affected documentation only; historical payload reports retained",
+    "review_record": "docs/architecture/reference-applications/approval-validity/od04-v0.2.md",
+    "reviewed_email_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "od04_draft_0_1_cases": 27,
+    "od04_draft_0_1_checks": 149,
+    "manual_fixture_link_checks": 904,
+    "corpus_boundary_checks": 336,
+    "new_paper_examples": "OD04-R01–R08 in response 0.2, not executed as canonical fixtures",
+    "governance_file": "NOT_SUPPLIED",
+    "joint_v06_mechanism": "PENDING_MOHAB_AND_MOHAMED",
+    "runtime": "NOT_RUN",
+    "current_report": "docs/architecture/reference-applications/validation/od04-application-response-refresh.json",
+    "optional_git_checks": 3,
+    "manual_total": 907,
+    "fresh_execution": {
+      "python": "3.12.15",
+      "od04_cases": 27,
+      "od04_checks": 149,
+      "manual_total": 907,
+      "corpus_boundary_checks": 336,
+      "ruff_check": "PASS",
+      "ruff_format": "PASS_100_FILES",
+      "report_section": "integration_validation"
+    }
   }
 }

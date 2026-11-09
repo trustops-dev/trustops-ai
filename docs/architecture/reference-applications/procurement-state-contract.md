@@ -2,6 +2,8 @@
 
 **OD-04 draft response — 2026-11-06:** [Nour application-side position 0.1](approval-validity/od04-v0.1/README.md) proposes scoped ACCEPT/AMEND dispositions, affected transitions and paper examples. Approval validity remains OPEN pending Mohamed/Mohab agreement; this pointer does not ratify the proposed amendments or change the behavior contract below.
 
+**OD-04 application follow-up — 2026-11-09:** [Position 0.2](approval-validity/od04-v0.2.md) adopts Mohamed's terminal DENIED/CANCELLED and source record-sequence ordering, and requires current approval and supplier record versions to be verified at the PO dispatch claim. V06's atomic/fenced mechanism and canonical field mapping remain joint decisions. A timestamp alone is not the authorization-order test; no new workflow state is introduced.
+
 **2026-11-02 review supplement:** [Consolidated manual boundary cases](manual-boundary-cases.md) add the denied-approval walkthrough and symbolic below/equal/above T review cases. Existing contract semantics and pending approvals remain unchanged.
 
 **Sprint 1 Contract Baseline / Freeze Candidate — revision 0.7, 2026-11-02. NOT FROZEN.** Approval-observation semantics are confirmed by Mohamed and Mohab as reported by the user on 2026-11-02; see [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation). Other specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
@@ -213,6 +215,15 @@ The pre-tool check evaluates the immutable APPROVED snapshot: proposal identity,
 request revision, arguments/digest, supplier and approval evidence, policy version,
 and source state revision. ALLOW authorizes that proposal's single
 `APPROVED -> PO_CREATION` transition and initial dispatch together.
+
+For the OD-04 application position, the claim must also verify the currently
+authoritative supplier record version and, when approval is required, approval
+record version against the versions bound to this check. DENIED/CANCELLED are
+terminal for the existing approval-request identity. Source record sequence,
+not wall-clock order, determines whether a decision preceded the proposal or
+claim. The cross-service currentness and atomic/fencing mechanism is pending
+Mohamed/Mohab agreement; failure to establish it means no dispatch. See
+[response 0.2](approval-validity/od04-v0.2.md).
 
 The runtime must atomically verify that the current snapshot still matches the
 checked snapshot, record the authorized transition and claim the dispatch once.

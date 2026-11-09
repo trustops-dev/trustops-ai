@@ -2,6 +2,8 @@
 
 **Prepared 2026-11-06 — AMEND overall; application-side response prepared, not sent or jointly accepted.** This records the proposed response Nour can give to Mohamed's GD-04 in governance draft 0.4, reviewed alongside Mohab's supplied schema v1.6 and the maintained application contracts. ACCEPT below is scoped to the proposed application design; it is not a fabricated personal signature, specialist sign-off, live approval or closure of OD-04. Mohamed and Mohab must return exact-revision dispositions before integration. No runtime behavior changes in this documentation update.
 
+**Historical draft:** the later [application response 0.2](../od04-v0.2.md) records Mohamed's scoped V01–V08 reply, terminal DENIED/CANCELLED, source record-sequence ordering and approval/supplier version currentness at the dispatch claim. Statements in this 0.1 draft that OD-03 values are unaccepted or that Mohamed's response has not arrived describe its 2026-11-06 preparation state; they do not override the later scoped review records.
+
 ## Proposed response to GD-04
 
 | Clause | Nour's draft disposition | Application-side position / required amendment |

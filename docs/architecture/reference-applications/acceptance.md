@@ -2,6 +2,8 @@
 
 **Alaa response recorded — 2026-11-06:** [Scoped review of commit 479cab0](reviews/alaa-479cab0-review.md) received from user-supplied email text. Overall status: **PARTIAL / CONDITIONAL**. Candidate/principle acceptance and remaining conditions are recorded separately; no full specialist sign-off or joint freeze. The email date and message reference were not supplied.
 
+**OD-04 owner-side update — 2026-11-09:** [Nour's application response 0.2](approval-validity/od04-v0.2.md) records Mohamed's scoped clause dispositions and the revised V04–V06 application requirements. It does not close the tool/policy-stage reconciliation or formal freeze: the authoritative source/version mapping and atomic claim mechanism still require Mohab/Mohamed agreement and later runtime proof.
+
 **Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
 
 **2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
@@ -34,7 +36,7 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 | Effective generation/retrieval/embedding configuration frozen | BLOCKED | OD-LLM-01/02, OD-10 and OD-RAG-01; proposed settings now documented; account/environment verification, cross-contract acceptance and live compatibility remain pending |
 | Orchestration decision documented | PASS | ADR preserves explicit Python choice and requested APPROVED FOR SPRINT 2 IMPLEMENTATION technical disposition; overall entry gates still apply |
 | Every open decision closed or explicitly recorded | PASS | All 21 original decision IDs preserved; 20 focused pending request rows (including child questions) each state proposal, reviewer, question and closure evidence; existing closures/design dispositions/deferred thresholds preserved |
-| Cross-team review status visible | PASS | Alaa response RECEIVED — PARTIAL / CONDITIONAL against 479cab0; Mohab/Ahmed/Mohamed/Malak acceptance remains PENDING; scoped response is distinct from full sign-off |
+| Cross-team review status visible | PASS | Alaa response RECEIVED — PARTIAL / CONDITIONAL against 479cab0; Mohamed's OD-03 and OD-04 scoped email positions recorded, with joint conditions open; Mohab/Ahmed/Malak acceptance and full specialist sign-offs remain PENDING |
 | Cross-team signatures / formal freeze obtained | BLOCKED | No revision-specific owner approval received; not requested or fabricated by tool calls |
 | Correct existing work preserved and docs updated in place | PASS | Existing twelve app Markdown files and combined ADR revised; original detailed state/tool/RAG/scenario design retained |
 | No production implementation started | PASS | Changes confined to Markdown and four paper JSON files under documentation; no app/tool/schema/SDK/API/index/evaluator/engine code |

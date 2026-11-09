@@ -2,6 +2,8 @@
 
 **OD-04 draft response — 2026-11-06:** [Nour application-side position 0.1](approval-validity/od04-v0.1/README.md) proposes scoped ACCEPT/AMEND dispositions, affected transitions and paper examples. Approval validity remains OPEN pending Mohamed/Mohab agreement; this pointer does not ratify the proposed amendments or change the behavior contract below.
 
+**OD-04 application follow-up — 2026-11-09:** [Position 0.2](approval-validity/od04-v0.2.md) requires the authoritative approval record version (when approval is required) and supplier record version to remain current at the single PO dispatch claim, with DENIED/CANCELLED terminal for their existing approval request and source record sequence controlling late-decision order. Version/currentness mapping and an atomic or fenced claim remain pending with Mohamed/Mohab; these are trusted context requirements, not model arguments.
+
 **2026-11-02 review supplement:** [Consolidated manual boundary cases](manual-boundary-cases.md) add the denied-approval walkthrough and symbolic below/equal/above T review cases. Existing contract semantics and pending approvals remain unchanged.
 
 **Sprint 1 Contract Baseline / Freeze Candidate — tool-contract revision 0.8, 2026-11-02. NOT FROZEN.** Approval-observation semantics are confirmed by Mohamed and Mohab as reported by the user on 2026-11-02; see [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation). Other specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
@@ -195,6 +197,8 @@ Trusted context adds request revision, supplier/policy/approval evidence, propos
 Statuses: CREATED, ALREADY_EXISTS, UNKNOWN_OUTCOME, ERROR. UNKNOWN_OUTCOME carries request/proposal/idempotency linkage and explanation, but no asserted PO identity unless independently confirmed. Pre-tool BLOCK is **not** a tool-return status: the tool body was never called; the runtime emits NOT_EXECUTED separately.
 
 Valid stages: model proposal in APPROVED; dispatch in PO_CREATION after bound ALLOW. Earlier proposals are still captured for evaluation but forbidden to execute. Preconditions: approved supplier; calculation known; required approval valid or explicitly not required; state/stage permitted; all three applicable policy checks complete; unchanged checked inputs, with only the runtime-owned APPROVED-to-PO_CREATION transition permitted under the [authorization binding rule](procurement-state-contract.md#authorization-binding-across-the-dispatch-transition). A check error, missing result or BLOCK prevents dispatch.
+
+At the dispatch claim, compare the trusted current supplier record version and, if approval is required, current approval record version with the versions bound to the checked proposal. A missing, changed or unprovable version suppresses dispatch. Source approval decisions are ordered by authoritative record sequence, not timestamps. The exact version fields and atomic/fenced claim/consumption mapping remain joint OD-04/OD-12 work; they are not added to model-visible arguments by this requirement.
 
 Postconditions: CREATED confirms one mock side effect; ALREADY_EXISTS confirms the same previous mock PO without another side effect. Same key + different payload fails IDEMPOTENCY_CONFLICT. COMPLETION requires successful result validation. No real purchase is sent.
 

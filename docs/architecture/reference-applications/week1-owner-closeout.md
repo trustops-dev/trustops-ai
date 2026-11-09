@@ -10,6 +10,8 @@
 
 **OD-03 scoped response recorded — 2026-11-09:** Mohamed [accepted synthetic MVP review rows 1–5 and amended row 6](reviews/mohamed-479cab0-od03-response.md) to `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`. The YAML, its exact reviewed revision, independent check evidence and Mohab transport/digest agreement remain outstanding. The historical candidate/config and operative symbolic examples were not silently promoted; no business policy or deployed rule is asserted.
 
+**OD-04 application response prepared — 2026-11-09:** [Position 0.2](approval-validity/od04-v0.2.md) incorporates Mohamed's scoped email for V01–V08. DENIED/CANCELLED are terminal for the existing approval request, source record sequence governs decision order, and current approval/supplier versions must be checked at the PO claim. V06's canonical/atomic mechanism is still a joint decision with Mohamed and Mohab; no runtime or full specialist acceptance is claimed.
+
 **Current publication and handoff** is recorded in [the PR #27 publication record](publication-handoff.md). Earlier preparation metadata is the pre-publication snapshot.
 
 **Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
