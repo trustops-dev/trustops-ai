@@ -2,6 +2,8 @@
 
 **PROPOSED / NOT ACCEPTED / NOT ENABLED — 2026-11-05.** Nour proposes these values for Mohamed's review. This is an isolated synthetic configuration proposal, not an approved business policy, deployed configuration, canonical schema or approval record. OD-03 remains OPEN pending a dated acceptance or amendment. No existing symbolic contract/corpus example is changed by this candidate.
 
+**Subsequent scoped response recorded 2026-11-09:** [Mohamed's response to commit 479cab0](../../reviews/mohamed-479cab0-od03-response.md) accepts review rows 1–5 as synthetic MVP values and amends row 6 to a governance YAML named `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`. The opening status above is the historical proposal status. The actual YAML and its revision were not supplied, so `candidate-config.json` remains an unenabled review artifact and the operative examples stay symbolic. Mohab's transport/digest verification remains open.
+
 ## Proposed configuration
 
 | Parameter | Candidate | Reason / boundary |
@@ -51,7 +53,7 @@ The machine-readable table contains 31 cases, including invalid inputs, missing 
 
 policy-text.txt is the proposed matching synthetic source paragraph for this candidate. It is **not** ingested into the current corpus or substituted for corpus-review/documents/doc-001.txt. The current corpus retains symbolic A/T/C and its existing hashes. The source and configuration belong to this candidate version together; its source identifiers and runtime policy_version mapping must be assigned during accepted integration. Do not silently mix this candidate with demo-policy-v1-NOT-RATIFIED, v1.5/v1.6 review inputs or an existing index.
 
-On acceptance, Mohamed provides the accepted configuration/version; Nour updates only affected source fixtures and owner examples, records source/config hashes and reruns their checks; Mohab verifies transport and request binding. Update/rebuild an index only if corpus membership changes at the implementation stage. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
+After the accepted governance YAML and exact revision are supplied, Nour compares its content with these 31 cases, updates only affected source fixtures and owner examples, records source/config hashes and reruns their checks; Mohab verifies transport and request binding. Update/rebuild an index only if corpus membership changes at the implementation stage. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
 
 ## Exact review request to Mohamed
 

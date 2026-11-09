@@ -2,7 +2,7 @@
   "date": "2026-11-08",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Credential evidence correction and executable synthetic smoke runner; offline SDK tests and affected owner-document checks only.",
-  "manifest_sha256": "78b4477686989ce791e1de7fab35bdcbf668bdb07a72a38c7cc7d767f954abef",
+  "manifest_sha256": "8e552b3a5d852fa00cd5de3426e93bb4d20faca8e5a02b651c8cb56e37350123",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16190,5 +16190,16 @@
       "ruff_format": "PASS"
     },
     "prior_windows_failures": "Historical evidence superseded by the fresh 25-test native Windows pass."
+  },
+  "od03_scoped_response_integration": {
+    "date": "2026-11-09",
+    "report": "docs/architecture/reference-applications/validation/od03-scoped-response-refresh.json",
+    "previous_manifest_sha256": "78b4477686989ce791e1de7fab35bdcbf668bdb07a72a38c7cc7d767f954abef",
+    "current_manifest_context": "Current payload binding refreshed for scoped-response documentation. Earlier validation assertions remain historical results for their recorded snapshots.",
+    "candidate_checks": 63,
+    "manual_total": 897,
+    "corpus_checks": 332,
+    "joint_acceptance": "PENDING",
+    "yaml_verification": "PENDING"
   }
 }
