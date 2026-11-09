@@ -1,5 +1,7 @@
 # Cross-team handoff checklist
 
+**Current mapping — 2026-11-09:** [Draft v1.8 E01–E27 assessment](schema-v1.8-evidence-mapping.md) and [exact field witnesses](schema-v1.8-evidence-mapping.json) cover all 27 requirements: **11 OK, 9 CHANGE REQUIRED, 7 OPEN**. The [fresh rerun and package observations](schema-v1.8-review-observations.json) record 2,306 assertions and 52/52 cases against actual files; email/bundled-report identities disagree. OD-05 stays blocking pending corrected hashes, row fixes and scoped review. [v1.6 mapping](schema-v1.6-evidence-mapping.md) is historical; no runtime or joint sign-off is inferred.
+
 **Credential and runner update — 2026-11-08.** Replacement `TrustOpsAI-dev` and old-key absence were observed on 2026-11-07; local storage is Nour’s confirmation. Live authentication is not verified. The [bounded compatibility runner](../../../tools/provider_compatibility/README.md) implements isolated synthetic probes with offline SDK tests. Full-envelope token admission, live results and application acceptance remain open. Nour runs the local probes and returns sanitized results; Mohab reviews interface/admission integration; Alaa reviews quota/workload evidence. No model promotion or shared approval is implied.
 
 **Workload candidates — 2026-11-07 snapshot.** The [free-only 0.2 baseline](workload-review/od-llm02-v0.2/README.md) and [Flash Lite 0.3 alternative](workload-review/od-llm02-v0.3/README.md) supersede the earlier USD 10 allocation proposal with a USD 0 paid-spend requirement. Ownership is user-reported and free-tier quotas are screenshot-observed as recorded in the supplied update; capture times, remaining quota and runtime compatibility remain unverified. Flash remains the current proposed primary. Lite promotion requires scoped application/interface/workload review and executed evidence. Alaa’s prior response remains partial/conditional against its original revision. Credential replacement is observed and local storage is user-confirmed. Quota headroom, API execution, OD-03 integration, OD-04 acceptance and the existing schema gates remain pending. The later scoped OD-03 disposition is recorded below.
@@ -10,7 +12,6 @@
 
 **OD-04 application follow-up — 2026-11-09:** [Nour's position 0.2](approval-validity/od04-v0.2.md) adopts Mohamed's terminal DENIED/CANCELLED and source record-sequence rules. Both approval (if required) and supplier record versions must be current at the dispatch claim. Mohab/Mohamed still need to agree canonical references, a separate consumption record and an atomic/fenced claim mechanism. No full OD-04 sign-off is inferred.
 
-**Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
 
 **2026-11-02 confirmation received:** Mohamed and Mohab confirmed the approval-observation distinction, as reported by the user. [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation) records trusted read-only observation of the existing approval request, distinct from retrying its initial submission. This closes that wording/interface-meaning item; full schema/governance sign-offs and implementation verification remain pending.
 
@@ -22,7 +23,7 @@ The current handoff is [week1-owner-closeout.md](week1-owner-closeout.md); use [
 
 **Historical freeze-candidate label — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
 
-**Latest supplied review — 2026-11-05:** [v1.6 schema / governance 0.4 joint review](https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal), R16-01–09. Preserve verified prior fixes. The [v1.5 review](schema-v1.5-review.md) is historical; its E01–E27 mapping is retained unchanged for historical comparison; the new v1.6 mapping is recorded separately. Current suite reproduction does not imply acceptance.
+**Historical v1.6 supplied review — 2026-11-05:** [v1.6 schema / governance 0.4 joint review](https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal), R16-01–09. Preserve verified prior fixes. The [v1.5 review](schema-v1.5-review.md) is historical; its E01–E27 mapping is retained unchanged for historical comparison; the v1.6 mapping is retained separately. The current v1.8 assessment appears above; suite reproduction does not imply acceptance.
 
 ## Week 2 cross-team review and sign-off matrix
 
@@ -30,7 +31,7 @@ Current routing distinguishes sent-email confirmation from received responses: A
 
 | Reviewer | Review area | Status | Issues | Resolution / evidence required |
 |---|---|---|---|---|
-| Mohab | Trace/schema fit | PENDING — CHANGES REQUIRED | R16-01–06 and R16-09 corrections; R16-07/08 joint alignment | Correct files and return exact hashes, focused regression evidence and dispositions for reassessment; retain prior fixes. Nour has completed the current v1.6 E01–E27 mapping and will reassess affected rows against the returned revision under OD-05 |
+| Mohab | Trace/schema fit | PENDING — CHANGES REQUIRED | R16-01–06 and R16-09 corrections; R16-07/08 joint alignment | Correct files and return exact hashes, focused regression evidence and dispositions for reassessment; retain prior fixes. Nour has completed the v1.8 E01–E27 reassessment; Mohab must correct exact package identities and the 9 CHANGE REQUIRED rows, with 7 OPEN rows routed to named reviewers |
 | Ahmed | Failure/evaluator fit | PENDING | Source/claim gaps, unknown timeout, matching action results, supplier scope, overlap, numeric examples | Accept qualitative sufficiency/citation evidence, corrected examples and independent annotation; no evaluator required |
 | Mohamed | Governance fit | RESPONSE RECEIVED — PARTIAL / CONDITIONAL | OD-03 rows 1–5 accepted for synthetic MVP and row 6 amended; other email dispositions need their own scoped records, with R16-07/08 joint mapping still open | Provide actual governance response/YAML and independent check evidence; agree lossless interface/digest/outcome mapping with Mohab. Governance-local decisions are not joint approval |
 | Alaa | Versioning fit | RESPONSE RECEIVED — PARTIAL / CONDITIONAL | [ALA-01–11](reviews/alaa-479cab0-review.md): accepted lineage/candidate/grouping scope; hashing/projection/access/numeric-budget/joint-mapping conditions remain | Return explicit conventions with Mohab; review Nour’s access/workload evidence and dependent Ahmed/Mohamed mappings. No unconditional sign-off or frozen index inferred |
@@ -196,6 +197,10 @@ Each acceptance must name exact document/config revision, accepted items, unreso
 ## OD-08 schedule review — plan owner
 
 Provide the [three specifications and schedule proposal](failure-planning-matrix.md). Request agreement to the explicit S4-06 scope extension, separate Week 7 recipe dependencies from Week 8 classifier/RCA dependencies, and preserve the existing Week 4 and Sprint 3 gates. Identify S3-03 fixture handoff and confirm capacity/dataset sequencing. No new Jira task ID, deadline acceptance or plan edit has been assumed. Status: PENDING review.
+
+## v1.8 mapping handoff — 2026-11-09
+
+The [current 27-row mapping](schema-v1.8-evidence-mapping.md) distinguishes verified static fixes (2,306 assertions, 52/52 cases) from 9 CHANGE REQUIRED and 7 OPEN requirements. Mohab: reconcile email/report SHA-256 and assertion count to exact bytes; address E02–E04, E06–E08, E14, E17 and E25, and return corrected positive/negative examples. Mohamed + Mohab: source record-sequence ordering, approval/supplier version currentness at claim, and separate immutable consumption record. Ahmed/Alaa: metric/selection and inference/provenance conventions. Nour: reassess corrected exact revision. The supplied suite and this mapping do not constitute schema acceptance.
 
 ## v1.6 mapping handoff — 2026-11-06
 

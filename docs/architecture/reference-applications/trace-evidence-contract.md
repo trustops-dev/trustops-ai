@@ -4,7 +4,11 @@
 
 **Sprint 1 Contract Baseline / Freeze Candidate — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
 
-## Current v1.6 application-to-schema mapping
+## Current v1.8 application-to-schema mapping
+
+**2026-11-09: 27 original requirements reassessed against Mohab's supplied Draft v1.8 archive — 11 OK, 9 CHANGE REQUIRED, 7 OPEN.** See the [row-level mapping](schema-v1.8-evidence-mapping.md), [machine-readable witnesses](schema-v1.8-evidence-mapping.json) and [exact-file rerun record](schema-v1.8-review-observations.json). The external suite reran at 2,306 baseline assertions and 52/52 cases. The email and bundled report claim different hashes, and the email says 2,264 assertions. Acceptance remains open until corrected package identities and scoped owner decisions are returned. OK is structural representation within the cited scope, not runtime or joint acceptance. Original E01–E27 requirements remain below.
+
+## Historical v1.6 application-to-schema mapping
 
 **2026-11-06: all 27 original requirements reassessed — 9 OK, 9 CHANGE REQUIRED, 9 OPEN.** See the [detailed current mapping](schema-v1.6-evidence-mapping.md), [machine-readable row evidence](schema-v1.6-evidence-mapping.json) and [rerun observations](schema-v1.6-review-observations.json). Exact original requirements remain below. OK is a scoped representation assessment, not full schema approval; OD-05 remains blocking. Observation semantics are already confirmed; adapter proof, approval validity and continuation remain pending.
 

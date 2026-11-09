@@ -1,10 +1,11 @@
 # Sprint 1 acceptance and Week 2 validation
 
+**Current mapping — 2026-11-09:** [Draft v1.8 E01–E27 assessment](schema-v1.8-evidence-mapping.md) and [exact field witnesses](schema-v1.8-evidence-mapping.json) cover all 27 requirements: **11 OK, 9 CHANGE REQUIRED, 7 OPEN**. The [fresh rerun and package observations](schema-v1.8-review-observations.json) record 2,306 assertions and 52/52 cases against actual files; email/bundled-report identities disagree. OD-05 stays blocking pending corrected hashes, row fixes and scoped review. [v1.6 mapping](schema-v1.6-evidence-mapping.md) is historical; no runtime or joint sign-off is inferred.
+
 **Alaa response recorded — 2026-11-06:** [Scoped review of commit 479cab0](reviews/alaa-479cab0-review.md) received from user-supplied email text. Overall status: **PARTIAL / CONDITIONAL**. Candidate/principle acceptance and remaining conditions are recorded separately; no full specialist sign-off or joint freeze. The email date and message reference were not supplied.
 
 **OD-04 owner-side update — 2026-11-09:** [Nour's application response 0.2](approval-validity/od04-v0.2.md) records Mohamed's scoped clause dispositions and the revised V04–V06 application requirements. It does not close the tool/policy-stage reconciliation or formal freeze: the authoritative source/version mapping and atomic claim mechanism still require Mohab/Mohamed agreement and later runtime proof.
 
-**Current mapping — 2026-11-06:** [Draft v1.6 E01–E27 assessment](schema-v1.6-evidence-mapping.md) and [exact row evidence](schema-v1.6-evidence-mapping.json) cover all 27 requirements: **9 OK, 9 CHANGE REQUIRED, 9 OPEN**. The [rerun observations](schema-v1.6-review-observations.json) retain R16-01–09 as the current review baseline. v1.5 is historical comparison evidence. Mapping preparation is complete; corrected files, unresolved conventions and joint acceptance remain pending. OD-05 stays blocking; no new signature or runtime verification is implied.
 
 **2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
 
@@ -25,8 +26,8 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 | Grounding/citations/abstention complete at app level | PASS | Material claim→selected source span/version→visible marker, qualitative sufficiency and reasoned abstention; no invented cutoff |
 | Failure-class mapping complete | PASS | Eight exact classes, mechanisms, evidence, families, fixed nine RCA causes, security/policy relationship; NORMAL distinct |
 | Failure/taxonomy examples jointly accepted | BLOCKED | OD-09: supplier path, timeout, overlap and matching claim/result corrections pending Ahmed/Mohamed |
-| Application-to-trace mapping documented | PASS | All 27 original requirements mapped to actual v1.6 source sections, event paths and rerun evidence with 9 OK / 9 CHANGE REQUIRED / 9 OPEN; v1.5 mapping and original requirements preserved |
-| Application-to-trace mapping aligned losslessly | BLOCKED | The current mapping covers v1.6. R16-01–09 corrections, unresolved conventions and scoped acceptance remain pending |
+| Application-to-trace mapping documented | PASS | All 27 original requirements mapped to supplied v1.8 source sections and field witnesses with 11 OK / 9 CHANGE REQUIRED / 7 OPEN; earlier mappings and original requirements preserved |
+| Application-to-trace mapping aligned losslessly | BLOCKED | The current v1.8 mapping covers 27/27 requirements (11 OK / 9 CHANGE REQUIRED / 7 OPEN); package identity, missing evidence and scoped acceptance remain pending |
 | Successful Procurement trace validates conceptually | PASS | fixtures/01-procurement-success.json: all eight states, five tool dispatches, trusted approval, bound check, one PO, matching final claim; conditional on named proposed policy assumptions |
 | Approval-bypass trace validates conceptually | PASS | fixtures/02-procurement-bypass.json: required true/missing approval, PRE_APPROVAL proposal, BLOCK, no PO dispatch/result, separate raw false candidate/delivered notice |
 | Grounded RAG trace validates conceptually | PASS | fixtures/03-rag-grounded.json: complete selected source snapshot, authored generation context, exact claim/source span/version/marker and final answer |

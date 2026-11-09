@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-09-od04-application-response",
+  "packet_id": "nour-owner-review-2026-11-09-v18-schema-reassessment",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-09",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
-  "commit_push_pr": "LOCAL_OD04_APPLICATION_FOLLOWUP_PREPARED_ON_7DECD09_NOT_COMMITTED_OR_PUSHED",
-  "approval_status": "ALAA_PARTIAL_CONDITIONAL; MOHAMED_OD03_AND_OD04_SCOPED_EMAIL_DISPOSITIONS; OD04_V06_JOINT_MECHANISM_PENDING; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+  "commit_push_pr": "LOCAL_V18_REASSESSMENT_ON_F820155_NOT_COMMITTED_OR_PUSHED",
+  "approval_status": "V18_MAPPING_COMPLETE; PACKAGE_IDENTITY_INCONSISTENT; OD05_AND_FULL_SPECIALIST_ACCEPTANCE_OPEN",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,8 +133,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "2ab3c34283a183ade4ccd197e9bb8c7ae9b752b43b3a7dfe7a12de5ac594491c",
-      "size_bytes": 13524,
+      "sha256": "27605ecb7a4829b3858c99a866d1cdb29e87d18d6f5ee3464105681f250517c3",
+      "size_bytes": 13594,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "1aa257fd76fc309377eee7c4c952a5e82f83cd3cbef8fcb96dc374522e76e2db",
-      "size_bytes": 27149,
+      "sha256": "48cf92e5ec9046403d67871f0ad219be8843281b831ea3d8ff480d6e5285a409",
+      "size_bytes": 27976,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -288,8 +288,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "3775cf8113e7ae96ddcdda1f390e8982155c57b2c0359b0b0a4d3c73c2e40178",
-      "size_bytes": 26105,
+      "sha256": "1e72f2bde851068f879ec42f617614bea934dc6f7a4e4319587be17681775b60",
+      "size_bytes": 26415,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -968,9 +968,27 @@
       "size_bytes": 28683
     },
     {
+      "path": "docs/architecture/reference-applications/schema-v1.8-evidence-mapping.json",
+      "sha256": "444040008f61790e44d998021aecf1ef14d8b46149b2ea15bb4ee77c6b958745",
+      "size_bytes": 23513,
+      "document_revision": "v1.8 owner mapping"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.8-evidence-mapping.md",
+      "sha256": "d26f779e53820444ab591bf9c9161bde8ce3679e78a94b921b2832329cea115d",
+      "size_bytes": 10530,
+      "document_revision": "v1.8 owner mapping"
+    },
+    {
+      "path": "docs/architecture/reference-applications/schema-v1.8-review-observations.json",
+      "sha256": "a215e615716ecccedfbfa795f5943eb160e7838af3042c6d837c493be4a6798a",
+      "size_bytes": 4948,
+      "document_revision": "v1.8 owner mapping"
+    },
+    {
       "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
-      "sha256": "6b79c3796f5940a2bcd3eea353232220b6e844224f61368109af318fe8ce2761",
-      "size_bytes": 54577,
+      "sha256": "5f7c1215a507924e07b6c21557f609e41fbbfbc1e5d7dad422a69697a364e372",
+      "size_bytes": 55353,
       "document_revision": "Original requirements retained; v1.5 mapping 1.0, 2026-11-05"
     },
     {
@@ -1036,6 +1054,12 @@
       "size_bytes": 26290
     },
     {
+      "path": "docs/architecture/reference-applications/validation/v18-mapping-report.json",
+      "sha256": "18d327a39a5b18c7ec48a7c08368d0b8e549298f4485e627303595edcd04143c",
+      "size_bytes": 2748,
+      "document_revision": "v1.8 owner mapping"
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py",
       "sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
       "size_bytes": 11208
@@ -1062,8 +1086,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "28d168fc8799f8245025b6a5dd99dff8e0b19cac149ae08c981f1404f694100d",
-      "size_bytes": 19005,
+      "sha256": "d2084d2f6c06597c4ba1934a5549ce0ffc8dc2294e822277191886b6cd54f95b",
+      "size_bytes": 19040,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -1290,7 +1314,11 @@
     "runtime_templates_inputs_outputs_and_schemas": "UNCHANGED",
     "additional_stakeholder_approval": "NONE"
   },
-  "latest_reviewed_schema": "Draft v1.6 — current E01–E27 mapping complete; full acceptance pending",
+  "latest_reviewed_schema": {
+    "version": "Draft v1.8 supplied external archive",
+    "source_sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+    "acceptance": "OPEN_CORRECTED_EVIDENCE_REQUIRED"
+  },
   "schema_v1_5_review": {
     "date": "2026-11-04",
     "reviewed_schema": "Draft v1.5",
@@ -1328,20 +1356,19 @@
     "requirements_and_runtime_changes": "None; current-review pointer changed in trace-evidence-contract, historical mapping preserved"
   },
   "application_schema_mapping": {
-    "date": "2026-11-06",
+    "date": "2026-11-09",
     "mapping_revision": "1.0",
-    "schema_version_reviewed": "Draft v1.6",
-    "source_sha256": "84b749967df6cab5dd8f71d15768647ca10625554eb3f09ed76d6a77dd1a6997",
-    "mapping_document": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.md",
-    "mapping_record": "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.json",
+    "schema_version_reviewed": "Draft v1.8 external archive",
+    "source_sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+    "mapping_document": "docs/architecture/reference-applications/schema-v1.8-evidence-mapping.md",
+    "mapping_record": "docs/architecture/reference-applications/schema-v1.8-evidence-mapping.json",
     "status_counts": {
-      "OK": 9,
-      "OPEN": 9,
-      "CHANGE REQUIRED": 9
+      "OK": 11,
+      "CHANGE REQUIRED": 9,
+      "OPEN": 7
     },
     "requirements": 27,
-    "representative_paths_checked": 69,
-    "full_acceptance": "PENDING_CORRECTIONS_AND_JOINT_REVIEW",
+    "full_acceptance": "OPEN_PACKAGE_IDENTITY_AND_JOINT_REVIEW",
     "requirements_changed": false,
     "new_signoff": false
   },
@@ -1369,7 +1396,8 @@
     "independent_cases": 35,
     "unmet_independent_expectations": 16,
     "mapping_update": "COMPLETE_FOR_PINNED_V16_DRAFT_ACCEPTANCE_PENDING",
-    "observation_record": "docs/architecture/reference-applications/schema-v1.6-review-observations.json"
+    "observation_record": "docs/architecture/reference-applications/schema-v1.6-review-observations.json",
+    "historical": true
   },
   "validation_refresh": {
     "date": "2026-11-06",
@@ -1772,5 +1800,18 @@
     "joint_acceptance": "PENDING_MOHAB_AND_MOHAMED",
     "runtime": "NOT_RUN",
     "fresh_validation": "validation/od04-application-response-refresh.json#integration_validation"
+  },
+  "schema_v1_8_review": {
+    "status": "MAPPING_COMPLETE_ACCEPTANCE_OPEN",
+    "spec_sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+    "validator_sha256": "7640819601d5022ba5c9fe0b5c6186891f88f8d073d560e1b741d656e03ca8a3",
+    "runner_sha256": "11c5237fc9730251cb9a1a02bdd0a39e85939d9d1268d8c28ee4c3d7dfae48fc",
+    "bundled_report_sha256": "698a25a56c25a411b5d7e3128867ef5cc971ce415e58fa5c1d14c168ab5df7d8",
+    "fresh_report_sha256": "61a57d5b626d645289f404e51e978b3f1e3f00754a253bb1515c1e7ce56bbe1f",
+    "baseline_assertions": 2306,
+    "suite_cases": "52/52",
+    "package_identity": "EMAIL_AND_BUNDLED_REPORT_INCONSISTENT",
+    "observation_record": "docs/architecture/reference-applications/schema-v1.8-review-observations.json",
+    "integration_validation": "docs/architecture/reference-applications/validation/v18-mapping-report.json#integration_validation"
   }
 }

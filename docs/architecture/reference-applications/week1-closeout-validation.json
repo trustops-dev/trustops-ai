@@ -1,12 +1,12 @@
 {
-  "date": "2026-11-08",
+  "date": "2026-11-09",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Credential evidence correction and executable synthetic smoke runner; offline SDK tests and affected owner-document checks only.",
-  "manifest_sha256": "c0ba8b1d7efb3c375f447ca2d04c32440bf1bcc782a97ecea74a5b26854f23b7",
+  "scope": "Latest v1.8 row mapping and package identity review, external static suite plus affected owner documentation checks; earlier runner/compatibility results remain historical",
+  "manifest_sha256": "767c2d16bb8e59fa51f5f517a8619dee44d0e731b3a5f59baf7589f040364195",
   "check_counts": {
     "runner_tests": 23,
-    "manual_fixture_link_checks": 886,
-    "corpus_boundary_checks": 327,
+    "manual_fixture_link_checks": 927,
+    "corpus_boundary_checks": 354,
     "baseline_workload_checks": 20,
     "candidate_workload_checks": 23,
     "ruff_check": "PASS_FULL_SNAPSHOT",
@@ -25,7 +25,7 @@
       "03-rag-grounded.json": 6,
       "04-rag-insufficient.json": 4
     },
-    "check_count": 886,
+    "check_count": 927,
     "checks": [
       {
         "check": "Exactly four authored walkthroughs",
@@ -16228,6 +16228,29 @@
       "ruff_check": "PASS",
       "ruff_format": "PASS_100_FILES",
       "report_section": "integration_validation"
+    }
+  },
+  "v1_8_mapping": {
+    "rows": 27,
+    "status_counts": {
+      "OK": 11,
+      "CHANGE REQUIRED": 9,
+      "OPEN": 7
+    },
+    "external_assertions": 2306,
+    "suite_cases": "52/52",
+    "package_identity": "INCONSISTENT",
+    "schema_acceptance": "OPEN",
+    "mapping_report": "docs/architecture/reference-applications/validation/v18-mapping-report.json",
+    "integration_validation": {
+      "manual_fixture_link_checks": 915,
+      "corpus_boundary_checks": 342,
+      "mapping_structure": "PASS",
+      "external_suite_rerun": false,
+      "python": "3.12.15",
+      "ruff_check": "PASS",
+      "ruff_format": "PASS_101_FILES",
+      "report": "docs/architecture/reference-applications/validation/v18-mapping-report.json#integration_validation"
     }
   }
 }
