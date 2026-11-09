@@ -1,12 +1,12 @@
 {
   "date": "2026-11-09",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Latest v1.8 row mapping and package identity review, external static suite plus affected owner documentation checks; earlier runner/compatibility results remain historical",
+  "scope": "Latest v1.8 owner mapping integration; fresh repository checks are in v1_8_mapping.integration_validation. Top-level check_counts/manual_review and earlier payloads retain historical results. External suite figures are supplied package evidence, not rerun during integration.",
   "manifest_sha256": "767c2d16bb8e59fa51f5f517a8619dee44d0e731b3a5f59baf7589f040364195",
   "check_counts": {
     "runner_tests": 23,
-    "manual_fixture_link_checks": 927,
-    "corpus_boundary_checks": 354,
+    "manual_fixture_link_checks": 886,
+    "corpus_boundary_checks": 327,
     "baseline_workload_checks": 20,
     "candidate_workload_checks": 23,
     "ruff_check": "PASS_FULL_SNAPSHOT",
@@ -25,7 +25,7 @@
       "03-rag-grounded.json": 6,
       "04-rag-insufficient.json": 4
     },
-    "check_count": 927,
+    "check_count": 886,
     "checks": [
       {
         "check": "Exactly four authored walkthroughs",
