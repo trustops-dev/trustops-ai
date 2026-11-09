@@ -2,3 +2,7 @@
 *.sh text eol=lf
 *.py text eol=lf
 *.lock text eol=lf
+
+# Preserve exact sanitized provider result bytes used by the review manifest.
+docs/architecture/reference-applications/workload-review/od-llm02-v0.2/evidence/session-01-results.json -text whitespace=cr-at-eol
+docs/architecture/reference-applications/workload-review/od-llm02-v0.2/evidence/session-02-results.json -text whitespace=cr-at-eol

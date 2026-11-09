@@ -1,5 +1,7 @@
 # Sprint 1 acceptance and Week 2 validation
 
+**Bounded provider check — 2026-11-09:** [Exact sanitized results](workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json): user-supplied Windows offline suite 25/25; two operator-run sessions passed C01 prompt-only count and stopped at G01 (unknown timeout; provider/SDK error with HTTP status unavailable). G02/G03/E01/E02 were not run. This is a partial observation, not live application or model compatibility acceptance. Free tier remains the only proposed mode; authorized paid usage remains USD 0. OD-LLM-01/02 remain blocked.
+
 **Current mapping — 2026-11-09:** [Draft v1.8 E01–E27 assessment](schema-v1.8-evidence-mapping.md) and [exact field witnesses](schema-v1.8-evidence-mapping.json) cover all 27 requirements: **11 OK, 9 CHANGE REQUIRED, 7 OPEN**. The [fresh rerun and package observations](schema-v1.8-review-observations.json) record 2,306 assertions and 52/52 cases against actual files; email/bundled-report identities disagree. OD-05 stays blocking pending corrected hashes, row fixes and scoped review. [v1.6 mapping](schema-v1.6-evidence-mapping.md) is historical; no runtime or joint sign-off is inferred.
 
 **Alaa response recorded — 2026-11-06:** [Scoped review of commit 479cab0](reviews/alaa-479cab0-review.md) received from user-supplied email text. Overall status: **PARTIAL / CONDITIONAL**. Candidate/principle acceptance and remaining conditions are recorded separately; no full specialist sign-off or joint freeze. The email date and message reference were not supplied.
@@ -26,14 +28,14 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 | Grounding/citations/abstention complete at app level | PASS | Material claim→selected source span/version→visible marker, qualitative sufficiency and reasoned abstention; no invented cutoff |
 | Failure-class mapping complete | PASS | Eight exact classes, mechanisms, evidence, families, fixed nine RCA causes, security/policy relationship; NORMAL distinct |
 | Failure/taxonomy examples jointly accepted | BLOCKED | OD-09: supplier path, timeout, overlap and matching claim/result corrections pending Ahmed/Mohamed |
-| Application-to-trace mapping documented | PASS | All 27 original requirements mapped to supplied v1.8 source sections and field witnesses with 11 OK / 9 CHANGE REQUIRED / 7 OPEN; earlier mappings and original requirements preserved |
+| Application-to-trace mapping documented | PASS | All 27 original requirements mapped to supplied v1.8 draft fields and walkthrough witnesses with 11 OK / 9 CHANGE REQUIRED / 7 OPEN; v1.6 and v1.5 histories preserved |
 | Application-to-trace mapping aligned losslessly | BLOCKED | The current v1.8 mapping covers 27/27 requirements (11 OK / 9 CHANGE REQUIRED / 7 OPEN); package identity, missing evidence and scoped acceptance remain pending |
 | Successful Procurement trace validates conceptually | PASS | fixtures/01-procurement-success.json: all eight states, five tool dispatches, trusted approval, bound check, one PO, matching final claim; conditional on named proposed policy assumptions |
 | Approval-bypass trace validates conceptually | PASS | fixtures/02-procurement-bypass.json: required true/missing approval, PRE_APPROVAL proposal, BLOCK, no PO dispatch/result, separate raw false candidate/delivered notice |
 | Grounded RAG trace validates conceptually | PASS | fixtures/03-rag-grounded.json: complete selected source snapshot, authored generation context, exact claim/source span/version/marker and final answer |
 | Insufficient-evidence RAG trace validates conceptually | PASS | fixtures/04-rag-insufficient.json: known source omission in independent sidecar, irrelevant returned source, empty support, abstention, no fabricated generation event |
 | Manual traces validated against canonical Trace Schema v1 | BLOCKED | Owner paper fixtures remain non-canonical. Supplied v1.6 baseline previously passed 2106 assertions and 27 suite cases reproduced; 16 of 35 independent expectations were unmet. These external review results were not rerun in this artifact-validation refresh and do not establish schema-fit acceptance |
-| Gemini/provider strategy documented | PASS | Sole Gemini provider, selected gemini-3.8-flash, provider-neutral tool contracts and planned provenance; no API execution |
+| Gemini/provider strategy documented | PASS | Sole Gemini provider, selected gemini-3.8-flash, provider-neutral tool contracts and planned provenance; two bounded operator-run sessions reached C01 then stopped at G01 |
 | Effective generation/retrieval/embedding configuration frozen | BLOCKED | OD-LLM-01/02, OD-10 and OD-RAG-01; proposed settings now documented; account/environment verification, cross-contract acceptance and live compatibility remain pending |
 | Orchestration decision documented | PASS | ADR preserves explicit Python choice and requested APPROVED FOR SPRINT 2 IMPLEMENTATION technical disposition; overall entry gates still apply |
 | Every open decision closed or explicitly recorded | PASS | All 21 original decision IDs preserved; 20 focused pending request rows (including child questions) each state proposal, reviewer, question and closure evidence; existing closures/design dispositions/deferred thresholds preserved |
@@ -42,7 +44,7 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 | Correct existing work preserved and docs updated in place | PASS | Existing twelve app Markdown files and combined ADR revised; original detailed state/tool/RAG/scenario design retained |
 | No production implementation started | PASS | Changes confined to Markdown and four paper JSON files under documentation; no app/tool/schema/SDK/API/index/evaluator/engine code |
 | No Sprint 2 scope entered Week 2 | PASS | Only source review, documentation, manual fixtures and static artifact checks performed |
-| No fabricated metric/result/approval | PASS | Authored expectations, illustrative source numbers and synthetic ordering timestamps explicitly marked; live usage/latency/model responses absent; no evaluator scores generated |
+| No fabricated metric/result/approval | PASS | Authored expectations, illustrative source numbers and synthetic ordering timestamps explicitly marked; no successful generation or embedding response claimed; sanitized failure evidence and unavailable metadata explicit; no evaluator scores generated |
 | Formal S1-01 Sprint 1 exit | BLOCKED | Canonical fit, policy/config decisions, planning amendment and named acceptance remain outstanding |
 
 ## Validation evidence

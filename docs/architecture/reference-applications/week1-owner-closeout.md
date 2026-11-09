@@ -1,5 +1,7 @@
 # Week 1 — Nour's owner-side closeout and review packet
 
+**Provider compatibility observation — 2026-11-09:** [Bounded result record](workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json) preserves two operator-supplied sanitized runs: C01 prompt-only count passed in each, G01 failed with timeout/unknown outcome then provider-or-SDK error, and all later probes were not executed. Operator-supplied Windows offline tests passed 25/25. This does not establish live generation, JSON/function/embedding compatibility or accepted workload quotas. OD-LLM-01/02 remain open; USD 0 paid-use authorization is unchanged.
+
 
 **Credential and runner update — 2026-11-08.** Replacement `TrustOpsAI-dev` and old-key absence were observed on 2026-11-07; local storage is Nour’s confirmation. Live authentication is not verified. The [bounded compatibility runner](../../../tools/provider_compatibility/README.md) implements isolated synthetic probes with offline SDK tests. Full-envelope token admission, live results and application acceptance remain open. Nour runs the local probes and returns sanitized results; Mohab reviews interface/admission integration; Alaa reviews quota/workload evidence. No model promotion or shared approval is implied.
 

@@ -2,16 +2,18 @@
 
 | Item | Value |
 |---|---|
-| Revision / review date | **0.9 / 2026-11-01** |
+| Revision / review date | **0.9 / 2026-11-01; bounded observation added 2026-11-09** |
 | Decision status | **PROPOSED — implementation specification complete for review; NOT FROZEN; no specialist acceptance inferred** |
 | Owner | Nour El-Rouby — Generative AI & Agentic Systems Engineer |
 | Reviewers | Mohab: contracts/platform; Mohamed: governance/approval; Ahmed: evaluation evidence; Alaa: reproducibility; Malak: presentation acknowledgment |
 | Canonical repository destination | `docs/adr/reference-application-orchestration-and-llm.md` — existing unnumbered ADR; no new ADR numbering scheme |
 | Supersedes | Revision 0.8 budget timing; adopts the proposed execution-budget contract while preserving generation/model/output decisions |
 | Scope | Generation in **Tool-Using Procurement AI Agent** and **Enterprise RAG Assistant** only |
-| Validation level | Official documentation review plus offline artifact checks; **no live Gemini/SDK/tool/governance execution or performance experiment** |
+| Validation level | Official documentation review, offline artifact checks, and two stopped operator-run synthetic provider sessions; **no passing live generation, structured output, tool proposal, embedding, governance or application experiment** |
 
 All new numeric limits below are **proposed engineering defaults**, not existing project facts, SLAs, calibrated confidence thresholds or experimental results. “Implementation-ready” describes an explicit build specification. Account access, the chosen SDK/API/model combination, canonical schema fit and named approval remain entry/release gates.
+
+**Bounded provider observation (2026-11-09):** The [sanitized two-session record](../architecture/reference-applications/workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json) identifies exact input hashes and outcomes. Operator-supplied Windows offline tests passed 25/25. C01 native prompt-only counting passed twice (six tokens per session); G01 stopped once with `TIMEOUT_OUTCOME_UNKNOWN` and once with `PROVIDER_OR_SDK_ERROR` and no HTTP status. Later structured-output, native tool-proposal and embedding probes were **NOT RUN**. The timeout cannot establish whether the provider received/processed the request. Full-envelope counting and live capability remain unverified. This observation changes no selected model or configuration and preserves the **free-only, USD 0 authorized paid-use** boundary; OD-LLM-01/02 remain open.
 
 ## 1. Context and existing architecture
 
@@ -571,8 +573,8 @@ Principal risks and consequences: moving provider aliases limit exact backend re
 |---|---|---|
 | OD-07 — Nour | Preserve selected Gemini provider/model | Name selection remains closed; no live-access inference |
 | OD-ORCH-01 — Nour | Preserve explicit Python orchestration | Overall Sprint 1 freeze still requires shared acceptance |
-| OD-LLM-01 — Nour/Alaa/Mohab | Proposed API/SDK pin, profiles, limits, schemas and output behavior now specified | Review acceptance and exact live SDK/API/model/protocol compatibility, including retries/token accounting |
-| OD-LLM-02 — Nour/Alaa | Explicit account/access/workload checks | Actual project owner/access/quota/billing/budget unknown; verify before production coding/workload generation as applicable |
+| OD-LLM-01 — Nour/Alaa/Mohab | Proposed API/SDK pin, profiles, limits, schemas and output behavior now specified; two bounded G01 attempts failed after prompt-only C01 passed | Diagnose sanitized G01 errors; generation, structured output, native tool proposal, embedding and full-envelope token accounting have not passed live compatibility; scoped review remains open |
+| OD-LLM-02 — Nour/Alaa | Owner/project identity and screenshot-observed Free tier/quota recorded; USD 0 authorized paid use | Live headroom, quota attribution, other consumers and numeric workload acceptance remain unconfirmed; assess both charged/uncertain G01 attempts before another bounded run |
 | OD-05, WG-01–08 — Mohab + consumers | Required generation evidence and missingness are explicit | Canonical field/enumeration mapping and four lossless schema walkthroughs |
 | OD-02/03/04/06/12/16 — Mohamed/Mohab/Nour/plan owner | Preserve pre-tool enforcement, trusted binding and fail-closed behavior | Permission/truth tables, approval validity, exact transport/recovery budgets, S2 enforcement timing and RAG applicability ratification |
 | OD-09/11 — Ahmed/Nour | Explicit candidate/delivery/source structure and qualitative sufficiency | Accepted method/rubric, failure overlap and supporting evaluator/RCA evidence; no invented semantic threshold |
@@ -743,8 +745,8 @@ References were inspected 2026-11-01. References identify documentation claims; 
 |---|---|
 | Historical revision 0.8 profile/schema/example consistency | PASS — 117 artifact assertions in the prior review; not runtime or canonical-schema tests |
 | Revision 0.9 budget integration | See execution-budget ADR: current authored schema/configuration/accounting checks only |
-| Live provider/API/SDK compatibility | NOT RUN |
-| Locked SDK installation | NOT RUN |
+| Live provider/API/SDK compatibility | PARTIAL / STOPPED: operator-supplied 2026-11-09 results show C01 prompt-only count PASS twice, G01 timeout with unknown outcome then provider-or-SDK error with HTTP status unavailable; G02/G03/E01/E02 NOT RUN |
+| Pinned SDK local installation | Observed in operator runs as `google-genai==2.34.0`; this establishes local package identity, not successful generation compatibility |
 | Canonical trace mapping and team approval | PENDING |
 
 

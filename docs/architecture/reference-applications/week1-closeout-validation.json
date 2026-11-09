@@ -2,7 +2,7 @@
   "date": "2026-11-09",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Latest v1.8 owner mapping integration; fresh repository checks are in v1_8_mapping.integration_validation. Top-level check_counts/manual_review and earlier payloads retain historical results. External suite figures are supplied package evidence, not rerun during integration.",
-  "manifest_sha256": "767c2d16bb8e59fa51f5f517a8619dee44d0e731b3a5f59baf7589f040364195",
+  "manifest_sha256": "b9f4e69763f7a54bb5d93f25f419d3db781a783d5d2c91a921e1b90b9a0072f3",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16252,5 +16252,21 @@
       "ruff_format": "PASS_101_FILES",
       "report": "docs/architecture/reference-applications/validation/v18-mapping-report.json#integration_validation"
     }
+  },
+  "bounded_provider_results": {
+    "report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json",
+    "evidence_consistency_checks": 7,
+    "live_G01": "FAILED_BOTH_SESSIONS",
+    "live_capability": "NOT_PASSED",
+    "offline_25": "USER_SUPPLIED_SCREENSHOT_NOT_RERUN",
+    "paid_use_authorized_usd": 0
+  },
+  "provider_bounded_results_integration": {
+    "manual_fixture_link_checks": 922,
+    "corpus_boundary_checks": 345,
+    "workload_checks": 20,
+    "evidence_consistency_checks": 7,
+    "runtime_requests_sent": 0,
+    "report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json#integration_validation"
   }
 }

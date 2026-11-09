@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-09-v18-schema-reassessment",
+  "packet_id": "nour-owner-review-2026-11-09-v18-and-bounded-provider-observation",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-09",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
-  "commit_push_pr": "LOCAL_V18_REASSESSMENT_ON_F820155_NOT_COMMITTED_OR_PUSHED",
-  "approval_status": "V18_MAPPING_COMPLETE; PACKAGE_IDENTITY_INCONSISTENT; OD05_AND_FULL_SPECIALIST_ACCEPTANCE_OPEN",
+  "commit_push_pr": "LOCAL_V18_AND_BOUNDED_PROVIDER_FOLLOWUP_ON_F820155_NOT_COMMITTED_OR_PUSHED",
+  "approval_status": "V18_MAPPING_COMPLETE_PACKAGE_IDENTITY_INCONSISTENT; PROVIDER_C01_ONLY_G01_STOPPED; OD05_ODLLM01_ODLLM02_AND_FULL_SPECIALIST_ACCEPTANCE_OPEN",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -121,8 +121,8 @@
     },
     {
       "path": "docs/adr/reference-application-orchestration-and-llm.md",
-      "sha256": "1493e2115ffa87e8548ca4adc3b49f57b376b2a1dd638ae644b82a8b56d964da",
-      "size_bytes": 62372,
+      "sha256": "60b16ccba8d7fd2980dc07ce7e1d0aa287c1aa9eacd58f5de40772a932ef80e0",
+      "size_bytes": 63940,
       "document_revision": "0.9"
     },
     {
@@ -133,8 +133,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "27605ecb7a4829b3858c99a866d1cdb29e87d18d6f5ee3464105681f250517c3",
-      "size_bytes": 13594,
+      "sha256": "c73f1550502298aaeb16552a4128f6e46c50ee923d6fccbd5510408d7b57d46f",
+      "size_bytes": 14251,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "48cf92e5ec9046403d67871f0ad219be8843281b831ea3d8ff480d6e5285a409",
-      "size_bytes": 27976,
+      "sha256": "df07e6fdae1e21245a924a75420986a07f9c8155e74f835f736096a0f77d42c6",
+      "size_bytes": 28634,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -288,8 +288,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "1e72f2bde851068f879ec42f617614bea934dc6f7a4e4319587be17681775b60",
-      "size_bytes": 26415,
+      "sha256": "46e1acb6a8171b3fceddea40320957f98be02fdc0fa210043eca08f57971423a",
+      "size_bytes": 27785,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -1029,6 +1029,12 @@
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
+      "path": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json",
+      "document_revision": "2026-11-09 owner observation",
+      "sha256": "bb651bfe3eb3fa6d1b361547f0a35beb4ec1e43c3d2c80ad4f69ff86378fc186",
+      "size_bytes": 3310
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json",
       "sha256": "11b262cb140870c85d889adef0a56f317f3fd895cbf351a17d90c7a374c09447",
       "size_bytes": 2697
@@ -1086,8 +1092,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "d2084d2f6c06597c4ba1934a5549ce0ffc8dc2294e822277191886b6cd54f95b",
-      "size_bytes": 19040,
+      "sha256": "c20b3da237e3d2c1c417e9470b527995e322d15ca7ea20eef96c9879c7fb522e",
+      "size_bytes": 19613,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -1099,8 +1105,8 @@
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
       "document_revision": "0.1",
-      "sha256": "1aca362aa65538bb730aee8352f1ab68cd71dc4b048710d6b6dc7d9ab7dc279c",
-      "size_bytes": 9201
+      "sha256": "8a90465ca45acb5b07d66bb2b1751c103f68fe5ab4b2fd5c317b777ca29e85f7",
+      "size_bytes": 10126
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
@@ -1128,18 +1134,36 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/README.md",
-      "sha256": "da6bb75b66f207255c42c79c841aaabd8ed3b59295911368e5002e5ec36751c7",
-      "size_bytes": 7308
+      "sha256": "63ead8c263d3ded090f09a3fe8f0c8f3c003bae538454cab6ceaa02b0c2b2238",
+      "size_bytes": 7543
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json",
+      "document_revision": "2026-11-09 owner observation",
+      "sha256": "8cc7e4ffa924d5cd37c8f6d95a5eaf386e0fa8a64bb38e5ce988ed77a0266199",
+      "size_bytes": 3987
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-results.json",
-      "sha256": "e95833661ccc30a561c05b518c111b56daf13c9ed3e35794b04a224f4b26e5b3",
-      "size_bytes": 972
+      "sha256": "12730526cc401801900843878839d8d509eb2ef642be351ef00b0eaab377fe60",
+      "size_bytes": 1673
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/compatibility-tests.md",
-      "sha256": "4b1b1b53f4dd3ef4610e884a9c82a6fb4caefd2098c2154215d9d93dd4560d63",
-      "size_bytes": 7501
+      "sha256": "e03a9735df4625d7fe46aab7cdda5a34e3989379ce3010560ebd74c9272454bb",
+      "size_bytes": 7970
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/evidence/session-01-results.json",
+      "document_revision": "2026-11-09 owner observation",
+      "sha256": "9a4b17c5da09171fdfd794ce07923f93d770e40c59ef9d6d8c24477f5e3461ed",
+      "size_bytes": 1707
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/evidence/session-02-results.json",
+      "document_revision": "2026-11-09 owner observation",
+      "sha256": "b52e994b5bcdb1736769821626437a75fc29cca5bf0387ff90d94a9d5f8c4b20",
+      "size_bytes": 1733
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
@@ -1198,8 +1222,8 @@
     },
     {
       "path": "tools/provider_compatibility/README.md",
-      "sha256": "b6515ad08230821bc040e756a057fb5ed962042e5eca813266364adec351bbb3",
-      "size_bytes": 8992
+      "sha256": "490141cf4bca7ab915450058c38bfa47f2c9722dd74ea662e3d06a0c78eb001a",
+      "size_bytes": 9326
     },
     {
       "path": "tools/provider_compatibility/requirements.txt",
@@ -1763,7 +1787,8 @@
       "Verify current free tier and model-specific headroom including other consumers.",
       "Run bounded synthetic probes in an authorized local environment and share sanitized results.",
       "Mohab to settle full-envelope token admission; Alaa to review workload/evidence."
-    ]
+    ],
+    "historical_pre_live": true
   },
   "windows_integration_validation": {
     "date": "2026-11-08",
@@ -1813,5 +1838,28 @@
     "package_identity": "EMAIL_AND_BUNDLED_REPORT_INCONSISTENT",
     "observation_record": "docs/architecture/reference-applications/schema-v1.8-review-observations.json",
     "integration_validation": "docs/architecture/reference-applications/validation/v18-mapping-report.json#integration_validation"
+  },
+  "bounded_provider_results": {
+    "date": "2026-11-09",
+    "source": "Two operator-supplied sanitized result files and Windows offline test screenshot",
+    "result_record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json",
+    "validation_report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json",
+    "offline_tests": "25/25 USER_CAPTURE",
+    "sessions": 2,
+    "C01": "PASS_PROMPT_ONLY_IN_BOTH",
+    "G01": [
+      "TIMEOUT_OUTCOME_UNKNOWN",
+      "PROVIDER_OR_SDK_ERROR_HTTP_STATUS_NULL"
+    ],
+    "later_probes": "NOT_RUN",
+    "live_compatibility": "NOT_PASSED",
+    "paid_use_authorized_usd": 0,
+    "scope": "Operator supplied; documentation authoring made no provider call"
+  },
+  "provider_bounded_results_integration": {
+    "baseline_commit": "7fa2d36083dbe34374efa2f94d840a3fe98ca3e9",
+    "fresh_report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json#integration_validation",
+    "prior_v18_corrections_and_reports": "PRESERVED",
+    "evidence_bytes": "EXACT_ZIP_BYTES_WITH_TARGETED_GIT_TEXT_NORMALIZATION_DISABLED"
   }
 }

@@ -1,6 +1,6 @@
 # Free-only workload candidate 0.2
 
-Status: PROPOSED; Alaa workload acceptance and runtime compatibility pending. Prepared 2026-11-07 against the commit recorded in workload-candidate.json. This supplements the existing provider and execution-budget ADRs; it does not change their root limits, canonical schemas or selected models.
+Status: PROPOSED; Alaa workload acceptance and runtime compatibility pending. Prepared 2026-11-07 against the commit recorded in workload-candidate.json. On 2026-11-09, [two bounded sessions](bounded-live-results-2026-11-09.json) passed C01 prompt-only counting and stopped at G01 with distinct failures. No generation, structured output, function proposal or embedding probe passed live. This supplements the existing provider and execution-budget ADRs; it does not change their root limits, canonical schemas or selected models.
 
 ## Evidence and decisions
 

@@ -1,6 +1,6 @@
 # Bounded provider compatibility runner 0.1
 
-Status: IMPLEMENTED AND OFFLINE TESTED; LIVE RESULTS NOT RUN. This developer utility tests
+Status: IMPLEMENTED AND OFFLINE TESTED; two operator-run bounded live sessions on 2026-11-09 stopped at G01 after C01 passed (see [sanitized owner record](../../docs/architecture/reference-applications/workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json)). Offline Windows suite passed 25/25 per user-supplied terminal capture. This developer utility tests
 synthetic provider capabilities, not application acceptance or canonical trace compliance.
 It does not change the proposed primary model. Default testing targets the alternative
 `gemini-3.5-flash-lite`; select `gemini-3.8-flash` explicitly to test the baseline separately.
@@ -100,8 +100,8 @@ affect local rolling accounting; time-synchronized host and external headroom ch
 - Results persist validation outcomes and normalized-vector diagnostics, not provider-generated
   text, reasoning, headers, arbitrary metadata or vectors. Effective model metadata is unavailable
   in this minimal report; requested model identity must not be treated as observed identity.
-- Runtime authentication, model access, quota consumption and provider response behavior remain
-  unverified until Nour runs locally. Full Procurement/RAG fixtures, native schema acceptance,
+- C01 prompt-only count was observed twice; G01 did not pass (unknown timeout and provider/SDK error).
+  Model generation access, quota attribution and remaining headroom are unverified. Full Procurement/RAG fixtures, native schema acceptance,
   trace integration and regression checks are separate. A passing suite does not activate Lite.
 
 ## Evidence and official sources

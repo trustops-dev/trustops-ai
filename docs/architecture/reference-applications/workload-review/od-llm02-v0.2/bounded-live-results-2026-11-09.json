@@ -1,0 +1,103 @@
+{
+  "record_version": "0.1",
+  "recorded_on": "2026-11-09",
+  "scope": "Operator-supplied exact sanitized result files copied byte-for-byte into evidence/; no live rerun by documentation authoring process",
+  "offline_suite": {
+    "status": "PASS_25_OF_25_USER_SUPPLIED_TERMINAL_SCREENSHOT",
+    "report_file": null,
+    "rerun_here": false
+  },
+  "sessions": [
+    {
+      "source_filename": "results.json",
+      "source_sha256": "9a4b17c5da09171fdfd794ce07923f93d770e40c59ef9d6d8c24477f5e3461ed",
+      "run_id": "12d08383-be57-4f15-9c36-2dddd8d2e38c",
+      "started_at_utc": "2026-11-09T08:39:52.466814+00:00",
+      "reported_status": "STOPPED_ON_FAILURE",
+      "runner_sha256": "8dce0d37e17051fdba6ba40362449f22b1b54df23496290bccefebc065a3d5ad",
+      "requested_sdk": "google-genai==2.34.0",
+      "requested_generation_model": "gemini-3.8-flash",
+      "requested_embedding_model": "gemini-embedding-001",
+      "C01": {
+        "operation": "C01",
+        "status": "PASS",
+        "prompt_tokens": 6,
+        "count_scope": "PROMPT_ONLY"
+      },
+      "G01": {
+        "operation": "G01",
+        "status": "FAIL",
+        "code": "TIMEOUT_OUTCOME_UNKNOWN"
+      },
+      "unexecuted": [
+        "C02",
+        "G02",
+        "C03",
+        "G03",
+        "E01",
+        "E02"
+      ],
+      "paid_use_authorized_usd": 0,
+      "scope_acceptance": "OPERATOR_ATTESTED_SYNTHETIC_ONLY",
+      "free_tier_and_headroom": "OPERATOR_ATTESTED_NOT_API_VERIFIED",
+      "repository_evidence_file": "evidence/session-01-results.json"
+    },
+    {
+      "source_filename": "results(1).json",
+      "source_sha256": "b52e994b5bcdb1736769821626437a75fc29cca5bf0387ff90d94a9d5f8c4b20",
+      "run_id": "be8590d6-f0cc-4d00-9d23-e32915b7801d",
+      "started_at_utc": "2026-11-09T08:53:43.695939+00:00",
+      "reported_status": "STOPPED_ON_FAILURE",
+      "runner_sha256": "8dce0d37e17051fdba6ba40362449f22b1b54df23496290bccefebc065a3d5ad",
+      "requested_sdk": "google-genai==2.34.0",
+      "requested_generation_model": "gemini-3.8-flash",
+      "requested_embedding_model": "gemini-embedding-001",
+      "C01": {
+        "operation": "C01",
+        "status": "PASS",
+        "prompt_tokens": 6,
+        "count_scope": "PROMPT_ONLY"
+      },
+      "G01": {
+        "operation": "G01",
+        "status": "FAIL",
+        "code": "PROVIDER_OR_SDK_ERROR",
+        "http_status": null
+      },
+      "unexecuted": [
+        "C02",
+        "G02",
+        "C03",
+        "G03",
+        "E01",
+        "E02"
+      ],
+      "paid_use_authorized_usd": 0,
+      "scope_acceptance": "OPERATOR_ATTESTED_SYNTHETIC_ONLY",
+      "free_tier_and_headroom": "OPERATOR_ATTESTED_NOT_API_VERIFIED",
+      "repository_evidence_file": "evidence/session-02-results.json"
+    }
+  ],
+  "observed_conclusion": "C01_NATIVE_PROMPT_ONLY_COUNT_PASSED_TWICE; G01_STOPPED_TWICE; NO_LIVE_GENERATION_CAPABILITY_PASSED",
+  "not_verified": [
+    "Gemini 3.8 Flash text generation",
+    "native structured JSON",
+    "native tool proposal",
+    "gemini-embedding-001 document/query embeddings",
+    "full request-envelope token counting",
+    "quota bucket attribution and headroom",
+    "runtime application acceptance"
+  ],
+  "boundary": {
+    "free_only": true,
+    "authorized_paid_spend_usd": 0,
+    "automatic_retries": 0,
+    "actual_provider_receipt_of_timeout_request": "UNKNOWN",
+    "billing_enabled": "NOT_CONFIRMED_BY_SANITIZED_RUN_RESULT"
+  },
+  "review_questions": {
+    "Mohab": "Classify both G01 failures and verify transport/SDK/request error mapping without raw exception or credential exposure; identify a bounded diagnostic and preflight/token admission mapping.",
+    "Alaa": "Assess quota/workload implications and whether any additional free-tier diagnostic is admissible; do not accept candidate model from these sessions.",
+    "Nour": "Retain model candidate, do not promote Lite or claim successful generation; submit corrected sanitized diagnostic evidence on a separately budgeted run."
+  }
+}

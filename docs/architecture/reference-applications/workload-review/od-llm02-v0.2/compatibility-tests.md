@@ -1,6 +1,6 @@
 # Bounded compatibility test procedure
 
-Status: PREPARED, LIVE TESTS NOT RUN. Credential replacement and old-key absence were observed on 2026-11-07; Nour confirmed local storage. Do not request or include key values. The [executable smoke runner](../../../../../tools/provider_compatibility/README.md) now supplies a bounded implementation and records the pinned SDK’s prompt-only counting limitation. Its explicitly accepted synthetic scope does not satisfy full-envelope production token admission. No paid usage is authorized.
+Status: PREPARED PROCEDURE; TWO BOUNDED LIVE SESSIONS STOPPED AT G01 on 2026-11-09. [Sanitized evidence](bounded-live-results-2026-11-09.json) records C01 PASS twice (six prompt-only tokens each), then G01 `TIMEOUT_OUTCOME_UNKNOWN` and `PROVIDER_OR_SDK_ERROR` (HTTP status unavailable), respectively. G02/G03/E01/E02 were not run. The 25/25 offline tests are operator-supplied terminal evidence, separate from live compatibility. Credential replacement and old-key absence were observed on 2026-11-07; Nour confirmed local storage. Do not request or include key values. The [executable smoke runner](../../../../../tools/provider_compatibility/README.md) supplies bounded synthetic probes; its prompt-only count does not satisfy full-envelope production token admission. Free-only, USD 0 authorized paid usage remains in force.
 
 ## Entry requirements
 
@@ -35,7 +35,7 @@ The G02/G03 JSON shapes are isolated compatibility fixtures, not replacements fo
 
 For each test: start/end timestamps, test ID, root/attempt IDs, requested model/API/SDK/profile and prompt/schema versions, serialized request excluding secrets, actual status/error class, observed response model/usage fields, native input count, attempts/debits, latency, validation outcome, stop reason. Never serialize headers or raw SDK exceptions that might contain credentials. Record unavailable metadata explicitly. For embeddings store shape/norm evidence rather than unnecessary vector dumps.
 
-Update compatibility-results.json only from actual execution. Preserve failed attempts. No success, availability, throughput or runtime budget enforcement is claimed by preparing this runbook.
+The [compatibility result](compatibility-results.json) now records the two operator-supplied runs with exact sanitized result-file hashes. Preserve failed attempts and the local ledger; do not infer a successful response, remaining quota, model access, throughput or runtime application budget enforcement from the C01 result.
 
 ## Official references checked during preparation
 

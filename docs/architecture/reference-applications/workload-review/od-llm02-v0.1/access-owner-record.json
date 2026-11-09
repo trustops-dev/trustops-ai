@@ -100,10 +100,10 @@
     "evidence_reference": null,
     "status": "UNCONFIRMED"
   },
-  "source_note": "Ownership is user-reported. Project identity, replacement key listing, old key absence and Free tier were observed in AI Studio on 2026-11-07. Numeric quotas remain screenshot evidence; capture times and remaining headroom are unknown. Local credential storage is user-confirmed. API authentication/model execution remains untested. Paid spend authorization remains USD 0.",
+  "source_note": "Ownership is user-reported. Project identity, replacement key listing, old key absence and Free tier were observed in AI Studio on 2026-11-07. Numeric quotas remain screenshot evidence; capture times and remaining headroom are unknown. Local credential storage is user-confirmed. C01 prompt-only count passed twice in operator-run sessions; G01 failed twice, so generation and embedding execution remain unverified. Paid spend authorization remains USD 0.",
   "secrets_policy": "Do not store API keys, authorization headers, billing-account numbers, payment details or secret values. Record sanitized evidence references only.",
   "live_workload_gate": "BLOCKED_PENDING_MODEL_MAPPING_COMPATIBILITY_QUOTA_HEADROOM_REVISED_WORKLOAD_ACCEPTANCE_AND_RELEVANT_SHARED_DECISIONS",
-  "updated_on": "2026-11-08",
+  "updated_on": "2026-11-09",
   "google_cloud_project_number": "830049341899",
   "ownership_evidence": {
     "type": "USER_REPORTED",
@@ -141,7 +141,7 @@
     "evidence_observed_on": "2026-11-07",
     "local_environment_storage": "USER_CONFIRMED",
     "local_storage_evidence": "Nour confirmed replacement and local storage; environment not inspected.",
-    "runtime_authentication": "NOT_TESTED",
+    "runtime_authentication": "C01_RESPONSE_OBSERVED_ONLY; GENERATION_AUTHENTICATION_UNCONFIRMED",
     "note": "AI Studio listed TrustOpsAI-dev and no longer listed TrustOpsAI in the same project. This is UI evidence, not a successful API authentication test. No key value or secret-bearing screenshot retained."
   },
   "quota_evidence_scope": {
@@ -180,5 +180,21 @@
     ]
   },
   "generation_candidate_review": "../od-llm02-v0.3/README.md",
-  "runtime_access_status": "NOT_TESTED; project_access_confirmed refers to API/runtime access, not browser UI access."
+  "runtime_access_status": "PARTIAL_OPERATOR_EVIDENCE; C01 prompt-only responses observed twice, G01 failed twice. Generation/embedding model access and quota headroom remain unconfirmed.",
+  "bounded_provider_probe": {
+    "evidence_reference": "../od-llm02-v0.2/bounded-live-results-2026-11-09.json",
+    "sessions": 2,
+    "offline_suite": "25/25 PASS per operator-supplied Windows terminal capture; no captured machine-readable pytest report",
+    "live_C01": "PASS twice, prompt-only token count 6 per session",
+    "live_G01": [
+      "TIMEOUT_OUTCOME_UNKNOWN",
+      "PROVIDER_OR_SDK_ERROR with null HTTP status"
+    ],
+    "G02_G03_E01_E02": "NOT_RUN_AFTER_G01",
+    "generation_model_access_confirmed": false,
+    "embedding_model_access_confirmed": false,
+    "project_free_tier_headroom_confirmed": false,
+    "paid_use_authorized_usd": 0,
+    "provider_receipt_of_timed_out_G01": "UNKNOWN"
+  }
 }
