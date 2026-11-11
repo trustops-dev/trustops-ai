@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-09-v18-and-bounded-provider-observation",
+  "packet_id": "nour-owner-review-2026-11-09-malak-ui-and-plan-routing",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-09",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
-  "commit_push_pr": "LOCAL_V18_AND_BOUNDED_PROVIDER_FOLLOWUP_ON_F820155_NOT_COMMITTED_OR_PUSHED",
-  "approval_status": "V18_MAPPING_COMPLETE_PACKAGE_IDENTITY_INCONSISTENT; PROVIDER_C01_ONLY_G01_STOPPED; OD05_ODLLM01_ODLLM02_AND_FULL_SPECIALIST_ACCEPTANCE_OPEN",
+  "commit_push_pr": "LOCAL_MALAK_AND_PLAN_ROUTING_FOLLOWUP_ON_9E6AFFA_NOT_COMMITTED_OR_PUSHED",
+  "approval_status": "MALAK_FIXTURE_BASED_RESPONSE_CONDITIONAL; PLAN_APPROVER_IDENTITY_UNCONFIRMED; OD02_OD06_OD08_OD16_GD26_UI_AMENDMENT_PLAN_APPROVAL_PENDING; FULL_SPECIALIST_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,8 +133,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "c73f1550502298aaeb16552a4128f6e46c50ee923d6fccbd5510408d7b57d46f",
-      "size_bytes": 14251,
+      "sha256": "04cc540fd1c3b31c6efd7fc729a4f33d2862653b4c62df96d1d309944219bfac",
+      "size_bytes": 15230,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "df07e6fdae1e21245a924a75420986a07f9c8155e74f835f736096a0f77d42c6",
-      "size_bytes": 28634,
+      "sha256": "dd5d8c54fd84a4bc3a63ba5e9d7dc6b7590d9e93f68d241fc93bb384042ceb0a",
+      "size_bytes": 30729,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -288,14 +288,20 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "46e1acb6a8171b3fceddea40320957f98be02fdc0fa210043eca08f57971423a",
-      "size_bytes": 27785,
+      "sha256": "50ea38fc30fb8d200219687a249e26d07b139256e51e3169db36b244a6dc3b23",
+      "size_bytes": 29212,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
       "sha256": "3461931847e5b90e20519eecb87cc8671bdfd895d4076f452eb43782130dc266",
       "size_bytes": 5400
+    },
+    {
+      "path": "docs/architecture/reference-applications/plan-approval-routing.md",
+      "document_revision": "2026-11-09 owner routing",
+      "sha256": "d27bb342c6b6fcef1b8fa6bac4ebe2abe9448ad1aba7ce8cdfd96567d8faa9b2",
+      "size_bytes": 10536
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
@@ -909,6 +915,18 @@
       "size_bytes": 13870
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/malak-479cab0-ui-response.md",
+      "document_revision": "2026-11-09 Malak scoped owner review",
+      "sha256": "5bcab10c9c9f54c00f360bc8980404fa360d99cf611579e2079577660324690f",
+      "size_bytes": 6856
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/malak-ui-verification-source-2026-11-07.md",
+      "document_revision": "2026-11-09 Malak scoped owner review",
+      "sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+      "size_bytes": 4392
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/mohamed-479cab0-od03-response.md",
       "sha256": "98d0b8b974a1ac405787ad1e7a48b0501e93d712bf0cab0b0e63cf3d5a81e0a7",
       "size_bytes": 3584,
@@ -1012,6 +1030,12 @@
       "size_bytes": 4261
     },
     {
+      "path": "docs/architecture/reference-applications/validation/malak-ui-response-refresh.json",
+      "document_revision": "2026-11-09 Malak scoped owner review",
+      "sha256": "f7741c9a96dbd5a336b817d625886c1aa72b41e25afff41781e722ba98f2fefb",
+      "size_bytes": 1695
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
       "sha256": "44d6732572ae3ec6189bcc1d885a420f1c9253bdd014e9fb43824548f0d96aa3",
       "size_bytes": 101495
@@ -1027,6 +1051,12 @@
       "sha256": "80a730ffc011a1de32fee3e8d34f57af030fa078e2b7fcd90b66dffa4eaad5d0",
       "size_bytes": 68830,
       "document_revision": "2026-11-09-OD04-application-response"
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json",
+      "document_revision": "2026-11-09 owner routing",
+      "sha256": "cfc6cbb22a593e322fcef30a37bce9b11772500098e3da24e9337494fcd2fcb5",
+      "size_bytes": 3146
     },
     {
       "path": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json",
@@ -1092,8 +1122,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "c20b3da237e3d2c1c417e9470b527995e322d15ca7ea20eef96c9879c7fb522e",
-      "size_bytes": 19613,
+      "sha256": "29541375769c3f74b9c10a2e56a369a9d5357137f4b3a294ce654802212d5df7",
+      "size_bytes": 20990,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -1861,5 +1891,47 @@
     "fresh_report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json#integration_validation",
     "prior_v18_corrections_and_reports": "PRESERVED",
     "evidence_bytes": "EXACT_ZIP_BYTES_WITH_TARGETED_GIT_TEXT_NORMALIZATION_DISABLED"
+  },
+  "malak_ui_response": {
+    "review_report": "docs/architecture/reference-applications/reviews/malak-479cab0-ui-response.md",
+    "source_report_copy": "docs/architecture/reference-applications/reviews/malak-ui-verification-source-2026-11-07.md",
+    "source_report_sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+    "validation_report": "docs/architecture/reference-applications/validation/malak-ui-response-refresh.json",
+    "reviewed_handoff": "479cab0",
+    "nine_distinctions": "OWNER_REPORTED_FIXTURE_BASED",
+    "ui_branch_commit": "NOT_SUPPLIED",
+    "test_count_report": 137,
+    "test_count_plans": 134,
+    "traces_report": 13,
+    "fixtures_plans": 11,
+    "reconciliation": "OPEN",
+    "TRD_22_23": "OPEN_MOHAMED_MOHAB",
+    "TRD_45": "TRI_STATE_OWNER_REPORTED_CANONICAL_FIELDS_OPEN",
+    "independent_S1_07": "OPEN"
+  },
+  "plan_approval_routing": {
+    "date": "2026-11-09",
+    "routing_packet": "docs/architecture/reference-applications/plan-approval-routing.md",
+    "validation_report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json",
+    "plan_approver": "UNCONFIRMED",
+    "authority_source": "NOT_SUPPLIED",
+    "decision_groups": [
+      "OD-02",
+      "OD-06",
+      "OD-08",
+      "OD-16",
+      "GD-26 / OD-09",
+      "Malak UI schedule amendment"
+    ],
+    "technical_reviews": "ROUTED_IN_PACKET_NOT_FINAL_PLAN_APPROVAL",
+    "messages": "DRAFTS_PREPARED_NOT_SENT",
+    "plan_approval": "NONE"
+  },
+  "malak_plan_routing_integration": {
+    "date": "2026-11-11",
+    "baseline_commit": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+    "fresh_report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json#integration_validation",
+    "plan_approver": "UNCONFIRMED",
+    "routing_messages": "NOT_SENT"
   }
 }

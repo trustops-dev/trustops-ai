@@ -1,5 +1,9 @@
 # Week 1 — Nour's owner-side closeout and review packet
 
+**Plan authority packet — 2026-11-09:** [Six decision groups and source audit](plan-approval-routing.md) are prepared for OD-02/06/08/16, GD-26 and the proposed UI schedule amendment. The current proposal, plan and owner records do not name an authorized plan approver; Prof. Dr. Noha Yehia is named only as proposal recipient. Nour must obtain the person's authority/delegation and then seek exact-revision, row-level plan decisions. Technical responses and the UI proposal are not accepted plan changes.
+
+**Malak's UI response — recorded 2026-11-09:** [Nine-point owner verification](reviews/malak-479cab0-ui-response.md) reports fixture-based behavior, browser inspection, 137 passing tests and 13 traces against the `479cab0` handoff. It was uncommitted when reported. Attached plan files instead state 134 tests and 11 fixtures; exact counts and counting units require a branch, logs and fixture index. TRD-45 now presents known effect / confirmed none / UNKNOWN with created versus recovered. TRD-22/23 policy-stage meaning and canonical fields remain open; no UI implementation acceptance or S1-07 closeout follows from the report.
+
 **Provider compatibility observation — 2026-11-09:** [Bounded result record](workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json) preserves two operator-supplied sanitized runs: C01 prompt-only count passed in each, G01 failed with timeout/unknown outcome then provider-or-SDK error, and all later probes were not executed. Operator-supplied Windows offline tests passed 25/25. This does not establish live generation, JSON/function/embedding compatibility or accepted workload quotas. OD-LLM-01/02 remain open; USD 0 paid-use authorization is unchanged.
 
 
@@ -76,7 +80,7 @@ Official model documentation was rechecked on 2026-11-02: [Gemini 3.8 Flash](htt
 | Mohamed | State/tool/budget contracts and failure matrix SC-03 | Accept or amend calculation permission, policy truth table, exact approval validity/binding, pre-tool payload, atomic dispatch, no-redispatch recovery and RAG applicability; resolve minimum enforcement schedule with plan owner | No authority or policy threshold inferred from illustrative 5000 examples |
 | Ahmed | RAG/source/claim rules, failure matrix and paper/prompt examples | Accept or amend sufficiency/citation rubric, attempted/prevented/realized distinctions, candidate/delivered labels, supplier early-stop/boundary cases, timeout handling and primary/secondary labels | No evaluator scores or semantic validity claimed by static checks |
 | Alaa | Provider/RAG/budget ADRs, prompt manifest, scenario schedule and this file manifest | Accept or amend immutable IDs/hashes, requested-vs-observed configuration, missingness/retention, inference projections and grouping; confirm access/workload verification owner | App file hashing is not shared runtime canonicalization or experiment acceptance |
-| Malak | Handoff field mapping and example outcomes | Acknowledge proposed/executed/suppressed/UNKNOWN distinctions and claim→source navigation; perform S1-07 when its prerequisites are met | No dashboard edit or UI verification performed here |
+| Malak | Handoff field mapping and example outcomes | [Owner report received](reviews/malak-479cab0-ui-response.md) for nine fixture-based distinctions; obtain branch, logs, count reconciliation and Mohab/Mohamed field/stage decisions before S1-07 | No dashboard edit or independent UI verification performed in this owner packet |
 | Plan owner | Failure matrix SC-01–03 and OD-06/08 | Accept or revise Week 7/8 scope/capacity/dependencies, reconcile conflicting schedule targets and real-policy timing | Existing sprint plan unchanged |
 
 ### Reviewer response form
@@ -116,7 +120,7 @@ ACCEPT_WITH_CONDITIONS does not close a gate until its conditions are resolved. 
 | Policy, approval and recovery acceptance | PENDING SHARED DECISION | Mohamed/Mohab/Ahmed respond within their scope |
 | Scenario schedule and interpretation | PENDING SHARED DECISION | Ahmed/plan owner, with Alaa on dataset order |
 | Shared lineage and environment readiness | PENDING SHARED VERIFICATION | Alaa/Mohab; Nour supplies profiles |
-| Specialist acceptance / Malak acknowledgment | PENDING | Record returned decisions against manifest |
+| Specialist acceptance / Malak acknowledgment | MALAK RESPONSE RECEIVED — CONDITIONAL; SPECIALIST ACCEPTANCE PENDING | Nine fixture-based UI distinctions reported; branch, test reconciliation, canonical fields, TRD-22/23 and independent S1-07 open |
 | Live provider, embeddings, index and application implementation | FUTURE IMPLEMENTATION GATE | Execute separately at the authorized stage with access; not required to claim documentation drafting complete |
 | Publishing/submitting this review | PREPARED, NOT SENT OR PUSHED | User can send packet/open review; no communication fabricated |
 

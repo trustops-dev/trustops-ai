@@ -1,8 +1,8 @@
 {
   "date": "2026-11-09",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Latest v1.8 owner mapping integration; fresh repository checks are in v1_8_mapping.integration_validation. Top-level check_counts/manual_review and earlier payloads retain historical results. External suite figures are supplied package evidence, not rerun during integration.",
-  "manifest_sha256": "b9f4e69763f7a54bb5d93f25f419d3db781a783d5d2c91a921e1b90b9a0072f3",
+  "scope": "Malak scoped UI response and six-group plan routing. Fresh integration checks are recorded in malak_plan_routing_integration. Top-level check_counts/manual_review and earlier payloads retain historical evidence.",
+  "manifest_sha256": "befe4c2601f194a12fad10d8ac76486218d5b2d259f0368ac7472d46d76a77ac",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16268,5 +16268,33 @@
     "evidence_consistency_checks": 7,
     "runtime_requests_sent": 0,
     "report": "docs/architecture/reference-applications/validation/provider-bounded-results-refresh.json#integration_validation"
+  },
+  "malak_ui_response": {
+    "report": "docs/architecture/reference-applications/validation/malak-ui-response-refresh.json",
+    "source_copy_exact_hash_verified": true,
+    "report_tests": "137 OWNER_CLAIM",
+    "plans_tests": "134 OWNER_PLAN_SNAPSHOT",
+    "fixture_units": "13 traces versus 11 fixtures, counting basis unresolved",
+    "branch": "NOT_SUPPLIED",
+    "dashboard_code_run_here": false,
+    "S1_07": "OPEN"
+  },
+  "plan_approval_routing": {
+    "report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json",
+    "decision_groups": 6,
+    "approver_identity": "UNCONFIRMED",
+    "routing": "PREPARED_NOT_SENT",
+    "approval": "NONE"
+  },
+  "malak_plan_routing_integration": {
+    "date": "2026-11-11",
+    "manual_fixture_checks": 940,
+    "corpus_boundary_checks": 360,
+    "source_copy_sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+    "nine_distinctions_and_six_decision_groups": "PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_104_FILES",
+    "python": "3.12.14",
+    "report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json#integration_validation"
   }
 }
