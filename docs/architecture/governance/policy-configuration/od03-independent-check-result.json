@@ -1,0 +1,505 @@
+{
+  "result": "PASS",
+  "scope": "Offline specification check of the proposed synthetic configuration. Not runtime validation, not the governance engine, not an acceptance record.",
+  "policy_set_version": "synthetic-procurement-policy-set-v0.1",
+  "cases": 31,
+  "cases_agree": 31,
+  "configuration_valid": true,
+  "policy_text_consistent_with_configuration": true,
+  "policy_text_checks": [
+    {
+      "item": "currency",
+      "expected_phrase": "USD",
+      "present": true
+    },
+    {
+      "item": "threshold",
+      "expected_phrase": "USD 5000.00",
+      "present": true
+    },
+    {
+      "item": "strict greater-than wording",
+      "expected_phrase": "exceeding",
+      "present": true
+    },
+    {
+      "item": "approval level",
+      "expected_phrase": "manager",
+      "present": true
+    },
+    {
+      "item": "fractional digits",
+      "expected_phrase": "two fractional digits",
+      "present": true
+    },
+    {
+      "item": "no rounding",
+      "expected_phrase": "without rounding",
+      "present": true
+    },
+    {
+      "item": "no currency conversion",
+      "expected_phrase": "currency conversion is disabled",
+      "present": true
+    },
+    {
+      "item": "no waiver of other checks",
+      "expected_phrase": "urgency waives none of them",
+      "present": true
+    }
+  ],
+  "input_sha256_lf_normalised": {
+    "procurement-policy-set-v0.1.yaml": "cde2631f8d62b6cff1240bf3b46d350805f975d2352718aac28160907707528b",
+    "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+    "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+    "verify_od03_independent.py": "792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f"
+  },
+  "source_note": "candidate files read from commit 479cab00c021db7a58b826b46a653c3e2308b798 (unchanged at 9e6affaa and a62f4e7)",
+  "python": "3.13.7",
+  "pyyaml": "6.0.3",
+  "command": "python verify_od03_independent.py --truth-table <truth-table.json> --policy-text <policy-text.txt> --output <result.json>",
+  "disagreements": [],
+  "case_results": [
+    {
+      "case_id": "OD03-C01",
+      "input": {
+        "total_amount": "4999.99",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "4999.99"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C02",
+      "input": {
+        "total_amount": "5000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C03",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": true,
+        "approval_level": "manager",
+        "normalized_total": "5000.01"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C04",
+      "input": {
+        "total_amount": "16000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": true,
+        "approval_level": "manager",
+        "normalized_total": "16000.00"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C05",
+      "input": {
+        "total_amount": "0.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "0.01"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C06",
+      "input": {
+        "total_amount": "5000",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C07",
+      "input": {
+        "total_amount": "5000.0",
+        "currency": "USD"
+      },
+      "expected_outcome": "CALCULATED",
+      "expected_reason": null,
+      "governance_result": {
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C08",
+      "input": {
+        "total_amount": "4999.999",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C09",
+      "input": {
+        "total_amount": "5000.001",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C10",
+      "input": {
+        "total_amount": "5000.000",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C11",
+      "input": {
+        "total_amount": 5000.01,
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C12",
+      "input": {
+        "total_amount": 5000,
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C13",
+      "input": {
+        "total_amount": true,
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C14",
+      "input": {
+        "total_amount": null,
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C15",
+      "input": {
+        "total_amount": "0.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C16",
+      "input": {
+        "total_amount": "-1.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C17",
+      "input": {
+        "total_amount": "5e3",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C18",
+      "input": {
+        "total_amount": " 5000.00 ",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C19",
+      "input": {
+        "total_amount": "5,000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C20",
+      "input": {
+        "total_amount": "+5000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C21",
+      "input": {
+        "total_amount": "05000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C22",
+      "input": {
+        "total_amount": "NaN",
+        "currency": "USD"
+      },
+      "expected_outcome": "REJECT_BEFORE_CALCULATION",
+      "expected_reason": "INVALID_AMOUNT",
+      "governance_result": {
+        "kind": "ERROR",
+        "reason": "AMOUNT_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C23",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "EGP"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "UNSUPPORTED_CURRENCY",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "CURRENCY_UNSUPPORTED"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C24",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "usd"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "UNSUPPORTED_CURRENCY",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "CURRENCY_UNSUPPORTED"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C25",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "MISSING_CONFIGURATION",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_CONFIG_MISSING"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C26",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "TEXT_CONFIG_CONFLICT",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_TEXT_CONFIG_CONFLICT"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C27",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "POLICY_VERSION_MISMATCH",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_VERSION_MISMATCH"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C28",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "REQUEST_CONTEXT_MISMATCH",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "CONTEXT_MISMATCH"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C29",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "INVALID_CONFIGURATION",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_CONFIG_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C30",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "INVALID_CONFIGURATION",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_CONFIG_INVALID"
+      },
+      "agree": true
+    },
+    {
+      "case_id": "OD03-C31",
+      "input": {
+        "total_amount": "5000.00",
+        "currency": "USD"
+      },
+      "expected_outcome": "UNRESOLVED",
+      "expected_reason": "INVALID_CONFIGURATION",
+      "governance_result": {
+        "kind": "UNRESOLVED",
+        "reason": "POLICY_CONFIG_INVALID"
+      },
+      "agree": true
+    }
+  ]
+}

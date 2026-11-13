@@ -2,11 +2,11 @@
 
 | | |
 |---|---|
-| **Status** | DRAFT v0.2 — Sprint 1, task S1-04. Not frozen. No teammate has reviewed or signed off this document. |
+| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Not frozen. No teammate has acknowledged this document yet (see the [review record](README.md#owner-review-record)). |
 | **Owner** | Mohamed Elnaggar — `packages/governance-engine` |
 | **Reviewers** | Nour El-Rouby, Mohab Mohsen, Ahmed Ragab, Alaa Sayed, Malak Sayed |
 | **Basis** | Proposal v1.1 §I, §K.2, §N.1, §Q, §R, §S and Figures 2–5; [repository architecture](../../../ARCHITECTURE.md); Sprint plan S1-04; the [reference-application contracts](../reference-applications/README.md) (revision 0.5) |
-| **Companion** | [governance-contract.md](governance-contract.md) — field-level contracts, approval boundary, RBAC/audit register, open decisions, and the response to the S1-01 handoff checklist |
+| **Companions** | [governance-contract.md](governance-contract.md) — field-level contracts, approval boundary, roles, decision log, responses · [policy-truth-tables.md](policy-truth-tables.md) — the case tables behind the rules here · [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md) — consistency and recovery rules |
 
 Source tags used in this document and its companion:
 
@@ -35,6 +35,8 @@ TrustOps produces three kinds of verdict. They answer different questions, run a
 | **Module** | `trustops_governance/policy/` [R] | `trustops_governance/decision/` — "sole owner of PASS/REVIEW/BLOCK semantics" [R] | `trustops_governance/review/` [R] |
 | **Stored as** | Policy check + per-policy findings | Reliability decision record | Review record |
 | **Mutability** | Append-only [P §R.2] | Append-only; a re-run creates a new record [D] | Append-only [P §R.2] |
+
+Override requests and override decisions on the release gate (contract §7.4, GD-19, proposed) are further Layer 3 records. They never change the recorded machine decision.
 
 Two naming hazards to keep visible in code, API and UI:
 
@@ -106,7 +108,7 @@ Evidence ids refer to the [application-to-trace evidence matrix](../reference-ap
 
 [D] The figure labels only `PROC-APPROVAL-01`, but §N.1 step 15 runs "`PROC-APPROVAL-01` / tool-stage policy check", and this scenario violates both rules. The engine evaluates every applicable policy and records every finding even when the first one already forces `BLOCK`, so diagnosis stays complete. Only the *side effect* is short-circuited, never the evidence.
 
-[D] A policy `FAIL` records that an unsafe action was **attempted**. Whether it was **prevented** or **realized** is shown by the dispatch evidence (E19/E20), not by the policy result. `DEC-1` fires on the critical finding either way, which matches the figure (blocked action, final `BLOCK`). How the failure label treats attempted versus prevented violations is Ahmed's decision (GD-16).
+[D] A policy `FAIL` records that an unsafe action was **attempted**. Whether it was **prevented** or **realized** is shown by the dispatch evidence (E19/E20), not by the policy result. `DEC-1` fires on the critical finding either way, which matches the figure (blocked action, final `BLOCK`). Post-run policy evidence carries `enforcement_outcome` (`PREVENTED`, `REALIZED`, `DEFINITIVE_NO_EFFECT` or `UNKNOWN`) derived from that dispatch evidence (contract §6.3, GD-16, GD-33). A correctly blocked attempt is a policy `FAIL` with outcome `PREVENTED`; it is not a policy defect. How the failure label treats attempted versus prevented violations is Ahmed's decision (OD-09).
 
 ### 2.3 Figure 4 — evidence to decision
 
@@ -154,6 +156,7 @@ Notes:
 - **Release target [P §S.3].** `DEC-1` also covers "a candidate introduces a critical mandatory-policy failure, or allows a seeded unsafe action that the approved baseline prevented".
 - **No invented thresholds.** Exact tolerances are set only after approved-baseline distributions are measured [P §K.2, §S.3] (OD-15). They live in `config/decision_thresholds.yaml` as versioned values supplied through Alaa and Ahmed's measurements. The engine refuses to evaluate a threshold-based rule without an approved configuration version; it never falls back to a silent default.
 - **`DEC-1` needs no threshold.** `BLOCK` for a critical policy/security failure is reachable from the first sprint, before any baseline exists. [D]
+- **Proposed extension of `DEC-1` (GD-26).** A purchase order dispatched under an authorization that fails the evidence-consistency rules is also a critical finding, because the mandatory control did not demonstrably authorize the action. This goes beyond the proposal's "critical policy/security failure" wording and needs Ahmed, Alaa and the plan owner to agree. [D]
 - **All conditions are evaluated, not just the first match.** The decision is the most severe outcome (`BLOCK` > `REVIEW` > `PASS`), and every condition that fired is recorded in order, so the decision path is explainable. [D]
 - **Favorable signals cannot rescue a critical failure.** High classifier confidence, a good semantic score or a clean RCA never changes the result of `DEC-1`; an explicit conflict test covers it. [P §K.2]
 
@@ -175,14 +178,18 @@ These hold for every downstream implementation choice. Each is a test target.
 | `INV-8` | The policy result is separate from the trace. Original trace events are never edited to make a run look compliant. | [D] |
 | `INV-9` | An `ALLOW` is valid only for the exact snapshot it evaluated and authorizes one dispatch. Any change to the bound inputs, any other intervening state transition, or reuse of the authorization requires a fresh check. | [N] |
 | `INV-10` | Governance derives the approval requirement itself from the configured rule. The application's `approval_required` flag is kept for diagnostics and is never the authority. | [D], following [N] "no independent second policy engine in the app" |
+| `INV-11` | Copied values are claims and the records they reference are evidence. Policy results are computed from the resolved source records, never from the copied snapshot. A copy that differs from its source is a finding and the source value is used. | [D, GD-25] |
+| `INV-12` | A check with any evidence-consistency finding or unresolved reference cannot return `ALLOW`, and its authorization cannot be certified as a verified binding. A flag such as `trusted_source_verified` is a derived output, never evidence. | [D, GD-25] |
+| `INV-13` | Recovery after an unknown outcome grants no execution permission. It is a separate append-only observation linked to the original invocation; it never replaces the original result, and it uses the original idempotency key and business-payload digest. | [N, D, GD-27] |
+| `INV-14` | An uncertain outcome stays `UNKNOWN` until authoritative reconciliation. A timeout after dispatch never implies "no side effect", and each invocation has exactly one terminal result. | [D, GD-27] |
 
-Enforcement is split: governance defines the binding and evaluates the policies; the runtime atomically verifies the binding and claims the dispatch (GD-07).
+Enforcement is split: governance defines the binding and evaluates the policies; the runtime atomically verifies the binding and claims the dispatch (GD-07, GD-28).
 
 ---
 
 ## 5. Failure behavior (safe by default)
 
-Rows are [D] unless tagged otherwise. They are proposals for Nour and Mohab to ratify (GD-05, GD-09).
+Rows are [D] unless tagged otherwise. The fail-closed behavior is decided on the governance side (GD-09); the hook and SDK side needs Nour and Mohab's acknowledgement, and the transport mapping needs Mohab (GD-05).
 
 ### 5.1 Layer 1 — pre-tool check
 
@@ -199,10 +206,14 @@ Rows are [D] unless tagged otherwise. They are proposals for Nour and Mohab to r
 | Stage unknown, or policy configuration missing | `ERROR` | `BLOCK` | evaluation error | Must not dispatch |
 | Policy version reported by the application differs from the active version | check error | `BLOCK` | evaluation error | Must not dispatch; the application re-derives its evidence under the active version [N: "mismatched versions … cannot authorize dispatch"] |
 | Governance module raises an exception | none | none returned | — | No verdict means no dispatch [N] |
-| Governance call times out or is unreachable | none | none received | — | No verdict means no dispatch; recorded as a technical check error, not a policy `FAIL` or `ALLOW` [N] |
+| Governance call times out or is unreachable | none | none received | — | No verdict means no dispatch; the runtime records a `tool_suppression` with `suppression_source = POLICY_CHECK_ERROR_OR_TIMEOUT`, not a policy `FAIL` or `ALLOW` [N] |
 | Snapshot changed after `ALLOW` (arguments, evidence, revision, or another state transition) | — | authorization invalid | — | Must not dispatch; fresh check required [N, `INV-9`] |
 | Same check request replayed (same trace and proposal) | unchanged | original verdict | — | Returns the original result; never a second authorization |
 | Conflicting resubmission for the same proposal | — | rejected | — | Does not overwrite the original; mirrors the replay rule planned for trace ingestion (S2-02) |
+| A copied value (supplier status, approval status, amount, digest) differs from the record it references, and every policy still passes on the source value | `PASS` / `NOT_APPLICABLE` from source | `BLOCK` | evaluation error | Must not dispatch; the finding is recorded and the authorization is not certifiable (`INV-11`, `INV-12`) |
+| The same, and a policy fails on the source value | `FAIL` from source | `BLOCK` | policy violation | Must not dispatch; the finding is recorded as well |
+| A referenced record is unresolved, ambiguous or duplicated | `ERROR` for the affected policy | `BLOCK` | evaluation error | Must not dispatch |
+| The preallocated claim id differs between the `authorization_snapshot`, the consumption record, the atomic transition and the invocation | — | the pre-tool verdict stands | — | The authorization is not verified; post-run evaluation records the dispatch as executed under an unverified authorization (GD-26) |
 
 ### 5.2 Layer 2 — post-run decision
 
@@ -215,14 +226,35 @@ Rows are [D] unless tagged otherwise. They are proposals for Nour and Mohab to r
 | Critical policy result is `ERROR` (compliance could not be confirmed) | Never treated as compliant; representation is part of GD-13 |
 | RAG trace (no applicable policy) | Policy evidence `NOT_APPLICABLE`; absent, not `PASS` (§2.5) |
 | Re-run on the same trace | New decision record with its own evidence-run ids; earlier decisions stay intact |
+| The run is not terminal (for example `RECOVERY_PENDING` after an unknown purchase-order outcome) | Incomplete evaluation, not `PASS`, unless a critical policy failure already forces `BLOCK` |
+| The purchase-order outcome is `UNKNOWN` or inconsistent (invalid outcome combination, duplicate terminal result) | `enforcement_outcome = UNKNOWN`; never guessed. A recovery observation can resolve it later without replacing the original result (contract §6.3) |
+| A purchase order was dispatched under an authorization that fails the consistency rules | Critical finding; `DEC-1` fires (GD-26, proposed) |
 
 ---
 
-## 6. How this document is checked (S1-04 tests)
+## 6. Three kinds of check, plus the policy outcome
+
+Review of the Trace Schema Draft v1.5 asked which checks concern structure, evidence consistency and application behavior. Governance keeps a fourth idea apart, the business policy outcome, so a deliberate violation stays observable. The full table and rules are in [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md) §1.
+
+| Kind | Asks | Example | Owner |
+|---|---|---|---|
+| Structural validity | Is the record well formed? | Types, required fields, enum membership | Mohab's schema validator |
+| Evidence consistency | Do the records that reference each other agree? | Snapshot against its supplier result; recovery key against the original key | Mohab's validator and the governance verifier, with the same finding codes |
+| Application behavior | Did the runtime do what the contract says? | One atomic dispatch claim; no redispatch in recovery; no verdict means no dispatch | Nour, Mohab, governance; verified at implementation |
+| Policy outcome | Was the business rule satisfied? | `PROC-APPROVAL-01` `FAIL` for a bypass | Governance policy engine |
+
+- A failing trace with consistent evidence is a valid **failure fixture** (`VERIFIED_FAILURE`). The violation is a policy `FAIL`, not a validation failure.
+- Contradictory evidence yields an explicit finding and makes the fixture or authorization `NOT_CERTIFIABLE`. A trace built to contain a contradiction is a legitimate negative test, never a verified success.
+- A consistency finding never hides a policy result, and a policy `FAIL` never excuses an inconsistency. Both are recorded.
+
+---
+
+## 7. How this document is checked (S1-04 tests)
 
 Status: **not yet satisfied.** These are the acceptance checks from the sprint plan, to be ticked only after the reviews happen.
 
 - [ ] **Traceability.** Every policy input and output has an identified producer and consumer — register in [governance-contract.md](governance-contract.md) §3.
 - [ ] **Structural review.** The pre-tool path (§2.1, Layer 1) and the post-run path (§2.1, Layer 2) are structurally distinct, reviewed by Nour and Mohab.
 - [ ] **Non-overwrite.** Human review and machine decision are separate, non-overwriting records (`INV-4`), confirmed by Malak and Alaa for the UI and gate.
-- [ ] **Circulation.** Contract circulated to and acknowledged by Nour, Mohab, Ahmed, Alaa and Malak.
+- [ ] **Truth tables.** [policy-truth-tables.md](policy-truth-tables.md) reviewed by Nour (fixtures) and Ahmed (labels).
+- [ ] **Circulation.** The [review packet](owner-review-packet.md) sent to, and acknowledged by, Nour, Mohab, Ahmed, Alaa and Malak.

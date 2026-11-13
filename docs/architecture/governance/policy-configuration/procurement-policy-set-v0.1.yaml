@@ -1,0 +1,94 @@
+# Governance configuration: procurement policy set, synthetic MVP values.
+#
+# STATUS: configuration proposal prepared by governance in response to OD-03 / GD-03.
+#   It builds on Nour's candidate 0.1 (policy-candidate/od03-v0.1) and adds the parts
+#   only governance can define. It is NOT runtime-enabled: the Sprint 2 loader does not
+#   exist yet, and this file is not placed under packages/governance-engine.
+#   Acceptance is recorded in response-to-owner-packet-0.14.md; the three acceptance
+#   fields below stay null until Mohamed fills them when he sends that response.
+#
+# SYNTHETIC DATA ONLY. The threshold is a synthetic value chosen by the application
+# owner for the graduation prototype. It is not a business policy and not a number
+# taken from the project proposal.
+
+policy_set:
+  id: synthetic-procurement-policy-set
+  version: v0.1
+  content_hash: computed-by-loader   # SHA-256 of the canonical content, recorded in every check
+  runtime_enabled: false
+  accepted_by: null
+  accepted_at: null
+  acceptance_evidence: null
+
+policies:
+
+  PROC-APPROVAL-01:
+    version: synthetic-procurement-approval-v0.1
+    criticality: critical
+    applies_to_tools: [create_purchase_order]
+    comparator: GT                     # strict greater-than; GTE and any other value make the configuration invalid
+    currency_rules:
+      - currency: USD
+        threshold: "5000.00"
+        approval_level: manager
+        fraction_digits: 2
+    at_or_below_threshold:
+      approval_required: false
+      approval_level: null             # no approval id or record is ever invented
+    amount_input:
+      representation: DECIMAL_STRING   # JSON numbers, booleans and null are rejected
+      pattern: '(?:0|[1-9][0-9]*)(?:\.[0-9]{1,2})?'
+      positive_only: true
+      whitespace: REJECT
+      exponent: REJECT
+      excess_precision: REJECT         # never round; "5000.000" is rejected as well
+      normalized_fraction_digits: 2
+    currency_handling:
+      match: EXACT_CASE_SENSITIVE      # "usd" is not "USD"
+      fx_conversion: DISABLED
+    on_unresolved:                     # all of these stop progression; unknown is never treated as false
+      missing_rule_or_currency: STOP_UNRESOLVED
+      invalid_configuration: STOP_UNRESOLVED
+      text_config_conflict: STOP_UNRESOLVED
+      policy_version_mismatch: STOP_UNRESOLVED
+    validity:                          # governance rule for approval validity (see governance-contract section 5.3)
+      time_expiry: NONE                # explicit; a missing validity block is unresolved, never forever-valid
+      must_match_current_binding:
+        - request_revision
+        - supplier_id
+        - total_amount
+        - currency
+        - approval_level
+        - calculation_ref
+        - policy_version
+      status_transitions:
+        PENDING: [APPROVED, DENIED, CANCELLED]
+        APPROVED: [CANCELLED]          # revocation is a new CANCELLED record, never a REVOKED status
+        DENIED: []                     # terminal for this approval-request lifecycle
+        CANCELLED: []                  # terminal for this approval-request lifecycle
+      ordering: RECORD_SEQUENCE        # decided by authoritative sequence/version, never by wall-clock alone
+      unorderable_or_future_dated: UNRESOLVED
+      revalidate_at: DISPATCH_CLAIM    # current approval record version must equal the bound version at the claim
+
+  PROC-TOOL-STAGE-01:
+    version: synthetic-procurement-tool-stage-v0.1
+    criticality: critical
+    applies_to_tools: ALL
+    match: EXACT_CASE_SENSITIVE
+    stage_allowlist:
+      PRE_APPROVAL:
+        - search_policy
+        - get_supplier
+        - request_approval
+        - calculate_approval_level     # extension of the proposal's three-tool list; see GD-01 and OD-02
+      APPROVED:
+        - create_purchase_order        # the proposal is checked here; dispatch follows a bound ALLOW
+      PO_CREATION: []                  # no new proposal; dispatch proceeds under the existing ALLOW binding
+      COMPLETED: []
+    fine_state_restrictions: APPLICATION_OWNED   # for example calculate_approval_level only in SUPPLIER_CHECKED
+
+  PROC-SUPPLIER-01:
+    version: synthetic-procurement-supplier-v0.1
+    criticality: critical
+    applies_to_tools: [create_purchase_order]
+    eligible_status: APPROVED          # exact, case-sensitive; every other non-null status fails
