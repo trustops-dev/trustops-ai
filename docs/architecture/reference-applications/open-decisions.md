@@ -4,6 +4,8 @@
 
 **Plan ownership corrected — 2026-11-14:** [Six-group decision packet](plan-approval-routing.md) covers OD-02/06/08/16, GD-26/OD-09 and Malak's proposed Sprint 3–6 UI amendment. Nour directly confirmed he is the development team lead and decision owner for the team's internal working plan; no separate plan approver is part of the team's process. Technical replies, Malak's fixture report and the 70-task proposed plan are **not** Nour's row-level decisions. No task/date/gate amendment has been accepted in this packet.
 
+**Decision preparation — 2026-11-14:** [Six concrete recommended dispositions and exact replacement wording](team-lead-plan-decision-draft.md) are ready for Nour's row-level review. OD-02/06/08 need specified interface and capacity evidence; OD-16 is a proposed scope clarification without a new task; GD-26 and the UI schedule remain held pending their joint mapping and committed/sized plan. No recommendation activates a task, gate or decision.
+
 **Malak UI review — recorded 2026-11-09:** [Scoped fixture-based owner report](reviews/malak-479cab0-ui-response.md) covers nine UI distinctions against handoff `479cab0`. The dashboard work was uncommitted. Her report says 137 tests and 13 traces; plan attachments say 134 tests and 11 fixtures. The test delta and fixture counting basis remain unreconciled. TRD-45 presentation is amended to tri-state effects; TRD-22/23 policy-stage meaning and Mohab canonical fields remain open. This is a conditional UI acknowledgment, not S1-07 closeout.
 
 

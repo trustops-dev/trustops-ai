@@ -288,9 +288,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "6669f4e626cb48b115da2c728e8dbc51290fa16c90b6c3b33fddaf7c60caddf8",
-      "size_bytes": 28657,
-      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
+      "sha256": "80265895f757b60a21cfe2a6c20b41ebcc9e8adc68e435a55e2358315d8571b0",
+      "size_bytes": 29108,
+      "document_revision": "2026-11-14-team-lead-plan-decision-draft"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -299,9 +299,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/plan-approval-routing.md",
-      "document_revision": "2026-11-14-team-lead-plan-ownership-correction",
-      "sha256": "24a44562d0eb94067909945e97ddc478f9dd12997660038f093e86c6079d76a4",
-      "size_bytes": 10485
+      "document_revision": "2026-11-14-team-lead-plan-decision-draft",
+      "sha256": "ab14eb04326e74a7e734958a7e8a761d28482aab9c9724494cde47911ea8ccd3",
+      "size_bytes": 11197
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
@@ -1008,6 +1008,12 @@
       "sha256": "a215e615716ecccedfbfa795f5943eb160e7838af3042c6d837c493be4a6798a",
       "size_bytes": 4948,
       "document_revision": "v1.8 owner mapping"
+    },
+    {
+      "path": "docs/architecture/reference-applications/team-lead-plan-decision-draft.md",
+      "sha256": "0bf81083b9b0e1e9ac9c4a3b05c5f0753b9b6aa043b67ad5b02f0833b35690d9",
+      "size_bytes": 7558,
+      "document_revision": "2026-11-14-team-lead-plan-decision-draft"
     },
     {
       "path": "docs/architecture/reference-applications/trace-evidence-contract.md",
@@ -1997,9 +2003,11 @@
     "date": "2026-11-14",
     "basis": "Nour directly confirmed he is development team lead and there is no separate approver for the team internal working plan",
     "scope": "OD-02, OD-06, OD-08, OD-16, GD-26/OD-09 and proposed UI schedule",
-    "decisions": "SIX_ROW_LEVEL_DISPOSITIONS_PENDING",
+    "decisions": "SIX_ROW_LEVEL_DISPOSITIONS_PENDING; RECOMMENDATIONS_ONLY",
     "specialist_reviews": "REMAIN_SCOPED_AND_SEPARATE",
     "plan_amendment_activated": false,
-    "prior_authority_audit": "HISTORICAL_SOURCE_AUDIT_ONLY"
+    "prior_authority_audit": "HISTORICAL_SOURCE_AUDIT_ONLY",
+    "decision_draft": "docs/architecture/reference-applications/team-lead-plan-decision-draft.md",
+    "recommended_rows": 6
   }
 }

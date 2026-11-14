@@ -56,3 +56,7 @@ For each row, Nour records ACCEPT, AMEND with exact replacement wording, or DECL
 | Malak UI amendment | Nine fixture distinctions owner-reported; branch and 137/134 reconciliation pending | Pending | Proposal only | OPEN — TECHNICAL REVIEW THEN TEAM-LEAD DECISION |
 
 **Decision record shape:** `decision_owner=Nour El-Rouby`, `role=development team lead`, `authority_reference=user confirmation 2026-11-14`, `decision_id`, `ACCEPT|AMEND|DECLINE`, `exact_plan_file_sha256`, `affected_task_ids`, `accepted_wording_or_replacement`, `capacity_and_gate_impact`, `decision_date`, `evidence_link`. Leave absent decisions explicitly pending; no inferred consent from role ownership or specialist replies.
+
+## 4. Team-lead decision draft — 2026-11-14
+
+The [six-row decision draft](team-lead-plan-decision-draft.md) gives Nour concrete recommended dispositions and replacement plan wording: narrow OD-02; reconcile the S2-01/S2-04 real-policy gate for OD-06; add scoped Week-7/8 recipe work under OD-08; treat OD-16 as a no-new-task clarification; hold GD-26's gate extension until the joint outcome mapping; and hold Malak's 12-task schedule package until a committed, sized and reconciled revision exists. **These are recommendations, not Nour's recorded decisions.** The response register above remains pending, and the original HTML plan remains the baseline until Nour decides and records an exact revised plan.
