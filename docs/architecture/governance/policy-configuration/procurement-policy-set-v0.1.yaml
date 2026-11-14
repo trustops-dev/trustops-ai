@@ -2,10 +2,30 @@
 #
 # STATUS: configuration proposal prepared by governance in response to OD-03 / GD-03.
 #   It builds on Nour's candidate 0.1 (policy-candidate/od03-v0.1) and adds the parts
-#   only governance can define. It is NOT runtime-enabled: the Sprint 2 loader does not
-#   exist yet, and this file is not placed under packages/governance-engine.
-#   Acceptance is recorded in response-to-owner-packet-0.14.md; the three acceptance
-#   fields below stay null until Mohamed fills them when he sends that response.
+#   only governance can define. It is NOT runtime-enabled (runtime_enabled stays false):
+#   the Sprint 2 loader does not exist yet, and this file is not placed under
+#   packages/governance-engine.
+#
+# SCOPED ACCEPTANCE (recorded outside this file):
+#   Mohamed accepted the OD-03 synthetic values (rows 1 to 5) and amended row 6 to this
+#   file and its version. The final, dated disposition (2026-11-14) is
+#   docs/architecture/governance/response-to-owner-packet-9e6affa.md. The earlier email
+#   disposition of 2026-11-09 is recorded in response-to-owner-packet-0.14.md.
+#   Artifact hashes are recorded in three places: section 2 of the 9e6affa response
+#   (this file, the checker and its result); policy-configuration/
+#   od03-independent-check-result.json (input_sha256_lf_normalised); and Nour's
+#   exact-revision record, docs/architecture/reference-applications/reviews/
+#   mohamed-7c26168-governance-response.md (PR #27, commit 04789d7).
+#
+# WHY THE THREE ACCEPTANCE FIELDS BELOW STAY NULL:
+#   accepted_by, accepted_at and acceptance_evidence would mean "accepted as the operative
+#   runtime configuration". That has not happened. Mohab's transport and digest agreement,
+#   Nour's bundle-to-corpus pairing and integration, and the plan approver's decisions
+#   (OD-02, OD-06, OD-16) are still open, and OD-14 full acceptance is a separate gate.
+#   A file also cannot contain the commit or hash that records its own acceptance without
+#   changing that hash. The fields are filled in a later revision, once the loader exists
+#   and the owners above have accepted that exact revision. Editing a comment does not
+#   change the canonical content that content_hash covers.
 #
 # SYNTHETIC DATA ONLY. The threshold is a synthetic value chosen by the application
 # owner for the graduation prototype. It is not a business policy and not a number

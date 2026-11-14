@@ -47,7 +47,7 @@ I cannot give a pull-request or commit link from this file, because a file canno
 |---|---|---|
 | Governance response to owner packet 0.14 | `docs/architecture/governance/response-to-owner-packet-0.14.md` | identified by the commit |
 | This follow-up | `docs/architecture/governance/response-to-owner-packet-9e6affa.md` | identified by the commit |
-| Policy configuration, version `synthetic-procurement-policy-set-v0.1` | `docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml` | `cde2631f8d62b6cff1240bf3b46d350805f975d2352718aac28160907707528b` |
+| Policy configuration, version `synthetic-procurement-policy-set-v0.1` | `docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml` | `0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678` |
 | Independent 31-case check | `docs/architecture/governance/policy-configuration/verify_od03_independent.py` | `792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f` |
 | Result of the check | `docs/architecture/governance/policy-configuration/od03-independent-check-result.json` | identified by the commit |
 | Your `truth-table.json` (input, unchanged at `479cab0`, `9e6affa`, `a62f4e7`) | `docs/architecture/reference-applications/policy-candidate/od03-v0.1/truth-table.json` at commit `479cab0` | `94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c` |
@@ -70,7 +70,7 @@ What the check does: it loads the YAML, applies the governance rules (strict `>`
 
 It is not vacuous. I also ran it against two deliberately wrong copies of the configuration: threshold `5000.01` gave 30 of 31 and an inconsistent policy text; comparator `GTE` gave 4 of 31 with an invalid configuration. Both exit with code 1. I repeated both on 14 November with the same results.
 
-**Identity for integration.** Policy bundle `synthetic-procurement-policy-set-v0.1` is the value of `policy_bundle_version` (contract §4.5 row 6). The approval level is `manager`, not the illustrative `MANAGER_L1` in the v1.9 fixtures. The pairing of the bundle with the corpus release (`policy_kb_version`) is assigned by you at integration, as your candidate README says; governance supplies no corpus release. The YAML is unchanged since the 9 November response.
+**Identity for integration.** Policy bundle `synthetic-procurement-policy-set-v0.1` is the value of `policy_bundle_version` (contract §4.5 row 6). The approval level is `manager`, not the illustrative `MANAGER_L1` in the v1.9 fixtures. The pairing of the bundle with the corpus release (`policy_kb_version`) is assigned by you at integration, as your candidate README says; governance supplies no corpus release. The rules in the YAML are unchanged since the 9 November response. On 14 November only its header comment changed: it now says where the scoped acceptance and the hashes are recorded and why `accepted_by`, `accepted_at` and `acceptance_evidence` stay null, and `runtime_enabled` stays `false`. The comment is not part of the canonical content, but the file hash changed, from `cde2631f8d62b6cff1240bf3b46d350805f975d2352718aac28160907707528b` (the value at governance commit `7c26168`) to the value in the table above. The check result differs from the earlier one only in that hash.
 
 **Limits.** This is a specification check. It is not the governance engine, not a runtime result and not an acceptance record, and the YAML still has `runtime_enabled: false` and null acceptance fields.
 

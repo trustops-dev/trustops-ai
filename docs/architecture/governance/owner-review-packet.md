@@ -1,8 +1,20 @@
 # Owner review packet
 
-Revision 0.6 · 2026-11-06 · Part of the [governance contracts](README.md). Nour's owner packet 0.14 has its own answer in [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md).
+Revision 0.6 (addendum 2026-11-13; outreach record updated 2026-11-14) · Part of the [governance contracts](README.md). Nour's owner packet 0.14 has its own answer in [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md).
 
-This page is what each teammate needs in order to review the governance contract. It is **prepared and not sent**. Nobody has been contacted, and no owner has acknowledged anything.
+This page is what each teammate needs in order to review the governance contract, and the record of what has been sent and received. The packet **as a whole has not been sent as one package**. The exchanges that did happen are in the table below. No owner has given a full acceptance.
+
+## Outreach and scoped responses so far (14 November 2026)
+
+Records are Nour's, on PR #27 branch `docs/nour-week1-review-014` at commit `04789d7`. Paths are relative to `docs/architecture/reference-applications/`. The same record, with the reviewed revisions, is in the owner review record in the [README](README.md).
+
+| Owner | What was exchanged | Response | Exact reference |
+|---|---|---|---|
+| Nour | Governance responses to her owner packet: email of 9 November, then the files in governance PR #28 at `7c26168ea47a611d233202e21f0c0b9f7a5cb3c8` | Scoped. OD-03 rows 1 to 5 accepted and row 6 amended; OD-04 position 0.2; her independent rerun of the 31-case check agrees. Her request of 14 November produced this update | `reviews/mohamed-479cab0-od03-response.md`; `reviews/mohamed-7c26168-governance-response.md`; `approval-validity/od04-v0.2.md` |
+| Mohab | Not sent by governance. Nour sends him `SA-01` to `SA-09` | **Not received** | `reviews/mohamed-7c26168-governance-response.md`, table of `SA-01` to `SA-09` |
+| Ahmed | His scoped evaluator review (13 November); governance reply [response-to-ahmed-evaluator-review.md](response-to-ahmed-evaluator-review.md) sent with the file | Not received. The label (`OD-09`) and the SC-03 root cause are open | Alaa's matrix v2-4 quotes his criteria (email of 14 November, not a repository file) |
+| Alaa | Her review of `479cab0`; her matrix v2-4 (14 November) and governance's positions on its five items (reply of 14 November, email) | Partial / conditional on `479cab0`; the five matrix items are open as listed there | `reviews/alaa-479cab0-review.md`, `reviews/alaa-479cab0-review.json` |
+| Malak | Nour forwards the `TRD-22` and `TRD-23` explanation (response to `9e6affa`, section 4) | Scoped, conditional UI acknowledgment on `479cab0`; display confirmation not received | `reviews/malak-479cab0-ui-response.md` |
 
 ## What to send
 
@@ -10,7 +22,7 @@ Send each owner their section below, with links to the [governance contract](gov
 
 1. Read the sections listed for you.
 2. For each decision listed, answer "agree", "agree with a change" or "disagree", and say if you are not the right owner.
-3. Reply with your name, the date and the revision you reviewed (0.5).
+3. Reply with your name, the date and the exact commit you reviewed. The baseline is governance PR #28, first published at `7c26168ea47a611d233202e21f0c0b9f7a5cb3c8`.
 
 A decision marked DECIDED already governs the governance package. Your reply tells Mohamed whether it also works for your subsystem; it does not wait on you to start Sprint 2 work inside governance. A reply of "accepted" counts only for the items it names.
 
@@ -19,7 +31,7 @@ A decision marked DECIDED already governs the governance package. Your reply tel
 ```text
 Reviewer: <name>
 Date: <date>
-Revision reviewed: 0.5
+Revision reviewed: <full 40-character commit hash you read; baseline 7c26168ea47a611d233202e21f0c0b9f7a5cb3c8>
 Decisions agreed: <GD ids, or 'all except the ones below'>
 Decisions changed: <GD id: change>
 Decisions I disagree with: <GD id: reason>
@@ -36,7 +48,7 @@ Read: contract §2 (stages, applicability, evidence), §4.1–§4.2 (request and
 |---|---|
 | GD-01 | `calculate_approval_level` is allowed in `PRE_APPROVAL` as a read-only tool. This extends the proposal's three-tool list. Does that match what you proposed (D3)? |
 | GD-02 | Policy keys on four coarse stages (`PRE_APPROVAL`, `APPROVED`, `PO_CREATION`, `COMPLETED`), and `APPROVED` allows only the purchase-order proposal. Does the allowlist table in §2.1 match your state machine? |
-| GD-03 | **Input needed.** Please supply the approval threshold, the supported currencies and the approval-level names from your synthetic policy corpus. They live only in `policies/procurement.yaml`. Governance supplies no value |
+| GD-03 | **Values received and recorded.** Your candidate 0.1 supplied the synthetic values (USD, `5000.00`, strict `>`, `manager`); governance accepted rows 1 to 5 and amended row 6 to [procurement-policy-set-v0.1.yaml](policy-configuration/procurement-policy-set-v0.1.yaml) (`runtime_enabled: false`). Still yours: the pairing of the policy bundle with the policy-corpus release, and the integration |
 | GD-04 | The approval validity rules in §5.3, with no time-based expiry in the MVP. Do the binding fields match your `ApprovalEvidence`? |
 | GD-07, GD-08 | The runtime verifies the `authorization_snapshot` and consumes the dispatch claim once; if your reported policy version differs from the active one, the check blocks and you re-derive your evidence under the active version |
 | GD-09 | The tool hook treats "no verdict" (timeout, error, unreachable) as no dispatch, and a test covers it |

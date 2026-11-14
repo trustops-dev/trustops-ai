@@ -49,7 +49,7 @@
     }
   ],
   "input_sha256_lf_normalised": {
-    "procurement-policy-set-v0.1.yaml": "cde2631f8d62b6cff1240bf3b46d350805f975d2352718aac28160907707528b",
+    "procurement-policy-set-v0.1.yaml": "0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678",
     "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
     "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
     "verify_od03_independent.py": "792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f"

@@ -2,22 +2,22 @@
 
 Sprint 1 task S1-04 · Owner: Mohamed Elnaggar · Revision 0.6 (addendum 2026-11-13) · DRAFT
 
-This folder holds the contracts for `packages/governance-engine`: the policy engine, the approval boundary, the reliability decision engine, human review, the audit trail and role checks. Nothing here is implemented, and no teammate has acknowledged any of it yet.
+This folder holds the contracts for `packages/governance-engine`: the policy engine, the approval boundary, the reliability decision engine, human review, the audit trail and role checks. Nothing here is implemented. Teammates' scoped responses are recorded in the owner review record below with exact references; none of them is a full acceptance of this folder.
 
 ## Documents
 
 | Document | What it holds |
 |---|---|
 | [decision-flow.md](decision-flow.md) | The three verdict layers (pre-tool `ALLOW`/`BLOCK`, automated `PASS`/`REVIEW`/`BLOCK`, human `ACCEPT`/`REVIEW`/`BLOCK`), the boundary map from Figures 2–5, decision precedence, invariants and failure behavior |
-| [governance-contract.md](governance-contract.md) | Policy evidence, the traceability register, the pre-tool interface, the approval boundary, the decision-engine interface, review, audit, roles and overrides, the decision log (`GD-01`–`GD-23`) and the responses to the handoff checklist and the dashboard questions |
+| [governance-contract.md](governance-contract.md) | Policy evidence, the traceability register, the pre-tool interface, the approval boundary, the decision-engine interface, review, audit, roles and overrides, the decision log (`GD-01`–`GD-33`) and the responses to the handoff checklist and the dashboard questions |
 | [policy-truth-tables.md](policy-truth-tables.md) | Case tables for `PROC-APPROVAL-01`, `PROC-TOOL-STAGE-01` and `PROC-SUPPLIER-01`, the aggregation rules, combined and conflicting cases, the SC-03 fixture pair and the decision-precedence conflict cases |
 | [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md) | Governance's side of the Trace Schema Draft v1.5 review items 1 and 2: checking authorization snapshots against their source evidence, recovery identity, outcome combinations, the consistency finding codes and a disposition table |
-| [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) | Governance's ACCEPT/AMEND response to Nour's owner packet 0.14 (commit `479cab0`): OD-02, OD-03, OD-04, OD-05-MAP, OD-06, OD-09, OD-12 children and OD-16, with reviewed file hashes, exact wording, supporting cases and the split between governance-local and joint decisions. Prepared for Mohamed to confirm; not sent |
+| [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) | Governance's ACCEPT/AMEND response to Nour's owner packet 0.14 (commit `479cab0`): OD-02, OD-03, OD-04, OD-05-MAP, OD-06, OD-09, OD-12 children and OD-16, with reviewed file hashes, exact wording, supporting cases and the split between governance-local and joint decisions. The dispositions were sent by email and Nour recorded them on 9 November (`docs/architecture/reference-applications/reviews/mohamed-479cab0-od03-response.md`, PR #27 branch `docs/nour-week1-review-014` at commit `04789d7`); this file is the written response delivered with the follow-up |
 | [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md) | Governance's final, dated (14 November) disposition on Nour's follow-up (owner packet at `9e6affa`): the artifacts and the 31-case check, the OD-04 and OD-12 agreement points with Mohab against Trace Schema v1.9, the translation table, the policy-stage answer for the dashboard, the remaining wording, and the GD-26 and OD-09 coordination |
 | [response-to-ahmed-evaluator-review.md](response-to-ahmed-evaluator-review.md) | Governance's reply to Ahmed's scoped evaluator review of 13 November: SC-03A and SC-03B expected behavior, prevented versus realized, authoritative outcome evidence, non-timeout `UNKNOWN`, and the evidence boundary for the RCA causes `policy_configuration` and `agent_workflow`. Sent to Ahmed with the file |
 | [policy-configuration/verify_od03_independent.py](policy-configuration/verify_od03_independent.py) and [od03-independent-check-result.json](policy-configuration/od03-independent-check-result.json) | The reproducible independent check of the configuration against Nour's 31 OD-03 cases, and its result with input hashes |
-| [policy-configuration/procurement-policy-set-v0.1.yaml](policy-configuration/procurement-policy-set-v0.1.yaml) | The complete synthetic configuration governance proposes for OD-03 (allowlist, supplier rule, validity rule, version identity). Not runtime-enabled |
-| [owner-review-packet.md](owner-review-packet.md) | What each teammate is asked to review and answer, with a reply template. Prepared, not sent |
+| [policy-configuration/procurement-policy-set-v0.1.yaml](policy-configuration/procurement-policy-set-v0.1.yaml) | The complete synthetic configuration governance proposes for OD-03 (allowlist, supplier rule, validity rule, version identity). `runtime_enabled: false`. Its header says where the scoped acceptance and the hashes are recorded and why the three acceptance fields stay null |
+| [owner-review-packet.md](owner-review-packet.md) | What each teammate is asked to review and answer, with a reply template and the record of the outreach and responses so far. The packet as a whole has not been sent as one package |
 
 ## What changed in this revision
 
@@ -30,7 +30,7 @@ Revision 0.2 was reviewed by nobody. Malak's Sprint 1 wrap-up listed what was mi
 | Approval rule values | Mechanism decided (`GD-03`). **The values themselves are still open and must come from Nour's synthetic policy corpus.** Nothing here supplies them |
 | Canonical names (Q-15) | Governance's position in contract §4.5; Mohab and Nour have to agree it |
 | Answers to Q-06, Q-07, Q-09, Q-10, Q-13, Q-14 and a review of the 21 dashboard rows | Contract §9.2 and §9.3 |
-| Contract sent to all five teammates | The packet is prepared. **It has not been sent** |
+| Contract sent to all five teammates | The packet was prepared in revision 0.3. On 14 November it has still not been sent as one package. The exchanges that did happen, and the responses recorded, are in the owner review record below |
 | S1-01 sign-off | Not given; see below |
 
 ## Revision 0.4: Trace Schema Draft v1.5 review (items 1 and 2)
@@ -43,7 +43,7 @@ What this revision does **not** do: the v1.5 package files were not available, t
 
 Nour's commit `479cab0` asked for explicit ACCEPT or AMEND answers on seven governance decisions. [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) answers each one separately. This revision also changes the specification where Nour's package, the independent v1.6 review or the execution-budget ADR showed a gap: approval validity clauses V01 to V08 (contract §5.3), a preallocated claim identity with a separate consumption record (§4.7), a fresh check for every retry attempt, effect-state names aligned with the ADR, `STILL_UNRESOLVED`, a non-timeout `UNKNOWN`, claim-time currentness, and a mapping of all 27 of Nour's approval-validity cases (truth tables §8).
 
-The dispositions in the response were sent by email and Nour recorded them on 9 November. The acceptance fields in the configuration stay null: nothing here is an acceptance record. The designated plan approver is not named in the register, so OD-02, OD-06, OD-16 and GD-26 stay open for that person. Two new decisions are recorded (`GD-29`, `GD-30`).
+The dispositions in the response were sent by email and Nour recorded them on 9 November. The acceptance fields in the configuration stay null; see the header of the configuration file and the section below on where acceptance is recorded. The designated plan approver is not named in the register, so OD-02, OD-06, OD-16 and GD-26 stay open for that person. Two new decisions are recorded (`GD-29`, `GD-30`).
 
 ## Revision 0.6: Trace Schema Draft v1.9 and Nour's follow-up
 
@@ -57,15 +57,24 @@ Checks run for this revision: the independent 31-case configuration check (31 of
 
 ## Owner review record
 
-Each owner reviews the sections that touch their subsystem and replies using the template in the [packet](owner-review-packet.md). Silence is not an acknowledgement.
+Status on 14 November 2026. Records are Nour's, kept in the reference-application register on PR #27 branch `docs/nour-week1-review-014` at commit `04789d7` (not yet on `dev`). Paths below are relative to `docs/architecture/reference-applications/`. Silence is not an acknowledgement, and no response below is a full acceptance of this folder.
 
-| Reviewer | Review requested | Status | Revision | Decision, date, evidence |
+| Reviewer | Outreach so far | Response recorded | Revision reviewed | Exact reference |
 |---|---|---|---|---|
-| Nour | Application evidence, approval boundary, stage allowlist, binding, SC-03 fixture | PENDING | 0.6 for review | Not received |
-| Mohab | Transport and event mapping, canonical values, models in `packages/contracts`, transaction boundary | PENDING | 0.6 for review | Not received |
-| Ahmed | Policy and decision inputs, `enforcement_outcome`, critical security findings | PENDING | 0.6 for review | Not received |
-| Alaa | Release verdict, incomplete evaluation, decision inputs, override disposition | PENDING | 0.6 for review | Not received |
-| Malak | Visibility, roles, display of verdicts and incomplete evaluation | PENDING | 0.6 for review | Not received |
+| Nour | Governance responses sent by email (9 November) and as files (follow-up, 14 November) | **Scoped.** OD-03 values rows 1 to 5 accepted and row 6 amended, as recorded by her; OD-04 application position 0.2 accepts the terminal `DENIED`/`CANCELLED` and record-sequence rules and requires currentness at the claim; her independent rerun of the 31-case check agrees. Corpus pairing and integration remain hers. Not a full acceptance | Governance PR #28, `7c26168ea47a611d233202e21f0c0b9f7a5cb3c8`; her packet at `479cab00c021db7a58b826b46a653c3e2308b798` | `reviews/mohamed-479cab0-od03-response.md` (historical, 9 November); `reviews/mohamed-7c26168-governance-response.md` (14 November, with artifact hashes); `approval-validity/od04-v0.2.md`; `validation/mohamed-7c26168-governance-refresh.json` |
+| Mohab | None from governance. Nour is sending `SA-01` to `SA-09` to Mohab for a joint technical response (her email of 14 November) | **PENDING. Not received** | Trace Schema Draft v1.9 as reviewed by governance | Dispositions of `SA-01` to `SA-09` are listed as awaited in `reviews/mohamed-7c26168-governance-response.md` |
+| Ahmed | His scoped evaluator review of 13 November was received by governance and answered by [response-to-ahmed-evaluator-review.md](response-to-ahmed-evaluator-review.md), sent to him with the file | **PENDING. No acceptance of the governance contract received.** The failure label (`OD-09`) and the root-cause mapping for SC-03 are still open. His dispositions on the dataset matrix (Alaa's matrix v2-4, 14 November) concern that matrix, not this folder | Governance revision 0.6 with the 13 November addendum | Alaa's Dataset & Experiment Requirements Matrix v2-4 (email of 14 November, not a repository file) |
+| Alaa | Her review of `479cab0` was supplied to Nour; her matrix v2-4 (14 November) lists five items open with governance, and governance gave its positions on them in the reply of 14 November (email, not a repository file) | **PARTIAL / CONDITIONAL** on `479cab0`, recorded 6 November; the email date and message reference were not supplied. The five items in the matrix remain open as listed there | Nour's packet at `479cab00c021db7a58b826b46a653c3e2308b798` | `reviews/alaa-479cab0-review.md` and `reviews/alaa-479cab0-review.json` |
+| Malak | Nour is forwarding governance's explanation of `TRD-22` and `TRD-23` (response to `9e6affa`, section 4) | **Scoped, conditional UI acknowledgment** against `479cab0`, recorded 9 November. It is not the S1-07 closeout. Confirmation of the stage versus check-result display is **not received** | Nour's handoff at `479cab00c021db7a58b826b46a653c3e2308b798` | `reviews/malak-479cab0-ui-response.md` |
+
+### Where the scoped acceptance and the artifact hashes are recorded
+
+| What | Where |
+|---|---|
+| Governance's scoped dispositions, dated 14 November | [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md) (final); the earlier email dispositions of 9 November are in [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) |
+| Hashes of the configuration, the checker and its result | [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md) section 2, and `input_sha256_lf_normalised` in [od03-independent-check-result.json](policy-configuration/od03-independent-check-result.json) |
+| Nour's exact-revision record, with hashes of the seven reviewed files and her independent rerun | `reviews/mohamed-7c26168-governance-response.md` and `validation/od03-independent-7c26168-result.json`, PR #27 branch `docs/nour-week1-review-014` at commit `04789d7` |
+| Why `accepted_by`, `accepted_at` and `acceptance_evidence` are null | The header of [procurement-policy-set-v0.1.yaml](policy-configuration/procurement-policy-set-v0.1.yaml): they mean acceptance as the operative runtime configuration, which needs Mohab's transport and digest agreement, Nour's corpus pairing and integration, and the plan approver's decisions. A file also cannot hold the hash of its own acceptance. `runtime_enabled` stays `false` |
 
 ## S1-01 sign-off by Mohamed (not given)
 
@@ -73,8 +82,10 @@ The [S1-01 handoff checklist](../reference-applications/handoffs.md#mohamed--s1-
 
 ```text
 Reviewer: Mohamed Elnaggar
-Date: <date Mohamed gives>
-Revision reviewed: reference-application package at commit 479cab0 (see response-to-owner-packet-0.14.md for file hashes)
+Date: not given (the status below is NOT GIVEN)
+Revision reviewed: reference-application package at commit 479cab00c021db7a58b826b46a653c3e2308b798
+  (file hashes in response-to-owner-packet-0.14.md); governance revision 0.6 at PR #28,
+  first published at commit 7c26168ea47a611d233202e21f0c0b9f7a5cb3c8
 Status: NOT GIVEN
 Rows accepted: the trusted-context rule, the approval boundary owned by governance,
   the proposal / check / dispatch separation, and the authorization-binding
@@ -103,6 +114,7 @@ Conditions:
 | 0.2 | 2026-10-18 | Decision flow and contract register merged to `dev` in PR #14, reconciled with the reference-application contracts |
 | 0.3 | 2026-10-21 | Policy truth tables, decision log with statuses, canonical-values proposal, approval validity, roles and overrides, review packet, responses to the wrap-up and to the dashboard questions |
 | 0.6 | 2026-11-12 | Naming aligned to Trace Schema Draft v1.9 (`GD-31`); contract §4.1 to §4.8 rewritten; claim identity made root-scoped; approval-record supersession, terminal rule and chronology proposals (`GD-32`); policy stage versus policy-check result for the dashboard; RAG policy evidence aligned with Ahmed's evaluator contract; reproducible 31-case check and its result; reply to Nour's follow-up; `SA-01` to `SA-09` |
+| 0.6 addendum 2 | 2026-11-14 | Nour's request of 14 November: the outreach and scoped responses received are recorded with exact references (README and owner review packet); the revision-template wording is replaced by exact commits; the configuration header is reconciled with the final dated response and explains the null acceptance fields; the configuration's hash and the check result's input hash change because only a header comment changed (canonical content, `runtime_enabled: false` and the 31-case result are unchanged) |
 | 0.6 addendum | 2026-11-13 | Reply to Ahmed's scoped evaluator review: SC-03A and SC-03B behavior corrected and completed, `NOT_REALIZED` renamed `DEFINITIVE_NO_EFFECT`, `EC-11`, contract §6.5, `GD-33`, `DC-21` and `DC-22` |
 | 0.5 | 2026-11-06 | Response to Nour's owner packet 0.14; synthetic policy configuration proposal; approval validity V01 to V08; preallocated claim with separate consumption record; fresh check per attempt; effect-state names aligned with the budget ADR; truth-table cases AP-16 to AP-19, AG-13, CT-01 to CT-08 and the OD-04 case mapping; `GD-29`, `GD-30` |
 | 0.4 | 2026-11-05 | Evidence consistency and recovery specification (review items 1 and 2), `INV-11` to `INV-14`, `GD-24` to `GD-28`, `enforcement_outcome` gains a fourth value (named `NOT_REALIZED` then, `DEFINITIVE_NO_EFFECT` since 13 November), new truth-table cases |
