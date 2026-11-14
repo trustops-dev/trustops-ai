@@ -31,10 +31,21 @@ class PurchaseRequest:
     requester_ref: str
 
     def __post_init__(self) -> None:
-        if any(not value for value in (
-            self.request_id, self.request_revision, self.item_description.strip(),
-            self.currency, self.supplier_id, self.requester_ref,
-        )) or type(self.quantity) is not int or self.quantity <= 0:
+        if (
+            any(
+                not value
+                for value in (
+                    self.request_id,
+                    self.request_revision,
+                    self.item_description.strip(),
+                    self.currency,
+                    self.supplier_id,
+                    self.requester_ref,
+                )
+            )
+            or type(self.quantity) is not int
+            or self.quantity <= 0
+        ):
             raise ValueError("Invalid purchase request")
         if not isinstance(self.total_amount, str):
             raise ValueError("total_amount must be a decimal string")
@@ -114,12 +125,19 @@ class ProcurementTools(Protocol):
         self, request: PurchaseRequest, approval_request_id: str | None
     ) -> ApprovalResult: ...
     def check_purchase_order(
-        self, request: PurchaseRequest, policy: PolicyResult, supplier: SupplierResult,
-        calculation: CalculationResult, approval: ApprovalResult | None,
+        self,
+        request: PurchaseRequest,
+        policy: PolicyResult,
+        supplier: SupplierResult,
+        calculation: CalculationResult,
+        approval: ApprovalResult | None,
     ) -> Authorization: ...
     def current_versions(self, approval_request_id: str | None) -> tuple[str, str | None]: ...
     def create_purchase_order(
-        self, request: PurchaseRequest, authorization: Authorization, idempotency_key: str,
+        self,
+        request: PurchaseRequest,
+        authorization: Authorization,
+        idempotency_key: str,
     ) -> PurchaseOrderResult: ...
 
 
@@ -153,99 +171,161 @@ class Workflow:
             event("halt", state=state.value, reason=reason, status=status)
             return RunResult(state, status, reason)
 
-        event("request_captured", request_revision=request.request_revision,
-              supplier_id=request.supplier_id, total_amount=request.total_amount,
-              currency=request.currency)
+        event(
+            "request_captured",
+            request_revision=request.request_revision,
+            supplier_id=request.supplier_id,
+            total_amount=request.total_amount,
+            currency=request.currency,
+        )
         policy = self.tools.search_policy(request)
-        event("tool_result", tool="search_policy", status=policy.status,
-              evidence_ref=policy.evidence_ref, policy_version=policy.policy_version)
+        event(
+            "tool_result",
+            tool="search_policy",
+            status=policy.status,
+            evidence_ref=policy.evidence_ref,
+            policy_version=policy.policy_version,
+        )
         if policy.status != "MATCHED" or policy.applicability != "APPLICABLE":
             return halt("POLICY_UNAVAILABLE")
         advance(State.POLICY_CHECKED)
 
         supplier = self.tools.get_supplier(request)
-        event("tool_result", tool="get_supplier", status=supplier.status,
-              record_version=supplier.record_version)
-        if (supplier.status != "FOUND" or supplier.eligibility != "APPROVED"
-                or supplier.supplier_id != request.supplier_id):
+        event(
+            "tool_result",
+            tool="get_supplier",
+            status=supplier.status,
+            record_version=supplier.record_version,
+        )
+        if (
+            supplier.status != "FOUND"
+            or supplier.eligibility != "APPROVED"
+            or supplier.supplier_id != request.supplier_id
+        ):
             return halt("SUPPLIER_INELIGIBLE")
         advance(State.SUPPLIER_CHECKED)
 
         calculation = self.tools.calculate_approval_level(request)
-        event("tool_result", tool="calculate_approval_level", status=calculation.status,
-              calculation_ref=calculation.calculation_ref)
-        if (calculation.status != "CALCULATED"
-                or calculation.request_revision != request.request_revision
-                or calculation.policy_version != policy.policy_version
-                or type(calculation.approval_required) is not bool
-                or (calculation.approval_required and not calculation.approval_level)
-                or (not calculation.approval_required and calculation.approval_level is not None)):
+        event(
+            "tool_result",
+            tool="calculate_approval_level",
+            status=calculation.status,
+            calculation_ref=calculation.calculation_ref,
+        )
+        if (
+            calculation.status != "CALCULATED"
+            or calculation.request_revision != request.request_revision
+            or calculation.policy_version != policy.policy_version
+            or type(calculation.approval_required) is not bool
+            or (calculation.approval_required and not calculation.approval_level)
+            or (not calculation.approval_required and calculation.approval_level is not None)
+        ):
             return halt("CALCULATION_UNRESOLVED")
         advance(State.APPROVAL_CALCULATED)
 
         approval = None
         if calculation.approval_required:
             submitted = self.tools.request_approval(request, None)
-            event("tool_result", tool="request_approval", operation="CREATE_APPROVAL_REQUEST",
-                  status=submitted.status, approval_request_id=submitted.approval_request_id)
-            if (submitted.status != "PENDING" or not submitted.approval_request_id
-                    or submitted.request_revision != request.request_revision):
+            event(
+                "tool_result",
+                tool="request_approval",
+                operation="CREATE_APPROVAL_REQUEST",
+                status=submitted.status,
+                approval_request_id=submitted.approval_request_id,
+            )
+            if (
+                submitted.status != "PENDING"
+                or not submitted.approval_request_id
+                or submitted.request_revision != request.request_revision
+            ):
                 return halt("APPROVAL_SUBMISSION_UNRESOLVED")
             advance(State.APPROVAL_PENDING)
             approval = self.tools.request_approval(request, submitted.approval_request_id)
-            event("tool_result", tool="request_approval", operation="OBSERVE_APPROVAL",
-                  status=approval.status, approval_request_id=approval.approval_request_id,
-                  record_version=approval.record_version,
-                  decision_record_seq=approval.decision_record_seq)
+            event(
+                "tool_result",
+                tool="request_approval",
+                operation="OBSERVE_APPROVAL",
+                status=approval.status,
+                approval_request_id=approval.approval_request_id,
+                record_version=approval.record_version,
+                decision_record_seq=approval.decision_record_seq,
+            )
             if approval.status == "PENDING":
                 return halt("APPROVAL_PENDING", "WAITING_APPROVAL")
             if approval.status in ("DENIED", "CANCELLED"):
-                return halt("APPROVAL_TERMINAL", "CANCELLED" if approval.status == "CANCELLED" else "BLOCKED")
-            if (approval.status != "APPROVED"
-                    or approval.approval_request_id != submitted.approval_request_id
-                    or approval.request_revision != request.request_revision
-                    or approval.supplier_id != request.supplier_id
-                    or approval.total_amount != request.total_amount
-                    or approval.currency != request.currency
-                    or approval.approval_level != calculation.approval_level
-                    or not approval.record_version
-                    or approval.decision_record_seq <= submitted.decision_record_seq):
+                return halt(
+                    "APPROVAL_TERMINAL",
+                    "CANCELLED" if approval.status == "CANCELLED" else "BLOCKED",
+                )
+            if (
+                approval.status != "APPROVED"
+                or approval.approval_request_id != submitted.approval_request_id
+                or approval.request_revision != request.request_revision
+                or approval.supplier_id != request.supplier_id
+                or approval.total_amount != request.total_amount
+                or approval.currency != request.currency
+                or approval.approval_level != calculation.approval_level
+                or not approval.record_version
+                or approval.decision_record_seq <= submitted.decision_record_seq
+            ):
                 return halt("APPROVAL_BINDING_INVALID")
         advance(State.APPROVED)
 
         # The mock gate is an injected trusted boundary, never a model-provided verdict.
-        event("tool_proposal", tool="create_purchase_order",
-              request_revision=request.request_revision, supplier_id=request.supplier_id,
-              total_amount=request.total_amount, currency=request.currency)
+        event(
+            "tool_proposal",
+            tool="create_purchase_order",
+            request_revision=request.request_revision,
+            supplier_id=request.supplier_id,
+            total_amount=request.total_amount,
+            currency=request.currency,
+        )
         authorization = self.tools.check_purchase_order(
             request, policy, supplier, calculation, approval
         )
-        event("policy_check", verdict=authorization.verdict, check_ref=authorization.check_ref,
-              supplier_version=authorization.supplier_version,
-              approval_version=authorization.approval_version)
+        event(
+            "policy_check",
+            verdict=authorization.verdict,
+            check_ref=authorization.check_ref,
+            supplier_version=authorization.supplier_version,
+            approval_version=authorization.approval_version,
+        )
         approval_version = approval.record_version if approval else None
-        if (authorization.verdict != "ALLOW" or not authorization.check_ref
-                or authorization.request_revision != request.request_revision
-                or authorization.supplier_version != supplier.record_version
-                or authorization.approval_version != approval_version):
+        if (
+            authorization.verdict != "ALLOW"
+            or not authorization.check_ref
+            or authorization.request_revision != request.request_revision
+            or authorization.supplier_version != supplier.record_version
+            or authorization.approval_version != approval_version
+        ):
             return halt("POLICY_CHECK_NOT_ALLOWED")
         current_supplier, current_approval = self.tools.current_versions(
             approval.approval_request_id if approval else None
         )
-        if (current_supplier != supplier.record_version
-                or current_approval != approval_version):
+        if current_supplier != supplier.record_version or current_approval != approval_version:
             return halt("BOUND_EVIDENCE_STALE")
         # Mock boundary only; atomic claim/fencing is owned by platform integration.
         advance(State.PO_CREATION)
         po = self.tools.create_purchase_order(request, authorization, idempotency_key)
-        event("tool_result", tool="create_purchase_order", status=po.status,
-              check_ref=authorization.check_ref, po_id=po.po_id, mock=po.mock)
+        event(
+            "tool_result",
+            tool="create_purchase_order",
+            status=po.status,
+            check_ref=authorization.check_ref,
+            po_id=po.po_id,
+            mock=po.mock,
+        )
         if po.status == "UNKNOWN_OUTCOME":
             return halt("UNKNOWN_PO_OUTCOME", "RECOVERY_PENDING")
-        if (po.status not in ("CREATED", "ALREADY_EXISTS") or not po.po_id or not po.mock
-                or po.request_revision != request.request_revision
-                or po.supplier_id != request.supplier_id
-                or po.total_amount != request.total_amount or po.currency != request.currency):
+        if (
+            po.status not in ("CREATED", "ALREADY_EXISTS")
+            or not po.po_id
+            or not po.mock
+            or po.request_revision != request.request_revision
+            or po.supplier_id != request.supplier_id
+            or po.total_amount != request.total_amount
+            or po.currency != request.currency
+        ):
             return halt("PO_RESULT_UNCONFIRMED", "FAILED")
         advance(State.COMPLETION)
         event("final_response", po_id=po.po_id, mock=True)

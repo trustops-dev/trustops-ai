@@ -39,15 +39,34 @@ def grounded_case() -> MockCase:
     passage = "Submit the receipt within ten days of delivery."
     digest = sha256(passage.encode("utf-8")).hexdigest()
     document = RetrievedEvidence(
-        "doc-receipt", "source-receipt", "v1", "chunk-receipt", passage,
-        digest, 1, 0.1, "cosine_distance", False, "Synthetic receipt rule",
-        "procurement", "section 1", "snapshot-01",
+        "doc-receipt",
+        "source-receipt",
+        "v1",
+        "chunk-receipt",
+        passage,
+        digest,
+        1,
+        0.1,
+        "cosine_distance",
+        False,
+        "Synthetic receipt rule",
+        "procurement",
+        "section 1",
+        "snapshot-01",
     )
     ref = EvidenceRef(
-        document.document_id, document.source_id, document.source_version,
-        document.chunk_id, digest, 0, len(passage), passage,
+        document.document_id,
+        document.source_id,
+        document.source_version,
+        document.chunk_id,
+        digest,
+        0,
+        len(passage),
+        passage,
     )
     return MockCase(
-        query, (document,), Selection((document.chunk_id,), ref, "SUFFICIENT_EVIDENCE"),
+        query,
+        (document,),
+        Selection((document.chunk_id,), ref, "SUFFICIENT_EVIDENCE"),
         Candidate("The receipt is due within ten days of delivery.", "[source-receipt:v1]", ref),
     )

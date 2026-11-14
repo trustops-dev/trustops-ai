@@ -45,15 +45,21 @@ class MockTools:
         return self.observation
 
     def check_purchase_order(
-        self, request: PurchaseRequest, policy: PolicyResult, supplier: SupplierResult,
-        calculation: CalculationResult, approval: ApprovalResult | None,
+        self,
+        request: PurchaseRequest,
+        policy: PolicyResult,
+        supplier: SupplierResult,
+        calculation: CalculationResult,
+        approval: ApprovalResult | None,
     ) -> Authorization:
         approved = (not calculation.approval_required) or (
             approval is not None and approval.status == "APPROVED"
         )
         return Authorization(
-            "ALLOW" if self.allow and approved else "BLOCK", "mock-check-01",
-            request.request_revision, supplier.record_version,
+            "ALLOW" if self.allow and approved else "BLOCK",
+            "mock-check-01",
+            request.request_revision,
+            supplier.record_version,
             approval.record_version if approval else None,
         )
 
@@ -61,11 +67,15 @@ class MockTools:
         return (
             self.current_supplier_version or self.supplier.record_version,
             (self.current_approval_version or self.observation.record_version)
-            if approval_request_id else None,
+            if approval_request_id
+            else None,
         )
 
     def create_purchase_order(
-        self, request: PurchaseRequest, authorization: Authorization, idempotency_key: str,
+        self,
+        request: PurchaseRequest,
+        authorization: Authorization,
+        idempotency_key: str,
     ) -> PurchaseOrderResult:
         existing = self._ledger.get(idempotency_key)
         if existing is not None:
@@ -73,13 +83,23 @@ class MockTools:
             if old_request != request:
                 raise ValueError("IDEMPOTENCY_CONFLICT")
             return PurchaseOrderResult(
-                "ALREADY_EXISTS", result.po_id, result.request_revision,
-                result.supplier_id, result.total_amount, result.currency, True,
+                "ALREADY_EXISTS",
+                result.po_id,
+                result.request_revision,
+                result.supplier_id,
+                result.total_amount,
+                result.currency,
+                True,
             )
         self.dispatch_count += 1
         result = PurchaseOrderResult(
-            "CREATED", f"mock-po-{self.dispatch_count}", request.request_revision,
-            request.supplier_id, request.total_amount, request.currency, True,
+            "CREATED",
+            f"mock-po-{self.dispatch_count}",
+            request.request_revision,
+            request.supplier_id,
+            request.total_amount,
+            request.currency,
+            True,
         )
         self._ledger[idempotency_key] = (request, result)
         return result

@@ -25,7 +25,8 @@ def fixtures() -> tuple[PurchaseRequest, MockTools]:
         PolicyResult("MATCHED", "APPLICABLE", "rule-1", "policy-v1", "evidence-1"),
         SupplierResult("FOUND", "sup-1", "APPROVED", "supplier-v1"),
         CalculationResult("CALCULATED", "rev-1", True, "manager", "calc-1", "policy-v1"),
-        pending, approved,
+        pending,
+        approved,
     )
     return request, tools
 
@@ -37,8 +38,13 @@ def test_valid_approved_mock_path_and_same_key_no_second_effect() -> None:
     assert (first.state, first.status, first.po_id) == (State.COMPLETION, "SUCCEEDED", "mock-po-1")
     assert tools.dispatch_count == 1
     assert [e.details["to_state"] for e in sink.events if e.kind == "state_transition"] == [
-        "POLICY_CHECKED", "SUPPLIER_CHECKED", "APPROVAL_CALCULATED", "APPROVAL_PENDING",
-        "APPROVED", "PO_CREATION", "COMPLETION",
+        "POLICY_CHECKED",
+        "SUPPLIER_CHECKED",
+        "APPROVAL_CALCULATED",
+        "APPROVAL_PENDING",
+        "APPROVED",
+        "PO_CREATION",
+        "COMPLETION",
     ]
     operations = [e.details["operation"] for e in sink.events if "operation" in e.details]
     assert operations == ["CREATE_APPROVAL_REQUEST", "OBSERVE_APPROVAL"]
@@ -52,7 +58,9 @@ def test_stale_approval_at_dispatch_claim_stops_mock_purchase() -> None:
     tools.current_approval_version = "a-v3"
     result = Workflow(tools).run(request, idempotency_key="runtime-key-2")
     assert (result.state, result.reason, tools.dispatch_count) == (
-        State.APPROVED, "BOUND_EVIDENCE_STALE", 0,
+        State.APPROVED,
+        "BOUND_EVIDENCE_STALE",
+        0,
     )
 
 
@@ -61,5 +69,7 @@ def test_pending_approval_is_not_an_authorization() -> None:
     tools.observation = tools.submission
     result = Workflow(tools).run(request, idempotency_key="runtime-key-3")
     assert (result.status, result.state, tools.dispatch_count) == (
-        "WAITING_APPROVAL", State.APPROVAL_PENDING, 0,
+        "WAITING_APPROVAL",
+        State.APPROVAL_PENDING,
+        0,
     )

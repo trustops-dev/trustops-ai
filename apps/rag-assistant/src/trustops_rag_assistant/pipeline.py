@@ -77,20 +77,29 @@ class Generator(Protocol):
 def valid_support(ref: EvidenceRef, selected: tuple[RetrievedEvidence, ...]) -> bool:
     """Structural/exact quote check; semantic entailment still requires separate review."""
     for item in selected:
-        if (item.document_id, item.source_id, item.source_version, item.chunk_id,
-                item.content_hash) != (ref.document_id, ref.source_id, ref.source_version,
-                                      ref.chunk_id, ref.content_hash):
+        if (
+            item.document_id,
+            item.source_id,
+            item.source_version,
+            item.chunk_id,
+            item.content_hash,
+        ) != (ref.document_id, ref.source_id, ref.source_version, ref.chunk_id, ref.content_hash):
             continue
         if sha256(item.chunk_text.encode("utf-8")).hexdigest() != item.content_hash:
             return False
-        return (0 <= ref.start < ref.end <= len(item.chunk_text)
-                and item.chunk_text[ref.start:ref.end] == ref.quote)
+        return (
+            0 <= ref.start < ref.end <= len(item.chunk_text)
+            and item.chunk_text[ref.start : ref.end] == ref.quote
+        )
     return False
 
 
 class Pipeline:
     def __init__(
-        self, retriever: Retriever, selector: Selector, generator: Generator,
+        self,
+        retriever: Retriever,
+        selector: Selector,
+        generator: Generator,
         sink: EventSink | None = None,
     ):
         self.retriever = retriever
@@ -109,44 +118,77 @@ class Pipeline:
         retrieved = self.retriever.retrieve(query)
         event("retrieval", count=len(retrieved))
         selection = self.selector.select(query, retrieved)
-        selected = tuple(item for item in retrieved if item.chunk_id in selection.selected_chunk_ids)
-        if (len(selected) != len(selection.selected_chunk_ids)
-                or len(set(selection.selected_chunk_ids)) != len(selection.selected_chunk_ids)):
-            selection = Selection((), None, "INSUFFICIENT_EVIDENCE", "INCOMPLETE_SUPPORT",
-                                  "Selected source is not in retrieved results")
+        selected = tuple(
+            item for item in retrieved if item.chunk_id in selection.selected_chunk_ids
+        )
+        if len(selected) != len(selection.selected_chunk_ids) or len(
+            set(selection.selected_chunk_ids)
+        ) != len(selection.selected_chunk_ids):
+            selection = Selection(
+                (),
+                None,
+                "INSUFFICIENT_EVIDENCE",
+                "INCOMPLETE_SUPPORT",
+                "Selected source is not in retrieved results",
+            )
             selected = ()
-        event("evidence_selection", sufficiency=selection.sufficiency,
-              reason=selection.reason, selected_count=len(selected))
+        event(
+            "evidence_selection",
+            sufficiency=selection.sufficiency,
+            reason=selection.reason,
+            selected_count=len(selected),
+        )
         for item in selected:
-            event("selected_context", source_id=item.source_id,
-                  source_version=item.source_version, chunk_id=item.chunk_id,
-                  content_hash=item.content_hash, chunk_text=item.chunk_text)
+            event(
+                "selected_context",
+                source_id=item.source_id,
+                source_version=item.source_version,
+                chunk_id=item.chunk_id,
+                content_hash=item.content_hash,
+                chunk_text=item.chunk_text,
+            )
 
         def abstain(reason: str, missing: str) -> RAGResult:
             event("abstention", reason=reason, missing_information=missing)
-            return RAGResult("ABSTENTION", "The available sources do not substantiate an answer.",
-                             reason=reason, missing_information=missing)
+            return RAGResult(
+                "ABSTENTION",
+                "The available sources do not substantiate an answer.",
+                reason=reason,
+                missing_information=missing,
+            )
 
         if selection.sufficiency != "SUFFICIENT_EVIDENCE":
-            return abstain(selection.reason or "INCOMPLETE_SUPPORT",
-                           selection.missing_information or "Supporting evidence")
-        if not selected or selection.support is None or not valid_support(selection.support, selected):
+            return abstain(
+                selection.reason or "INCOMPLETE_SUPPORT",
+                selection.missing_information or "Supporting evidence",
+            )
+        if (
+            not selected
+            or selection.support is None
+            or not valid_support(selection.support, selected)
+        ):
             return abstain("INCOMPLETE_SUPPORT", "Verifiable selected source passage")
         candidate = self.generator.generate(query, selected)
-        event("answer_candidate", claim=candidate.claim,
-              source_id=candidate.support.source_id)
-        if (not candidate.claim.strip()
-                or candidate.citation_marker != (
-                    f"[{candidate.support.source_id}:{candidate.support.source_version}]"
-                )
-                or candidate.support != selection.support
-                or not valid_support(candidate.support, selected)):
+        event("answer_candidate", claim=candidate.claim, source_id=candidate.support.source_id)
+        if (
+            not candidate.claim.strip()
+            or candidate.citation_marker
+            != (f"[{candidate.support.source_id}:{candidate.support.source_version}]")
+            or candidate.support != selection.support
+            or not valid_support(candidate.support, selected)
+        ):
             event("citation_binding", result="INVALID")
             return abstain("INVALID_CITATION_BINDING", "A citation to the selected passage")
-        event("citation_binding", result="VALID", source_id=candidate.support.source_id,
-              source_version=candidate.support.source_version,
-              chunk_id=candidate.support.chunk_id, quote=candidate.support.quote,
-              start=candidate.support.start, end=candidate.support.end)
+        event(
+            "citation_binding",
+            result="VALID",
+            source_id=candidate.support.source_id,
+            source_version=candidate.support.source_version,
+            chunk_id=candidate.support.chunk_id,
+            quote=candidate.support.quote,
+            start=candidate.support.start,
+            end=candidate.support.end,
+        )
         text = f"{candidate.claim} {candidate.citation_marker}"
         event("final_response", status="ANSWER")
         return RAGResult("ANSWER", text, (candidate.support,))
