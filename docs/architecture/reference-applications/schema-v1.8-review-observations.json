@@ -1,0 +1,102 @@
+{
+  "date": "2026-11-09",
+  "scope": "External Mohab Draft v1.8 archive, exact file bytes and fresh offline suite; no pushed schema/runtime verification",
+  "repository_branch_head": "f8201554b59f49f1b011ca31db2b2696ac80dc9f",
+  "file_sha256": {
+    "updated_schemas_v8.md": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+    "validate_s1_01_schema_v1_8.py": "7640819601d5022ba5c9fe0b5c6186891f88f8d073d560e1b741d656e03ca8a3",
+    "run_s1_01_regression_suite.py": "11c5237fc9730251cb9a1a02bdd0a39e85939d9d1268d8c28ee4c3d7dfae48fc",
+    "s1_01_validation_report.json": "698a25a56c25a411b5d7e3128867ef5cc971ce415e58fa5c1d14c168ab5df7d8",
+    "report.json": "61a57d5b626d645289f404e51e978b3f1e3f00754a253bb1515c1e7ce56bbe1f"
+  },
+  "email_claimed_assertions": 2264,
+  "fresh_baseline_assertions": 2306,
+  "fresh_cases": {
+    "total_cases": 52,
+    "positive_cases": 8,
+    "negative_cases": 44,
+    "isolated_negative_cases": 41,
+    "compound_negative_cases": 3,
+    "cases_passed": 52,
+    "cases_failed": 0,
+    "baseline_assertions_checked": 2306,
+    "all_cases_passed": true
+  },
+  "package_disposition": "INCONSISTENT_IDENTITY_CORRECTION_REQUIRED",
+  "confirmed_static_fixes": [
+    "POS-13 empty RAG abstention",
+    "POS-15 non-timeout UNKNOWN",
+    "POS-16 STILL_UNRESOLVED recovery",
+    "POS-17 read-only observation retry accounting",
+    "NEG-27–33 approval reference/binding/ceiling and timestamp cases",
+    "NEG-34 timeout cannot claim no effect",
+    "NEG-35 unresolved cannot complete",
+    "NEG-36–38 claim/proposal/retry accounting cases",
+    "NEG-39 root-cause leakage",
+    "NEG-42 read-only ALLOW cannot dispatch PO"
+  ],
+  "remaining_gaps": [
+    "E03/E04 effective filters and ACL/tenant eligibility",
+    "E02 refusal/provider error and per-call config",
+    "E06 tie rule and RAG returned count",
+    "E07 selector version",
+    "E08 raw request normalization links",
+    "E14/E17 OD-04 record sequence and approval/supplier currentness plus separate immutable claim-consumption evidence",
+    "E25 provider fault metadata and cancel/partial mappings",
+    "E26 JSON canonicalization, missingness and immutable lineage",
+    "E27 independent projection/schema field reconciliation"
+  ],
+  "review_boundary": "Static supplied suite and four walkthroughs only; no cross-consumer acceptance, actual runtime or joint governance sign-off.",
+  "email_claimed_file_sha256": {
+    "updated_schemas_v8.md": "a7fee95474c14db452ce0dae11a7fa826db9c31f6eef9bf34ee5cef4093d3c2a",
+    "validate_s1_01_schema_v1_8.py": "e62352ea6c2e10b3f4b4f6ecfde3bbff305f28e32c68dd38b7ad3e1c970abd25",
+    "run_s1_01_regression_suite.py": "0022aeede39a1e8a9bd1c96b41a8602487ed1dda3c1cb72cf68b8350a6210463",
+    "s1_01_validation_report.json": "246eb69d37000db4dff595f9a4f715ffe2ef80d4d163f23a1e4b03764c02e6f4"
+  },
+  "email_source": "user-supplied Pasted markdown.md (message date not supplied)",
+  "reproduction_commands": [
+    "python -S validate_s1_01_schema_v1_8.py updated_schemas_v8.md",
+    "python -S run_s1_01_regression_suite.py --report /absolute/external/reports/v18.json"
+  ],
+  "bundled_report_package_files": {
+    "specification_markdown": {
+      "filename": "updated_schemas_v8.md",
+      "sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a"
+    },
+    "standalone_validator": {
+      "filename": "validate_s1_01_schema_v1_8.py",
+      "version": "1.8.0",
+      "sha256": "0abce4257e0f41a63b7c07871f3ef2266b3843b3068bb217c6c068cc282d2e1a"
+    },
+    "regression_runner": {
+      "filename": "run_s1_01_regression_suite.py",
+      "version": "1.8.0",
+      "sha256": "0022aeede39a1e8a9bd1c96b41a8602487ed1dda3c1cb72cf68b8350a6210463"
+    },
+    "walkthrough_bundle_sha256": "25ca0647d99fe7bd9850c44db98137793708e382d120f91251f8995775ff3747"
+  },
+  "fresh_report_package_files": {
+    "specification_markdown": {
+      "filename": "updated_schemas_v8.md",
+      "sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a"
+    },
+    "standalone_validator": {
+      "filename": "validate_s1_01_schema_v1_8.py",
+      "version": "1.8.0",
+      "sha256": "7640819601d5022ba5c9fe0b5c6186891f88f8d073d560e1b741d656e03ca8a3"
+    },
+    "regression_runner": {
+      "filename": "run_s1_01_regression_suite.py",
+      "version": "1.8.0",
+      "sha256": "11c5237fc9730251cb9a1a02bdd0a39e85939d9d1268d8c28ee4c3d7dfae48fc"
+    },
+    "walkthrough_bundle_sha256": "25ca0647d99fe7bd9850c44db98137793708e382d120f91251f8995775ff3747"
+  },
+  "source_file_verification": "SHA-256 of extracted exact bytes; no archive repacking",
+  "integration_verification_boundary": {
+    "source": "Supplied update ZIP review record",
+    "external_inputs_included": false,
+    "external_suite_rerun_during_this_integration": false,
+    "scope": "External hashes and results retained as supplied evidence. Exact external schema, validator, runner and email input are unavailable in this ZIP."
+  }
+}

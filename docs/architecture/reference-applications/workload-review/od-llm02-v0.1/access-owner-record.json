@@ -1,0 +1,200 @@
+{
+  "version": "0.3",
+  "status": "OWNER_CONFIRMED_FREE_TIER_QUOTAS_OBSERVED_RUNTIME_PENDING",
+  "prepared_on": "2026-11-06",
+  "preparation_owner": "Nour",
+  "api_project_owner": "Nour El-Rouby",
+  "access_administrator": null,
+  "billing_approver": null,
+  "google_cloud_project_id": "gen-lang-client-0848818912",
+  "api_environment": null,
+  "api_surface_candidate": "Gemini Developer API; generation Interactions v1beta and embedding models.embed_content per existing ADRs",
+  "billing_tier": "FREE",
+  "billing_enabled": null,
+  "billing_currency": null,
+  "approved_spend_usd": 0,
+  "project_access_confirmed": false,
+  "generation_model_access_confirmed": false,
+  "embedding_model_access_confirmed": false,
+  "account_applicable_rates_confirmed": false,
+  "account_evidence_date": "2026-11-07",
+  "account_evidence_reference": "USER_CONFIRMATION_AND_SUPPLIED_AI_STUDIO_SCREENSHOTS_2026_11_07",
+  "quota_owner_confirmation": null,
+  "quota_sharing_other_consumers": null,
+  "models": [
+    {
+      "model": "gemini-3.8-flash",
+      "rpm": 5,
+      "input_tpm": 250000,
+      "rpd": 20,
+      "other_limits": null,
+      "other_consumers_reserved_rpm": null,
+      "other_consumers_reserved_input_tpm": null,
+      "other_consumers_reserved_rpd": null,
+      "evidence_timestamp": null,
+      "evidence_reference": "image(5).png; user-supplied AI Studio Rate Limit table",
+      "status": "SCREENSHOT_OBSERVED",
+      "display_name": "Gemini 3.8 Flash",
+      "evidence_received_on": "2026-11-07",
+      "model_role": "CURRENT_GENERATION_CANDIDATE",
+      "api_identifier_mapping_status": "CANDIDATE_MAPPING_PENDING_VERIFICATION",
+      "token_metric_note": "Table heading is TPM; input-token interpretation is consistent with preceding Rate Limit screenshot, not runtime verified.",
+      "runtime_verified": false
+    },
+    {
+      "model": "gemini-embedding-001",
+      "rpm": 100,
+      "input_tpm": 30000,
+      "rpd": 1000,
+      "other_limits": null,
+      "other_consumers_reserved_rpm": null,
+      "other_consumers_reserved_input_tpm": null,
+      "other_consumers_reserved_rpd": null,
+      "evidence_timestamp": null,
+      "evidence_reference": "image(5).png; user-supplied AI Studio Rate Limit table",
+      "status": "SCREENSHOT_OBSERVED",
+      "display_name": "Gemini Embedding 1",
+      "evidence_received_on": "2026-11-07",
+      "model_role": "CURRENT_EMBEDDING_CANDIDATE",
+      "api_identifier_mapping_status": "CANDIDATE_MAPPING_PENDING_VERIFICATION",
+      "token_metric_note": "Table heading is TPM; input-token interpretation is consistent with preceding Rate Limit screenshot, not runtime verified.",
+      "runtime_verified": false
+    },
+    {
+      "model": "gemini-3.5-flash-lite",
+      "rpm": 15,
+      "input_tpm": 250000,
+      "rpd": 500,
+      "other_limits": null,
+      "other_consumers_reserved_rpm": null,
+      "other_consumers_reserved_input_tpm": null,
+      "other_consumers_reserved_rpd": null,
+      "evidence_timestamp": null,
+      "evidence_reference": "image(5).png; user-supplied AI Studio Rate Limit table",
+      "status": "SCREENSHOT_OBSERVED",
+      "display_name": "Gemini 3.5 Flash Lite",
+      "evidence_received_on": "2026-11-07",
+      "model_role": "ALTERNATIVE_DEVELOPMENT_CANDIDATE_NOT_ACTIVATED",
+      "api_identifier_mapping_status": "OFFICIAL_MODEL_ID_DOCUMENTED_ACCOUNT_EXECUTION_PENDING",
+      "token_metric_note": "Table heading is TPM; input-token interpretation is consistent with preceding Rate Limit screenshot, not runtime verified.",
+      "runtime_verified": false
+    }
+  ],
+  "required_account_evidence": [
+    "Confirm access administrator and intended environment; project owner and project identity are already recorded.",
+    "Verify exact API model identifiers and applicable endpoint quota accounting, including preflight/count-token calls; dashboard quotas do not establish runtime compatibility.",
+    "Confirm other consumers sharing the project and available quota headroom.",
+    "Revise workload admission to fit observed free limits; obtain Alaa scoped acceptance. Preserve existing root execution limits until separately amended.",
+    "Run authorized bounded generation, structured-output, native tool-proposal and embedding checks; record actual results. No paid usage is authorized."
+  ],
+  "quota_entry_template": {
+    "model": null,
+    "rpm": null,
+    "input_tpm": null,
+    "rpd": null,
+    "other_limits": null,
+    "other_consumers_reserved_rpm": null,
+    "other_consumers_reserved_input_tpm": null,
+    "other_consumers_reserved_rpd": null,
+    "evidence_timestamp": null,
+    "evidence_reference": null,
+    "status": "UNCONFIRMED"
+  },
+  "source_note": "Ownership is user-reported. Project identity, replacement key listing, old key absence and Free tier were observed in AI Studio on 2026-11-07. Numeric quotas remain screenshot evidence; capture times and remaining headroom are unknown. Local credential storage is user-confirmed. C01 prompt-only count passed twice in operator-run sessions; G01 failed twice, so generation and embedding execution remain unverified. Paid spend authorization remains USD 0.",
+  "secrets_policy": "Do not store API keys, authorization headers, billing-account numbers, payment details or secret values. Record sanitized evidence references only.",
+  "live_workload_gate": "BLOCKED_PENDING_MODEL_MAPPING_COMPATIBILITY_QUOTA_HEADROOM_REVISED_WORKLOAD_ACCEPTANCE_AND_RELEVANT_SHARED_DECISIONS",
+  "updated_on": "2026-11-09",
+  "google_cloud_project_number": "830049341899",
+  "ownership_evidence": {
+    "type": "USER_REPORTED",
+    "received_on": "2026-11-07",
+    "note": "Nour explicitly confirmed project ownership. Separate administrator and billing roles have not been explicitly confirmed."
+  },
+  "project_identity_evidence": {
+    "project_id": "USER_SUPPLIED_AND_SCREENSHOT_OBSERVED",
+    "project_number": "USER_SUPPLIED_AND_SCREENSHOT_OBSERVED",
+    "project_display_name": "Default Gemini Project",
+    "independent_account_verification": true,
+    "verification_scope": "AI Studio project identity and masked credential listing observed; IAM roles and API execution not verified."
+  },
+  "usage_policy": {
+    "mode": "FREE_TIER_ONLY",
+    "paid_usage_authorized": false,
+    "billing_activation_authorized": false,
+    "paid_fallback_authorized": false,
+    "authorized_paid_spend_usd": 0,
+    "decision_owner": "Nour El-Rouby",
+    "decision_received_on": "2026-11-07",
+    "supersedes": "Earlier proposed USD 10 planning allocation; retain historical cost calculations as hypothetical paid-price estimates, not authorized spend.",
+    "quota_exhaustion_behavior": "Stop or defer within existing execution deadlines; no automatic upgrade, hidden retries, or budget reset.",
+    "implementation_status": "DOCUMENTED_REQUIREMENT_NOT_RUNTIME_VERIFIED"
+  },
+  "billing_evidence": {
+    "observed_tier": "Free tier",
+    "observed_action": "Set up billing",
+    "billing_enabled_note": "No linked-billing-account inspection performed; billing_enabled remains null. No paid activation is authorized."
+  },
+  "credential_status": {
+    "creation": "BROWSER_OBSERVED",
+    "exposed_key_replacement": "BROWSER_OBSERVED_REPLACEMENT_LISTED_OLD_KEY_ABSENT",
+    "replacement_key_name": "TrustOpsAI-dev",
+    "evidence_observed_on": "2026-11-07",
+    "local_environment_storage": "USER_CONFIRMED",
+    "local_storage_evidence": "Nour confirmed replacement and local storage; environment not inspected.",
+    "runtime_authentication": "C01_RESPONSE_OBSERVED_ONLY; GENERATION_AUTHENTICATION_UNCONFIRMED",
+    "note": "AI Studio listed TrustOpsAI-dev and no longer listed TrustOpsAI in the same project. This is UI evidence, not a successful API authentication test. No key value or secret-bearing screenshot retained."
+  },
+  "quota_evidence_scope": {
+    "source": "USER_SUPPLIED_SCREENSHOTS",
+    "capture_timestamp": null,
+    "received_on": "2026-11-07",
+    "project_binding": "Associated through the user-supplied screenshot sequence; final quota crop does not itself display project ID.",
+    "usage_note": "Displayed zero peak usage is not proof of current remaining quota or successful API access.",
+    "other_models": "Other displayed models are not selected or configured as fallback.",
+    "files": [
+      {
+        "filename": "image(1).png",
+        "sha256": "a0c6fd66bbc091392413790b855b67a48f781cc3415e17cbd215dce14b5d4f52",
+        "included_in_package": false
+      },
+      {
+        "filename": "image(2).png",
+        "sha256": "e020d21b6c95404e6b7a71fe3255e281c252860111e7815c4b115348d38f5f97",
+        "included_in_package": false
+      },
+      {
+        "filename": "image(3).png",
+        "sha256": "fcf7788f687792d59f988725f6426dcc4d003efffbaa56a315778299c3f09543",
+        "included_in_package": false
+      },
+      {
+        "filename": "image(4).png",
+        "sha256": "43f7e7a244c7cbb56afc6c015687423af17813653d042dedb6d3c0689a16fabf",
+        "included_in_package": false
+      },
+      {
+        "filename": "image(5).png",
+        "sha256": "b9c93b4c0cad145dc1649c2d7f0a9ffced3c866ccfffb08775bc6a316a414fbb",
+        "included_in_package": false
+      }
+    ]
+  },
+  "generation_candidate_review": "../od-llm02-v0.3/README.md",
+  "runtime_access_status": "PARTIAL_OPERATOR_EVIDENCE; C01 prompt-only responses observed twice, G01 failed twice. Generation/embedding model access and quota headroom remain unconfirmed.",
+  "bounded_provider_probe": {
+    "evidence_reference": "../od-llm02-v0.2/bounded-live-results-2026-11-09.json",
+    "sessions": 2,
+    "offline_suite": "25/25 PASS per operator-supplied Windows terminal capture; no captured machine-readable pytest report",
+    "live_C01": "PASS twice, prompt-only token count 6 per session",
+    "live_G01": [
+      "TIMEOUT_OUTCOME_UNKNOWN",
+      "PROVIDER_OR_SDK_ERROR with null HTTP status"
+    ],
+    "G02_G03_E01_E02": "NOT_RUN_AFTER_G01",
+    "generation_model_access_confirmed": false,
+    "embedding_model_access_confirmed": false,
+    "project_free_tier_headroom_confirmed": false,
+    "paid_use_authorized_usd": 0,
+    "provider_receipt_of_timed_out_G01": "UNKNOWN"
+  }
+}

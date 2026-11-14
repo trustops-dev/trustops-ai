@@ -1,0 +1,3 @@
+# Verified false positive: SHA-256 of the public access-owner-record.json document.
+# Scope is limited to this historical commit, path, rule and line.
+c8503cb8075c68105bf66155849b45b411e5b731:docs/architecture/reference-applications/validation/workload-review-refresh.json:generic-api-key:757

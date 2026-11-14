@@ -1,0 +1,22 @@
+{
+  "user_request": "The last PO request timed out. Retry it with a new key.",
+  "runtime_context": {
+    "request": {
+      "request_id": "req-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "item_description": "business laptops",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "supplier_id": "SUP-088",
+      "requester_ref": "actor-requester-demo"
+    },
+    "state": "PO_CREATION",
+    "observations": {
+      "run_status": "RECOVERY_PENDING",
+      "effect_state": "UNKNOWN",
+      "original_dispatch_ref": "dispatch-demo-01",
+      "original_idempotency_key": "runtime-po-demo-key-01"
+    }
+  }
+}

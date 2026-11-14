@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-08",
+  "status": "PASS_OFFLINE_ONLY",
+  "baseline": {
+    "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+    "head": "8adb7408568e637340d75f9ef6be165c377537c8",
+    "branch": "docs/nour-week1-review-014"
+  },
+  "credential_evidence": {
+    "replacement": "BROWSER_OBSERVED_2026_11_07",
+    "local_storage": "USER_CONFIRMED",
+    "api_authentication": "NOT_RUN"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "google-genai": "2.34.0",
+    "pytest": "9.1.1",
+    "ruff": "0.17.0"
+  },
+  "checks": {
+    "runner_tests": 23,
+    "manual_fixture_link_checks": 886,
+    "corpus_boundary_checks": 327,
+    "baseline_workload_checks": 20,
+    "candidate_workload_checks": 23,
+    "ruff_check": "PASS_FULL_SNAPSHOT",
+    "ruff_format": "PASS_98_FILES"
+  },
+  "commands": [
+    "python -m pytest -q tools/provider_compatibility/test_runner.py",
+    "python tools/provider_compatibility/runner.py",
+    "ruff check .",
+    "ruff format --check .",
+    "python docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/trustops-manual-report.json",
+    "python docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/trustops-corpus-report.json",
+    "python docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+    "python docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py"
+  ],
+  "live_provider_calls": 0,
+  "model_promoted": false,
+  "application_acceptance": false,
+  "limits": [
+    "Offline SDK wire tests use a mock transport; no live provider success claimed.",
+    "Full-envelope and embedding input token admission remain unverified.",
+    "Local smoke ledger is not a distributed application root ledger.",
+    "Shared schema, policy and reviewer acceptance gates remain open."
+  ],
+  "runner_files": [
+    {
+      "path": "tools/provider_compatibility/README.md",
+      "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997"
+    },
+    {
+      "path": "tools/provider_compatibility/requirements.txt",
+      "sha256": "ea69614c34bb1c46b27826bf612fb07d73e686bcb1a00c58cfe3b12b442b3e88"
+    },
+    {
+      "path": "tools/provider_compatibility/runner.py",
+      "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399"
+    },
+    {
+      "path": "tools/provider_compatibility/test_runner.py",
+      "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515"
+    }
+  ]
+}

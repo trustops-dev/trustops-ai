@@ -1,0 +1,284 @@
+{
+  "result": "PASS",
+  "scope": "Offline candidate consistency; not stakeholder acceptance or runtime policy validation",
+  "candidate_version": "0.1",
+  "review_cases": 31,
+  "checks": [
+    {
+      "check": "Review only and disabled",
+      "result": "PASS"
+    },
+    {
+      "check": "No fabricated acceptance",
+      "result": "PASS"
+    },
+    {
+      "check": "Governance owns runtime calculation",
+      "result": "PASS"
+    },
+    {
+      "check": "Version matches review cases",
+      "result": "PASS"
+    },
+    {
+      "check": "One exact proposed rule",
+      "result": "PASS"
+    },
+    {
+      "check": "Positive plain-decimal string rule",
+      "result": "PASS"
+    },
+    {
+      "check": "Matching policy paragraph",
+      "result": "PASS"
+    },
+    {
+      "check": "All 31 unique case IDs",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C01: One cent below threshold",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C02: Exactly at threshold",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C03: One cent above threshold",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C04: Existing illustrative high amount",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C05: Smallest positive quantum",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C06: Exact integer text",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C07: One fractional digit",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C08: Overscale below boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C08: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C09: Overscale above boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C09: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C10: Trailing zero still overscale",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C10: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C11: Binary-float JSON number",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C11: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C12: Integer JSON number",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C12: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C13: Boolean",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C13: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C14: Null",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C14: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C15: Zero",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C15: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C16: Negative",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C16: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C17: Exponent",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C17: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C18: Whitespace",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C18: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C19: Thousands separator",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C19: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C20: Leading plus",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C20: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C21: Leading zeros",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C21: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C22: Non-finite text",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C22: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C23: Unsupported currency",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C23: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C24: No implicit currency casing",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C24: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C25: Absent configuration",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C25: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C26: Retrieved policy disagrees",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C26: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C27: Policy version mismatch",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C27: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C28: Tool amount differs from trusted request",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C28: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C29: Missing threshold",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C29: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C30: Missing approval level",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C30: unresolved is not false",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C31: Accidental inclusive comparator",
+      "result": "PASS"
+    },
+    {
+      "check": "OD03-C31: unresolved is not false",
+      "result": "PASS"
+    }
+  ],
+  "check_count": 63,
+  "python": "3.12.14",
+  "input_hashes": {
+    "candidate-config.json": "7bdc0cd5a514f2f0a0bb58ffe06a5c44d45c4cedb6ed00688852cde0689c35f5",
+    "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+    "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+    "verify_candidate.py": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5"
+  },
+  "stakeholder_acceptance": "PENDING_MOHAMED",
+  "runtime_enabled": false,
+  "negative_copy_checks": [
+    {
+      "mutation": "threshold-change",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "detected": true
+    },
+    {
+      "mutation": "wrong-equality",
+      "expected_exit_code": 1,
+      "actual_exit_code": 1,
+      "detected": true
+    }
+  ]
+}

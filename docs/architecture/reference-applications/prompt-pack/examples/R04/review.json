@@ -1,0 +1,10 @@
+{
+  "id": "R04",
+  "title": "Abstain on a missing material facet",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Do not return only the submission answer as if the complete question were answered. The existing baseline has no partial-answer policy.",
+  "gate": null
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "request_approval",
+  "output": {
+    "request_id": "req-demo-01",
+    "justification": "Twenty business laptops for the onboarding team; requested total USD 16000.00."
+  },
+  "later_authored_observation": {
+    "status": "PENDING",
+    "data": {
+      "approval_request_id": "approval-request-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "calculation_ref": "calc-demo-01",
+      "decision_status": "PENDING",
+      "approval_evidence": null,
+      "decision_ref": null,
+      "reason": null
+    },
+    "error": null
+  },
+  "runtime_delivery": {
+    "message": "Approval request approval-request-demo-01 is pending. No PO has been created.",
+    "claimed_actions": []
+  }
+}

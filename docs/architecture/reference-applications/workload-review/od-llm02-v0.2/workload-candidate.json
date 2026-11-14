@@ -1,0 +1,88 @@
+{
+  "version": "0.2",
+  "prepared_on": "2026-11-07",
+  "status": "PROPOSED_PENDING_ALAA_REVIEW_AND_RUNTIME_VERIFICATION",
+  "base_commit": "6f9d99ee37e8e976fbaf6ca20337c4571c196f67",
+  "owner": "Nour El-Rouby",
+  "live_execution_enabled": false,
+  "generation_model": "gemini-3.8-flash",
+  "embedding_model_candidate": "gemini-embedding-001",
+  "embedding_dimensions": 768,
+  "paid_usage_authorized": false,
+  "authorized_paid_spend_usd": 0,
+  "fallback_model": null,
+  "observed_generation_limits": {
+    "rpm": 5,
+    "input_tpm": 250000,
+    "rpd": 20
+  },
+  "observed_embedding_limits": {
+    "rpm": 100,
+    "input_tpm": 30000,
+    "rpd": 1000,
+    "display_name": "Gemini Embedding 1",
+    "api_identifier_mapping": "PENDING"
+  },
+  "proposed_pilot_limits": {
+    "concurrent_provider_requests": 1,
+    "all_provider_http_attempts_per_rolling_minute": 2,
+    "generation_daily_ceiling": 20,
+    "generation_input_tokens_per_rolling_minute": 125000,
+    "embedding_input_tokens_per_rolling_minute": 15000,
+    "embedding_daily_attempt_ceiling": 200
+  },
+  "profiles": [
+    {
+      "id": "compatibility_day",
+      "accounting": "CONSERVATIVE_GEN_PLUS_PREFLIGHT",
+      "generation_attempts": 5,
+      "preflight_attempts": 3,
+      "shared_reserve": 2,
+      "unallocated": 10,
+      "embedding_attempts": 4,
+      "description": "Three generation tests; two total explicit generation retry slots. Two embedding tests; two explicit embedding retry slots. No application roots/indexing."
+    },
+    {
+      "id": "procurement_only_day",
+      "accounting": "CONSERVATIVE_GEN_PLUS_PREFLIGHT",
+      "generation_attempts": 12,
+      "preflight_attempts": 8,
+      "shared_reserve": 0,
+      "unallocated": 0,
+      "embedding_attempts": 0,
+      "description": "At most one root, reserving its existing worst-case caps. No compatibility tests or RAG generation that day. Requires exclusive quota/headroom and prior compatibility success."
+    },
+    {
+      "id": "rag_only_day",
+      "accounting": "CONSERVATIVE_GEN_PLUS_PREFLIGHT",
+      "generation_attempts": 10,
+      "preflight_attempts": 5,
+      "shared_reserve": 2,
+      "unallocated": 3,
+      "embedding_attempts": 10,
+      "description": "At most five RAG roots, reserving two generation attempts and one preflight each. Two slots may be allocated explicitly for diagnostic requests; no autonomous retries beyond root limits."
+    },
+    {
+      "id": "mixed_day_after_accounting_verification",
+      "accounting": "GENERATION_ONLY_VERIFIED_REQUIRED",
+      "generation_attempts": 18,
+      "preflight_attempts": 11,
+      "shared_reserve": 2,
+      "unallocated": 0,
+      "embedding_attempts": 4,
+      "description": "One Procurement root (12 generation attempts), two RAG roots (4), and two compatibility generation attempts. Additional 11 preflights are NOT assumed exempt until endpoint-specific evidence proves the accounting. Disabled until then."
+    }
+  ],
+  "index_day": {
+    "prepared_items_ceiling": 64,
+    "attempts_per_item": 2,
+    "embedding_attempt_reservation": 128,
+    "overlaps_application_or_smoke": false,
+    "native_input_cap_per_item": 2048,
+    "actual_prepared_items": null
+  },
+  "execution_results": "NOT_RUN",
+  "key_replacement": "BROWSER_OBSERVED_REPLACEMENT_LISTED_OLD_KEY_ABSENT_LOCAL_STORAGE_USER_CONFIRMED",
+  "quota_accounting_verified": false,
+  "shared_consumers_headroom_verified": false
+}

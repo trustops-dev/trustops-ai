@@ -1,0 +1,10 @@
+{
+  "id": "R02",
+  "title": "Verifiable multi-source citations",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Both material question facets have explicit selected support. Distinct visible markers bind each claim to its own source/version and exact quote. Record retention here is a synthetic corpus fact, not the platform raw-trace retention policy.",
+  "gate": null
+}

@@ -1,0 +1,1 @@
+For the synthetic employee travel-expense process, submit itemized receipts within fifteen calendar days after returning from a business trip. This requirement applies to all employees covered by this example process.

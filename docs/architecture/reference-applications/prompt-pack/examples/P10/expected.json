@@ -1,0 +1,10 @@
+{
+  "kind": "NO_MODEL_CALL",
+  "tool_name": null,
+  "output": null,
+  "later_authored_observation": null,
+  "runtime_delivery": {
+    "message": "Approval is pending. No PO was dispatched or confirmed.",
+    "claimed_actions": []
+  }
+}

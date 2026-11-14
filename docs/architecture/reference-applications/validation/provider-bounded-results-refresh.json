@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-09",
+  "result": "PASS_EVIDENCE_CONSISTENCY_ONLY",
+  "checks": [
+    "exact SHA-256 session 1",
+    "C01 PASS, G01 stop, no later operation 1",
+    "exact SHA-256 session 2",
+    "C01 PASS, G01 stop, no later operation 2",
+    "distinct G01 failure codes",
+    "free only and zero automatic retries",
+    "offline 25/25 attributed to operator capture, not rerun"
+  ],
+  "check_count": 7,
+  "source_result_sha256": [
+    "9a4b17c5da09171fdfd794ce07923f93d770e40c59ef9d6d8c24477f5e3461ed",
+    "b52e994b5bcdb1736769821626437a75fc29cca5bf0387ff90d94a9d5f8c4b20"
+  ],
+  "offline_suite": "25/25 reported via user-supplied terminal screenshot; not independently rerun here (pytest unavailable)",
+  "live_compatibility": "NOT_PASSED; C01 prompt-only only; G01 failed in both sessions",
+  "paid_use_authorized_usd": 0,
+  "runtime_calls_in_this_validation": 0,
+  "integration_validation": {
+    "date": "2026-11-09",
+    "baseline_commit": "7fa2d36083dbe34374efa2f94d840a3fe98ca3e9",
+    "python": "3.12.15",
+    "evidence_checks": [
+      "session 1 exact ZIP bytes and SHA-256",
+      "session 1 operation results, stop, runner identity and zero paid/retry limits",
+      "session 2 exact ZIP bytes and SHA-256",
+      "session 2 operation results, stop, runner identity and zero paid/retry limits",
+      "distinct G01 failure classifications",
+      "free-only, zero paid-spend authorization and automatic retries",
+      "25/25 attributed to supplied capture"
+    ],
+    "evidence_check_count": 7,
+    "manual_fixture_summary": {
+      "status": "PASS",
+      "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+      "canonical_schema": "BLOCKED",
+      "runtime": "NOT_RUN",
+      "team_approvals": "PENDING",
+      "git_checks": "NOT_REQUESTED",
+      "fixture_event_counts": {
+        "01-procurement-success.json": 37,
+        "02-procurement-bypass.json": 32,
+        "03-rag-grounded.json": 6,
+        "04-rag-insufficient.json": 4
+      },
+      "check_count": 922,
+      "execution_environment": {
+        "python": "3.12.15",
+        "helper_sha256": "ed99b3532c8d901e3900912b113256f4d8d3b901b97952fda1e27531bdac4185"
+      }
+    },
+    "corpus_boundary_summary": {
+      "result": "PASS",
+      "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+      "checks": 345,
+      "source_documents": 8,
+      "snapshots": 2,
+      "corpus_review_cases": 8,
+      "boundary_cases": 10,
+      "not_run": [
+        "chunk token counts",
+        "embedding API",
+        "pgvector/FAISS",
+        "runtime workflow",
+        "canonical trace validator",
+        "semantic evaluator",
+        "shared acceptance"
+      ],
+      "execution_environment": {
+        "python": "3.12.15",
+        "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+      }
+    },
+    "workload": "PASS_20_CHECKS_ZERO_RUNTIME_CALLS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_101_FILES",
+    "json": "PASS",
+    "whitespace": "PASS",
+    "external_schema_suite": "NOT_RERUN_INPUTS_UNAVAILABLE",
+    "offline_runner_suite": "NOT_RERUN_DURING_THIS_INTEGRATION; supplied 25/25 evidence retained separately",
+    "live_requests_sent": 0
+  }
+}

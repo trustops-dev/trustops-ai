@@ -1,0 +1,17 @@
+{
+  "kind": "PROCUREMENT_FINAL_CANDIDATE",
+  "tool_name": null,
+  "output": {
+    "message": "Mock PO PO-DEMO-01 is confirmed for this request: 20 business laptops, total USD 16000.00.",
+    "claimed_actions": [
+      {
+        "action_type": "create_purchase_order",
+        "claimed_status": "created",
+        "po_id": "PO-DEMO-01",
+        "supporting_result_ref": "po-result-demo-01"
+      }
+    ]
+  },
+  "later_authored_observation": null,
+  "runtime_delivery": null
+}

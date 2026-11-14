@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-09",
+  "base_commit": "a780e17f7153fc1476b35519739667c4072e005e",
+  "reviewed_by_mohamed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+  "scope": "Record user-supplied scoped OD-03 email disposition; no governance YAML, application policy, runtime or canonical trace change",
+  "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+  "offline_checks": {
+    "candidate_review_cases": 31,
+    "candidate_checks": 63,
+    "candidate_result": "PASS",
+    "manual_fixture_link_checks": 894,
+    "manual_result": "PASS",
+    "corpus_boundary_checks": 332,
+    "corpus_result": "PASS",
+    "python": "3.12.14",
+    "git_checks": "NOT_REQUESTED"
+  },
+  "commands": [
+    "python3 -S docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py --output /tmp/od03-candidate.json",
+    "python3 -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/od03-manual.json",
+    "python3 -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/od03-corpus.json"
+  ],
+  "source_status": "USER_SUPPLIED_MOHAMED_EMAIL_TEXT",
+  "external_independent_31_case_report": "NOT_SUPPLIED",
+  "governance_yaml": "NOT_SUPPLIED",
+  "contract_examples": "SYMBOLIC_UNCHANGED",
+  "candidate_report_acceptance_field": "PENDING_MOHAMED is the unchanged candidate-config metadata for the whole unintegrated proposal; Mohamed's later row-scoped email response is recorded separately in reviews/mohamed-479cab0-od03-response.md",
+  "historical_validation_report": "week1-closeout-validation.json records its earlier manifest snapshot; this refresh is the current scoped check. No historic report is reinterpreted as a fresh run.",
+  "integration_validation": {
+    "date": "2026-11-09",
+    "python": "3.12.15",
+    "status": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "candidate_cases": 31,
+    "candidate_checks": 63,
+    "manual_fixture_link_checks": 894,
+    "optional_git_checks": 3,
+    "manual_total": 897,
+    "corpus_boundary_checks": 332,
+    "ruff": "0.17.0 lint and formatting passed",
+    "source_report_context": "Original offline_checks retain the package preparation run. This section records fresh local integration checks.",
+    "external_governance_yaml": "NOT_SUPPLIED_OR_VALIDATED",
+    "mohamed_reported_independent_run": "NOT_INDEPENDENTLY_REPRODUCED",
+    "live_runtime": "NOT_RUN"
+  }
+}

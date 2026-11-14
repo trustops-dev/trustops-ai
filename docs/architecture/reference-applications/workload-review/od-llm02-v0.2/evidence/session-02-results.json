@@ -1,0 +1,57 @@
+{
+  "plan": {
+    "runner_version": "0.1",
+    "runner_sha256": "8dce0d37e17051fdba6ba40362449f22b1b54df23496290bccefebc065a3d5ad",
+    "sdk": "google-genai==2.34.0",
+    "model": "gemini-3.8-flash",
+    "embedding_model": "gemini-embedding-001",
+    "project_id_asserted_by_operator": "gen-lang-client-0848818912",
+    "operations": [
+      "C01",
+      "G01",
+      "C02",
+      "G02",
+      "C03",
+      "G03",
+      "E01",
+      "E02"
+    ],
+    "max_http_attempts": 8,
+    "generation_bucket_reservation": 10,
+    "embedding_bucket_reservation": 4,
+    "automatic_retries": 0,
+    "maximum_in_flight": 1,
+    "minimum_start_spacing_seconds": 31,
+    "session_deadline_seconds": 900,
+    "tool_execution_enabled": false,
+    "paid_use_authorized_usd": 0,
+    "scope": "FIXED_SYNTHETIC_SMOKE_ONLY_NOT_APPLICATION_ACCEPTANCE",
+    "token_admission": "PROMPT_ONLY_COUNTS; FULL_ENVELOPE_AND_EMBEDDING_COUNTS_UNVERIFIED",
+    "fixtures_sha256": "65d18e88814f106e477c28b12ab2e37fb4b950ff950b92e163ab2520d66b5ea2"
+  },
+  "run_id": "be8590d6-f0cc-4d00-9d23-e32915b7801d",
+  "status": "STOPPED_ON_FAILURE",
+  "started_at_unix": 1794214423.695939,
+  "python_version": "3.12.10",
+  "package_versions": {
+    "google-genai": "2.34.0",
+    "httpx": "0.28.1",
+    "pydantic": "2.14.3"
+  },
+  "results": [
+    {
+      "operation": "C01",
+      "status": "PASS",
+      "prompt_tokens": 6,
+      "count_scope": "PROMPT_ONLY"
+    },
+    {
+      "operation": "G01",
+      "status": "FAIL",
+      "code": "PROVIDER_OR_SDK_ERROR",
+      "http_status": null
+    }
+  ],
+  "scope_acceptance": "OPERATOR_ATTESTED_SYNTHETIC_ONLY",
+  "free_tier_and_headroom": "OPERATOR_ATTESTED_NOT_API_VERIFIED"
+}

@@ -1,0 +1,1125 @@
+{
+  "result": "PASS",
+  "date": "2026-11-06",
+  "scope": "Status-wording cleanup and affected owner-artifact verification; earlier v1.6 mapping/schema rerun retained as prior evidence.",
+  "environment": {
+    "python": "3.12.14",
+    "pydantic": "2.14.1",
+    "working_directory": "/workspace/scratch/6b23bd2d9369/pr-checkout",
+    "dependency_install": "NOT_RUN; existing interpreter",
+    "snapshot_git": "PR checkout; prompt check in disposable docs copy",
+    "manual_and_corpus_site_packages": "DISABLED (-S)"
+  },
+  "instructions": "docs/architecture/reference-applications/validation/README.md",
+  "manifest_binding": "The overall week1-closeout-validation.json binds these payload reports to the final manifest; no self-referential hash is stored here.",
+  "runs": {
+    "manual_artifacts": {
+      "result": "PASS",
+      "checks": 837,
+      "report": "docs/architecture/reference-applications/validation/manual-fixtures-report.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_manual_fixtures.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/manual-fixtures.json\"",
+      "exit_code": 0
+    },
+    "corpus_boundaries": {
+      "result": "PASS",
+      "checks": 294,
+      "report": "docs/architecture/reference-applications/corpus-boundary-validation.json",
+      "command": "python -S \"$REVIEW_REPO/docs/architecture/reference-applications/validation/verify_corpus_boundaries.py\" \"$REVIEW_REPO\" --output \"$REVIEW_REPORTS/corpus-boundaries.json\"",
+      "exit_code": 0
+    },
+    "prompt_examples": {
+      "result": "PASS",
+      "checks": 180,
+      "report": "docs/architecture/reference-applications/prompt-pack/validation-report.json",
+      "command": "python \"$PROMPT_COPY/docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py\"",
+      "disposable_copy": true,
+      "exit_code": 0,
+      "evidence_status": "Prior 180-check result preserved; all prompt assets verified byte-identical to b5633a91796997e53e843476dd7b8eccc9b1953a"
+    },
+    "working_tree_whitespace": {
+      "commands": [
+        "git diff --check",
+        "git diff --cached --check"
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "ruff_lint": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff check .",
+      "result": "PASS",
+      "diagnostics": 0
+    },
+    "ruff_format": {
+      "version": "0.17.0",
+      "command": "uv tool run --from ruff==0.17.0 ruff format --check .",
+      "result": "PASS"
+    },
+    "od03_candidate": {
+      "result": "PASS",
+      "review_cases": 31,
+      "checks": 63,
+      "negative_copies_rejected": 2,
+      "command": "python -S docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py --output \"$REVIEW_REPORTS/od03.json\"",
+      "evidence_status": "Prior 63-check / 31-case result preserved; all candidate bytes unchanged in this task."
+    },
+    "od04_response": {
+      "result": "PASS",
+      "clauses": 8,
+      "paper_cases": 27,
+      "structural_checks": 149,
+      "negative_copy_checks": 2,
+      "command": "python -S docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py --output \"$REVIEW_REPORTS/od04.json\"",
+      "scope": "Authored review structure and stated expectation consistency only; not execution or proof of approval validity, canonical schema fit, currentness or race safety"
+    },
+    "v16_mapping": {
+      "result": "PASS",
+      "checks": 280,
+      "paths": 69,
+      "rows": 27,
+      "report": "docs/architecture/reference-applications/validation/v16-mapping-report.json",
+      "instructions": "validation/README.md#v16-evidence-mapping-reproduction",
+      "exit_code": 0,
+      "execution_context": "Earlier 2026-11-06 mapping task; inputs/results unchanged and not rerun for this wording cleanup."
+    },
+    "v16_external_schema": {
+      "result": "CHANGES_REQUIRED",
+      "baseline_assertions": 2106,
+      "supplied_expectations_met": "27/27",
+      "independent_expectations_met": "19/35",
+      "independent_exit_code": 1,
+      "unmet_expectations": 16,
+      "report": "docs/architecture/reference-applications/schema-v1.6-review-observations.json",
+      "instructions": "validation/README.md#v16-evidence-mapping-reproduction",
+      "execution_context": "Earlier 2026-11-06 mapping task; inputs/results unchanged and not rerun for this wording cleanup."
+    }
+  },
+  "helper_hashes": {
+    "docs/architecture/reference-applications/validation/verify_manual_fixtures.py": "b81fd5ea4c7318895d1d756a3fc320e3aa9a0c5fd304e11ce7849c0261a61aca",
+    "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
+    "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py": "341233cf99a6c7493985a21f4781c6f2eb2266bf2274541bf9e5d001c6a22379",
+    "docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5",
+    "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8",
+    "docs/architecture/reference-applications/validation/verify_v16_mapping.py": "cb10ef51e65fb94d5768a2fc171463c09dace5530acf5248b254fcad57b54f83"
+  },
+  "current_reference_checks": [
+    {
+      "check": "Unchanged prior artifact: prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: overview.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: repository-integration.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.2-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.2-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.1-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/01-procurement-success.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/02-procurement-bypass.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/validation-report.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/prompt-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/validate_prompt_pack.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: boundary-review/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: boundary-review/denied-approval-observation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_manual_fixtures.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_corpus_boundaries.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/verify_v16_mapping.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/v16-mapping-report.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/truth-table.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/validation-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/candidate-config.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/verify_candidate.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/policy-text.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: policy-candidate/od03-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-tool-arguments.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/rag-candidate.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-extraction.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/generation-profiles-reference.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/generation-configuration-reference.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/schemas/procurement-final.schema.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/rag/assistant_system.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/po_proposal.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/final_candidate.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/supplier_review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/approval_calculation.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/system.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/request_extraction.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/policy_search.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/templates/procurement/approval_request.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R03/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P01/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R05/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R02/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P12/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P11/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P04/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R07/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R01/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P03/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P06/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R10/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P02/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P05/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R08/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P09/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P08/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R06/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R09/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P10/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/R04/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/review.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/rendered-prompt.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/input.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: prompt-pack/examples/P07/expected.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-005.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-008.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-001.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-004.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-006.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-002.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-003.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: corpus-review/documents/doc-007.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/validation-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/verify_review.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Unchanged prior artifact: approval-validity/od04-v0.1/response.json",
+      "status": "PASS"
+    },
+    {
+      "check": "Current closeout revision/date",
+      "status": "PASS"
+    },
+    {
+      "check": "Historical refresh separated from mapping rerun",
+      "status": "PASS"
+    },
+    {
+      "check": "Remaining defects and acceptance limits preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "Handoff requests correction and reassessment",
+      "status": "PASS"
+    }
+  ],
+  "historical_packaging_record_not_rerun": {
+    "result": "PASS",
+    "date": "2026-11-02",
+    "scope": "Packaging/reproduction checks only; no production application execution",
+    "environment": {
+      "python": "3.12.14",
+      "platform": "linux",
+      "pydantic": "2.14.1",
+      "dependency_install": "NOT_RUN; existing interpreter used",
+      "powershell_commands": "DOCUMENTED_NOT_EXECUTED"
+    },
+    "copied_snapshot": {
+      "git_directory_present": false,
+      "run_from_unrelated_working_directory": true,
+      "stdlib_helpers_passed_with_site_packages_disabled": true,
+      "input_files_unchanged_by_two_helpers": true,
+      "original_content_assertions_preserved": true
+    },
+    "runs": {
+      "manual_artifacts": {
+        "result": "PASS",
+        "checks": 764,
+        "git_checks": "NOT_REQUESTED"
+      },
+      "corpus_boundaries": {
+        "result": "PASS",
+        "checks": 265
+      },
+      "existing_prompt_examples": {
+        "result": "PASS",
+        "checks": 180,
+        "run_in_disposable_copy": true
+      },
+      "manual_with_optional_git": {
+        "result": "PASS",
+        "checks": 767,
+        "git_checks": "REQUESTED_AND_PASSED"
+      }
+    },
+    "negative_checks": {
+      "invalid_event_order_rejected": "PASS",
+      "previous_pass_report_replaced_with_fail": "PASS",
+      "corrupt_source_hash_rejected_under_python_optimization": "PASS",
+      "invalid_root_rejected": "PASS",
+      "in_tree_output_rejected_without_write": "PASS"
+    },
+    "helper_hashes": {
+      "verify_manual_fixtures.py": "c758996586f5d892415b78cdcf64d5b5fc9a255c5bee67de85c22a605215707a",
+      "verify_corpus_boundaries.py": "d23e2008c3d1e18b201391b4825904fbbec37fcd534c91a27f8e28e2059d1f32"
+    },
+    "limits": [
+      "Canonical trace validation pending",
+      "Provider/embedding/database/tools not run",
+      "No general entailment/semantic quality measured",
+      "No stakeholder approvals",
+      "No push, PR or merge performed"
+    ]
+  },
+  "limits": [
+    "Owner mapping/fixture consistency only; full schema acceptance remains pending.",
+    "Pinned v1.6 baseline and supplied suite pass; independent suite still has 16 unmet expectations.",
+    "All E01–E27 rows now assess v1.6; v1.5 mapping remains unchanged history.",
+    "No provider, database, tool, runtime integration or concurrency execution.",
+    "OD-03 and OD-04 preparation preserved; no new approvals, sent messages, commits, push or PR."
+  ],
+  "pr_preparation": {
+    "base_branch": "dev",
+    "base_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "branch": "docs/nour-week1-owner-review",
+    "publication": "PENDING_AUTHENTICATED_ACCESS",
+    "shared_acceptance": "PENDING"
+  },
+  "od03_candidate": {
+    "proposal_preparation": "COMPLETE",
+    "acceptance": "PENDING_MOHAMED",
+    "contract_examples": "SYMBOLIC_UNCHANGED",
+    "base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "new_edits_committed": false
+  },
+  "od04_response": {
+    "date": "2026-11-06",
+    "response_version": "0.1",
+    "overall_draft_disposition": "AMEND",
+    "application_response_preparation": "COMPLETE",
+    "submission": "NOT_SENT",
+    "joint_acceptance": "PENDING_MOHAMED_AND_MOHAB",
+    "runtime": "NOT_RUN",
+    "new_commit_push_pr": "NOT_PERFORMED",
+    "prior_owner_base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
+    "includes_uncommitted_od03_addition": true
+  },
+  "status_wording_cleanup": {
+    "date": "2026-11-06",
+    "closeout_revision": "0.14",
+    "scope": "Status wording only: historical 0.13 refresh versus later v1.6 rerun; current mapping complete; returned corrections require reassessment.",
+    "canonical_schema_changed": false,
+    "mapping_changed": false,
+    "schema_validator_rerun_in_this_cleanup": false,
+    "runtime_run": false,
+    "new_acceptance": false,
+    "manual_checks": 837,
+    "corpus_checks": 294,
+    "check_count_note": "Counts decreased by two because the revised closeout paragraph removes two duplicate local links; fixture/corpus assets and checking logic are unchanged."
+  },
+  "pre_publication_snapshot_context": {
+    "source_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "label": "PRE_PUBLICATION_SNAPSHOT",
+    "scope": "Original preparation, branch, commit_push_pr, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Current publication is recorded in current_publication; fresh checks are in publication_refresh.",
+    "historical_validation_evidence": "RETAINED_UNCHANGED",
+    "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6"
+  },
+  "current_publication": {
+    "record": "docs/architecture/reference-applications/publication-handoff.md",
+    "pull_request": 27,
+    "url": "https://github.com/trustops-dev/trustops-ai/pull/27",
+    "status": "PUBLISHED_DRAFT",
+    "branch": "docs/nour-week1-review-014",
+    "target": "dev",
+    "published_packet_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "superseded_pull_request": 26,
+    "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
+    "email_sent_status": "USER_REPORTED_SENT",
+    "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
+    "specialist_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SIGNOFFS_PENDING",
+    "runtime_verification": "PENDING",
+    "email_sent_date": "2026-11-06",
+    "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
+    "email_recipients": "Teammates; individual names and addresses unspecified",
+    "email_subject": null,
+    "email_message_references": [],
+    "email_independently_verified": false,
+    "email_reply_status": "PARTIAL_RESPONSE_RECEIVED_ALAA",
+    "teammate_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+    "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED"
+  },
+  "publication_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/publication-refresh.json",
+    "scope": "Publication metadata, handoff and affected owner-artifact checks; external schema suite remains historical evidence.",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY",
+    "python": "3.12.15",
+    "check_counts": {
+      "manual_fixture_link_checks": 844,
+      "optional_git_checks": 3,
+      "manual_total": 847,
+      "corpus_boundary_checks": 296
+    },
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "historical_reports": "Original result fields and assertions retained as the labelled pre-publication snapshot."
+  },
+  "owner_review_responses": [
+    {
+      "record_id": "ALAA-REVIEW-479CAB0-01",
+      "reviewer": "Alaa",
+      "recorded_on": "2026-11-06",
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "source_status": "USER_SUPPLIED_REVIEW_TEXT",
+      "email_date": null,
+      "email_message_reference": null,
+      "status": "RESPONSE_RECEIVED_PARTIAL_CONDITIONAL",
+      "full_specialist_signoff": false,
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED",
+      "record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "structured_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
+      "base_commit": "283fe866e3a2332409e179445a9f62c8cb876728"
+    }
+  ],
+  "alaa_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
+    "scope": "User-supplied Alaa scoped response, decision/handoff/acceptance records and affected offline owner checks; no contract behavior or canonical schema changes.",
+    "manual_checks": 861,
+    "corpus_boundary_checks": 311,
+    "external_schema_suite": "PRIOR_EVIDENCE_NOT_RERUN",
+    "result": "PASS_FOR_AFFECTED_OWNER_ARTIFACTS_ONLY"
+  },
+  "workload_candidate": {
+    "prepared_on": "2026-11-06",
+    "version": "0.1",
+    "status": "PROPOSED_NOT_AUTHORIZED",
+    "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
+    "access_record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
+    "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+    "preparation_owner": "Nour",
+    "api_project_owner": "UNCONFIRMED",
+    "account_access_quotas_prices": "UNCONFIRMED",
+    "public_price_basis": "Official standard paid token listings retrieved 2026-11-06; not account applicability or actual spend.",
+    "development_week_estimated_paid_token_subtotal_usd": "4.9630176",
+    "conditional_cap_exposure_paid_token_subtotal_usd": "36.9647616",
+    "proposed_planning_allocation_usd": "10.00",
+    "allocation_accepted": false,
+    "alaas_conditions_closed": false,
+    "runtime_executed": false,
+    "new_commit_push_pr": "NOT_PERFORMED"
+  },
+  "workload_review_refresh": {
+    "date": "2026-11-06",
+    "report": "docs/architecture/reference-applications/validation/workload-review-refresh.json",
+    "manual_checks": 870,
+    "corpus_boundary_checks": 316,
+    "arithmetic_checks": 13,
+    "scope": "Workload/access candidate arithmetic, provenance, affected documentation checks and manifest; no account/API execution."
+  },
+  "workload_integration_validation": {
+    "date": "2026-11-07",
+    "report": "docs/architecture/reference-applications/validation/workload-integration-refresh.json",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "manual_total": 873,
+    "corpus_checks": 316,
+    "arithmetic_boundary_checks": 13,
+    "prior_evidence": "Retained unchanged as package preparation and historical review evidence."
+  },
+  "flash_lite_integration": {
+    "date": "2026-11-07",
+    "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+    "python": "3.12.15",
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "manual_fixture_link_checks": 881,
+    "optional_git_checks": 3,
+    "manual_total": 884,
+    "corpus_boundary_checks": 324,
+    "provider_calls": 0,
+    "scope": "Fresh offline integration checks; packaged offline reports remain preparation evidence. Candidate 0.3 is not activated; compatibility and regression results remain NOT_RUN.",
+    "formatting": "Two new helpers formatted with Ruff 0.17.0; lint and format checks pass.",
+    "report": "docs/architecture/reference-applications/validation/flash-lite-integration-refresh.json"
+  },
+  "compatibility_runner_refresh": {
+    "date": "2026-11-08",
+    "status": "PASS_OFFLINE_ONLY",
+    "baseline": {
+      "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+      "head": "8adb7408568e637340d75f9ef6be165c377537c8",
+      "branch": "docs/nour-week1-review-014"
+    },
+    "credential_evidence": {
+      "replacement": "BROWSER_OBSERVED_2026_11_07",
+      "local_storage": "USER_CONFIRMED",
+      "api_authentication": "NOT_RUN"
+    },
+    "environment": {
+      "python": "3.12.14",
+      "google-genai": "2.34.0",
+      "pytest": "9.1.1",
+      "ruff": "0.17.0"
+    },
+    "checks": {
+      "runner_tests": 23,
+      "manual_fixture_link_checks": 886,
+      "corpus_boundary_checks": 327,
+      "baseline_workload_checks": 20,
+      "candidate_workload_checks": 23,
+      "ruff_check": "PASS_FULL_SNAPSHOT",
+      "ruff_format": "PASS_98_FILES"
+    },
+    "commands": [
+      "python -m pytest -q tools/provider_compatibility/test_runner.py",
+      "python tools/provider_compatibility/runner.py",
+      "ruff check .",
+      "ruff format --check .",
+      "python docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/trustops-manual-report.json",
+      "python docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/trustops-corpus-report.json",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.2/validate_workload.py",
+      "python docs/architecture/reference-applications/workload-review/od-llm02-v0.3/validate_candidate.py"
+    ],
+    "live_provider_calls": 0,
+    "model_promoted": false,
+    "application_acceptance": false,
+    "limits": [
+      "Offline SDK wire tests use a mock transport; no live provider success claimed.",
+      "Full-envelope and embedding input token admission remain unverified.",
+      "Local smoke ledger is not a distributed application root ledger.",
+      "Shared schema, policy and reviewer acceptance gates remain open."
+    ],
+    "runner_files": [
+      {
+        "path": "tools/provider_compatibility/README.md",
+        "sha256": "68ba431b442d50e4b79a246b211e2c13994a75f0e6f473b1e4c381129c84d997"
+      },
+      {
+        "path": "tools/provider_compatibility/requirements.txt",
+        "sha256": "ea69614c34bb1c46b27826bf612fb07d73e686bcb1a00c58cfe3b12b442b3e88"
+      },
+      {
+        "path": "tools/provider_compatibility/runner.py",
+        "sha256": "63a5b235fcb446f0e792995de574b76e2cbc4ed8081e49053404da1e58078399"
+      },
+      {
+        "path": "tools/provider_compatibility/test_runner.py",
+        "sha256": "75923fa813505f354031d62b21020b58e157ff0eabfd26dede7abb1982ba3515"
+      }
+    ]
+  },
+  "provider_runner_integration": {
+    "date": "2026-11-08",
+    "status": "OFFLINE_PACKET_PASS_RUNNER_PLATFORM_PARTIAL_LIVE_BLOCKED",
+    "python": "3.12.15",
+    "platform": "Windows",
+    "sdk": "google-genai==2.34.0",
+    "pytest": "9.1.1",
+    "runner_tests": {
+      "passed": 19,
+      "failed": 4,
+      "failure_reason": "POSIX fcntl is unavailable on Windows; three parent deadline/charging tests and one missing-attestation test failed at import.",
+      "full_linux_suite": "Package preparation evidence only; not rerun here."
+    },
+    "manual_total": 889,
+    "manual_fixture_link_checks": 886,
+    "optional_git_checks": 3,
+    "corpus_checks": 327,
+    "candidate02_checks": 20,
+    "candidate03_checks": 23,
+    "ruff": "lint and formatting passed, version 0.17.0",
+    "live_provider_calls": 0,
+    "live_blockers": [
+      "WSL/Linux unavailable on this Windows host",
+      "GEMINI_API_KEY absent from executing process",
+      "Current project/free-tier/headroom and synthetic-scope operator confirmations pending"
+    ],
+    "external_schema_suite": "HISTORICAL_NOT_RERUN",
+    "source_package_report": "validation/compatibility-runner-refresh.json",
+    "source_package_context": "Retained preparation evidence; this report contains fresh integration outcomes.",
+    "model_promoted": false,
+    "shared_acceptance": "PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-integration-refresh.json"
+  },
+  "provider_runner_portability_followup": {
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "status": "PORTABILITY_PATCH_OFFLINE_VERIFIED_NATIVE_WINDOWS_PENDING",
+    "native_windows_tests": "NOT_RUN",
+    "live_provider_calls": 0
+  },
+  "windows_integration_validation": {
+    "date": "2026-11-08",
+    "status": "NATIVE_WINDOWS_OFFLINE_VERIFIED_LIVE_PENDING",
+    "report": "docs/architecture/reference-applications/validation/provider-runner-portability-refresh.json",
+    "fresh_checks": {
+      "runner_tests_passed": 25,
+      "runner_tests_failed": 0,
+      "dry_run": "DRY_RUN_NO_REQUESTS",
+      "manual_fixture_link_checks": 886,
+      "optional_git_checks": 3,
+      "manual_total": 889,
+      "corpus_boundary_checks": 327,
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS"
+    },
+    "prior_windows_failures": "Historical evidence superseded by the fresh 25-test native Windows pass."
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "result": "PASS",
+  "scope": "Authored review structure and stated expectation consistency only; not execution or proof of approval validity, canonical schema fit, currentness or race safety",
+  "cases": 27,
+  "clause_count": 8,
+  "check_count": 149,
+  "checks": [
+    {
+      "check": "Draft response remains unsent and jointly unaccepted",
+      "status": "PASS"
+    },
+    {
+      "check": "No runtime implementation claimed",
+      "status": "PASS"
+    },
+    {
+      "check": "Overall amendment remains explicit",
+      "status": "PASS"
+    },
+    {
+      "check": "Confirmed observation semantics retained",
+      "status": "PASS"
+    },
+    {
+      "check": "Versions agree",
+      "status": "PASS"
+    },
+    {
+      "check": "Exactly eight unique clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "V01: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V02: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V03: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V04: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V05: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V06: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V07: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "V08: scoped disposition and reviewer",
+      "status": "PASS"
+    },
+    {
+      "check": "Exactly 27 unique paper cases",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C01: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C01: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C01: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C01: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C02: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C02: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C02: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C02: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C02: new proposal is not dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C03: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C03: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C03: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C03: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C03: new proposal is not dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C04: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C04: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C04: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C04: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C05: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C05: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C05: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C05: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C06: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C06: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C06: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C06: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C07: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C07: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C07: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C07: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C08: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C08: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C08: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C08: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C09: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C09: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C09: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C09: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C10: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C10: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C10: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C10: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C11: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C11: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C11: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C11: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C12: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C12: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C12: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C12: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C13: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C13: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C13: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C13: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C13: no effect rewind",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C14: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C14: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C14: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C14: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C14: new proposal is not dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C15: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C15: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C15: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C15: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C15: no effect rewind",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C16: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C16: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C16: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C16: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C17: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C17: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C17: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C17: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C18: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C18: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C18: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C18: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C19: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C19: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C19: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C19: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C20: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C20: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C20: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C20: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C21: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C21: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C21: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C21: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C21: no effect rewind",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C22: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C22: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C22: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C22: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C23: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C23: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C23: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C23: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C24: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C24: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C24: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C24: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C25: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C25: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C25: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C25: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C26: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C26: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C26: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C26: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C26: preserve completed history",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C27: known states and clauses",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C27: no example grants dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C27: preserve history and root guards",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C27: scenario and provenance requirements",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C27: no effect rewind",
+      "status": "PASS"
+    },
+    {
+      "check": "Every clause covered",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C05: revised request starts at capture",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C06: revised request starts at capture",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C07: revised request starts at capture",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C08: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C09: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C10: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C11: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C16: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C17: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C19: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C20: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C22: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C24: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "OD04-C25: invalid authority halts",
+      "status": "PASS"
+    },
+    {
+      "check": "Revocation race explicitly suppresses stale dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "Unknown effects and duplicate continuations stay read-only",
+      "status": "PASS"
+    },
+    {
+      "check": "Late approval preserves old BLOCK then new proposal",
+      "status": "PASS"
+    }
+  ],
+  "joint_acceptance": "PENDING",
+  "runtime": "NOT_RUN",
+  "python": "3.12.14",
+  "file_hashes": {
+    "README.md": "08a547253efbb09c96d0925e8a928f68c2dd02e11c144645913971c9f473f5e1",
+    "response.json": "3d5c37cb6f4d9eafcd15358998ee2c50b1f661bf2d89dd0201fd902306e73b3b",
+    "cases.json": "e18099e6ae3c8b3a417ebc8d921698c3ea6f369da442e4e599eacf5d443d6be6",
+    "verify_review.py": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8"
+  },
+  "negative_copy_checks": [
+    {
+      "mutation": "fake-dispatch",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "detected": true
+    },
+    {
+      "mutation": "rewound-unknown",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "detected": true
+    }
+  ]
+}
