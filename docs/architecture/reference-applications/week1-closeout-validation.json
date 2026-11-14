@@ -1,8 +1,8 @@
 {
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated.",
-  "manifest_sha256": "f72342ee49910fa8c5178039ec1ea2135c5c36ec1224a9d399c01aa363a9b73c",
+  "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
+  "manifest_sha256": "85ec6cf03b11e2364c64a59bdfb6dcab06cee594d269bb3cc52fa24d74c2b1a1",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16335,5 +16335,16 @@
     "manifest_entries_matching_exact_bytes": 226,
     "result": "PASS_STATIC_DOCUMENT_CONSISTENCY_ONLY",
     "decision_draft": "docs/architecture/reference-applications/team-lead-plan-decision-draft.md"
+  },
+  "od03_policy_kb_pairing_refresh": {
+    "date": "2026-11-14",
+    "status": "PASS_OFFLINE_DRAFT_ONLY",
+    "membership_entries": 2,
+    "independent_cases_agree": 31,
+    "manual_fixture_checks": 975,
+    "corpus_boundary_checks": 380,
+    "manifest_entries_matching_exact_bytes": 229,
+    "runtime_execution": "NOT_RUN",
+    "owner_integration_review": "PENDING"
   }
 }

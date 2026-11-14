@@ -133,9 +133,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "a3ff1fdfd2be75f8310906a2b6204fdc51d4f2e0c6ce069cedc88b149e87b185",
-      "size_bytes": 16156,
-      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
+      "sha256": "5dc7ae873c75c9d3a31c77fdc61760e9d00446d7cf50658d7a315719423549d1",
+      "size_bytes": 16601,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
@@ -191,8 +191,15 @@
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/README.md",
-      "sha256": "bf94a99bb79a0cb649698927ce66937c8742c9c69237d9d1782009409c588885",
-      "size_bytes": 3105
+      "sha256": "73165ddd67ccb6432fc1d5e582217896e7abf56298659c42f21f68767f07d631",
+      "size_bytes": 3579,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/documents/doc-001-v2.txt",
+      "sha256": "69e9834b728663fafb94f1731cae14d9af69eaba8988ead41a8f77343b8e1812",
+      "size_bytes": 950,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/documents/doc-001.txt",
@@ -233,6 +240,18 @@
       "path": "docs/architecture/reference-applications/corpus-review/documents/doc-008.txt",
       "sha256": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
       "size_bytes": 266
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/policy-bundle-pairing-v0.1.md",
+      "sha256": "bed3974b9b795b75822c8d65b3b060129c7574fd8098501e7a737d0f391e320f",
+      "size_bytes": 7917,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/proposed-policy-kb-v0.1.json",
+      "sha256": "c81ca938c5b16f1bcee341617ffc89583919d19eb62f0024dcffc7b91f597911",
+      "size_bytes": 2520,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/review-cases.json",
@@ -276,9 +295,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "46907e6a2b966b68ea78f89bbd353c5135cdebdfe41cedfc156642c476b6e24a",
-      "size_bytes": 31036,
-      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
+      "sha256": "db822e9409927142fa732beaa9be5cdb2664a07175d7d344de6209f32235649d",
+      "size_bytes": 31201,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -288,9 +307,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "80265895f757b60a21cfe2a6c20b41ebcc9e8adc68e435a55e2358315d8571b0",
-      "size_bytes": 29108,
-      "document_revision": "2026-11-14-team-lead-plan-decision-draft"
+      "sha256": "ccb7644863042e288719c920dfb86b48ed4ed5b24975c9ea29b4b7290b140226",
+      "size_bytes": 29888,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -305,9 +324,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
-      "sha256": "96a9640b6b30b41da1c986f1e4f5e7160aee392a0a90faeae2e331a09e8d8fab",
-      "size_bytes": 9827,
-      "document_revision": "2026-11-09-OD03-scoped-response"
+      "sha256": "6ec99ef942bd462fc171edac56115df11297a955fb618a730fee79e5b5c0d717",
+      "size_bytes": 10040,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/candidate-config.json",
@@ -894,9 +913,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/rag-contract.md",
-      "sha256": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
-      "size_bytes": 56059,
-      "document_revision": "0.9"
+      "sha256": "c332d20fec04b7777a97eb4512765d04009cc347a0703a65257c7d7984d7f85d",
+      "size_bytes": 56526,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/repository-integration.md",
@@ -1146,9 +1165,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "9ec7b843f38b9e6c88cb9af6fd01897c2eb3cacf8a30d7d341fcbe67bfebd166",
-      "size_bytes": 21691,
-      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
+      "sha256": "676569c8c025368a7213a5c22fd62ec27f1316e88482e632103c8bb851ba5509",
+      "size_bytes": 21940,
+      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -2009,5 +2028,26 @@
     "prior_authority_audit": "HISTORICAL_SOURCE_AUDIT_ONLY",
     "decision_draft": "docs/architecture/reference-applications/team-lead-plan-decision-draft.md",
     "recommended_rows": 6
+  },
+  "od03_policy_kb_pairing": {
+    "date": "2026-11-14",
+    "status": "PROPOSED_FOR_INTEGRATION_REVIEW_NOT_INGESTED_OR_ENABLED",
+    "proposal": "docs/architecture/reference-applications/corpus-review/policy-bundle-pairing-v0.1.md",
+    "membership": "docs/architecture/reference-applications/corpus-review/proposed-policy-kb-v0.1.json",
+    "bundle_version": "synthetic-procurement-policy-set-v0.1",
+    "policy_kb_version": "synthetic-procurement-policy-kb-v0.1",
+    "source_versions": [
+      "doc-001@review-r2",
+      "doc-002@review-r1"
+    ],
+    "offline_checker": "PASS_31_OF_31_WITH_NEW_DOC001_TEXT",
+    "index_version": null,
+    "runtime_enabled": false,
+    "remaining_reviews": [
+      "Mohamed text semantics",
+      "Mohab transport, digest and source-version mapping",
+      "Alaa and Ahmed lineage, split and citation-fixture impact",
+      "Nour ingestion and application integration"
+    ]
   }
 }

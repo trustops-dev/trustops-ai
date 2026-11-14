@@ -2,7 +2,7 @@
 
 **Historical application candidate 0.1 — proposed 2026-11-05, governance values accepted 2026-11-14.** Mohamed’s final response supplies `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`, and accepts USD only, threshold `5000.00`, strict `>`, `manager`, positive decimal strings and no FX. [Exact-revision record and independent result](../../reviews/mohamed-7c26168-governance-response.md).
 
-The candidate JSON, paired policy text and 31-case fixtures retain their historical input identities. The supplied governance checker at PR #28 `7c26168` agrees with all 31 committed cases. Mohab transport/digest agreement, Nour bundle/corpus pairing, source ingestion and runtime activation remain pending. The earlier [email response record](../../reviews/mohamed-479cab0-od03-response.md) is historical.
+The candidate JSON, paired policy text and 31-case fixtures retain their historical input identities. The supplied governance checker at PR #28 `7c26168` agrees with all 31 committed cases. Nour has now [drafted the bundle/corpus pairing](../../corpus-review/policy-bundle-pairing-v0.1.md); Mohab transport/digest agreement, pairing acceptance, source ingestion and runtime activation remain pending. The earlier [email response record](../../reviews/mohamed-479cab0-od03-response.md) is historical.
 
 ## Proposed configuration
 
@@ -53,7 +53,7 @@ The machine-readable table contains 31 cases, including invalid inputs, missing 
 
 policy-text.txt is the proposed matching synthetic source paragraph for this candidate. It is **not** ingested into the current corpus or substituted for corpus-review/documents/doc-001.txt. The current corpus retains symbolic A/T/C and its existing hashes. The source and configuration belong to this candidate version together; its source identifiers and runtime policy_version mapping must be assigned during accepted integration. Do not silently mix this candidate with demo-policy-v1-NOT-RATIFIED, v1.5/v1.6 review inputs or an existing index.
 
-The supplied governance YAML at `7c26168` has been compared with the committed 31-case table through its independent checker, with 31/31 agreement. Nour next assigns the bundle/corpus pairing and updates affected examples when integration is agreed; Mohab verifies transport, digest and request binding. Update/rebuild an index only if corpus membership changes at the implementation stage. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
+The supplied governance YAML at `7c26168` has been compared with the committed 31-case table through its independent checker, with 31/31 agreement. Nour's [separate pairing proposal](../../corpus-review/policy-bundle-pairing-v0.1.md) nominates a revised source and release; it also passes 31/31 against the new source text. Mohab verifies transport, digest and request binding before accepting it. Rebuild an index when the candidate source/membership is actually ingested; there is no current index to update. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
 
 ## Historical review request to Mohamed
 

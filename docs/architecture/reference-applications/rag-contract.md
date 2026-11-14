@@ -350,6 +350,8 @@ Reviewed 2026-11-01; provider capabilities are distinguished from our proposed p
 
 Revision 0.9 completes the corpus specification only; retrieval values, tool scope and conditional infrastructure remain unchanged. [Corpus inventory and samples](corpus-review/README.md), [source metadata and snapshot manifest](corpus-review/source-manifest.json), [independent review cases](corpus-review/review-cases.json).
 
+**OD-03 addendum, proposed 2026-11-14:** [Exact-file procurement policy bundle ↔ policy-KB pairing](corpus-review/policy-bundle-pairing-v0.1.md) defines a separate two-document candidate release with `doc-001@review-r2` containing USD 5000.00 and unchanged `doc-002@review-r1`. It does not modify the symbolic s01/s02 snapshots, establish a deployed corpus/index or change the retrieval settings below. Mohamed/Mohab/Alaa/Ahmed integration review remains pending.
+
 - Scope/language: eight proposed English synthetic documents across Procurement, HR, internal operations (`ops`) and FAQ. This is a minimal review set, not a benchmark-size or coverage claim.
 - Procurement documents retain symbolic A/T/C. HR/operations/FAQ content is authored illustrative policy, not an enterprise fact. No real people, supplier data, secrets or personal records are included.
 - Source records contain document/source IDs, source version, title/domain/language, synthetic marker, visibility/scope, exact UTF-8 content hash, canonical text path, section/document span and explicit unknown effective dates. `PUBLISHED` is an assumed paper-fixture eligibility value, not a deployment claim.

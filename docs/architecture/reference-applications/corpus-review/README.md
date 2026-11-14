@@ -2,6 +2,8 @@
 
 Version 1.0 · 2026-11-02 · PROPOSED, NOT RATIFIED. Eight authored English documents, not a complete training corpus, retrieval benchmark, live index or organizational policy. Their numbers and procedural statements are synthetic examples only. Procurement uses symbolic T and C; no production threshold/currency is assigned.
 
+**Separate OD-03 pairing draft — 2026-11-14:** [Proposed bundle ↔ release mapping](policy-bundle-pairing-v0.1.md) and [two-document membership](proposed-policy-kb-v0.1.json) pin the accepted *synthetic* USD 5000.00 rule to new `doc-001@review-r2` text and unchanged `doc-002@review-r1`. An independent offline check passes 31/31 against Mohamed's YAML. This candidate is not part of the s01/s02 symbolic snapshots below, and has no index or runtime release acceptance.
+
 The owning specification is [rag-contract.md](../rag-contract.md#synthetic-corpus-specification--review-v1). [Source manifest](source-manifest.json) records exact text hashes, identities, source versions, categories, visibility, spans and conditional environment status. [Review cases](review-cases.json) contains independent relevance/conflict/expected-outcome annotations; it must not enter inference or be indexed as source text.
 
 | Document | Category | Review purpose |
