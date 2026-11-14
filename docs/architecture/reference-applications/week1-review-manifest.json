@@ -4,8 +4,8 @@
   "date": "2026-11-09",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
-  "commit_push_pr": "LOCAL_MALAK_AND_PLAN_ROUTING_FOLLOWUP_ON_9E6AFFA_NOT_COMMITTED_OR_PUSHED",
+  "remote_verification": "REVERIFIED_2026-11-14_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_PRE_STATUS_REFRESH_04789d7bf57f6058e741e024c9c2d4ebc8cd7281_GIT_REFS_AND_PUBLIC_GITHUB_API",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MALAK_PLAN_ROUTING_AND_GOVERNANCE_FOLLOWUPS_PUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; PLAN_APPROVER_UNCONFIRMED; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -1557,7 +1557,7 @@
   "pre_publication_snapshot_context": {
     "source_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
     "label": "PRE_PUBLICATION_SNAPSHOT",
-    "scope": "Original preparation, branch, commit_push_pr, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Current publication is recorded in current_publication; fresh checks are in publication_refresh.",
+    "scope": "Original preparation, pr_preparation, validation and cleanup fields retain their authoring-time values and historical evidence. Top-level remote_verification and commit_push_pr reflect the current publication status; original publication evidence remains in current_publication and fresh checks are in publication_refresh.",
     "historical_validation_evidence": "RETAINED_UNCHANGED",
     "manifest_sha256": "7d5d678f2c8eeeca0ec63b6ec30e89b8633311837e1b866650f3ed2c4a6a9bc6"
   },
@@ -1581,7 +1581,7 @@
     "email_subject": null,
     "email_message_references": [],
     "email_independently_verified": false,
-    "email_reply_status": "PARTIAL_RESPONSES_RECEIVED_ALAA_AND_MOHAMED_OD03",
+    "email_reply_status": "ALAA_PARTIAL_MOHAMED_FINAL_SCOPED_MALAK_FIXTURE_BASED_RESPONSES_RECEIVED",
     "teammate_acceptance": "MOHAMED_FINAL_SCOPED_GOVERNANCE_DISPOSITIONS_RECEIVED; ALAA_PARTIAL_CONDITIONAL; MALAK_FIXTURE_BASED_CONDITIONAL; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
     "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
     "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED",
@@ -1944,7 +1944,7 @@
     "traces_report": 13,
     "fixtures_plans": 11,
     "reconciliation": "OPEN",
-    "TRD_22_23": "OPEN_MOHAMED_MOHAB",
+    "TRD_22_23": "MOHAMED_STAGE_VS_CHECK_RESULT_CONFIRMED; MALAK_DISPLAY_AND_MOHAB_CANONICAL_MAPPING_PENDING",
     "TRD_45": "TRI_STATE_OWNER_REPORTED_CANONICAL_FIELDS_OPEN",
     "independent_S1_07": "OPEN"
   },
