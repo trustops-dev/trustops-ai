@@ -1,6 +1,6 @@
-# Plan amendment routing — authority and six decision groups
+# Team-lead plan decisions — six decision groups
 
-**Prepared 2026-11-09 by Nour. Status: READY FOR AUTHORITY IDENTIFICATION AND SCOPED REVIEW; NO PLAN APPROVAL RECORDED.** This packet routes the plan-impacting portions of OD-02, OD-06, OD-08, OD-16, GD-26/OD-09 and Malak's proposed UI schedule. Specialist dispositions remain separate from plan authority; the attached HTML proposal is not an approved plan.
+**Prepared 2026-11-09 by Nour; authority corrected 2026-11-14. Status: TEAM LEAD IDENTIFIED; SIX ROW-LEVEL PLAN DECISIONS PENDING.** This packet routes the plan-impacting portions of OD-02, OD-06, OD-08, OD-16, GD-26/OD-09 and Malak's proposed UI schedule. Specialist dispositions remain separate from Nour's team-level plan decisions; the attached HTML proposal is not an approved plan.
 
 ## 1. Authority finding
 
@@ -11,18 +11,18 @@
 | UI plan snapshots dated 2026-11-07, SHA-256 `cca78edca35d450b743412a0985936a70478307ebe9426fdfc7b73ae216fbefb` and `5af1d891132436a39b566337fb753aaff0c97975c5f8c50544ba38536b4586dc` | Proposed Sprint 3–6 UI amendments and owner claims. | No signed approval. The plans describe uncommitted work and 134 passing tests, while Malak's later report says 137. |
 | Current owner decisions/governance draft | Explicitly require a “plan owner” for OD-02/06/08/16 and the GD-26 extension. | No personal name or delegated authority. |
 
-**Finding:** A final plan approver cannot be identified from the reviewed records. Nour must obtain the **person's name, role, and authority for changing scope, milestone dates, task IDs/dependencies and capacity** from the team/project coordinator or academic supervisor. Prof. Dr. Noha Yehia is a possible authority contact because the proposal was prepared for her, but her plan-approval authority is **unconfirmed**. Do not attribute approval to Nour, Mohamed, Mohab, Malak, or the professor by inference. Record the confirmation reference and date here before routing the final approval request.
+**Current finding:** The source audit above establishes only what those documents say. Nour directly confirmed on 2026-11-14 that he is the development team lead and there is no separate plan approver in the team's process. Nour owns decisions on amendments to the team's internal 16-week working plan. The proposal's academic recipient is not an additional approval gate. This role confirmation identifies the decision owner; it does **not** record acceptance of any of the six proposed changes or establish academic/institutional approval. Record each later decision against an exact plan revision.
 
 | Authority field | Current value |
 |---|---|
-| Named plan approver | **UNCONFIRMED** |
-| Authority source / delegation | **NOT SUPPLIED** |
-| Confirmation date / reference | **NOT SUPPLIED** |
-| Approval channel and required evidence | **TO BE CONFIRMED**; use a named, dated response tied to exact plan revision and affected decision IDs |
+| Team plan decision owner | **Nour El-Rouby, development team lead** |
+| Authority basis and scope | Nour's direct role/process confirmation; team's internal working-plan changes only |
+| Confirmation date / reference | 2026-11-14; user confirmation in this review conversation |
+| Decision evidence | Nour's dated, explicit ACCEPT/AMEND/DECLINE for each decision ID, tied to exact plan revision and affected task IDs |
 
-### Ready-to-forward authority request
+### Decision ownership
 
-> Please identify the person or body formally authorized to approve TrustOps AI 16-week sprint-plan amendments, including scope, task IDs/dependencies, capacity and milestone changes. The proposal is addressed to Prof. Dr. Noha Yehia, but it does not state that she approves these plan changes. Please provide the approver's name, role, authority/delegation reference and preferred decision channel. We have six pending decision groups (OD-02/06/08/16, GD-26 and the proposed UI schedule); no approval is being assumed from specialist replies or the proposal.
+Nour obtains scoped technical input from the owners named below, then records his own plan decisions. No request to identify or contact a separate approver is needed for this internal plan. Ownership does not resolve technical questions or substitute for reviewers' scoped evidence.
 
 ## 2. Review-ready plan questions
 
@@ -37,22 +37,22 @@
 
 ## 3. Routing sequence and response register
 
-1. **Nour:** request and record the authorized plan approver's name, role, delegation/scope and response channel. Send this packet and the exact original/current/proposed plan revisions to that person once confirmed.
+1. **Nour:** maintain the exact original/current/proposed plan revisions and the six row-level proposals. His team-lead authority for internal plan decisions is recorded above.
 2. **Technical owners:** return their scoped ACCEPT/AMEND/DECLINE responses and evidence for each row above. Mohab/Mohamed/ Ahmed/Alaa/Malak do not approve another owner's plan scope by answering only their specialist question.
-3. **Plan approver:** give a separate row-level decision on OD-02, OD-06, OD-08, OD-16, GD-26 and the UI task amendments; identify affected task IDs, dates, dependencies, capacity/effort convention, accepted/rejected portions, and the authoritative revised plan file/hash. A partial response leaves other rows open.
-4. **Nour:** update only accepted task references and decision status; record dissent/amendments, regenerate manifest and rerun affected offline checks. No new sprint task or release gate is in force merely because it is drafted here.
+3. **Nour as team lead:** record a separate row-level ACCEPT/AMEND/DECLINE on OD-02, OD-06, OD-08, OD-16, GD-26 and the UI task amendments when the required evidence is available; identify affected task IDs, dates, dependencies, capacity/effort convention, accepted/rejected portions and the authoritative revised plan file/hash. A partial response leaves other rows open.
+4. **Nour as document owner:** update only accepted task references and decision status; record dissent/amendments, regenerate manifest and rerun affected offline checks. No new sprint task or release gate is in force merely because it is drafted here.
 
-### Ready-to-forward plan decision request, once authority is confirmed
+### Team-lead row-level decision prompt
 
-> Please review the six rows in this packet against the identified original sprint plan and the two proposed UI plan attachments. For each row, reply ACCEPT, AMEND with exact replacement wording, or DECLINE; name the affected task IDs, dependencies, weeks, capacity and gate impact. GD-26 requires Ahmed/Mohamed/Alaa's versioned outcome mapping before final approval. The UI amendment requires Malak's committed branch and reconciliation of 134 versus 137 tests and 11 plan fixtures versus 13 reported traces. Please identify the resulting authoritative plan file/revision and date. A response to one row does not decide the others.
+For each row, Nour records ACCEPT, AMEND with exact replacement wording, or DECLINE; affected task IDs, dependencies, weeks, capacity and gate impact; the evidence reviewed; the resulting authoritative plan file/revision and date. GD-26 requires Ahmed/Mohamed/Alaa's versioned outcome mapping first. The UI amendment requires Malak's committed branch and reconciliation of 134 versus 137 tests and 11 plan fixtures versus 13 reported traces. A response to one row does not decide the others.
 
-| Item | Specialist response | Named plan decision | Plan revision / evidence | Current disposition |
+| Item | Specialist response | Nour's plan decision | Plan revision / evidence | Current disposition |
 |---|---|---|---|---|
-| OD-02 | Mohamed narrower row ACCEPT reported; Mohab/interface pending | None | None | OPEN — PLAN AUTHORITY |
-| OD-06 | Mohamed AMEND reported; interface/capacity pending | None | None | OPEN — PLAN AUTHORITY |
-| OD-08 | Alaa grouping principle ACCEPT; Ahmed/Mohamed/Mohab/capacity pending | None | None | OPEN — PLAN AUTHORITY |
-| OD-16 | Mohamed governance-local ACCEPT reported; canonical/consumer fit pending | None | None | OPEN — PLAN AUTHORITY |
-| GD-26 / OD-09 | Alaa position partial; Ahmed/Mohamed exact mapping pending | None | None | OPEN — TECHNICAL MAPPING THEN PLAN |
-| Malak UI amendment | Nine fixture distinctions owner-reported; branch and 137/134 reconciliation pending | None | Proposal only | OPEN — TECHNICAL REVIEW THEN PLAN |
+| OD-02 | Mohamed narrower row ACCEPT reported; Mohab/interface pending | Pending | None | OPEN — TECHNICAL REVIEW AND TEAM-LEAD DECISION |
+| OD-06 | Mohamed AMEND reported; interface/capacity pending | Pending | None | OPEN — TECHNICAL REVIEW AND TEAM-LEAD DECISION |
+| OD-08 | Alaa grouping principle ACCEPT; Ahmed/Mohamed/Mohab/capacity pending | Pending | None | OPEN — TECHNICAL REVIEW AND TEAM-LEAD DECISION |
+| OD-16 | Mohamed governance-local ACCEPT reported; canonical/consumer fit pending | Pending | None | OPEN — TECHNICAL REVIEW AND TEAM-LEAD DECISION |
+| GD-26 / OD-09 | Alaa position partial; Ahmed/Mohamed exact mapping pending | Pending | None | OPEN — TECHNICAL MAPPING THEN TEAM-LEAD DECISION |
+| Malak UI amendment | Nine fixture distinctions owner-reported; branch and 137/134 reconciliation pending | Pending | Proposal only | OPEN — TECHNICAL REVIEW THEN TEAM-LEAD DECISION |
 
-**Approval record shape:** `approver_name`, `role`, `authority_reference`, `decision_id`, `ACCEPT|AMEND|DECLINE`, `exact_plan_file_sha256`, `affected_task_ids`, `accepted_wording_or_replacement`, `capacity_and_gate_impact`, `decision_date`, `evidence_link`. Leave absent values explicitly pending; no self-attestation or inferred consent.
+**Decision record shape:** `decision_owner=Nour El-Rouby`, `role=development team lead`, `authority_reference=user confirmation 2026-11-14`, `decision_id`, `ACCEPT|AMEND|DECLINE`, `exact_plan_file_sha256`, `affected_task_ids`, `accepted_wording_or_replacement`, `capacity_and_gate_impact`, `decision_date`, `evidence_link`. Leave absent decisions explicitly pending; no inferred consent from role ownership or specialist replies.

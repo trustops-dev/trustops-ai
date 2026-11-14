@@ -6,7 +6,7 @@
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-14_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_PRE_STATUS_REFRESH_04789d7bf57f6058e741e024c9c2d4ebc8cd7281_GIT_REFS_AND_PUBLIC_GITHUB_API",
   "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MALAK_PLAN_ROUTING_AND_GOVERNANCE_FOLLOWUPS_PUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
-  "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; PLAN_APPROVER_UNCONFIRMED; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
+  "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; TEAM_LEAD_NOUR_IDENTIFIED; SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,9 +133,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "ac5fe13f02a2ab24e992ca9c8322174745126f62acee21204cfc2a14594dedbb",
-      "size_bytes": 16123,
-      "document_revision": "2026-11-09-OD04-application-response"
+      "sha256": "a3ff1fdfd2be75f8310906a2b6204fdc51d4f2e0c6ce069cedc88b149e87b185",
+      "size_bytes": 16156,
+      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
@@ -276,9 +276,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "b2bd1ecf631e0c3eb1758251af6fe0a3edf361262bbacb7ab63ddd3bfe4fad3b",
-      "size_bytes": 31187,
-      "document_revision": "2026-11-09-OD04-application-response"
+      "sha256": "46907e6a2b966b68ea78f89bbd353c5135cdebdfe41cedfc156642c476b6e24a",
+      "size_bytes": 31036,
+      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -288,9 +288,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "d9413144572bb84c2c2b020ba6cb3134a338766200dae429971b5302b519f440",
-      "size_bytes": 28950,
-      "document_revision": "2026-11-09-OD04-application-response"
+      "sha256": "6669f4e626cb48b115da2c728e8dbc51290fa16c90b6c3b33fddaf7c60caddf8",
+      "size_bytes": 28657,
+      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -299,9 +299,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/plan-approval-routing.md",
-      "document_revision": "2026-11-09 owner routing",
-      "sha256": "d27bb342c6b6fcef1b8fa6bac4ebe2abe9448ad1aba7ce8cdfd96567d8faa9b2",
-      "size_bytes": 10536
+      "document_revision": "2026-11-14-team-lead-plan-ownership-correction",
+      "sha256": "24a44562d0eb94067909945e97ddc478f9dd12997660038f093e86c6079d76a4",
+      "size_bytes": 10485
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
@@ -1140,9 +1140,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "19084f7fb820e3d37d61d0416b8a1de09f2d5641d2e523c82632f361c7814965",
-      "size_bytes": 21722,
-      "document_revision": "2026-11-09-OD04-application-response"
+      "sha256": "9ec7b843f38b9e6c88cb9af6fd01897c2eb3cacf8a30d7d341fcbe67bfebd166",
+      "size_bytes": 21691,
+      "document_revision": "2026-11-14-team-lead-plan-ownership-correction"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -1949,11 +1949,11 @@
     "independent_S1_07": "OPEN"
   },
   "plan_approval_routing": {
-    "date": "2026-11-09",
+    "date": "2026-11-14",
     "routing_packet": "docs/architecture/reference-applications/plan-approval-routing.md",
     "validation_report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json",
-    "plan_approver": "UNCONFIRMED",
-    "authority_source": "NOT_SUPPLIED",
+    "plan_approver": "NOUR_EL_ROUBY_TEAM_LEAD_INTERNAL_PLAN",
+    "authority_source": "DIRECT_USER_CONFIRMATION_2026-11-14",
     "decision_groups": [
       "OD-02",
       "OD-06",
@@ -1964,7 +1964,8 @@
     ],
     "technical_reviews": "ROUTED_IN_PACKET_NOT_FINAL_PLAN_APPROVAL",
     "messages": "DRAFTS_PREPARED_NOT_SENT",
-    "plan_approval": "NONE"
+    "plan_approval": "NONE_SIX_ROW_DECISIONS_PENDING",
+    "validation_report_scope": "HISTORICAL_2026-11-09_ROUTING_AUDIT; CURRENT_OWNERSHIP_CORRECTION_IN_ROUTING_PACKET"
   },
   "malak_plan_routing_integration": {
     "date": "2026-11-11",
@@ -1991,5 +1992,14 @@
     "corpus_pairing": "PENDING",
     "SA01_SA09": "PROPOSED_AWAITING_MOHAB; SA09_ALSO_AHMED_ALAA",
     "full_acceptance": "PENDING"
+  },
+  "team_lead_plan_ownership_refresh": {
+    "date": "2026-11-14",
+    "basis": "Nour directly confirmed he is development team lead and there is no separate approver for the team internal working plan",
+    "scope": "OD-02, OD-06, OD-08, OD-16, GD-26/OD-09 and proposed UI schedule",
+    "decisions": "SIX_ROW_LEVEL_DISPOSITIONS_PENDING",
+    "specialist_reviews": "REMAIN_SCOPED_AND_SEPARATE",
+    "plan_amendment_activated": false,
+    "prior_authority_audit": "HISTORICAL_SOURCE_AUDIT_ONLY"
   }
 }

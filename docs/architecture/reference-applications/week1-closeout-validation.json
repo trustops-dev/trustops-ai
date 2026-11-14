@@ -1,8 +1,8 @@
 {
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh.",
-  "manifest_sha256": "ec79e83d8370c5ade63f14cbf6c96c8446777be14c6a1e293c9064265196ac65",
+  "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope.",
+  "manifest_sha256": "8980d013c60da796012f044756fb13cb213f65e58f2e6f36e18c75a106319aa3",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16320,5 +16320,19 @@
     "manifest_sha256": "ec79e83d8370c5ade63f14cbf6c96c8446777be14c6a1e293c9064265196ac65",
     "new_acceptance": false,
     "runtime_verification": "NOT_RUN"
+  },
+  "team_lead_plan_ownership_refresh": {
+    "date": "2026-11-14",
+    "owner": "Nour El-Rouby",
+    "role": "development team lead",
+    "basis": "direct user confirmation",
+    "decision_groups": 6,
+    "decisions_recorded": 0,
+    "internal_plan_only": true,
+    "historical_plan_routing_report_unchanged": true,
+    "manual_fixture_checks": 957,
+    "corpus_boundary_checks": 371,
+    "manifest_entries_matching_exact_bytes": 225,
+    "result": "PASS_STATIC_DOCUMENT_CONSISTENCY_ONLY"
   }
 }
