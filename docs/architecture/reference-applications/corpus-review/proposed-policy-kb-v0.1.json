@@ -17,6 +17,7 @@
       "document_id": "doc-001",
       "source_id": "src-001",
       "source_version": "review-r2",
+      "policy_id": "PROC-APPROVAL-01",
       "role": "APPROVAL_POLICY_TEXT",
       "canonical_text_path": "docs/architecture/reference-applications/corpus-review/documents/doc-001-v2.txt",
       "content_sha256": "69e9834b728663fafb94f1731cae14d9af69eaba8988ead41a8f77343b8e1812",
@@ -32,6 +33,7 @@
       "document_id": "doc-002",
       "source_id": "src-002",
       "source_version": "review-r1",
+      "policy_id": "PROC-SUPPLIER-01",
       "role": "SUPPLIER_ELIGIBILITY_COMPANION",
       "canonical_text_path": "docs/architecture/reference-applications/corpus-review/documents/doc-002.txt",
       "content_sha256": "9e0b3f630b9c89bf76968f1506b1b9cd54369130f012dc397cb563702881a33e",
@@ -40,6 +42,12 @@
       "protected_unit_end": 361
     }
   ],
+  "bundle_rule_retrieval_coverage": {
+    "PROC-APPROVAL-01": "doc-001@review-r2",
+    "PROC-SUPPLIER-01": "doc-002@review-r1",
+    "PROC-TOOL-STAGE-01": "EXECUTABLE_GOVERNANCE_RULE_ONLY; NO_RETRIEVABLE_SOURCE_IN_THIS_CANDIDATE"
+  },
+  "search_policy_policy_set_version_mapping": "PROPOSED_ALIAS_TO_POLICY_BUNDLE_VERSION; MOHAB_CONFIRMATION_PENDING",
   "historical_review_inputs": {
     "symbolic_source_manifest_sha256": "c83a2cae8315806e9b81ae561c478b3b08329632fdee64fe89cfde924004a7c2",
     "od03_policy_text_path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/policy-text.txt",

@@ -243,14 +243,14 @@
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/policy-bundle-pairing-v0.1.md",
-      "sha256": "bed3974b9b795b75822c8d65b3b060129c7574fd8098501e7a737d0f391e320f",
-      "size_bytes": 7917,
+      "sha256": "c97e497f45c10be51d356799b7514178c3f8fc1657b4b1ca8e0969ecb69d5e8c",
+      "size_bytes": 9070,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/proposed-policy-kb-v0.1.json",
-      "sha256": "c81ca938c5b16f1bcee341617ffc89583919d19eb62f0024dcffc7b91f597911",
-      "size_bytes": 2520,
+      "sha256": "3fd76114ee93e20271cc2ae221dc3eaecc3fe666052b34a942b70fa5ed8ba9f1",
+      "size_bytes": 2949,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
@@ -307,8 +307,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "ccb7644863042e288719c920dfb86b48ed4ed5b24975c9ea29b4b7290b140226",
-      "size_bytes": 29888,
+      "sha256": "8b0adc56e5d8ab779743a890c4aa222d11dec608855b49cc0541858b01a903e9",
+      "size_bytes": 30062,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
@@ -2048,6 +2048,9 @@
       "Mohab transport, digest and source-version mapping",
       "Alaa and Ahmed lineage, split and citation-fixture impact",
       "Nour ingestion and application integration"
-    ]
+    ],
+    "retrieval_coverage": "PROC-APPROVAL-01_AND_PROC-SUPPLIER-01_MAPPED; PROC-TOOL-STAGE-01_TEXT_COVERAGE_PENDING_MOHAMED_MOHAB",
+    "tool_policy_set_version_alias": "PENDING_MOHAB",
+    "chunk_hash_convention": "PENDING_MOHAB; FULL_SOURCE_SHA256_NOT_AUTOMATICALLY_POLICY_EVIDENCE_CHUNK_HASH"
   }
 }
