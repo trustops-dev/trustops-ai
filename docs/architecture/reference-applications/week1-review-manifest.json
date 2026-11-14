@@ -6,7 +6,7 @@
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-06_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_READ_ONLY_GIT; WEB_VIEWER_UNAVAILABLE",
   "commit_push_pr": "LOCAL_MALAK_AND_PLAN_ROUTING_FOLLOWUP_ON_9E6AFFA_NOT_COMMITTED_OR_PUSHED",
-  "approval_status": "MALAK_FIXTURE_BASED_RESPONSE_CONDITIONAL; PLAN_APPROVER_IDENTITY_UNCONFIRMED; OD02_OD06_OD08_OD16_GD26_UI_AMENDMENT_PLAN_APPROVAL_PENDING; FULL_SPECIALIST_ACCEPTANCE_PENDING",
+  "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; PLAN_APPROVER_UNCONFIRMED; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,8 +133,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "04cc540fd1c3b31c6efd7fc729a4f33d2862653b4c62df96d1d309944219bfac",
-      "size_bytes": 15230,
+      "sha256": "ac5fe13f02a2ab24e992ca9c8322174745126f62acee21204cfc2a14594dedbb",
+      "size_bytes": 16123,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -165,8 +165,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.2.md",
-      "sha256": "571cc555624443cee294e33547b9e74988bb3999aa83d77772bdae0de2fe4b6e",
-      "size_bytes": 9088,
+      "sha256": "9eeed5ded20c6d5d04b88bcc60a98c52be8e84659ca621345c6925fd63263456",
+      "size_bytes": 9404,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "dd5d8c54fd84a4bc3a63ba5e9d7dc6b7590d9e93f68d241fc93bb384042ceb0a",
-      "size_bytes": 30729,
+      "sha256": "b2bd1ecf631e0c3eb1758251af6fe0a3edf361262bbacb7ab63ddd3bfe4fad3b",
+      "size_bytes": 31187,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -288,8 +288,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "50ea38fc30fb8d200219687a249e26d07b139256e51e3169db36b244a6dc3b23",
-      "size_bytes": 29212,
+      "sha256": "d9413144572bb84c2c2b020ba6cb3134a338766200dae429971b5302b519f440",
+      "size_bytes": 28950,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -305,8 +305,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
-      "sha256": "16661e1fa7adfde3cc24e0c6afb656167ce0ca99703dbad57ab1e86160e4a0e9",
-      "size_bytes": 9650,
+      "sha256": "96a9640b6b30b41da1c986f1e4f5e7160aee392a0a90faeae2e331a09e8d8fab",
+      "size_bytes": 9827,
       "document_revision": "2026-11-09-OD03-scoped-response"
     },
     {
@@ -933,6 +933,12 @@
       "document_revision": "2026-11-09-scoped-response"
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md",
+      "document_revision": "2026-11-14 exact governance revision review",
+      "sha256": "80d9d02ffd720130989608d501c72bfe43db816231a93a4e5714882d1d40c3ff",
+      "size_bytes": 14229
+    },
+    {
       "path": "docs/architecture/reference-applications/schema-v1.1-review.md",
       "sha256": "6d217952eedb68e8938d9fc0149d79ea70052763ed365fc72765f1a52bec774c",
       "size_bytes": 7236,
@@ -1041,6 +1047,18 @@
       "size_bytes": 101495
     },
     {
+      "path": "docs/architecture/reference-applications/validation/mohamed-7c26168-governance-refresh.json",
+      "document_revision": "2026-11-14 exact governance revision review",
+      "sha256": "75dd2233e436015c880735bade1c37a148a4ca9f623e656e9e3d8bdc81126ec7",
+      "size_bytes": 8628
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/od03-independent-7c26168-result.json",
+      "document_revision": "2026-11-14 exact governance revision review",
+      "sha256": "32701c1943185c97f0e8bc661391b645f34b8cd2ef6aa391cd24ad088a8931d7",
+      "size_bytes": 12963
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/od03-scoped-response-refresh.json",
       "sha256": "4a19cc3c813949d304c65289b3c0e62920b32f907f630a2a608ec451800315ce",
       "size_bytes": 2416,
@@ -1122,8 +1140,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "29541375769c3f74b9c10a2e56a369a9d5357137f4b3a294ce654802212d5df7",
-      "size_bytes": 20990,
+      "sha256": "19084f7fb820e3d37d61d0416b8a1de09f2d5641d2e523c82632f361c7814965",
+      "size_bytes": 21722,
       "document_revision": "2026-11-09-OD04-application-response"
     },
     {
@@ -1482,7 +1500,9 @@
     "contract_examples": "SYMBOLIC_UNCHANGED",
     "base_commit": "b5633a91796997e53e843476dd7b8eccc9b1953a",
     "new_edits_committed": false,
-    "governance_yaml": "UNAVAILABLE_EXACT_REVISION_AND_HASH_PENDING"
+    "governance_yaml": "UNAVAILABLE_EXACT_REVISION_AND_HASH_PENDING",
+    "historical": true,
+    "superseded_current_status_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
   },
   "od04_response": {
     "date": "2026-11-06",
@@ -1562,9 +1582,10 @@
     "email_message_references": [],
     "email_independently_verified": false,
     "email_reply_status": "PARTIAL_RESPONSES_RECEIVED_ALAA_AND_MOHAMED_OD03",
-    "teammate_acceptance": "ALAA_PARTIAL_CONDITIONAL; MOHAMED_OD03_SCOPED; FULL_SPECIALIST_AND_JOINT_ACCEPTANCE_PENDING",
+    "teammate_acceptance": "MOHAMED_FINAL_SCOPED_GOVERNANCE_DISPOSITIONS_RECEIVED; ALAA_PARTIAL_CONDITIONAL; MALAK_FIXTURE_BASED_CONDITIONAL; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
     "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
-    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED"
+    "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED",
+    "latest_governance_review_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
   },
   "publication_refresh": {
     "date": "2026-11-06",
@@ -1615,7 +1636,9 @@
       "governance_response_file": "CLAIMED_NOT_RETRIEVED",
       "governance_yaml": "CLAIMED_NOT_RETRIEVED",
       "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
-      "base_commit": "a780e17f7153fc1476b35519739667c4072e005e"
+      "base_commit": "a780e17f7153fc1476b35519739667c4072e005e",
+      "historical": true,
+      "superseded_current_status_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
     },
     {
       "record_id": "MOHAMED-OD04-479CAB0-01",
@@ -1633,6 +1656,18 @@
       "governance_response_file": "CLAIMED_NOT_RETRIEVED",
       "update_publication": "PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED",
       "base_commit": "7decd093a2fffda99f637ed972f7c050e73e85e2"
+    },
+    {
+      "record_id": "MOHAMED-GOVERNANCE-7C26168-01",
+      "reviewer": "Mohamed Elnaggar",
+      "recorded_on": "2026-11-14",
+      "governance_commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "reviewed_owner_packet": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+      "status": "FINAL_SCOPED_GOVERNANCE_DISPOSITIONS_RECEIVED",
+      "record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md",
+      "validation_report": "docs/architecture/reference-applications/validation/mohamed-7c26168-governance-refresh.json",
+      "joint_acceptance": "PENDING_OTHER_OWNER_DISPOSITIONS",
+      "runtime_verification": "PENDING"
     }
   ],
   "alaa_review_refresh": {
@@ -1843,7 +1878,9 @@
     "validation_report": "docs/architecture/reference-applications/validation/od03-scoped-response-refresh.json",
     "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
     "actual_governance_yaml": "NOT_SUPPLIED",
-    "operational_policy_enabled": false
+    "operational_policy_enabled": false,
+    "historical": true,
+    "superseded_current_status_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
   },
   "od04_application_followup": {
     "date": "2026-11-09",
@@ -1854,7 +1891,9 @@
     "application_disposition": "AMEND_V06_MECHANISM_OPEN",
     "joint_acceptance": "PENDING_MOHAB_AND_MOHAMED",
     "runtime": "NOT_RUN",
-    "fresh_validation": "validation/od04-application-response-refresh.json#integration_validation"
+    "fresh_validation": "validation/od04-application-response-refresh.json#integration_validation",
+    "historical": true,
+    "superseded_current_status_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
   },
   "schema_v1_8_review": {
     "status": "MAPPING_COMPLETE_ACCEPTANCE_OPEN",
@@ -1933,5 +1972,24 @@
     "fresh_report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json#integration_validation",
     "plan_approver": "UNCONFIRMED",
     "routing_messages": "NOT_SENT"
+  },
+  "governance_7c26168_integration": {
+    "date": "2026-11-14",
+    "review_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md",
+    "validation_report": "docs/architecture/reference-applications/validation/mohamed-7c26168-governance-refresh.json",
+    "verified_refs": {
+      "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+      "dev": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+      "pr27": "a62f4e7929337af5be661d50b7200909bfe84fe9",
+      "pr28": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "pr28_expected_head_matched": true
+    },
+    "od03_independent_result": "PASS_31_OF_31",
+    "yaml_version": "synthetic-procurement-policy-set-v0.1",
+    "runtime_enabled": false,
+    "mohab_transport_digest": "PENDING",
+    "corpus_pairing": "PENDING",
+    "SA01_SA09": "PROPOSED_AWAITING_MOHAB; SA09_ALSO_AHMED_ALAA",
+    "full_acceptance": "PENDING"
   }
 }

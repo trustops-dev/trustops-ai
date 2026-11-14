@@ -1,8 +1,10 @@
 # Sprint 1 acceptance and Week 2 validation
 
+**Final governance response reviewed 2026-11-14.** [Exact-revision review and artifact hashes](reviews/mohamed-7c26168-governance-response.md) record PR #28 at `7c26168ea47a611d233202e21f0c0b9f7a5cb3c8`. Mohamed accepts OD-03 synthetic values (USD only, `5000.00`, strict `>`, `manager`, decimal strings, no FX), with row 6 amended to `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`. The supplied checker reproduced 31/31 committed candidate cases locally. His OD-04 and OD-12 dispositions, SA-01–SA-09, stage/verdict clarification and SC-03A/SC-03B distinction are recorded with remaining owners. Mohab transport/digest and mechanism dispositions, corpus pairing, runtime verification and full cross-team acceptance remain open.
+
 **Plan-change gate — prepared 2026-11-09:** [Authority audit and routing packet](plan-approval-routing.md) covers OD-02/06/08/16, GD-26 and Malak's proposed UI schedule. No person is documented as the authorized sprint-plan approver. Specialist positions and the attached proposed plan do not close this gate; exact authority/delegation and six row-level plan dispositions are pending.
 
-**Malak UI handoff response — recorded 2026-11-09:** [Scoped report](reviews/malak-479cab0-ui-response.md) claims all nine distinctions work in a browser on fixtures, with 137 passing tests and 13 traces. The UI work was uncommitted; attached plan snapshots say 134 tests and 11 fixtures. This is **fixture-based owner verification**, not repository-independent validation, canonical field acceptance or S1-07 closeout. TRD-45 tri-state wording is acknowledged; TRD-22/23 and field mappings remain open with Mohamed/Mohab.
+**Malak UI handoff response — recorded 2026-11-09:** [Scoped report](reviews/malak-479cab0-ui-response.md) claims all nine distinctions work in a browser on fixtures, with 137 passing tests and 13 traces. The UI work was uncommitted; attached plan snapshots say 134 tests and 11 fixtures. This is **fixture-based owner verification**, not repository-independent validation, canonical field acceptance or S1-07 closeout. TRD-45 tri-state wording is acknowledged; Mohamed confirms TRD-22/23 stage input versus verdict output at `7c26168`; Malak display and Mohab/Nour mapping evidence remain pending.
 
 **Bounded provider check — 2026-11-09:** [Exact sanitized results](workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json): user-supplied Windows offline suite 25/25; two operator-run sessions passed C01 prompt-only count and stopped at G01 (unknown timeout; provider/SDK error with HTTP status unavailable). G02/G03/E01/E02 were not run. This is a partial observation, not live application or model compatibility acceptance. Free tier remains the only proposed mode; authorized paid usage remains USD 0. OD-LLM-01/02 remain blocked.
 
@@ -10,7 +12,7 @@
 
 **Alaa response recorded — 2026-11-06:** [Scoped review of commit 479cab0](reviews/alaa-479cab0-review.md) received from user-supplied email text. Overall status: **PARTIAL / CONDITIONAL**. Candidate/principle acceptance and remaining conditions are recorded separately; no full specialist sign-off or joint freeze. The email date and message reference were not supplied.
 
-**OD-04 owner-side update — 2026-11-09:** [Nour's application response 0.2](approval-validity/od04-v0.2.md) records Mohamed's scoped clause dispositions and the revised V04–V06 application requirements. It does not close the tool/policy-stage reconciliation or formal freeze: the authoritative source/version mapping and atomic claim mechanism still require Mohab/Mohamed agreement and later runtime proof.
+**OD-04 current disposition — 2026-11-14.** [Mohamed’s final scoped response](reviews/mohamed-7c26168-governance-response.md) accepts V01/V02/V03/V07/V08 and amended V04/V05 wording, with V06 mechanism amended. [Application position 0.2](approval-validity/od04-v0.2.md) records the outstanding SA-02 consumption-time currentness/atomicity, SA-03 terminal representation, SA-04 chronology and continuation topology decisions with Mohab/Nour.
 
 
 **2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
@@ -27,7 +29,7 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 |---|---|---|
 | Procurement behavior contract complete | PASS | Eight detailed state records, entry/exit, allowed/forbidden moves, tools, policy/evidence/errors, no-approval and recovery branches retained |
 | Five tool contracts complete | PASS | Typed required/optional fields, statuses, validation/pre/postconditions, mock semantics and trace/governance evidence reviewed; no implementation |
-| Tool/policy-stage contract jointly reconciled | BLOCKED | OD-02/03/04/06; read-only calculation permission and authority/config/date remain unsigned |
+| Tool/policy-stage contract jointly reconciled | PARTIAL | Mohamed’s exact-revision OD-03 values/YAML and 31/31 independent result received; OD-04 mechanism, Mohab transport/digest, corpus pairing and plan decisions remain open |
 | RAG behavior contract complete | PASS | Query→retrieval→selection→generation→binding→answer/abstention; ERROR separate |
 | Grounding/citations/abstention complete at app level | PASS | Material claim→selected source span/version→visible marker, qualitative sufficiency and reasoned abstention; no invented cutoff |
 | Failure-class mapping complete | PASS | Eight exact classes, mechanisms, evidence, families, fixed nine RCA causes, security/policy relationship; NORMAL distinct |
@@ -43,8 +45,8 @@ PASS means documentation coverage or a specified paper check; it does not mean a
 | Effective generation/retrieval/embedding configuration frozen | BLOCKED | OD-LLM-01/02, OD-10 and OD-RAG-01; proposed settings now documented; account/environment verification, cross-contract acceptance and live compatibility remain pending |
 | Orchestration decision documented | PASS | ADR preserves explicit Python choice and requested APPROVED FOR SPRINT 2 IMPLEMENTATION technical disposition; overall entry gates still apply |
 | Every open decision closed or explicitly recorded | PASS | All 21 original decision IDs preserved; 20 focused pending request rows (including child questions) each state proposal, reviewer, question and closure evidence; existing closures/design dispositions/deferred thresholds preserved |
-| Cross-team review status visible | PASS | Alaa PARTIAL / CONDITIONAL; Mohamed's scoped OD-03/04 positions; Malak's nine-point fixture-based UI response received against handoff 479cab0, without a committed UI revision. Mohab/Ahmed acceptance, canonical mapping, Malak's independent S1-07 and full specialist sign-offs remain PENDING |
-| Cross-team signatures / formal freeze obtained | BLOCKED | No revision-specific owner approval received; not requested or fabricated by tool calls |
+| Cross-team review status visible | PASS | Mohamed’s final scoped response at `7c26168`, Alaa PARTIAL / CONDITIONAL and Malak fixture-based response recorded; shared schema/plan/runtime and independent S1-07 gates remain open |
+| Cross-team signatures / formal freeze obtained | BLOCKED | Mohamed’s scoped acceptance is recorded at `7c26168`; remaining owner dispositions and full OD-14 freeze evidence are pending |
 | Correct existing work preserved and docs updated in place | PASS | Existing twelve app Markdown files and combined ADR revised; original detailed state/tool/RAG/scenario design retained |
 | No production implementation started | PASS | Changes confined to Markdown and four paper JSON files under documentation; no app/tool/schema/SDK/API/index/evaluator/engine code |
 | No Sprint 2 scope entered Week 2 | PASS | Only source review, documentation, manual fixtures and static artifact checks performed |

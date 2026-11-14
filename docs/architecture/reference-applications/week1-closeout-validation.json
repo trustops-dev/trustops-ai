@@ -1,8 +1,8 @@
 {
   "date": "2026-11-09",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
-  "scope": "Malak scoped UI response and six-group plan routing. Fresh integration checks are recorded in malak_plan_routing_integration. Top-level check_counts/manual_review and earlier payloads retain historical evidence.",
-  "manifest_sha256": "befe4c2601f194a12fad10d8ac76486218d5b2d259f0368ac7472d46d76a77ac",
+  "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and affected owner-document checks. Historical validation payloads retain their recorded revisions and counts; current results are in governance_7c26168_integration.",
+  "manifest_sha256": "00481271d84c41f57a5019392e94c377f2aa18ae1c1e1258a0edb109d4c6b727",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16296,5 +16296,20 @@
     "ruff_format": "PASS_104_FILES",
     "python": "3.12.14",
     "report": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json#integration_validation"
+  },
+  "governance_7c26168_integration": {
+    "date": "2026-11-14",
+    "review_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md",
+    "validation_report": "docs/architecture/reference-applications/validation/mohamed-7c26168-governance-refresh.json",
+    "independent_od03": "PASS_31_OF_31",
+    "configuration_valid": true,
+    "policy_text_consistent": true,
+    "manual_fixture_link_git_checks": 961,
+    "corpus_boundary_checks": 372,
+    "historical_candidate_checks": 63,
+    "historical_od04_checks": 149,
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_105_FILES",
+    "runtime_verification": "PENDING"
   }
 }

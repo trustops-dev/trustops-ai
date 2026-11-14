@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-14",
+  "scope": "Exact-revision governance review and offline OD-03 specification reproduction",
+  "verified_refs": {
+    "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+    "dev": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "pr27": "a62f4e7929337af5be661d50b7200909bfe84fe9",
+    "pr28": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+    "pr28_expected_head_matched": true
+  },
+  "reviewed_artifacts": [
+    {
+      "path": "docs/architecture/governance/response-to-owner-packet-9e6affa.md",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "81f77791388b97316b7a20298ee308612e2276521f8e11ddb73107bb965ae89c",
+      "size_bytes": 28582
+    },
+    {
+      "path": "docs/architecture/governance/response-to-owner-packet-0.14.md",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "3c24183dad8d97e3d64a5a38280b41d4c47a8539de7c8516aa4ed1dc77f61eea",
+      "size_bytes": 27589
+    },
+    {
+      "path": "docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "cde2631f8d62b6cff1240bf3b46d350805f975d2352718aac28160907707528b",
+      "size_bytes": 4362
+    },
+    {
+      "path": "docs/architecture/governance/policy-configuration/verify_od03_independent.py",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f",
+      "size_bytes": 10022
+    },
+    {
+      "path": "docs/architecture/governance/policy-configuration/od03-independent-check-result.json",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "6249a2bac382cf328271c06de0eb98421e5b163500fb2ca111ff65f07c623ef5",
+      "size_bytes": 12946
+    },
+    {
+      "path": "docs/architecture/governance/governance-contract.md",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "7439b1e5adce4b853521fa6eca3eda2be6b5f884f8d26f545bd62f86aa8aea72",
+      "size_bytes": 93117
+    },
+    {
+      "path": "docs/architecture/governance/response-to-ahmed-evaluator-review.md",
+      "commit": "7c26168ea47a611d233202e21f0c0b9f7a5cb3c8",
+      "sha256": "2d48de3bd37696016c24dbc78dba672c5651ffcca5824e792f01e9c7eb05cacd",
+      "size_bytes": 15166
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/truth-table.json",
+      "commit": "a62f4e7929337af5be661d50b7200909bfe84fe9",
+      "sha256": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "size_bytes": 9790
+    },
+    {
+      "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/policy-text.txt",
+      "commit": "a62f4e7929337af5be661d50b7200909bfe84fe9",
+      "sha256": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+      "size_bytes": 928
+    }
+  ],
+  "independent_od03": {
+    "command_argv": [
+      "C:\\Users\\Nour\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\governance\\policy-configuration\\verify_od03_independent.py",
+      "--config",
+      "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\governance\\policy-configuration\\procurement-policy-set-v0.1.yaml",
+      "--truth-table",
+      "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\application\\truth-table.json",
+      "--policy-text",
+      "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\application\\policy-text.txt",
+      "--output",
+      "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\od03-result.json",
+      "--source-note",
+      "Governance PR28 7c26168ea47a611d233202e21f0c0b9f7a5cb3c8; committed application PR27 a62f4e7929337af5be661d50b7200909bfe84fe9"
+    ],
+    "environment": {
+      "python": "3.12.14",
+      "PyYAML": "6.0.3",
+      "PYTHONPATH": "C:\\Users\\Nour\\AppData\\Local\\Temp\\trustops-governance-7c26168-20261114\\dependencies"
+    },
+    "exit_code": 0,
+    "result": "PASS",
+    "cases": 31,
+    "cases_agree": 31,
+    "configuration_valid": true,
+    "policy_text_consistent_with_configuration": true,
+    "case_outcomes_and_input_hashes_match_supplied_result": true,
+    "generated_result": "docs/architecture/reference-applications/validation/od03-independent-7c26168-result.json",
+    "raw_output_sha256": "9902ea8016e641d548c379ea8ae8c622cd16c098dad3bbfda039688defdbc9bc",
+    "committed_lf_copy_sha256": "32701c1943185c97f0e8bc661391b645f34b8cd2ef6aa391cd24ad088a8931d7",
+    "copy_transform": "CRLF to LF only; every generated field and case outcome retained"
+  },
+  "unavailable_checks": [
+    "External v1.9 schema/validator/runner, 63-case suite and chronology probe inputs absent from seven reviewed artifacts",
+    "Governance runtime/adapter, source services, atomic/fenced claim and concurrency evidence unavailable",
+    "UI and named plan approval evidence pending"
+  ],
+  "remaining_owners": {
+    "Mohab": "SA-01–SA-09 disposition; transport/digest, consumption currentness, terminal representation and continuation mapping",
+    "Nour": "bundle/corpus pairing, state integration and runtime atomicity",
+    "Ahmed_and_Mohamed": "labels and scenario RCA",
+    "Ahmed_and_Alaa_with_Mohab": "SA-09 outcome storage and gate mapping",
+    "Malak": "stage/verdict presentation and committed UI evidence",
+    "plan_approver": "identity and scope decisions pending"
+  },
+  "scoped_governance_disposition": "FINAL_RESPONSE_RECEIVED; OD03_VALUES_ACCEPTED_REPRESENTATION_AMENDED; OD04_CLAUSES_ACCEPTED_WITH_MECHANISM_AMENDMENTS",
+  "offline_checks": {
+    "status": "PASS",
+    "python": "3.12.14",
+    "manual_fixture_summary": {
+      "status": "PASS",
+      "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+      "canonical_schema": "BLOCKED",
+      "runtime": "NOT_RUN",
+      "team_approvals": "PENDING",
+      "git_checks": "REQUESTED_AND_PASSED",
+      "fixture_event_counts": {
+        "01-procurement-success.json": 37,
+        "02-procurement-bypass.json": 32,
+        "03-rag-grounded.json": 6,
+        "04-rag-insufficient.json": 4
+      },
+      "check_count": 961,
+      "execution_environment": {
+        "python": "3.12.14",
+        "helper_sha256": "ed99b3532c8d901e3900912b113256f4d8d3b901b97952fda1e27531bdac4185"
+      }
+    },
+    "corpus_boundary_summary": {
+      "result": "PASS",
+      "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+      "checks": 372,
+      "source_documents": 8,
+      "snapshots": 2,
+      "corpus_review_cases": 8,
+      "boundary_cases": 10,
+      "not_run": [
+        "chunk token counts",
+        "embedding API",
+        "pgvector/FAISS",
+        "runtime workflow",
+        "canonical trace validator",
+        "semantic evaluator",
+        "shared acceptance"
+      ],
+      "execution_environment": {
+        "python": "3.12.14",
+        "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+      }
+    },
+    "historical_candidate_verifier": {
+      "result": "PASS",
+      "checks": 63,
+      "cases": 31,
+      "input_hashes": {
+        "candidate-config.json": "7bdc0cd5a514f2f0a0bb58ffe06a5c44d45c4cedb6ed00688852cde0689c35f5",
+        "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+        "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+        "verify_candidate.py": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5"
+      },
+      "metadata_scope": "PENDING_MOHAMED describes the historical candidate metadata; current scoped acceptance is in the final governance review record"
+    },
+    "historical_od04_helper": {
+      "result": "PASS",
+      "checks": 149,
+      "cases": 27,
+      "file_hashes": {
+        "README.md": "b89dcd698cfe8a23d6471096d45bfa0da30e01397dcaa50806e9e0ddb7d624bc",
+        "response.json": "3d5c37cb6f4d9eafcd15358998ee2c50b1f661bf2d89dd0201fd902306e73b3b",
+        "cases.json": "e18099e6ae3c8b3a417ebc8d921698c3ea6f369da442e4e599eacf5d443d6be6",
+        "verify_review.py": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8"
+      }
+    },
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_105_FILES",
+    "json": "PASS",
+    "whitespace": "PASS",
+    "stale_current_yaml_or_independent_check_requests": "NONE_IN_CHANGED_CURRENT_OWNER_DOCUMENTS"
+  }
+}

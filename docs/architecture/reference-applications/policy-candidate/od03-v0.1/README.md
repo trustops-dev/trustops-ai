@@ -1,8 +1,8 @@
 # OD-03 — synthetic approval policy candidate 0.1
 
-**PROPOSED / NOT ACCEPTED / NOT ENABLED — 2026-11-05.** Nour proposes these values for Mohamed's review. This is an isolated synthetic configuration proposal, not an approved business policy, deployed configuration, canonical schema or approval record. OD-03 remains OPEN pending a dated acceptance or amendment. No existing symbolic contract/corpus example is changed by this candidate.
+**Historical application candidate 0.1 — proposed 2026-11-05, governance values accepted 2026-11-14.** Mohamed’s final response supplies `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`, and accepts USD only, threshold `5000.00`, strict `>`, `manager`, positive decimal strings and no FX. [Exact-revision record and independent result](../../reviews/mohamed-7c26168-governance-response.md).
 
-**Subsequent scoped response recorded 2026-11-09:** [Mohamed's response to commit 479cab0](../../reviews/mohamed-479cab0-od03-response.md) accepts review rows 1–5 as synthetic MVP values and amends row 6 to a governance YAML named `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`. The opening status above is the historical proposal status. The actual YAML and its revision were not supplied, so `candidate-config.json` remains an unenabled review artifact and the operative examples stay symbolic. Mohab's transport/digest verification remains open.
+The candidate JSON, paired policy text and 31-case fixtures retain their historical input identities. The supplied governance checker at PR #28 `7c26168` agrees with all 31 committed cases. Mohab transport/digest agreement, Nour bundle/corpus pairing, source ingestion and runtime activation remain pending. The earlier [email response record](../../reviews/mohamed-479cab0-od03-response.md) is historical.
 
 ## Proposed configuration
 
@@ -53,9 +53,9 @@ The machine-readable table contains 31 cases, including invalid inputs, missing 
 
 policy-text.txt is the proposed matching synthetic source paragraph for this candidate. It is **not** ingested into the current corpus or substituted for corpus-review/documents/doc-001.txt. The current corpus retains symbolic A/T/C and its existing hashes. The source and configuration belong to this candidate version together; its source identifiers and runtime policy_version mapping must be assigned during accepted integration. Do not silently mix this candidate with demo-policy-v1-NOT-RATIFIED, v1.5/v1.6 review inputs or an existing index.
 
-After the accepted governance YAML and exact revision are supplied, Nour compares its content with these 31 cases, updates only affected source fixtures and owner examples, records source/config hashes and reruns their checks; Mohab verifies transport and request binding. Update/rebuild an index only if corpus membership changes at the implementation stage. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
+The supplied governance YAML at `7c26168` has been compared with the committed 31-case table through its independent checker, with 31/31 agreement. Nour next assigns the bundle/corpus pairing and updates affected examples when integration is agreed; Mohab verifies transport, digest and request binding. Update/rebuild an index only if corpus membership changes at the implementation stage. A later amendment requires a new candidate version and rerun boundary results; preserve this proposal as historical evidence.
 
-## Exact review request to Mohamed
+## Historical review request to Mohamed
 
 Please ACCEPT or AMEND candidate 0.1 for OD-03/GD-03, identifying each disputed row:
 
@@ -66,7 +66,7 @@ Please ACCEPT or AMEND candidate 0.1 for OD-03/GD-03, identifying each disputed 
 5. Versioned governance configuration authority and stopping on missing/conflicting text, configuration, version or trusted request evidence.
 6. The exact governance configuration representation and accepted version identifier to use; no assumption that this review JSON is the runtime schema.
 
-Return reviewer, date, exact candidate file hashes, ACCEPT/AMEND for each row, replacement values/wording for amendments, and conditions still open. Do not mark approval validity, dispatch permission or runtime implementation accepted solely by accepting OD-03. This request is prepared, not sent. accepted_by/accepted_at/acceptance_evidence remain null.
+Return reviewer, date, exact candidate file hashes, ACCEPT/AMEND for each row, replacement values/wording for amendments, and conditions still open. Do not mark approval validity, dispatch permission or runtime implementation accepted solely by accepting OD-03. The six-row request above is historical. Mohamed’s final scoped response is recorded at `7c26168`; the candidate’s original acceptance metadata remains part of the historical input.
 
 ## Offline reproduction
 
@@ -78,3 +78,5 @@ python -S docs/architecture/reference-applications/policy-candidate/od03-v0.1/ve
 ```
 
 The standard-library helper checks the proposed configuration, paired policy text and all 31 expected outcomes. It writes outside the candidate folder, exits nonzero on disagreement and never loads credentials, calls tools, changes state or grants authorization. Its local arithmetic oracle is for specification review only and must not be imported by an application or governance runtime. PASS establishes internal agreement only; it is not Mohamed's acceptance or an integration result.
+
+The candidate helper still reports its historical candidate metadata, including PENDING_MOHAMED. Current scoped acceptance is tracked in the final governance response record linked above.
