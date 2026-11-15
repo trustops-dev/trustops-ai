@@ -1,11 +1,11 @@
 {
-  "packet_id": "nour-owner-review-2026-11-15-ahmed-evaluator-scoped-response",
+  "packet_id": "nour-owner-review-2026-11-15-g01-sent-handoffs",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-15",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "REVERIFIED_2026-11-15_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_14ee4a24763ed515aeb1b0a1986893380f4f8f22_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; PROVIDER_G01_ADDENDUM_PUSH_VERIFIED_078f2d227f78e4f87162704b7abe34fe7850cd34; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "remote_verification": "VERIFIED_2026-11-15_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_b875c7c3ab8440220a34b285c8492854abe19f01_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
+  "commit_push_pr": "PR27_BASELINE_PUSH_VERIFIED_b875c7c3ab8440220a34b285c8492854abe19f01; THIS_G01_HANDOFF_UPDATE_LOCAL_NOT_PUSHED; HOSTED_CHECKS_NOT_INSPECTED",
   "approval_status": "AHMED_SCOPED_EVALUATOR_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -295,8 +295,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "d3cf68574e9dc6766c05066acdc79c5e09e661e5fe00d6c04593c70aa9f7f8f4",
-      "size_bytes": 33412,
+      "sha256": "f56bf72f9419daa9fbceb4520551c066ebfbdca66419456ad5a3a7e8675eecf7",
+      "size_bytes": 33538,
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
@@ -1079,6 +1079,11 @@
       "size_bytes": 4261
     },
     {
+      "path": "docs/architecture/reference-applications/validation/g01-handoff-admission-refresh.json",
+      "sha256": "300e2c097965fd6b6b0c9854d29c95fafcc1c64c7bfbc12162eb87bb5adaed49",
+      "size_bytes": 1315
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/malak-ui-response-refresh.json",
       "document_revision": "2026-11-09 Malak scoped owner review",
       "sha256": "f7741c9a96dbd5a336b817d625886c1aa72b41e25afff41781e722ba98f2fefb",
@@ -1268,6 +1273,11 @@
       "sha256": "107cbb48134d14340b4679fb05e5371b83f53172d26f54374b6f30b64376587c",
       "size_bytes": 6515,
       "document_revision": "2026-11-15 proposal"
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md",
+      "sha256": "db5cb020de0ad0d4c42185cb53f3411c18763f90337f26661be306b7e4b7b56d",
+      "size_bytes": 6162
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
@@ -1505,7 +1515,7 @@
     "scope": "Decision and handoff consolidation only; prior full closeout and v1.5 mapping retained as historical records",
     "request_rows": 20,
     "review_reference": "https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal",
-    "review_findings": "R16-01–09",
+    "review_findings": "R16-01\u201309",
     "approvals_added": false,
     "messages_sent": false,
     "runtime_executed": false,
@@ -2101,5 +2111,15 @@
     "runtime": "NOT_RUN",
     "original_attachment_sha256": "bac566ebff7fd56466b0a59943581b70b1fd99b50b98d7f1dd0438ca87e47759",
     "source_normalization": "ONE_TRAILING_BLANK_LINE_REMOVED_FOR_REPOSITORY_FORMATTING"
+  },
+  "g01_sent_handoff_update": {
+    "date": "2026-11-15",
+    "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md",
+    "validation_report": "docs/architecture/reference-applications/validation/g01-handoff-admission-refresh.json",
+    "sent": "USER_CONFIRMED",
+    "responses": "AWAITING_RESPONSE",
+    "admission": "HOLD",
+    "remote_baseline": "b875c7c3ab8440220a34b285c8492854abe19f01",
+    "new_provider_requests": 0
   }
 }
