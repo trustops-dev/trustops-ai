@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "21edca400032238ce2d2163c62ea7f37b3c315d652952c77ee30e785dc961cc9",
+  "manifest_sha256": "5e14eb5d11616bf01279f4895edc19cd394e22dd2204108269a4a480c8b0c154",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16359,5 +16359,15 @@
     "validation_input": "Exact staged Git blob bytes in a temporary snapshot; Windows checkout line endings differ",
     "provider_requests_sent": 0,
     "historical_evidence": "Prior reports and sanitized provider results retained; external schema and runtime checks not rerun"
+  },
+  "ahmed_evaluator_integration": {
+    "date": "2026-11-15",
+    "scope": "Fresh offline fixture/link and corpus checks on exact staged Git bytes; historical reports retained",
+    "manual_fixture_link_checks": 1000,
+    "corpus_boundary_checks": 397,
+    "manifest_entries_verified": 234,
+    "OD09_GD26": "OPEN",
+    "retrieval_fault_fields": "PROPOSED_PENDING_MOHAB",
+    "runtime_and_external_schema_checks": "NOT_RUN"
   }
 }

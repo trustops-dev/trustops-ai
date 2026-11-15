@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-09-malak-ui-and-plan-routing",
+  "packet_id": "nour-owner-review-2026-11-15-ahmed-evaluator-scoped-response",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-15",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "REVERIFIED_2026-11-15_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_14ee4a24763ed515aeb1b0a1986893380f4f8f22_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
   "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; PROVIDER_G01_ADDENDUM_PUSH_VERIFIED_078f2d227f78e4f87162704b7abe34fe7850cd34; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
-  "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; TEAM_LEAD_NOUR_IDENTIFIED; SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
+  "approval_status": "AHMED_SCOPED_EVALUATOR_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -133,9 +133,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "5dc7ae873c75c9d3a31c77fdc61760e9d00446d7cf50658d7a315719423549d1",
-      "size_bytes": 16601,
-      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+      "sha256": "0b185be37c712dc32755a2b82d48eb125d9d8b003ec2de74b7b3db6ffc8630a5",
+      "size_bytes": 17425,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
       "path": "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
@@ -295,9 +295,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "ed52f99392f0c265568491c04a5c3697ece68d646d2e90552d56bc17f8eb41e2",
-      "size_bytes": 31853,
-      "document_revision": "2026-11-15-G01-diagnostic-handoff"
+      "sha256": "d3cf68574e9dc6766c05066acdc79c5e09e661e5fe00d6c04593c70aa9f7f8f4",
+      "size_bytes": 33412,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -307,9 +307,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "880009b49d1d29420ad4d7f80ef61a0ff81d42c386a0c42e2615b40ea343c91a",
-      "size_bytes": 30908,
-      "document_revision": "2026-11-15-G01-diagnostic-status"
+      "sha256": "989af93252c8d24a1cb06ca0157b98398625f67553b1fcad7d37fed48c370a0e",
+      "size_bytes": 33239,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -318,9 +318,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/plan-approval-routing.md",
-      "document_revision": "2026-11-14-team-lead-plan-decision-draft",
-      "sha256": "ab14eb04326e74a7e734958a7e8a761d28482aab9c9724494cde47911ea8ccd3",
-      "size_bytes": 11197
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record",
+      "sha256": "3d5c705b4f003fcd977b93bb36e75904b77d4e290f08c2a36e9d156c32f3a6c3",
+      "size_bytes": 11654
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
@@ -924,6 +924,18 @@
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response-source.md",
+      "sha256": "982b68089f2096ae1aba61096d622330f4763efeec934ba1553c5d9a35d585ec",
+      "size_bytes": 25688,
+      "document_revision": "user-supplied-email-source-as-received"
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response.md",
+      "sha256": "ff60e1be8601991e1c82a8924d79360e1b311ff8d9e5dc5b58a2c923befc87a2",
+      "size_bytes": 8650,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
       "sha256": "ebbb98f49cc1000f44e555afcb1686eb7784fba5c11b26a0cd3753d7bbd07ce8",
       "size_bytes": 16282
@@ -1046,6 +1058,12 @@
       "size_bytes": 11541
     },
     {
+      "path": "docs/architecture/reference-applications/validation/ahmed-evaluator-review-refresh.json",
+      "sha256": "c568de71127e81a36995c2f08add445074a9c4b6f907123f8fbc824c4c6e6aec",
+      "size_bytes": 2172,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
       "sha256": "b74374f7d7453e737fb412874fb0d871434719a12d6078578e00762dc6f8253c",
       "size_bytes": 32879
@@ -1165,9 +1183,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "676569c8c025368a7213a5c22fd62ec27f1316e88482e632103c8bb851ba5509",
-      "size_bytes": 21940,
-      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+      "sha256": "1154a83c06dc21bf26ae8b822d15832b3994e9b91391e1fcd4329fff3601ba90",
+      "size_bytes": 22422,
+      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -2065,5 +2083,23 @@
     "retrieval_coverage": "PROC-APPROVAL-01_AND_PROC-SUPPLIER-01_MAPPED; PROC-TOOL-STAGE-01_TEXT_COVERAGE_PENDING_MOHAMED_MOHAB",
     "tool_policy_set_version_alias": "PENDING_MOHAB",
     "chunk_hash_convention": "PENDING_MOHAB; FULL_SOURCE_SHA256_NOT_AUTOMATICALLY_POLICY_EVIDENCE_CHUNK_HASH"
+  },
+  "ahmed_evaluator_response": {
+    "record_date": "2026-11-15",
+    "reviewer": "Ahmed Ragab",
+    "reviewed_owner_commit": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+    "source": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response-source.md",
+    "source_sha256": "982b68089f2096ae1aba61096d622330f4763efeec934ba1553c5d9a35d585ec",
+    "email_sent_date": null,
+    "review_record": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response.md",
+    "fresh_offline_check": "docs/architecture/reference-applications/validation/ahmed-evaluator-review-refresh.json",
+    "scope": "EVALUATOR_SIDE_ACCEPT_AMEND_ONLY",
+    "OD_09_GD_26": "OPEN_TAXONOMY_GOVERNANCE_DATASET_AND_NOUR_PLAN_DECISION",
+    "direct_rag_retrieval_fault": "PROPOSED_AMENDMENT_OPEN_WITH_MOHAB",
+    "prior_reports": "HISTORICAL_AT_RECORDED_MANIFEST_HASH_NOT_RERUN",
+    "schema_freeze": "NOT_APPROVED",
+    "runtime": "NOT_RUN",
+    "original_attachment_sha256": "bac566ebff7fd56466b0a59943581b70b1fd99b50b98d7f1dd0438ca87e47759",
+    "source_normalization": "ONE_TRAILING_BLANK_LINE_REMOVED_FOR_REPOSITORY_FORMATTING"
   }
 }
