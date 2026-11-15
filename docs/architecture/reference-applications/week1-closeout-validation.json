@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "55634a9fff175370e9fb70d494596106854deee2bb63f5a64f8fb82b632f3e74",
+  "manifest_sha256": "21edca400032238ce2d2163c62ea7f37b3c315d652952c77ee30e785dc961cc9",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -6327,7 +6327,7 @@
   "limits": [
     "Owner mapping/fixture consistency only; full schema acceptance remains pending.",
     "Pinned v1.6 baseline and supplied suite pass; independent suite still has 16 unmet expectations.",
-    "All E01â€“E27 rows now assess v1.6; v1.5 mapping remains unchanged history.",
+    "All E01–E27 rows now assess v1.6; v1.5 mapping remains unchanged history.",
     "No provider, database, tool, runtime integration or concurrency execution.",
     "OD-03 and OD-04 preparation preserved; no new approvals, sent messages, commits, push or PR."
   ],
@@ -11016,7 +11016,7 @@
       "helper_sha256": "123c1783bcbaaa65050b74c451087dc836054e2b115f9a53c84ade46f65b606e"
     },
     "changed_this_task": {
-      "scope": "Map all E01â€“E27 requirements to supplied v1.5, with current statuses and review addendum",
+      "scope": "Map all E01–E27 requirements to supplied v1.5, with current statuses and review addendum",
       "new_files": [
         "schema-v1.5-evidence-mapping.json"
       ],
@@ -12363,7 +12363,7 @@
       },
       {
         "date": "2026-11-05",
-        "scope": "Current v1.5 E01â€“E27 mapping, fixture-field references, preserved requirements and packet integrity; no runtime or canonical validator rerun",
+        "scope": "Current v1.5 E01–E27 mapping, fixture-field references, preserved requirements and packet integrity; no runtime or canonical validator rerun",
         "manifest_sha256": "1298c87940aedbcda59dcc2a4dcd6989d2c55e4e0e0588843dae6b6dc0d255ce",
         "note": "Prior v1.5 mapping validation; unchanged detailed sections retained, not rerun by decision consolidation."
       }
@@ -13432,7 +13432,7 @@
       "scope": "Decision and handoff consolidation only; prior full closeout and v1.5 mapping retained as historical records",
       "request_rows": 20,
       "review_reference": "https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal",
-      "review_findings": "R16-01â€“09",
+      "review_findings": "R16-01–09",
       "approvals_added": false,
       "messages_sent": false,
       "runtime_executed": false,
@@ -14833,7 +14833,7 @@
         "status": "PASS"
       },
       {
-        "check": "Exactly E01â€“E27 in order",
+        "check": "Exactly E01–E27 in order",
         "status": "PASS"
       },
       {
@@ -16212,7 +16212,7 @@
     "od04_draft_0_1_checks": 149,
     "manual_fixture_link_checks": 904,
     "corpus_boundary_checks": 336,
-    "new_paper_examples": "OD04-R01â€“R08 in response 0.2, not executed as canonical fixtures",
+    "new_paper_examples": "OD04-R01–R08 in response 0.2, not executed as canonical fixtures",
     "governance_file": "NOT_SUPPLIED",
     "joint_v06_mechanism": "PENDING_MOHAB_AND_MOHAMED",
     "runtime": "NOT_RUN",
