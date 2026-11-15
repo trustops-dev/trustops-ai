@@ -191,9 +191,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/README.md",
-      "sha256": "73165ddd67ccb6432fc1d5e582217896e7abf56298659c42f21f68767f07d631",
-      "size_bytes": 3579,
-      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+      "sha256": "3f1e1c1aac0f11add903df3e4f6ecfd943b079c192399a0ec3b5574269704fdb",
+      "size_bytes": 3806,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/documents/doc-001-v2.txt",
@@ -252,6 +252,48 @@
       "sha256": "3fd76114ee93e20271cc2ae221dc3eaecc3fe666052b34a942b70fa5ed8ba9f1",
       "size_bytes": 2949,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/README.md",
+      "sha256": "3505dcb065e6a17af958cf4d0a87595dc979fc0e262138afb42d7d589238b24d",
+      "size_bytes": 2692,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/authored-inputs.json",
+      "sha256": "e546d1bb99c33609636ffa629ed5b0f4fc0bed766dd431a839aac4014adc84be",
+      "size_bytes": 2534,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/build.py",
+      "sha256": "cf557e17002eedad1745a9720d4ac9f9dfd1b14216e139683563baee2524643c",
+      "size_bytes": 9837,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/evaluation-sidecar.json",
+      "sha256": "cc59449fac719493eb94da3ed048193c2b5f94b08fbeb82ba0b1bd100c7bddde",
+      "size_bytes": 4367,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/inference-inputs.json",
+      "sha256": "1c8d239e6bd696b9cdcb8c5bb24ff53c3a65f0a44cb6ff140fe06b2836c8a4f7",
+      "size_bytes": 11596,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/proposed-policy-pairing.json",
+      "sha256": "e1d9e926e1ff64a8685c1ce9a8d2c813697cd686c238b6b44482ff00e4e7f4ca",
+      "size_bytes": 939,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/corpus-review/retrieval-fixtures/test_build.py",
+      "sha256": "d370da1028a961784d03a662370a74192332500e385d286dd42b7ba0ce025243",
+      "size_bytes": 3643,
+      "document_revision": "2026-11-15-offline-retrieval-fixtures-v0.1"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/review-cases.json",

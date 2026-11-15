@@ -1,0 +1,32 @@
+{
+  "artifact_kind": "PROPOSED_POLICY_CORPUS_PAIRING_NOT_RUNTIME_INPUT",
+  "policy_kb_version": "synthetic-procurement-policy-kb-v0.1",
+  "policy_bundle_version": "synthetic-procurement-policy-set-v0.1",
+  "index_version": null,
+  "source_membership": [
+    {
+      "document_id": "doc-001",
+      "source_id": "src-001",
+      "source_version": "review-r2",
+      "policy_id": "PROC-APPROVAL-01",
+      "content_hash": "69e9834b728663fafb94f1731cae14d9af69eaba8988ead41a8f77343b8e1812",
+      "protected_unit": [
+        0,
+        950
+      ]
+    },
+    {
+      "document_id": "doc-002",
+      "source_id": "src-002",
+      "source_version": "review-r1",
+      "policy_id": "PROC-SUPPLIER-01",
+      "content_hash": "9e0b3f630b9c89bf76968f1506b1b9cd54369130f012dc397cb563702881a33e",
+      "protected_unit": [
+        0,
+        361
+      ]
+    }
+  ],
+  "uncovered_rule": "PROC-TOOL-STAGE-01",
+  "status": "PENDING_INTEGRATION_REVIEW"
+}

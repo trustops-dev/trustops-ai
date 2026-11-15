@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "b3b7818a9790a5e76aa5d80520eab5f910ee498826544e2ca23e067f55086896",
+  "manifest_sha256": "74f7b62c7828108fbd14e8b5f01ab2155f17bd8d2ec2841ef63821e51451ac92",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16377,5 +16377,16 @@
     "corpus_boundary_checks": 396,
     "manifest_entries_verified": 236,
     "runtime": "NOT_RUN"
+  },
+  "offline_retrieval_fixture_integration": {
+    "date": "2026-11-15",
+    "scope": "Exact staged Git bytes in a temporary snapshot; offline authored fixtures only",
+    "build_check": "PASS_THREE_DERIVED_FILES_MATCH",
+    "fixture_tests_passed": 6,
+    "manual_fixture_link_checks": 1001,
+    "corpus_boundary_checks": 397,
+    "manifest_entries": 243,
+    "runtime": "NOT_RUN",
+    "policy_pairing": "PROVISIONAL"
   }
 }
