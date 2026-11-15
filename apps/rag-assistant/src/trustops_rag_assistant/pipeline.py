@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from hashlib import sha256
-from typing import Protocol
+from typing import Literal, Protocol
 
 from .trace import AppEvent, EventSink, NullSink
 
@@ -62,6 +62,20 @@ class RAGResult:
     missing_information: str | None = None
 
 
+class RetrievalError(Exception):
+    """Local adapter failure, not a canonical trace or evaluator taxonomy field.
+
+    Adapters translate known failures into an allowlisted category. Raw provider
+    messages must never be forwarded to the result or event sink.
+    """
+
+    def __init__(self, category: Literal["TIMEOUT", "PROVIDER_OR_SDK_ERROR"]):
+        if category not in ("TIMEOUT", "PROVIDER_OR_SDK_ERROR"):
+            raise ValueError("Unsupported retrieval error category")
+        self.category = category
+        super().__init__(category)
+
+
 class Retriever(Protocol):
     def retrieve(self, query: str) -> tuple[RetrievedEvidence, ...]: ...
 
@@ -115,7 +129,16 @@ class Pipeline:
             self.sink.emit(AppEvent(kind, query_id, details))
 
         event("user_query", query=query)
-        retrieved = self.retriever.retrieve(query)
+        try:
+            retrieved = self.retriever.retrieve(query)
+        except RetrievalError as exc:
+            event("retrieval_error", category=exc.category)
+            event("final_response", status="ERROR", reason="RETRIEVAL_ERROR")
+            return RAGResult(
+                "ERROR",
+                "Retrieval failed; an evidence-based answer could not be prepared.",
+                reason="RETRIEVAL_ERROR",
+            )
         event("retrieval", count=len(retrieved))
         selection = self.selector.select(query, retrieved)
         selected = tuple(

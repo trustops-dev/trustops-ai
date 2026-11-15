@@ -17,8 +17,12 @@ ineligible supplier, missing ALLOW and changed evidence stop before dispatch.
 The synthetic gate response and current-version check demonstrate the integration
 points. They are **not** a substitute for Mohamed's governance evaluation or Mohab's
 atomic, durable authorization and consumption record. The in-memory ledger protects
-same-key repeated calls in one local process only. No write replay or restart
-recovery is implemented. The calculation is a supplied fixture, not an app-owned
+same-key repeated calls in one local process only. A configured non-timeout
+`UNKNOWN_OUTCOME` is retained under that key; later same-key lookup cannot turn it
+into `ALREADY_EXISTS` or create another effect. The workflow remains in
+`PO_CREATION` / `RECOVERY_PENDING` with no completion response. No automatic write
+replay, persistent terminal-approval enforcement, cross-key deduplication, atomic
+consumption or restart recovery is implemented. The calculation is a supplied fixture, not an app-owned
 threshold rule. Workflow budgets and continuation are future integration points.
 
 ## RAG
@@ -27,8 +31,12 @@ threshold rule. Workflow budgets and continuation are future integration points.
 generation and structural citation binding. A valid quote must match exact offsets in
 the selected chunk, with matching document/source/chunk IDs, source version and SHA-256
 content hash. The visible marker must use the selected source ID/version. Missing or
-contradictory evidence and invalid citation bindings abstain; technical adapter
-failures and real authorization are not implemented here. The fixture author supplies
+contradictory evidence and invalid citation bindings abstain. A typed local
+`RetrievalError` (`TIMEOUT` or `PROVIDER_OR_SDK_ERROR`) instead returns `ERROR` /
+`RETRIEVAL_ERROR`, emits only an allowlisted category, and skips selection and
+generation. This is an application-local seam, not acceptance or implementation
+of the proposed canonical retrieval-fault amendment. Unexpected programming
+exceptions propagate; real authorization and provider adapters are not implemented. The fixture author supplies
 the qualitative sufficiency decision; this is not an automatic semantic entailment
 checker, a vector store, an embedding call or a general retrieval-quality result.
 
@@ -47,11 +55,41 @@ retention rules must be applied in that adapter before using real documents.
 With the repository's pinned toolchain and development environment:
 
 ```bash
-uv run pytest -q tests/unit/reference_applications
-uv run ruff check apps/procurement-agent apps/rag-assistant tests/unit/reference_applications
-uv run mypy apps/procurement-agent/src apps/rag-assistant/src
+uv run --locked --all-packages pytest -q tests/unit/reference_applications
+uv run --locked ruff check apps/procurement-agent apps/rag-assistant tests/unit/reference_applications
+uv run --locked mypy apps/procurement-agent/src apps/rag-assistant/src tests/unit/reference_applications
 ```
 
 The tests use synthetic fixtures and require no API key. The current validation
 record for this isolated patch is in the delivery note; it does not imply a
 provider or platform integration test.
+
+## Boundary coverage added 2026-11-15
+
+- Procurement: happy path; missing approval record and submission ID; pending,
+  denied and cancelled approval; revised request/supplier/amount/currency;
+  changed supplier/approval versions and explicit policy block; non-timeout UNKNOWN
+  retained on same-key repeat with one dispatch and no false completion; same-key
+  payload conflict rejected. DENIED/CANCELLED tests cover stopping the current
+  execution, not a durable state-transition store across separate executions.
+- RAG: grounded answer; document/source/version/chunk/hash mismatch; bad offsets,
+  quote and tampered chunk text; retrieved-but-excluded support; exact selected
+  context passed to the generator; separate authored insufficient/conflicting
+  abstention and zero-hit abstention; timeout/provider errors skip generation and
+  remain errors rather than evidence insufficiency.
+- Context currently consists of whole selected chunks. Span checks use Unicode
+  code-point offsets in those exact chunks; sliced/truncated prompts will require
+  explicit slice mapping and new tests before implementation. Structural checks
+  do not establish semantic entailment. Sufficiency/conflict decisions are authored
+  fixtures, not automatic contradiction detection or retrieval-quality evaluation.
+
+Run the additional formatting check with:
+
+```bash
+uv run --locked ruff format --check apps/procurement-agent apps/rag-assistant tests/unit/reference_applications
+```
+
+See [boundary validation](week2-boundary-validation-2026-11-15.json) for actual
+Linux preparation evidence and fresh Windows integration results. Live providers, canonical trace validation,
+pgvector/index ingestion, governance runtime and platform integration remain
+unverified. This is progress toward Week 2, not Week 2 closeout.

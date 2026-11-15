@@ -1,0 +1,138 @@
+{
+  "date": "2026-11-15",
+  "scope": "OFFLINE_LOCAL_MOCKS_NOT_APPLICATION_ACCEPTANCE",
+  "base_dev_commit": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+  "previous_scaffold_commit": "8e1df7c",
+  "environment": {
+    "os": "Linux",
+    "python": "3.12.14",
+    "uv": "0.13.0",
+    "pytest": "9.1.1",
+    "ruff": "0.17.0",
+    "mypy": "2.4.0"
+  },
+  "checks": [
+    {
+      "command": "uv sync --locked --all-packages",
+      "result": "PASS",
+      "note": "Executed via uv tool run --from uv==0.13.0; lockfile unchanged"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/unit/reference_applications",
+      "result": "PASS",
+      "passed": 35
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "result": "PASS",
+      "passed": 70
+    },
+    {
+      "command": ".venv/bin/python -m ruff check .",
+      "result": "PASS"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check .",
+      "result": "PASS",
+      "files": 68
+    },
+    {
+      "command": ".venv/bin/python -m mypy",
+      "result": "PASS",
+      "files": 22
+    },
+    {
+      "command": ".venv/bin/lint-imports",
+      "result": "PASS",
+      "contracts_kept": 5,
+      "contracts_broken": 0
+    }
+  ],
+  "not_run": [
+    "Windows execution",
+    "live model or embedding calls",
+    "canonical trace validator",
+    "governance engine integration",
+    "persistent/distributed PO recovery",
+    "semantic entailment evaluation",
+    "GitHub hosted checks"
+  ],
+  "limitations": [
+    "All selected chunks are passed whole to the mock generator; no production prompt slicing/token budgeting is implemented.",
+    "Fixture-authored evidence sufficiency and conflict; not automatic detection.",
+    "UNKNOWN replay suppression is confined to the same MockTools instance and idempotency key.",
+    "No durable enforcement of terminal approval states across executions.",
+    "RetrievalError is application-local; canonical retrieval-fault amendment remains open."
+  ],
+  "source_files": [
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/__init__.py",
+      "sha256": "5bfff323fd355e184d47d98dc2479fefc92c995ae57c5d886536737c9403a3d9"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/mock_tools.py",
+      "sha256": "187f752e86ec1376c427f57d7133335e2c0a66193902d8e0d74991152b0d345b"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/trace.py",
+      "sha256": "918504a1c9ca206fc779bc7091e2d2198353a3fb3f9e572bfc51ec3a27eff3e1"
+    },
+    {
+      "path": "apps/procurement-agent/src/trustops_procurement_agent/workflow.py",
+      "sha256": "31fc3629cfa536dda8295922113bfece832fc85f564fa3a222b2f0bd20d2dbac"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/__init__.py",
+      "sha256": "826c18214f2d02cefb691a814179a22aeb4a66474c9c52ad29e1a9dfaab562ff"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/mock_components.py",
+      "sha256": "a97a9e9fe42ae3f3029d16665d32965b6af2ca6ebaad0f83762421efe91c81da"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/pipeline.py",
+      "sha256": "a49f36851410697d978eca3369ea02d58913c6564eceecc8a9f3aa3ad3dd6eab"
+    },
+    {
+      "path": "apps/rag-assistant/src/trustops_rag_assistant/trace.py",
+      "sha256": "7eff92f64ff1bf0d50a01df9fef75af8ab7c512760e62ef7d527473cb677687a"
+    },
+    {
+      "path": "tests/unit/reference_applications/test_procurement_boundaries.py",
+      "sha256": "24f1e2623ab911259d7ef4eb4c2309746efda399a4441ab9ab42cc1452eba142"
+    },
+    {
+      "path": "tests/unit/reference_applications/test_procurement_scaffold.py",
+      "sha256": "ef7147169979744c36c865e71b4b08a1cfe4402fce6cf53fc5585ba04c29f337"
+    },
+    {
+      "path": "tests/unit/reference_applications/test_rag_boundaries.py",
+      "sha256": "14276d62cbaf85348cf96da9504898814bb1698ad89f1a2fbe74eb4d82e71678"
+    },
+    {
+      "path": "tests/unit/reference_applications/test_rag_scaffold.py",
+      "sha256": "ccc1818440ced8c16e747c9c7d121bed492c83699e9bd5dfc250363623a52885"
+    }
+  ],
+  "prepared_evidence_note": "The environment, checks and not_run fields above preserve supplied Linux preparation evidence. Fresh Windows integration results follow.",
+  "windows_integration_validation": {
+    "date": "2026-11-15",
+    "branch": "feat/week2-reference-app-mocks",
+    "baseline_commit": "88349850f5ba163967a6009cfdf63674f58c364e",
+    "patch_choice": "03-week2-incremental-from-original-scaffold.patch only; reconciled original-scaffold formatting context",
+    "environment": {
+      "os": "Windows",
+      "python": "3.12.14",
+      "uv": "0.13.0"
+    },
+    "focused_tests": 35,
+    "full_tests": 70,
+    "ruff_check": "PASS",
+    "ruff_format_files": 68,
+    "mypy_full_files": 22,
+    "mypy_targeted_files": 12,
+    "import_contracts_kept": 5,
+    "import_contracts_broken": 0,
+    "provider_requests_sent": 0
+  }
+}

@@ -1,6 +1,7 @@
 """Fixed synthetic responses. These fixtures do not grant production authorization."""
 
 from dataclasses import dataclass, field
+from typing import Literal
 
 from .workflow import (
     ApprovalResult,
@@ -24,6 +25,7 @@ class MockTools:
     current_supplier_version: str | None = None
     current_approval_version: str | None = None
     dispatch_count: int = 0
+    po_outcome: Literal["CREATED", "UNKNOWN_OUTCOME"] = "CREATED"
     _ledger: dict[str, tuple[PurchaseRequest, PurchaseOrderResult]] = field(default_factory=dict)
 
     def search_policy(self, request: PurchaseRequest) -> PolicyResult:
@@ -82,6 +84,9 @@ class MockTools:
             old_request, result = existing
             if old_request != request:
                 raise ValueError("IDEMPOTENCY_CONFLICT")
+            # An uncertain dispatch remains uncertain; looking it up is not a replay.
+            if result.status == "UNKNOWN_OUTCOME":
+                return result
             return PurchaseOrderResult(
                 "ALREADY_EXISTS",
                 result.po_id,
@@ -93,8 +98,8 @@ class MockTools:
             )
         self.dispatch_count += 1
         result = PurchaseOrderResult(
-            "CREATED",
-            f"mock-po-{self.dispatch_count}",
+            self.po_outcome,
+            f"mock-po-{self.dispatch_count}" if self.po_outcome == "CREATED" else None,
             request.request_revision,
             request.supplier_id,
             request.total_amount,
