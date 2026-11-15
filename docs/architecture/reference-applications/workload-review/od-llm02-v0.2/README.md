@@ -1,5 +1,7 @@
 # Free-only workload candidate 0.2
 
+**2026-11-15 diagnostic addendum:** [The exact G01 failure record and review plan](g01-diagnostic-plan-2026-11-15.md) preserve both prior sanitized sessions. [A new read-only AI Studio observation](free-tier-observation-2026-11-15.json) confirms Free-tier displayed limits but does not establish remaining headroom. Mohab's safe offline error classification and Alaa's quota admission are pending; do not attest to 10 generation/4 embedding requests or make another live call based only on the peak-usage table. The candidate and this document's proposed profiles are unchanged.
+
 Status: PROPOSED; Alaa workload acceptance and runtime compatibility pending. Prepared 2026-11-07 against the commit recorded in workload-candidate.json. On 2026-11-09, [two bounded sessions](bounded-live-results-2026-11-09.json) passed C01 prompt-only counting and stopped at G01 with distinct failures. No generation, structured output, function proposal or embedding probe passed live. This supplements the existing provider and execution-budget ADRs; it does not change their root limits, canonical schemas or selected models.
 
 ## Evidence and decisions

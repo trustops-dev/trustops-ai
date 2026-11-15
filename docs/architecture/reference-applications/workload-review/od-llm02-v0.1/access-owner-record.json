@@ -196,5 +196,19 @@
     "project_free_tier_headroom_confirmed": false,
     "paid_use_authorized_usd": 0,
     "provider_receipt_of_timed_out_G01": "UNKNOWN"
+  },
+  "latest_free_tier_observation": {
+    "observed_at_utc": "2026-11-15T07:21:34Z",
+    "evidence_reference": "../od-llm02-v0.2/free-tier-observation-2026-11-15.json",
+    "source": "Signed-in AI Studio Rate Limit UI",
+    "generation_displayed_limit_rpd": 20,
+    "generation_last_28_days_peak_rpd": 2,
+    "generation_last_1_day_usage": "NO_REPORTED_ACTIVITY_IN_VIEW",
+    "embedding_displayed_limit_rpd": 1000,
+    "remaining_generation_requests": null,
+    "remaining_embedding_requests": null,
+    "shared_consumers": "UNCONFIRMED",
+    "admission_status": "HOLD_HEADROOM_NOT_ESTABLISHED",
+    "no_new_api_requests": true
   }
 }

@@ -1,11 +1,11 @@
 {
   "packet_id": "nour-owner-review-2026-11-09-malak-ui-and-plan-routing",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
-  "date": "2026-11-09",
+  "date": "2026-11-15",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "REVERIFIED_2026-11-14_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_PRE_STATUS_REFRESH_04789d7bf57f6058e741e024c9c2d4ebc8cd7281_GIT_REFS_AND_PUBLIC_GITHUB_API",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MALAK_PLAN_ROUTING_AND_GOVERNANCE_FOLLOWUPS_PUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "remote_verification": "REVERIFIED_2026-11-15_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_14ee4a24763ed515aeb1b0a1986893380f4f8f22_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; PROVIDER_G01_ADDENDUM_PREPARED_FOR_PR27_WITH_PUSH_AND_HOSTED_CHECKS_NOT_VERIFIED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "MOHAMED_OD03_VALUES_ACCEPTED_YAML_AND_31_CASE_CHECK_SUPPLIED; OD04_MECHANISM_AND_SA01_SA09_DISPOSITIONS_PENDING; TEAM_LEAD_NOUR_IDENTIFIED; SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -295,9 +295,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "db822e9409927142fa732beaa9be5cdb2664a07175d7d344de6209f32235649d",
-      "size_bytes": 31201,
-      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+      "sha256": "ed52f99392f0c265568491c04a5c3697ece68d646d2e90552d56bc17f8eb41e2",
+      "size_bytes": 31853,
+      "document_revision": "2026-11-15-G01-diagnostic-handoff"
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -307,9 +307,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "8b0adc56e5d8ab779743a890c4aa222d11dec608855b49cc0541858b01a903e9",
-      "size_bytes": 30062,
-      "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
+      "sha256": "880009b49d1d29420ad4d7f80ef61a0ff81d42c386a0c42e2615b40ea343c91a",
+      "size_bytes": 30908,
+      "document_revision": "2026-11-15-G01-diagnostic-status"
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -1177,9 +1177,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json",
-      "document_revision": "0.1",
-      "sha256": "8a90465ca45acb5b07d66bb2b1751c103f68fe5ab4b2fd5c317b777ca29e85f7",
-      "size_bytes": 10126
+      "document_revision": "0.3 plus 2026-11-15 UI observation",
+      "sha256": "203c1b3dda0d2381f7666c3afc56697d373cb063087e29b1aaa70411bfeb2ece",
+      "size_bytes": 10757
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py",
@@ -1207,8 +1207,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/README.md",
-      "sha256": "63ead8c263d3ded090f09a3fe8f0c8f3c003bae538454cab6ceaa02b0c2b2238",
-      "size_bytes": 7543
+      "sha256": "8bb5288a00338f1e1d3df9fda741f0aeebf97f3467181ed7590a72a5a090a817",
+      "size_bytes": 8123,
+      "document_revision": "0.2 plus 2026-11-15 diagnostic addendum"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json",
@@ -1237,6 +1238,18 @@
       "document_revision": "2026-11-09 owner observation",
       "sha256": "b52e994b5bcdb1736769821626437a75fc29cca5bf0387ff90d94a9d5f8c4b20",
       "size_bytes": 1733
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/free-tier-observation-2026-11-15.json",
+      "sha256": "100ba2caa3299bc9dd570db63d37029996d094c5a08d9efafdba4e02b99fc2a0",
+      "size_bytes": 1903,
+      "document_revision": "0.1"
+    },
+    {
+      "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-diagnostic-plan-2026-11-15.md",
+      "sha256": "107cbb48134d14340b4679fb05e5371b83f53172d26f54374b6f30b64376587c",
+      "size_bytes": 6515,
+      "document_revision": "2026-11-15 proposal"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
