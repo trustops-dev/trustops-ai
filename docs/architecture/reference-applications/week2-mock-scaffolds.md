@@ -93,3 +93,14 @@ See [boundary validation](week2-boundary-validation-2026-11-15.json) for actual
 Linux preparation evidence and fresh Windows integration results. Live providers, canonical trace validation,
 pgvector/index ingestion, governance runtime and platform integration remain
 unverified. This is progress toward Week 2, not Week 2 closeout.
+
+## Ahmed's scoped PR #29 review and local follow-up
+
+[The reviewer disposition and local rerun](reviews/ahmed-pr29-rag-scaffold-2026-11-16.md)
+record structural acceptance and targeted test amendments. Selected context and valid
+citation events now carry matching document/source/version/chunk/hash and retrieval
+snapshot identity under the same query ID. Two fixture-selected contradictory passages
+abstain without generation; consistent selected passages reach the generator with one
+verified citation. A test adapter wraps a raw provider exception and emits only an
+allowlisted retrieval error category. These cases do not establish semantic conflict
+detection, full multi-source citation support or canonical event compatibility.

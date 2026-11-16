@@ -1,6 +1,7 @@
 """Selected-context integrity, fixture abstention and distinct retrieval errors."""
 
 from dataclasses import replace
+from hashlib import sha256
 from typing import Literal
 from unittest.mock import Mock
 
@@ -146,6 +147,88 @@ def test_generator_receives_only_exact_selected_context() -> None:
     assert contexts[0]["content_hash"] == case.retrieved[0].content_hash
 
 
+def test_citation_event_correlates_to_selected_snapshot_and_final_citation() -> None:
+    case = grounded_case()
+    components = MockComponents(case)
+    sink = RecordingSink()
+    result = Pipeline(components, components, components, sink).answer("q-binding", case.query)
+    selected = next(e.details for e in sink.events if e.kind == "selected_context")
+    binding = next(e.details for e in sink.events if e.kind == "citation_binding")
+    assert result.status == "ANSWER"
+    assert len(result.citations) == 1
+    for field in ("document_id", "source_id", "source_version", "chunk_id", "content_hash"):
+        assert binding[field] == selected[field] == getattr(result.citations[0], field)
+    assert binding["snapshot_ref"] == selected["snapshot_ref"] == "snapshot-01"
+    assert {e.query_id for e in sink.events} == {"q-binding"}
+
+
+def test_two_authored_contradictory_selected_passages_abstain_without_generation() -> None:
+    case = grounded_case()
+    opposite = "Submit the receipt no earlier than thirty days after delivery."
+    other = replace(
+        case.retrieved[0],
+        document_id="doc-receipt-opposite",
+        source_id="source-receipt-opposite",
+        chunk_id="chunk-receipt-opposite",
+        chunk_text=opposite,
+        content_hash=sha256(opposite.encode("utf-8")).hexdigest(),
+        rank=2,
+    )
+    case = replace(
+        case,
+        retrieved=(*case.retrieved, other),
+        selection=Selection(
+            (case.retrieved[0].chunk_id, other.chunk_id),
+            None,
+            "INSUFFICIENT_EVIDENCE",
+            "CONFLICTING_EVIDENCE",
+            "Incompatible receipt deadlines; source precedence not established",
+        ),
+        candidate=None,
+    )
+    components = MockComponents(case)
+    generator = Mock()
+    sink = RecordingSink()
+    result = Pipeline(components, components, generator, sink).answer("q-conflict", case.query)
+    assert (result.status, result.reason, result.citations) == (
+        "ABSTENTION",
+        "CONFLICTING_EVIDENCE",
+        (),
+    )
+    generator.generate.assert_not_called()
+    assert [e.details["chunk_text"] for e in sink.events if e.kind == "selected_context"] == [
+        case.retrieved[0].chunk_text,
+        opposite,
+    ]
+
+
+def test_two_consistent_selected_sources_preserve_context_and_cited_identity() -> None:
+    case = grounded_case()
+    corroborating = "Receipts are due within ten days of delivery."
+    other = replace(
+        case.retrieved[0],
+        document_id="doc-receipt-confirmation",
+        source_id="source-receipt-confirmation",
+        chunk_id="chunk-receipt-confirmation",
+        chunk_text=corroborating,
+        content_hash=sha256(corroborating.encode("utf-8")).hexdigest(),
+        rank=2,
+    )
+    case = replace(
+        case,
+        retrieved=(*case.retrieved, other),
+        selection=replace(
+            case.selection, selected_chunk_ids=(case.retrieved[0].chunk_id, other.chunk_id)
+        ),
+    )
+    components = MockComponents(case)
+    generator = Mock(wraps=components)
+    result = Pipeline(components, components, generator).answer("q-two-sources", case.query)
+    assert result.status == "ANSWER"
+    assert result.citations == (case.selection.support,)
+    generator.generate.assert_called_once_with(case.query, case.retrieved)
+
+
 @pytest.mark.parametrize("category", ["TIMEOUT", "PROVIDER_OR_SDK_ERROR"])
 def test_retrieval_failure_is_error_not_evidence_abstention(
     category: Literal["TIMEOUT", "PROVIDER_OR_SDK_ERROR"],
@@ -167,3 +250,26 @@ def test_unclassified_programming_error_is_not_silently_relabelled() -> None:
     retriever.retrieve.side_effect = ValueError("Fixture bug")
     with pytest.raises(ValueError, match="Fixture bug"):
         Pipeline(retriever, Mock(), Mock()).answer("q-bug", "Receipt deadline?")
+
+
+def test_adapter_wrapped_provider_exception_does_not_leak_raw_message() -> None:
+    secret = "SENSITIVE_FIXTURE_PROVIDER_MESSAGE_do_not_emit"
+
+    class SanitizingAdapter:
+        def retrieve(self, query: str) -> tuple[()]:
+            try:
+                raise RuntimeError(f"Provider endpoint and token: {secret}")
+            except RuntimeError as exc:
+                raise RetrievalError("PROVIDER_OR_SDK_ERROR") from exc
+
+    selector, generator = Mock(), Mock()
+    sink = RecordingSink()
+    result = Pipeline(SanitizingAdapter(), selector, generator, sink).answer(
+        "q-provider-raw", "Receipt deadline?"
+    )
+    assert (result.status, result.reason) == ("ERROR", "RETRIEVAL_ERROR")
+    assert sink.events[1].details == {"category": "PROVIDER_OR_SDK_ERROR"}
+    assert secret not in repr(sink.events)
+    assert secret not in repr(result)
+    selector.select.assert_not_called()
+    generator.generate.assert_not_called()

@@ -164,10 +164,12 @@ class Pipeline:
         for item in selected:
             event(
                 "selected_context",
+                document_id=item.document_id,
                 source_id=item.source_id,
                 source_version=item.source_version,
                 chunk_id=item.chunk_id,
                 content_hash=item.content_hash,
+                snapshot_ref=item.snapshot_ref,
                 chunk_text=item.chunk_text,
             )
 
@@ -205,9 +207,29 @@ class Pipeline:
         event(
             "citation_binding",
             result="VALID",
+            document_id=candidate.support.document_id,
             source_id=candidate.support.source_id,
             source_version=candidate.support.source_version,
             chunk_id=candidate.support.chunk_id,
+            content_hash=candidate.support.content_hash,
+            snapshot_ref=next(
+                item.snapshot_ref
+                for item in selected
+                if (
+                    item.document_id,
+                    item.source_id,
+                    item.source_version,
+                    item.chunk_id,
+                    item.content_hash,
+                )
+                == (
+                    candidate.support.document_id,
+                    candidate.support.source_id,
+                    candidate.support.source_version,
+                    candidate.support.chunk_id,
+                    candidate.support.content_hash,
+                )
+            ),
             quote=candidate.support.quote,
             start=candidate.support.start,
             end=candidate.support.end,
