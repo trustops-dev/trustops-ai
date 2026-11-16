@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Not frozen. No teammate has acknowledged this document yet (see the [review record](README.md#owner-review-record)). |
+| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Not frozen. Teammates' scoped responses are recorded; none is a full acceptance (see the [review record](README.md#owner-review-record)). |
 | **Owner** | Mohamed Elnaggar — `packages/governance-engine` |
 | **Reviewers** | Nour El-Rouby, Mohab Mohsen, Ahmed Ragab, Alaa Sayed, Malak Sayed |
 | **Basis** | Proposal v1.1 §I, §K.2, §N.1, §Q, §R, §S and Figures 2–5; [repository architecture](../../../ARCHITECTURE.md); Sprint plan S1-04; the [reference-application contracts](../reference-applications/README.md) (revision 0.5) |

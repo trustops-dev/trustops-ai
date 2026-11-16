@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Owner decisions recorded; not frozen. No teammate has acknowledged this document yet (see the [review record](README.md#owner-review-record)). |
+| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Owner decisions recorded; not frozen. Teammates' scoped responses are recorded; none is a full acceptance (see the [review record](README.md#owner-review-record)). |
 | **Owner** | Mohamed Elnaggar — `packages/governance-engine` |
 | **Reviewers** | Nour El-Rouby, Mohab Mohsen, Ahmed Ragab, Alaa Sayed, Malak Sayed |
 | **Companions** | [decision-flow.md](decision-flow.md) · [policy-truth-tables.md](policy-truth-tables.md) · [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md) · [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) · [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md) · [policy configuration](policy-configuration/procurement-policy-set-v0.1.yaml) · [owner-review-packet.md](owner-review-packet.md) |
@@ -488,6 +488,8 @@ The value is derived only from a **valid** outcome combination (`PREVENTED` from
 
 **Labels (OD-09, Ahmed's decision).** Whether the failure label for an attempted-and-prevented violation is `POLICY_VIOLATION` (the class "attempts or executes" the breach) or something else is for Ahmed. Governance's recommendation: `POLICY_VIOLATION` for every critical policy `FAIL` regardless of the outcome, with `enforcement_outcome` carried next to the label so that the dashboard, the dataset and the release comparison can separate prevented from realized. That keeps the attempt visible and does not count successful enforcement as an enforcement failure.
 
+**Update 2026-11-16.** Ahmed's recorded reply (`docs/architecture/reference-applications/reviews/ahmed-taxonomy-followup-2026-11-16.md`, PR #27 branch `docs/nour-week1-review-014` at commit `c5b2568`) amends that recommendation. The primary label follows the failure taxonomy's tiers, highest independently evidenced failure first. A premature purchase order in `PRE_APPROVAL` is `WORKFLOW_VIOLATION` primary, with a supplier `POLICY_VIOLATION` secondary only if independently evidenced; a valid workflow with a supplier `FAIL` is `POLICY_VIOLATION` primary. Governance records this as the evaluator's position. The policy `FAIL` and `enforcement_outcome` are recorded either way. Closure (paired fixtures and Alaa's mapping) is still open.
+
 **Executed under an unverified authorization (GD-26, proposed).** If a purchase order was dispatched under an authorization that failed the consistency rules (for example a mismatched dispatch-claim id or binding), post-run policy evaluation re-derives the policies from the source records and records the dispatch as executed under an unverified authorization. That is a critical finding and fires `DEC-1`, because the mandatory pre-tool control did not demonstrably authorize the action. This extends `DEC-1` beyond a policy `FAIL` and needs Ahmed, Alaa and the plan owner to agree.
 
 ### 6.4 Release gate verdict and incomplete evaluation
@@ -721,7 +723,7 @@ The review of the Trace Schema Draft v1.5 package assigns items 1 and 2 to Mohab
 
 ### 9.5 Nour's owner packet 0.14 (commit `479cab0`)
 
-Nour's packet asks for an explicit ACCEPT or AMEND on each governance decision. The full response, with exact replacement wording, the reviewed file hashes, supporting cases and the split between governance-local and joint decisions, is in [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md). A follow-up reply to Nour's later requests, written against Trace Schema Draft v1.9, is [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md). In summary of the first reply: OD-03 values accepted as synthetic MVP configuration (31 of 31 boundary cases reproduced offline); OD-04 clauses V01 to V08 accepted with amended wording; OD-02 accepted as the narrower state/tool row; OD-05-MAP translation table proposed for Mohab; the four OD-12 child decisions answered separately; OD-16 accepted; OD-06 milestone defined; GD-26 left to the named plan approver, who is not yet identified. Nothing there is a teammate's acceptance.
+Nour's packet asks for an explicit ACCEPT or AMEND on each governance decision. The full response, with exact replacement wording, the reviewed file hashes, supporting cases and the split between governance-local and joint decisions, is in [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md). A follow-up reply to Nour's later requests, written against Trace Schema Draft v1.9, is [response-to-owner-packet-9e6affa.md](response-to-owner-packet-9e6affa.md). In summary of the first reply: OD-03 values accepted as synthetic MVP configuration (31 of 31 boundary cases reproduced offline); OD-04 clauses V01 to V08 accepted with amended wording; OD-02 accepted as the narrower state/tool row; OD-05-MAP translation table proposed for Mohab; the four OD-12 child decisions answered separately; OD-16 accepted; OD-06 milestone defined; GD-26 left to the plan decision owner, who was not identified on 2026-11-09 (Nour has since been recorded as the internal team plan decision owner, 2026-11-14; her row-level decisions are pending). Nothing there is a teammate's acceptance.
 
 ---
 
@@ -730,7 +732,7 @@ Nour's packet asks for an explicit ACCEPT or AMEND on each governance decision. 
 | Item | Owner | Blocks |
 |---|---|---|
 | Mohamed's dated acceptance or amendment of the synthetic configuration (`procurement-policy-set-v0.1.yaml`), recorded with the file hashes | Mohamed | S2-04; Nour updates affected fixtures after it |
-| Name of the plan approver for OD-02, OD-06, OD-08, OD-16 and the GD-26 extension | Nour (records it) | Plan-owner acceptance |
+| Row-level plan decisions for OD-02, OD-06, OD-08, OD-16 and the GD-26 extension | Nour, internal team plan decision owner (recorded 2026-11-14); pending, and the proposed amendments have not been accepted | Plan decision |
 | Acknowledgements from Nour, Mohab, Ahmed, Alaa, Malak | each | Contract freeze |
 | Canonical value choices (§4.5) | Mohab, Nour | `contracts/governance.py` |
 | Evidence resolver port, finding-code registry, dispatch-claim record (GD-24, GD-28) | Mohab, Nour | Consistency verifier and the recovery events |

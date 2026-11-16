@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Specification only; no engine code exists. Not acknowledged by any teammate. |
+| **Status** | DRAFT v0.6 — Sprint 1 closeout (S1-04). Specification only; no engine code exists. Scoped teammate responses are recorded in the [review record](README.md#owner-review-record); none is a full acceptance. |
 | **Owner** | Mohamed Elnaggar — `packages/governance-engine` |
 | **Part of** | [Governance contract](governance-contract.md) §2.3 and [decision flow](decision-flow.md) §3 |
 
