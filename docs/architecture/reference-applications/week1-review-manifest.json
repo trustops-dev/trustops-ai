@@ -5,7 +5,7 @@
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "VERIFIED_2026-11-16_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_fe944cb9e90c795a5efbefa72b61539e39c6cf7f_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; ALAA_FOLLOWUP_PUSH_VERIFIED_d1e970fc76fad8638f3f65d6afa134d725142081; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; ALAA_FOLLOWUP_PUSH_VERIFIED_d1e970fc76fad8638f3f65d6afa134d725142081; AHMED_TAXONOMY_FOLLOWUP_LOCAL_NOT_PUSHED; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "ALAA_FOUR_FOLLOWUPS_SCOPED_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_V11_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; G01_ADMISSION_HOLD; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -344,8 +344,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "c19564b4c93d80f432c22de6e2462031b58ed02615b28151cc0c1f6a2bebe53e",
-      "size_bytes": 35013
+      "sha256": "8bed218b9bdab9ec644a7790b5f9d82d7bf43d348473dbdb5cc62819fd22c5d3",
+      "size_bytes": 35888
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -355,8 +355,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "ff667de0bbd0424c277077d02579a615477834666781ec906a9924043109fcb9",
-      "size_bytes": 37322
+      "sha256": "72a36637379992d712d6bfce42de1c367f52a22bb986c0de1922b2cdfa171e2b",
+      "size_bytes": 38195
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -982,6 +982,11 @@
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/ahmed-taxonomy-followup-2026-11-16.md",
+      "sha256": "a5b8c6d212e4c21c8a812ad39fee2d69e5ca09b36518e07b78d31b1881e3c06a",
+      "size_bytes": 3052
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
       "sha256": "ebbb98f49cc1000f44e555afcb1686eb7784fba5c11b26a0cd3753d7bbd07ce8",
       "size_bytes": 16282
@@ -1113,6 +1118,11 @@
       "sha256": "c568de71127e81a36995c2f08add445074a9c4b6f907123f8fbc824c4c6e6aec",
       "size_bytes": 2172,
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/ahmed-taxonomy-followup-2026-11-16.json",
+      "sha256": "927b509e52e8f56ec178197614dfd1fcb5a4f828b2bd2cd016c965950e636073",
+      "size_bytes": 1804
     },
     {
       "path": "docs/architecture/reference-applications/validation/alaa-four-followups-20261116.json",
@@ -2197,5 +2207,16 @@
     "mohab_v11": "SUPPLIED_OFFLINE_DRAFT_UNREVIEWED_BY_ALAA",
     "plan_owner": "NOUR_CONFIRMED_INTERNAL_TEAM_LEAD_SIX_ROW_LEVEL_DECISIONS_PENDING",
     "mohab_v10_counts_disagree_between_unpinned_sources": true
+  },
+  "ahmed_taxonomy_followup_20261116": {
+    "record_date": "2026-11-16",
+    "source": "user-supplied Ahmed message described as sent 2026-11-15",
+    "reviewed_governance_pr28": "ce12629659bed86c0e1316c473626e0c835a8882",
+    "reviewed_scaffold_pr29": "ebdefc194d397804dca8238caf64842cb367ecaf",
+    "record": "docs/architecture/reference-applications/reviews/ahmed-taxonomy-followup-2026-11-16.md",
+    "validation_report": "docs/architecture/reference-applications/validation/ahmed-taxonomy-followup-2026-11-16.json",
+    "scope": "EVALUATOR_INTERPRETATION_ONLY",
+    "od09_gd26_joint": "OPEN",
+    "od08_plan": "PENDING"
   }
 }
