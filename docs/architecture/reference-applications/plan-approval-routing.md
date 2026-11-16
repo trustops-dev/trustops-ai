@@ -13,6 +13,8 @@
 
 **Current finding:** The source audit above establishes only what those documents say. Nour directly confirmed on 2026-11-14 that he is the development team lead and there is no separate plan approver in the team's process. Nour owns decisions on amendments to the team's internal 16-week working plan. The proposal's academic recipient is not an additional approval gate. This role confirmation identifies the decision owner; it does **not** record acceptance of any of the six proposed changes or establish academic/institutional approval. Record each later decision against an exact plan revision.
 
+**Alaa follow-up recorded 2026-11-16:** Her messages again describe the original “unnamed plan approver” gap. The team-lead authority finding immediately above already resolves that identification question for the internal plan; it does not satisfy the separate OD-08 capacity/schedule or GD-26 row-level decisions. See [the scoped follow-up](reviews/alaa-four-followups-2026-11-16.md).
+
 | Authority field | Current value |
 |---|---|
 | Team plan decision owner | **Nour El-Rouby, development team lead** |

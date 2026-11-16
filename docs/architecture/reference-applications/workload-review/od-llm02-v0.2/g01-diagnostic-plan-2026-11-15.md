@@ -91,3 +91,22 @@ retained no screenshot or credential value. Paid usage remains unauthorized
 
 OD-LLM-01/02 stay OPEN. Even a G01 PASS would verify only that synthetic text
 probe; G02/G03/E01/E02 and application acceptance would still be unverified.
+
+## Alaa admission amendment received 2026-11-16
+
+The original two-debit baseline in step 2 is historical. Alaa's scoped
+response requires reserving **four** conservative generation-bucket debits
+(C01 1, G01 1, uncertainty margin 2), with zero embeddings and retries. This
+is a reservation policy for one diagnostic, not four intended requests. Obtain
+a confirmed approximately 20-minute project-consumer pause, take two fresh
+one-day dashboard observations at least 15 minutes apart immediately before
+dispatch that both show zero reported activity, and inspect the existing durable
+ledger read-only. A dash/“No data available” is not confirmed zero; the provider
+quota reset boundary is unknown. Any unrelated activity or unconfirmed headroom
+means HOLD. A third ambiguous G01 failure ends diagnostics for the day without
+fallback or billing change. [Detailed disposition and implementation differences](../../reviews/alaa-four-followups-2026-11-16.md#g01-admission-amendment-from-messages-2-and-4).
+
+The separately supplied Mohab v1.11 runner does not yet meet this plan's
+Windows portability, existing-ledger, 60-second deadline, 900-second session
+ceiling, 31-second spacing and truthful transport-evidence requirements.
+The conditional admission statement does not activate live execution.

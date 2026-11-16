@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-16",
+  "scope": "USER_SUPPLIED_ALAA_FOUR_SCOPED_RESPONSES_AND_ADMISSION_RECORD",
+  "baseline_pr27_commit": "fe944cb9e90c795a5efbefa72b61539e39c6cf7f",
+  "source_status": "FOUR_USER_SUPPLIED_MESSAGES; EMAIL_DATES_MESSAGE_IDS_EXACT_V10_HASHES_NOT_SUPPLIED",
+  "record": "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md",
+  "record_sha256": "3ad80f4b06d7379f45eac7c35f93c47a03edb4822653a65ae370548ea5d90b0b",
+  "offline_checks": {
+    "manual_fixture_and_link_checks": {
+      "result": "PASS",
+      "checks": 1018
+    },
+    "corpus_boundary_checks": {
+      "result": "PASS",
+      "checks": 409
+    },
+    "mohab_v11_schema": {
+      "result": "PASS_LOCAL_RERUN",
+      "assertions": 2784,
+      "cases": "93/93",
+      "acceptance": "DRAFT_ONLY"
+    },
+    "mohab_v11_g01_mock": {
+      "result": "PASS_LOCAL_RERUN",
+      "tests": "8/8",
+      "windows_runtime": "NOT_TESTED"
+    }
+  },
+  "commands": [
+    "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output <outside-repository>/manual.json",
+    "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output <outside-repository>/corpus.json",
+    "python validate_s1_01_schema_v1_11.py updated_schemas_v11.md (inside separately supplied Mohab archive)",
+    "python run_s1_01_regression_suite.py --spec updated_schemas_v11.md --validator validate_s1_01_schema_v1_11.py --report-out <outside-repository>/report.json (inside supplied archive)",
+    "python test_g01_isolated_diagnostic.py (inside supplied archive)"
+  ],
+  "changed_document_hashes": {
+    "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md": "3ad80f4b06d7379f45eac7c35f93c47a03edb4822653a65ae370548ea5d90b0b",
+    "docs/architecture/reference-applications/handoffs.md": "c19564b4c93d80f432c22de6e2462031b58ed02615b28151cc0c1f6a2bebe53e",
+    "docs/architecture/reference-applications/open-decisions.md": "ff667de0bbd0424c277077d02579a615477834666781ec906a9924043109fcb9",
+    "docs/architecture/reference-applications/plan-approval-routing.md": "02612371bbd12d38a29ee3d227c4c8e28372c2b0765f7cf052a04902504a4f25",
+    "docs/architecture/reference-applications/week1-owner-closeout.md": "f4e5d92e8148e7034d6e4b02e3363c2e0ea04f1bfcc764ba0303537b446463a6",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-diagnostic-plan-2026-11-15.md": "c54dc944df0c91cc8de860de7c045b2009707df8128bd765254a5b8d28006257",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md": "c6395f1d54f7cdd8669ebcf4342df6078d5ccf567fc0ea27cfc845dc7fa8dddb"
+  },
+  "status": {
+    "alaa_review": "SCOPED_ACCEPT_AMEND_RECEIVED",
+    "g01_admission": "HOLD",
+    "joint_schema_acceptance": "OPEN",
+    "plan_rows": "SIX_PENDING",
+    "new_provider_requests": 0,
+    "credentials_recorded": false
+  },
+  "not_verified": [
+    "original email send dates/IDs",
+    "Alaa review of exact Mohab v1.11 bytes",
+    "Windows execution of Mohab isolated G01 runner",
+    "historical G01 raw exception class or socket-byte count",
+    "remaining quota or project consumer pause",
+    "live model or embedding compatibility",
+    "shared runtime schema acceptance"
+  ]
+}

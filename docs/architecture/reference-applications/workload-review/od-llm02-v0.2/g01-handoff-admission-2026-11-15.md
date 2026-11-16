@@ -80,3 +80,25 @@ smaller mode or evidence of headroom. No new reservation or call is made here.
 Until these are met, continue offline application mock work. OD-LLM-01/02 stay
 OPEN; OD-09/GD-26 and the proposed canonical RAG retrieval-fault amendment are
 unaffected by this documentation update.
+
+## 2026-11-16 follow-up — Alaa AMEND received, Mohab v1.11 under review
+
+This section updates the **current** response status without rewriting the
+2026-11-15 sent-message snapshot above. Four user-supplied Alaa messages were
+received; original email dates, IDs and exact reviewed v1.10 file hashes were
+not supplied. Her two G01 replies have the same AMEND conditions. See the
+[scoped review matrix](../../reviews/alaa-four-followups-2026-11-16.md).
+
+| Party | Current disposition | Required before a live call |
+| --- | --- | --- |
+| Alaa | RECEIVED — AMEND, diagnostic accounting only | Reserve **4** generation-bucket debits (1 C01 + 1 G01 + 2 uncertainty margin), confirm a written approximately 20-minute consumer pause, inspect the existing ledger, and obtain two one-day observations at least 15 minutes apart immediately before dispatch that both show zero reported activity. A dash or “No data available” does not confirm zero. Any unrelated activity means HOLD. Reset boundary remains unknown. |
+| Mohab | v1.11 archive supplied — OFFLINE DRAFT; CORRECTIONS REQUESTED | The supplied schema reruns at 2,784 assertions/93 cases, but runner `fcntl` import prevents Windows startup; default 15-second timeout and 2-second spacing conflict with the 60-second/31-second plan; its separate `smoke_ledger_state` does not reconcile historical `runs`/`attempts`; raw REST is labeled SDK and request payload length is presented as observed bytes sent. Correct, test and identify the exact final revision. Manifest hashes also disagree with delivered files. |
+| Project consumers | Pause request SENT; acknowledgement not supplied | Confirm no competing calls or reservations during the window. Sending a request alone is not confirmation. |
+| Nour | Operator; final admission HOLD | Record fresh account/tier/model observation, four-debit reservation basis, other-consumer acknowledgement, read-only existing-ledger state, reset uncertainty and one-call decision against the exact runner revision. No live run is recorded here. |
+
+The old sanitized November 9 results carry `TIMEOUT_OUTCOME_UNKNOWN` and
+`PROVIDER_OR_SDK_ERROR` with no HTTP status, but contain no observed raw `httpx`
+exception classes or socket-byte counts. Mock cases establish representation,
+not historical transport causality. If a third G01 attempt has the same
+ambiguous timeout/no-status class, stop for the day without fallback, billing
+change or automatic retry. G02/G03/E01/E02 and app acceptance remain separate.

@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-15-g01-sent-handoffs",
+  "packet_id": "nour-owner-review-2026-11-16-alaa-four-followups",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "VERIFIED_2026-11-15_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_b875c7c3ab8440220a34b285c8492854abe19f01_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; G01_HANDOFF_PUSH_VERIFIED_4ac247de14ff0bd6081c57904f4549133e0ba0e6; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
-  "approval_status": "AHMED_SCOPED_EVALUATOR_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
+  "remote_verification": "VERIFIED_2026-11-16_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_fe944cb9e90c795a5efbefa72b61539e39c6cf7f_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
+  "commit_push_pr": "PR_27_PUBLISHED_AT_FE944CB; ALAA_FOLLOWUP_UPDATE_PREPARED_ON_LOCAL_BRANCH_NOT_YET_PUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "approval_status": "ALAA_FOUR_FOLLOWUPS_SCOPED_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_V11_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; G01_ADMISSION_HOLD; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -110,6 +110,13 @@
       "size_bytes": 20306,
       "review_role": "CURRENT_V16_EXTERNAL_REVIEW_INPUT",
       "scope": "Pinned external input; not copied into canonical repository implementation and not a pushed revision assertion"
+    },
+    {
+      "name": "updated schemas v11.rar",
+      "sha256": "ee79fb2d491ad53d834ea29f9678e3f519997975949559c5f330bf8c2586d500",
+      "size_bytes": 160300,
+      "review_role": "EXTERNAL_SUPPLIED_DRAFT",
+      "scope": "Locally inspected, offline 2784/93/8 checks; incorrect internal manifest hashes and G01 admission gaps; not repo or Alaa acceptance"
     }
   ],
   "files": [
@@ -337,9 +344,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "f56bf72f9419daa9fbceb4520551c066ebfbdca66419456ad5a3a7e8675eecf7",
-      "size_bytes": 33538,
-      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+      "sha256": "c19564b4c93d80f432c22de6e2462031b58ed02615b28151cc0c1f6a2bebe53e",
+      "size_bytes": 35013
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -349,9 +355,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "989af93252c8d24a1cb06ca0157b98398625f67553b1fcad7d37fed48c370a0e",
-      "size_bytes": 33239,
-      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+      "sha256": "ff667de0bbd0424c277077d02579a615477834666781ec906a9924043109fcb9",
+      "size_bytes": 37322
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -360,9 +365,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/plan-approval-routing.md",
-      "document_revision": "2026-11-15-Ahmed-evaluator-response-record",
-      "sha256": "3d5c705b4f003fcd977b93bb36e75904b77d4e290f08c2a36e9d156c32f3a6c3",
-      "size_bytes": 11654
+      "sha256": "02612371bbd12d38a29ee3d227c4c8e28372c2b0765f7cf052a04902504a4f25",
+      "size_bytes": 12046
     },
     {
       "path": "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
@@ -988,6 +992,11 @@
       "size_bytes": 13870
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md",
+      "sha256": "3ad80f4b06d7379f45eac7c35f93c47a03edb4822653a65ae370548ea5d90b0b",
+      "size_bytes": 9093
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/malak-479cab0-ui-response.md",
       "document_revision": "2026-11-09 Malak scoped owner review",
       "sha256": "5bcab10c9c9f54c00f360bc8980404fa360d99cf611579e2079577660324690f",
@@ -1104,6 +1113,11 @@
       "sha256": "c568de71127e81a36995c2f08add445074a9c4b6f907123f8fbc824c4c6e6aec",
       "size_bytes": 2172,
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+    },
+    {
+      "path": "docs/architecture/reference-applications/validation/alaa-four-followups-20261116.json",
+      "sha256": "7a325e5e8349405ada0050fc688721320998816793ab7b29b0bceaac7e02c587",
+      "size_bytes": 3311
     },
     {
       "path": "docs/architecture/reference-applications/validation/alaa-review-refresh.json",
@@ -1230,9 +1244,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "1154a83c06dc21bf26ae8b822d15832b3994e9b91391e1fcd4329fff3601ba90",
-      "size_bytes": 22422,
-      "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
+      "sha256": "f4e5d92e8148e7034d6e4b02e3363c2e0ea04f1bfcc764ba0303537b446463a6",
+      "size_bytes": 23106
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -1312,14 +1325,13 @@
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-diagnostic-plan-2026-11-15.md",
-      "sha256": "107cbb48134d14340b4679fb05e5371b83f53172d26f54374b6f30b64376587c",
-      "size_bytes": 6515,
-      "document_revision": "2026-11-15 proposal"
+      "sha256": "c54dc944df0c91cc8de860de7c045b2009707df8128bd765254a5b8d28006257",
+      "size_bytes": 7815
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md",
-      "sha256": "db5cb020de0ad0d4c42185cb53f3411c18763f90337f26661be306b7e4b7b56d",
-      "size_bytes": 6162
+      "sha256": "c6395f1d54f7cdd8669ebcf4342df6078d5ccf567fc0ea27cfc845dc7fa8dddb",
+      "size_bytes": 8665
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/offline-validation.json",
@@ -1776,6 +1788,19 @@
       "validation_report": "docs/architecture/reference-applications/validation/mohamed-7c26168-governance-refresh.json",
       "joint_acceptance": "PENDING_OTHER_OWNER_DISPOSITIONS",
       "runtime_verification": "PENDING"
+    },
+    {
+      "record_id": "ALAA-FOUR-FOLLOWUPS-20261116",
+      "reviewer": "Alaa",
+      "recorded_on": "2026-11-16",
+      "source_status": "FOUR_USER_SUPPLIED_MESSAGES",
+      "email_dates": null,
+      "email_message_references": null,
+      "reviewed_revisions": "9e6affaa; PR27 g01 plan exact commit not supplied; Ahmed b875c7c; dashboard view",
+      "status": "SCOPED_ACCEPT_AMEND; G01_DIAGNOSTIC_RESERVATION_AMENDED; RUNTIME_PENDING",
+      "record": "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md",
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED"
     }
   ],
   "alaa_review_refresh": {
@@ -2159,9 +2184,18 @@
     "record": "docs/architecture/reference-applications/workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md",
     "validation_report": "docs/architecture/reference-applications/validation/g01-handoff-admission-refresh.json",
     "sent": "USER_CONFIRMED",
-    "responses": "AWAITING_RESPONSE",
+    "responses": "ALAA_AMEND_RECEIVED; MOHAB_V11_OFFLINE_DRAFT_CORRECTIONS_PENDING; PROJECT_CONSUMERS_ACKNOWLEDGEMENT_PENDING",
     "admission": "HOLD",
     "remote_baseline": "b875c7c3ab8440220a34b285c8492854abe19f01",
     "new_provider_requests": 0
+  },
+  "alaa_followup_20261116": {
+    "record": "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md",
+    "validation_report": "docs/architecture/reference-applications/validation/alaa-four-followups-20261116.json",
+    "four_debit_reservation": "REVIEWER_CONDITION_NOT_HEADROOM_EVIDENCE",
+    "g01_live_admission": "HOLD",
+    "mohab_v11": "SUPPLIED_OFFLINE_DRAFT_UNREVIEWED_BY_ALAA",
+    "plan_owner": "NOUR_CONFIRMED_INTERNAL_TEAM_LEAD_SIX_ROW_LEVEL_DECISIONS_PENDING",
+    "mohab_v10_counts_disagree_between_unpinned_sources": true
   }
 }
