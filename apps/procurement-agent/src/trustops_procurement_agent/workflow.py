@@ -95,6 +95,7 @@ class ApprovalResult:
     approval_level: str
     record_version: str
     decision_record_seq: int
+    calculation_ref: str = ""
 
 
 @dataclass(frozen=True)
@@ -104,6 +105,18 @@ class Authorization:
     request_revision: str
     supplier_version: str
     approval_version: str | None
+    decision_record_seq: int | None
+    policy_bundle_version: str
+
+
+@dataclass(frozen=True)
+class CurrentEvidence:
+    supplier_version: str
+    approval_version: str | None
+    approval_status: str | None
+    decision_record_seq: int | None
+    request_revision: str
+    policy_bundle_version: str
 
 
 @dataclass(frozen=True)
@@ -117,7 +130,20 @@ class PurchaseOrderResult:
     mock: bool
 
 
+@dataclass(frozen=True)
+class RecoveryResult:
+    """Trusted read-only observation of a previously claimed write."""
+
+    status: str  # STILL_UNRESOLVED, RESOLVED_COMMITTED, RESOLVED_ABORTED, IDENTITY_CONFLICT
+    po_id: str | None = None
+    resolution_basis: str | None = None
+
+
 class ProcurementTools(Protocol):
+    def recover_purchase_order(
+        self, request: PurchaseRequest, idempotency_key: str
+    ) -> RecoveryResult | None: ...
+    def policy_pairing_valid(self, policy_kb_version: str, policy_bundle_version: str) -> bool: ...
     def search_policy(self, request: PurchaseRequest) -> PolicyResult: ...
     def get_supplier(self, request: PurchaseRequest) -> SupplierResult: ...
     def calculate_approval_level(self, request: PurchaseRequest) -> CalculationResult: ...
@@ -132,7 +158,9 @@ class ProcurementTools(Protocol):
         calculation: CalculationResult,
         approval: ApprovalResult | None,
     ) -> Authorization: ...
-    def current_versions(self, approval_request_id: str | None) -> tuple[str, str | None]: ...
+    def current_evidence(
+        self, request: PurchaseRequest, approval_request_id: str | None
+    ) -> CurrentEvidence: ...
     def create_purchase_order(
         self,
         request: PurchaseRequest,
@@ -171,6 +199,30 @@ class Workflow:
             event("halt", state=state.value, reason=reason, status=status)
             return RunResult(state, status, reason)
 
+        # The durable tool boundary owns this lookup. A resumed root must never
+        # repeat the policy check or call the creating tool to discover its effect.
+        recovery = self.tools.recover_purchase_order(request, idempotency_key)
+        if recovery is not None:
+            event(
+                "recovery_check",
+                operation="RECOVERY_LOOKUP",
+                status=recovery.status,
+                resolution_basis=recovery.resolution_basis,
+                po_id=recovery.po_id,
+                read_only=True,
+            )
+            if recovery.status == "IDENTITY_CONFLICT":
+                return RunResult(State.REQUEST_CAPTURED, "BLOCKED", "IDEMPOTENCY_CONFLICT")
+            if (
+                recovery.status == "RESOLVED_ABORTED"
+                and recovery.resolution_basis == "EXPLICIT_ABORT_TOMBSTONE_FOUND"
+            ):
+                return RunResult(State.PO_CREATION, "FAILED", "DEFINITIVE_NO_EFFECT")
+            if recovery.status == "RESOLVED_COMMITTED" and recovery.po_id:
+                event("final_response", po_id=recovery.po_id, mock=True)
+                return RunResult(State.COMPLETION, "SUCCEEDED", po_id=recovery.po_id)
+            return RunResult(State.PO_CREATION, "RECOVERY_PENDING", "UNKNOWN_PO_OUTCOME")
+
         event(
             "request_captured",
             request_revision=request.request_revision,
@@ -201,6 +253,7 @@ class Workflow:
             supplier.status != "FOUND"
             or supplier.eligibility != "APPROVED"
             or supplier.supplier_id != request.supplier_id
+            or not supplier.record_version
         ):
             return halt("SUPPLIER_INELIGIBLE")
         advance(State.SUPPLIER_CHECKED)
@@ -215,12 +268,15 @@ class Workflow:
         if (
             calculation.status != "CALCULATED"
             or calculation.request_revision != request.request_revision
-            or calculation.policy_version != policy.policy_version
+            or not calculation.calculation_ref
+            or not calculation.policy_version
             or type(calculation.approval_required) is not bool
             or (calculation.approval_required and not calculation.approval_level)
             or (not calculation.approval_required and calculation.approval_level is not None)
         ):
             return halt("CALCULATION_UNRESOLVED")
+        if not self.tools.policy_pairing_valid(policy.policy_version, calculation.policy_version):
+            return halt("POLICY_VERSION_MISMATCH")
         advance(State.APPROVAL_CALCULATED)
 
         approval = None
@@ -265,6 +321,8 @@ class Workflow:
                 or approval.total_amount != request.total_amount
                 or approval.currency != request.currency
                 or approval.approval_level != calculation.approval_level
+                or not approval.calculation_ref
+                or approval.calculation_ref != calculation.calculation_ref
                 or not approval.record_version
                 or approval.decision_record_seq <= submitted.decision_record_seq
             ):
@@ -285,48 +343,80 @@ class Workflow:
         )
         event(
             "policy_check",
+            check_mode="STUB_CONTRACT_TEST",
             verdict=authorization.verdict,
             check_ref=authorization.check_ref,
             supplier_version=authorization.supplier_version,
             approval_version=authorization.approval_version,
+            decision_record_seq=authorization.decision_record_seq,
+            policy_bundle_version=authorization.policy_bundle_version,
         )
         approval_version = approval.record_version if approval else None
         if (
             authorization.verdict != "ALLOW"
             or not authorization.check_ref
             or authorization.request_revision != request.request_revision
-            or authorization.supplier_version != supplier.record_version
-            or authorization.approval_version != approval_version
         ):
             return halt("POLICY_CHECK_NOT_ALLOWED")
-        current_supplier, current_approval = self.tools.current_versions(
-            approval.approval_request_id if approval else None
+        if (
+            authorization.supplier_version != supplier.record_version
+            or authorization.approval_version != approval_version
+            or authorization.decision_record_seq
+            != (approval.decision_record_seq if approval else None)
+            or authorization.policy_bundle_version != calculation.policy_version
+        ):
+            return halt("AUTHORIZATION_BINDING_INVALID")
+        current = self.tools.current_evidence(
+            request, approval.approval_request_id if approval else None
         )
-        if current_supplier != supplier.record_version or current_approval != approval_version:
-            return halt("BOUND_EVIDENCE_STALE")
+        if current.request_revision != request.request_revision:
+            return halt("REQUEST_REVISION_CHANGED")
+        if current.policy_bundle_version != calculation.policy_version:
+            return halt("POLICY_BUNDLE_CHANGED")
+        if current.supplier_version != supplier.record_version:
+            return halt("SUPPLIER_RECORD_SUPERSEDED")
+        if approval and current.approval_status != "APPROVED":
+            return halt("APPROVAL_NO_LONGER_APPROVED")
+        if current.approval_version != approval_version or current.decision_record_seq != (
+            approval.decision_record_seq if approval else None
+        ):
+            return halt("APPROVAL_RECORD_SUPERSEDED")
         # Mock boundary only; atomic claim/fencing is owned by platform integration.
         advance(State.PO_CREATION)
-        po = self.tools.create_purchase_order(request, authorization, idempotency_key)
+        try:
+            po = self.tools.create_purchase_order(request, authorization, idempotency_key)
+        except Exception:
+            # Once dispatch starts, even decoding/adapter errors cannot prove
+            # absence of an effect. Do not emit the raw exception message.
+            event(
+                "tool_result",
+                tool="create_purchase_order",
+                status="UNKNOWN_OUTCOME",
+                side_effect_state="UNKNOWN",
+                cause="RUNTIME_EXCEPTION",
+                check_ref=authorization.check_ref,
+            )
+            return halt("UNKNOWN_PO_OUTCOME", "RECOVERY_PENDING")
+        confirmed = (
+            po.status in ("CREATED", "ALREADY_EXISTS")
+            and bool(po.po_id)
+            and po.mock
+            and po.request_revision == request.request_revision
+            and po.supplier_id == request.supplier_id
+            and po.total_amount == request.total_amount
+            and po.currency == request.currency
+        )
         event(
             "tool_result",
             tool="create_purchase_order",
-            status=po.status,
+            status=po.status if confirmed else "UNKNOWN_OUTCOME",
+            side_effect_state="KNOWN" if confirmed else "UNKNOWN",
             check_ref=authorization.check_ref,
             po_id=po.po_id,
             mock=po.mock,
         )
-        if po.status == "UNKNOWN_OUTCOME":
+        if not confirmed:
             return halt("UNKNOWN_PO_OUTCOME", "RECOVERY_PENDING")
-        if (
-            po.status not in ("CREATED", "ALREADY_EXISTS")
-            or not po.po_id
-            or not po.mock
-            or po.request_revision != request.request_revision
-            or po.supplier_id != request.supplier_id
-            or po.total_amount != request.total_amount
-            or po.currency != request.currency
-        ):
-            return halt("PO_RESULT_UNCONFIRMED", "FAILED")
         advance(State.COMPLETION)
         event("final_response", po_id=po.po_id, mock=True)
         return RunResult(state, "SUCCEEDED", po_id=po.po_id)

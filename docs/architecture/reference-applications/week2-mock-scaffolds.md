@@ -18,11 +18,15 @@ The synthetic gate response and current-version check demonstrate the integratio
 points. They are **not** a substitute for Mohamed's governance evaluation or Mohab's
 atomic, durable authorization and consumption record. The in-memory ledger protects
 same-key repeated calls in one local process only. A configured non-timeout
-`UNKNOWN_OUTCOME` is retained under that key; later same-key lookup cannot turn it
-into `ALREADY_EXISTS` or create another effect. The workflow remains in
-`PO_CREATION` / `RECOVERY_PENDING` with no completion response. No automatic write
-replay, persistent terminal-approval enforcement, cross-key deduplication, atomic
-consumption or restart recovery is implemented. The calculation is a supplied fixture, not an app-owned
+`UNKNOWN_OUTCOME` is retained under that key; a subsequent run uses a separate
+read-only recovery lookup before any new gate check or create call. `STILL_UNRESOLVED`
+stays `PO_CREATION` / `RECOVERY_PENDING`; an explicit mock committed result may
+complete and an explicit abort tombstone may report definitive no effect. A mere
+`ERROR` or raised exception after dispatch remains `UNKNOWN`. No automatic write
+replay, durable terminal-approval enforcement, cross-process deduplication, atomic
+consumption or restart recovery is implemented. A small in-memory terminal-status
+fixture blocks a denial/cancellation reversal while that mock object lives. The
+calculation is a supplied fixture, not an app-owned
 threshold rule. Workflow budgets and continuation are future integration points.
 
 ## RAG
@@ -93,6 +97,28 @@ See [boundary validation](week2-boundary-validation-2026-11-15.json) for actual
 Linux preparation evidence and fresh Windows integration results. Live providers, canonical trace validation,
 pgvector/index ingestion, governance runtime and platform integration remain
 unverified. This is progress toward Week 2, not Week 2 closeout.
+
+## Mohamed's scoped Procurement review and local follow-up
+
+His review of PR #29 `ebdefc1` accepts the current-execution approval stops and
+changed-request checks, and amends post-dispatch uncertainty and same-key rerun
+behavior. The local follow-up above adds the read-only recovery seam, typed
+`UNKNOWN_OUTCOME`/`RECOVERY_PENDING` for `ERROR` and caught post-dispatch
+ordinary dispatch exceptions (including decoding and I/O faults), and tests with one policy check and one create call. It separately
+checks the selected policy-KB release against the versioned executable bundle
+pair, without requiring their IDs to be equal. Empty supplier record versions,
+approval `calculation_ref` mismatch, request revision, decision sequence,
+supplier/approval versions, approval status and bundle changes stop before
+dispatch with distinct reasons. The local check emits `STUB_CONTRACT_TEST`;
+it only simulates approval and an allow flag, not the three actual policy rules.
+
+The mock ledger compares complete request objects rather than a canonical
+business-payload digest; its root-to-key check also lives only in memory. Its terminal status memory is not durable or tied
+to a versioned supersession history. The read tools still lack the full online
+gate, and runtime-owned atomic claim/consumption, recovery after restart,
+budget accounting and canonical side-effect/trace validation remain open with
+Mohab and Mohamed. These tests are evidence for a corrected application seam,
+not OD-12 runtime acceptance or policy enforcement acceptance.
 
 ## Ahmed's scoped PR #29 review and local follow-up
 

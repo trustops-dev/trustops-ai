@@ -16,15 +16,33 @@ from trustops_procurement_agent.workflow import (
 def fixtures() -> tuple[PurchaseRequest, MockTools]:
     request = PurchaseRequest("req-1", "rev-1", "Desktop", 1, "6000.00", "USD", "sup-1", "u-1")
     pending = ApprovalResult(
-        "PENDING", "approval-1", "rev-1", "sup-1", "6000.00", "USD", "manager", "a-v1", 1
+        "PENDING",
+        "approval-1",
+        "rev-1",
+        "sup-1",
+        "6000.00",
+        "USD",
+        "manager",
+        "a-v1",
+        1,
+        "calc-1",
     )
     approved = ApprovalResult(
-        "APPROVED", "approval-1", "rev-1", "sup-1", "6000.00", "USD", "manager", "a-v2", 2
+        "APPROVED",
+        "approval-1",
+        "rev-1",
+        "sup-1",
+        "6000.00",
+        "USD",
+        "manager",
+        "a-v2",
+        2,
+        "calc-1",
     )
     tools = MockTools(
-        PolicyResult("MATCHED", "APPLICABLE", "rule-1", "policy-v1", "evidence-1"),
+        PolicyResult("MATCHED", "APPLICABLE", "rule-1", "policy-kb-v1", "evidence-1"),
         SupplierResult("FOUND", "sup-1", "APPROVED", "supplier-v1"),
-        CalculationResult("CALCULATED", "rev-1", True, "manager", "calc-1", "policy-v1"),
+        CalculationResult("CALCULATED", "rev-1", True, "manager", "calc-1", "policy-bundle-v1"),
         pending,
         approved,
     )
@@ -59,7 +77,7 @@ def test_stale_approval_at_dispatch_claim_stops_mock_purchase() -> None:
     result = Workflow(tools).run(request, idempotency_key="runtime-key-2")
     assert (result.state, result.reason, tools.dispatch_count) == (
         State.APPROVED,
-        "BOUND_EVIDENCE_STALE",
+        "APPROVAL_RECORD_SUPERSEDED",
         0,
     )
 
