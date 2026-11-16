@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "006b6b05fc1b036557f7094aee2b3503fac20dbacd945b8111c91e91730b4e06",
+  "manifest_sha256": "8232f08e5131608fc2baafa9d65db894eb559dad816a7476e4ca1bbd8ba1f895",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16395,5 +16395,48 @@
     "manual_checks": 1020,
     "corpus_checks": 411,
     "joint_acceptance": "OPEN"
+  },
+  "od03_policy_pairing_governance_20261116": {
+    "status": "SCOPED_ACCEPT_AMEND_RECORDED",
+    "manifest_files": 248,
+    "exact_file_hashes_verified": true,
+    "document_text_unchanged": true,
+    "runtime_verified": false
+  },
+  "mohamed_pairing_fresh_windows_20261116": {
+    "scope": "Fresh local offline checks on exact Git bytes; historical evidence retained",
+    "python": "3.12.14",
+    "uv": "0.13.0",
+    "workspace_imports": "VERIFIED_UNDER_TESTED_SNAPSHOT",
+    "manual_fixture_link_checks": 1026,
+    "corpus_boundary_checks": 416,
+    "retrieval_fixture_tests": 6,
+    "unit_contract_tests": 35,
+    "manifest_entries_verified": 248,
+    "ruff_check": "PASS",
+    "ruff_format_files": 117,
+    "mypy_source_files": 12,
+    "import_contracts_kept": 5,
+    "commands": [
+      "uv sync --locked --all-packages --all-groups",
+      "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output <outside-repository>/manual.json",
+      "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output <outside-repository>/corpus.json",
+      "uv run --locked --all-packages python docs/architecture/reference-applications/corpus-review/retrieval-fixtures/build.py --check",
+      "uv run --locked --all-packages pytest -q docs/architecture/reference-applications/corpus-review/retrieval-fixtures/test_build.py",
+      "uv run --locked --all-packages pytest -q tests/unit tests/contract",
+      "uv run --locked --all-packages ruff check .",
+      "uv run --locked --all-packages ruff format --check .",
+      "uv run --locked --all-packages mypy",
+      "uv run --locked --all-packages lint-imports --no-cache"
+    ],
+    "baseline_commits": {
+      "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+      "dev": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+      "pr27": "c5b256843054911b798c159ca74b9c156bb39448",
+      "pr29": "c9aa20cb2432660eb9984e0ad0744f11f65a7845"
+    },
+    "runtime": "NOT_RUN",
+    "g01": "HOLD",
+    "paid_use_authorized_usd": 0
   }
 }

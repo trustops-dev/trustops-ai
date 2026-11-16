@@ -250,14 +250,14 @@
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/policy-bundle-pairing-v0.1.md",
-      "sha256": "c97e497f45c10be51d356799b7514178c3f8fc1657b4b1ca8e0969ecb69d5e8c",
-      "size_bytes": 9070,
+      "sha256": "c4171103c0b3c9f0980fb189fcbe467ec610087de03177bcb7685b525dcbdaf3",
+      "size_bytes": 9674,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
       "path": "docs/architecture/reference-applications/corpus-review/proposed-policy-kb-v0.1.json",
-      "sha256": "3fd76114ee93e20271cc2ae221dc3eaecc3fe666052b34a942b70fa5ed8ba9f1",
-      "size_bytes": 2949,
+      "sha256": "5053a5593d963120b42e39c630a68e71f75f1b20ed5fc30449621b2717f74468",
+      "size_bytes": 2983,
       "document_revision": "2026-11-14-OD03-proposed-policy-KB-pairing"
     },
     {
@@ -344,8 +344,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "8bed218b9bdab9ec644a7790b5f9d82d7bf43d348473dbdb5cc62819fd22c5d3",
-      "size_bytes": 35888
+      "sha256": "01b5491b7613002da08f12c4997de3a9741b0d943f47a6449dc8f6c483390917",
+      "size_bytes": 36682
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -355,8 +355,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/open-decisions.md",
-      "sha256": "72a36637379992d712d6bfce42de1c367f52a22bb986c0de1922b2cdfa171e2b",
-      "size_bytes": 38195
+      "sha256": "e0acb1b3bb9bbd6a93faa0290bbb2ab33d56370defb3c86b7001508179dc886f",
+      "size_bytes": 39162
     },
     {
       "path": "docs/architecture/reference-applications/overview.md",
@@ -1024,6 +1024,12 @@
       "document_revision": "2026-11-14 exact governance revision review",
       "sha256": "80d9d02ffd720130989608d501c72bfe43db816231a93a4e5714882d1d40c3ff",
       "size_bytes": 14229
+    },
+    {
+      "path": "docs/architecture/reference-applications/reviews/mohamed-policy-pairing-2026-11-16.md",
+      "document_revision": "Mohamed scoped policy-pairing follow-up, 2026-11-16",
+      "sha256": "6b7f3c59133ac41bff5bfee383599542428990d8508f4afec9d2fa642d778f63",
+      "size_bytes": 2610
     },
     {
       "path": "docs/architecture/reference-applications/schema-v1.1-review.md",
@@ -2218,5 +2224,17 @@
     "scope": "EVALUATOR_INTERPRETATION_ONLY",
     "od09_gd26_joint": "OPEN",
     "od08_plan": "PENDING"
+  },
+  "od03_policy_pairing_governance_20261116": {
+    "status": "SCOPED_POLICY_MEANING_ACCEPT_AMEND; PAIRING_PROPOSED; RUNTIME_DISABLED",
+    "reviewed_owner_revision": "14ee4a24763ed515aeb1b0a1986893380f4f8f22",
+    "reviewed_governance_revision": "ce12629659bed86c0e1316c473626e0c835a8882",
+    "record_path": "docs/architecture/reference-applications/reviews/mohamed-policy-pairing-2026-11-16.md",
+    "version_mapping": "search_policy.data.policy_set_version is policy_kb_version, distinct from policy_bundle_version",
+    "pending": [
+      "Mohab producer/trace/index mapping",
+      "Alaa/Ahmed lineage and fixtures",
+      "ingestion and runtime evidence"
+    ]
   }
 }
