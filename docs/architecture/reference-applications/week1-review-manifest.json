@@ -5,7 +5,7 @@
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "VERIFIED_2026-11-18_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_dc92da8836e04ecc2a1165cd5afdf2f7c146e3be_GIT_REFS; WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PR27_BASE_PUSH_VERIFIED_dc92da8836e04ecc2a1165cd5afdf2f7c146e3be; V113_REVIEW_UPDATE_PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MOHAB_V113_OWNER_UPDATE_PUSH_VERIFIED_a3e6985f18b3b0d82aab8dffc7dbeeeeba41372a; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "MOHAB_V113_AMEND_OFFLINE_DRAFT; G01_HOLD; MOHAMED_S1_01_GIVEN_SCOPED_CONDITIONAL; FULL_CROSS_TEAM_RUNTIME_ACCEPTANCE_PENDING; SIX_NOUR_PLAN_DECISIONS_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -1180,8 +1180,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/mohab-v1.13-review-2026-11-18.json",
-      "sha256": "12e5366874f26ab7ab8a7cdaae4f3bafd8f2a06c0c764a4bf3e2c40f8d12bf52",
-      "size_bytes": 6956,
+      "sha256": "ca997f824f30e6bf624a3b5824b60d1a9e8c78611dbbb7588a600377e57d6728",
+      "size_bytes": 6994,
       "document_revision": "2026-11-18"
     },
     {

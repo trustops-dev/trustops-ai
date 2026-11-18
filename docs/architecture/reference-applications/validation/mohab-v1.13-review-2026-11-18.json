@@ -162,7 +162,7 @@
     "corpus_boundary_checks": 426,
     "manifest_entries_verified": 252,
     "external_archive_suites_rerun": false,
-    "publication": "PREPARED_LOCALLY",
+    "publication": "PUSH_VERIFIED_a3e6985f18b3b0d82aab8dffc7dbeeeeba41372a",
     "commands": [
       "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py <snapshot> --output <outside-repository>/manual.json",
       "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py <snapshot> --output <outside-repository>/corpus.json"
