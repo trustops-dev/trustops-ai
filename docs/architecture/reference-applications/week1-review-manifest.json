@@ -1,11 +1,11 @@
 {
-  "packet_id": "nour-owner-review-2026-11-18-mohab-v113",
+  "packet_id": "nour-owner-review-2026-11-18-mohamed-pr29-followup",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
   "date": "2026-11-18",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "VERIFIED_2026-11-18_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_dc92da8836e04ecc2a1165cd5afdf2f7c146e3be_GIT_REFS; WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MOHAB_V113_OWNER_UPDATE_PUSH_VERIFIED_a3e6985f18b3b0d82aab8dffc7dbeeeeba41372a; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
+  "remote_verification": "VERIFIED_2026-11-18_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_bd97e1843b4d223dc112bfd8e004f5fca0a06ad6_PR28_07fd922dea088375b590226db7c0d859bd055708_PR29_9735513060b3caf7ec35fb210d0489d7153895bf",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR27_AT_bd97e1843b4d223dc112bfd8e004f5fca0a06ad6; MOHAMED_FOLLOWUP_LOCAL_UNCOMMITTED_UNPUSHED; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "MOHAB_V113_AMEND_OFFLINE_DRAFT; G01_HOLD; MOHAMED_S1_01_GIVEN_SCOPED_CONDITIONAL; FULL_CROSS_TEAM_RUNTIME_ACCEPTANCE_PENDING; SIX_NOUR_PLAN_DECISIONS_PENDING",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -140,8 +140,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "4a8d34379f77ef7e8cf089e0b7f7d3d2f9b3d653c17dd350ffa40a03399ebc16",
-      "size_bytes": 18973,
+      "sha256": "5ca45efa2fb87671fd47b474f0b77fd25b12eb15cbd51f0d0a367a05c6735cde",
+      "size_bytes": 19530,
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
@@ -344,8 +344,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "7f6e3637cc2ca6fd4b94ec51441ff0985f489132eae991233e6fd372441b36ce",
-      "size_bytes": 38823
+      "sha256": "6b3555e4fe1281dd51745e847e61d2f11099f3373f07e2c6dd2b85dda43a6018",
+      "size_bytes": 39494
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -1020,6 +1020,12 @@
       "document_revision": "2026-11-18"
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/mohamed-07fd922-pr29-response-2026-11-18.md",
+      "document_revision": "0.1",
+      "sha256": "4ab03f13554e43b833c90b34ea091ebd2473718f624066c34de69dc3761f5d0b",
+      "size_bytes": 3859
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/mohamed-479cab0-od03-response.md",
       "sha256": "98d0b8b974a1ac405787ad1e7a48b0501e93d712bf0cab0b0e63cf3d5a81e0a7",
       "size_bytes": 3584,
@@ -1033,8 +1039,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/reviews/mohamed-fb27a20-signoff-2026-11-18.md",
-      "sha256": "69c0cd63c7f3bba67476afcce8015cbe409d9cd5662e55efb78bba949e1bb76a",
-      "size_bytes": 7176,
+      "sha256": "f9c1ad3804f541ee5b3aa80b620dd2c7bab34c6a28f1cb5730eb579ece5f45ac",
+      "size_bytes": 7497,
       "document_revision": "2026-11-18"
     },
     {
@@ -1284,8 +1290,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "84e50230918ca26c021695d5ab337a9770ed3cc1de032de5a613ac0fc87bd40c",
-      "size_bytes": 24654
+      "sha256": "4fe7216ee89c550affab078bc36c767a15b89cd09ee47b6b0eb1fd24d49c6d4b",
+      "size_bytes": 25203
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -2307,5 +2313,21 @@
     "implementation_commit": null,
     "g01": "HOLD",
     "new_owner_signoff": false
+  },
+  "mohamed_pr29_review_20261118": {
+    "record": "docs/architecture/reference-applications/reviews/mohamed-07fd922-pr29-response-2026-11-18.md",
+    "governance_pr28_head": "07fd922dea088375b590226db7c0d859bd055708",
+    "governance_signoff_sync": "5064a2e50024c1a7af0b7dac18e5fdadcfe09ee2",
+    "application_reviewed": "9735513060b3caf7ec35fb210d0489d7153895bf",
+    "status": "ACCEPT_ISOLATED_SYNTHETIC_SCAFFOLD_WITH_AMEND_ITEMS",
+    "local_pr29_corrections": "PUSHED_163b32f813efb4e1e616f3bcfede9f73dcf6c7ad_GOVERNANCE_REREVIEW_PENDING",
+    "external_probe_count_reported_by_mohamed": 27,
+    "repo_tests_run_by_governance": false,
+    "frontend_audit": "FAIL_GHSA-fc5q-39xc-vjpf_NO_PATCHED_VERSION_AS_OBSERVED_2026-11-18",
+    "g01": "HOLD",
+    "paid_use_usd_authorized": "0",
+    "runtime_acceptance": false,
+    "full_cross_team_acceptance": false,
+    "published_pr29_corrections": "163b32f813efb4e1e616f3bcfede9f73dcf6c7ad"
   }
 }

@@ -1,5 +1,7 @@
 # Mohamed — governance revision and scoped S1-01 sign-off
 
+**Later published state:** [Mohamed's 18 November follow-up](mohamed-07fd922-pr29-response-2026-11-18.md) verifies his scoped GIVEN wording at PR #28 `5064a2e`, the later `07fd922` response on PR #29, and the now identified frontend audit advisory. The `fb27a20` observations below remain exact historical observations.
+
 Recorded 2026-11-18. Source: three messages supplied by Nour, including Mohamed's dated sign-off. Email headers/message IDs were not supplied. This record distinguishes received owner acceptance from independently verified repository evidence.
 
 ## Disposition

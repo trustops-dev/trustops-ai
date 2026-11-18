@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "937e17db551cd254c086fce0e6ba662f01a5c997109f2690461615f46efb4dac",
+  "manifest_sha256": "454ab3c04516b4c64ccecc792c970b15e2fbd3d480774919141460b721fa69a1",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16477,6 +16477,31 @@
       "provider_calls": 0,
       "external_archive_suites_rerun": false,
       "execution_environment": "Windows Python 3.12.14 on exact staged Git bytes; fresh run during this integration"
+    }
+  },
+  "mohamed_pr29_followup_20261118": {
+    "source_governance_commit": "07fd922dea088375b590226db7c0d859bd055708",
+    "source_hash": "c00e270968111e4326f8b2fc6a6bd98e24577af89a9f4863cca7186770503164",
+    "status": "SCOPED_ACCEPT_WITH_AMEND",
+    "owner_record": "docs/architecture/reference-applications/reviews/mohamed-07fd922-pr29-response-2026-11-18.md",
+    "files_in_manifest": 253,
+    "pr29_patch": "PUSHED_163b32f813efb4e1e616f3bcfede9f73dcf6c7ad_GOVERNANCE_REREVIEW_PENDING",
+    "g01": "HOLD",
+    "runtime": "NOT_RUN",
+    "documentation_checks": {
+      "manual": "PASS 1043 checks",
+      "corpus": "PASS 429 checks",
+      "manifest": "253/253 exact hashes PASS",
+      "provider_calls": 0,
+      "runtime": "NOT_RUN"
+    },
+    "fresh_windows_documentation_integration": {
+      "manual_checks": 1043,
+      "corpus_checks": 429,
+      "manifest_entries_verified": 253,
+      "environment": "Windows Python 3.12.14; exact staged Git bytes in temporary snapshot",
+      "prior_results": "Supplied counts retained as preparation evidence",
+      "pr29_pushed_first": "163b32f813efb4e1e616f3bcfede9f73dcf6c7ad"
     }
   }
 }
