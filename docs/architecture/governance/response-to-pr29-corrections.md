@@ -9,6 +9,7 @@
 | **Earlier findings** | [response-to-pr29-review.md](response-to-pr29-review.md), made at `ebdefc194d397804dca8238caf64842cb367ecaf` |
 | **Reviewed** | `workflow.py` (`44f759eb…309f`), `mock_tools.py` (`b63c621d…1bd3`), `test_procurement_boundaries.py` (`37353c56…7a62`), `test_procurement_scaffold.py` (`647029c2…cf7c`) and Nour's record `reviews/mohamed-pr29-procurement-2026-11-16.md` (`c2e5aa98…ba8a`), all at exactly that commit. The RAG files in the same commit are Ahmed's review and were not reviewed here |
 | **What was run** | A read-only probe script against the extracted source, in a scratch folder outside the repository: 27 cases covering the seven findings, the restart case and an `ALREADY_EXISTS` replay. The repository pytest suite was **not** run by governance, so the validation record in Nour's file (100 tests, Ruff, mypy, import contracts) is hers and is not reproduced here |
+| **Later addendum** | [§6](#6-addendum-follow-up-at-163b32f): governance's disposition of Nour's follow-up commit `163b32f`, 2026-11-18. Sections 1 to 5 above are unchanged and remain the record of the review at `9735513` |
 | **Governance revision** | 0.6 with the 13 to 18 November addenda ([governance-contract.md](governance-contract.md), [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md), [policy-truth-tables.md](policy-truth-tables.md)) |
 
 Status words: **ACCEPT**, **AMEND** (a small required correction, given below) and **OPEN** (waiting on a named owner or a later gate).
@@ -53,4 +54,46 @@ Status words: **ACCEPT**, **AMEND** (a small required correction, given below) a
 - It does not accept PR #29, approve a merge, or accept anything for another owner.
 - Nothing ran against a runtime, a database or the governance engine. The probes are local and read-only, against the code as extracted from the commit.
 - The repository tests were not run by governance. Nour's validation record is hers.
+- The mocks do not establish durable enforcement, and nothing here authorizes automatic write replay.
+
+---
+
+## 6. Addendum: follow-up at `163b32f`
+
+| | |
+|---|---|
+| **Date** | 2026-11-18 |
+| **Answers** | Nour's request to review the exact commit `163b32f813efb4e1e616f3bcfede9f73dcf6c7ad` in PR #29 and return ACCEPT or AMEND for §2.1 to §2.4 and the original-result-reference case, separating mock-level corrections from later platform requirements |
+| **Reviewed** | `workflow.py` (`3e8b94c0…dbd9`) and `mock_tools.py` (`f12b1588…7a11`) as extracted from that commit; the two test files as shown in the commit's diff; `mohamed-pr29-corrections-followup-2026-11-18.md`, and the one-paragraph additions to `mohamed-pr29-procurement-2026-11-16.md` and `week2-mock-scaffolds.md` |
+| **What was run** | The earlier 27-case probe script again, unchanged, plus a second read-only script of 15 cases (12 recovery results and 3 replay variants), both against the extracted source in a scratch folder outside the repository. The repository pytest suite was **not** run by governance. Nour's local figures (107 unit and contract tests, Ruff, mypy, five import contracts) are hers. GitHub's hosted checks on the commit show Python checks, Python dependency audit, Secret scan, Dependency review and Frontend checks passing, and Frontend dependency audit failing; that audit is tracked separately and the commit changes no frontend file |
+
+### 6.1 Disposition
+
+| Item | Disposition | What the probes showed |
+|---|---|---|
+| §2.1 effect-state values | **ACCEPT** | A confirmed `CREATED` emits `COMMITTED`, a confirmed `ALREADY_EXISTS` with a reference emits `ALREADY_EXISTING`, and an exception or an unconfirmed result emits `UNKNOWN`. `KNOWN` is no longer emitted. The success test asserts `COMMITTED`, and the replay test asserts `ALREADY_EXISTING` and `UNKNOWN` |
+| §2.2 committed recovery without evidence | **ACCEPT** | Every one of these recovery results ends in `PO_CREATION` / `RECOVERY_PENDING` / `UNKNOWN_PO_OUTCOME`, with no policy check, no create call and no final response: committed with a purchase order id but no basis; committed with the right basis and a different echoed key; committed with the right basis and a different echoed request; committed with the key missing; committed with the request missing; committed with a basis string that is not `COMMITTED_RECORD_FOUND`; committed with the basis and no id; aborted with the tombstone and a different echoed key; aborted with no basis. Only committed with id, `COMMITTED_RECORD_FOUND` and matching key and request completes, with the recovered id and no new create. Only aborted with the tombstone and matching key and request gives `FAILED` / `DEFINITIVE_NO_EFFECT`. The four parametrized test cases cover the first, second and third of these and the aborted wrong key |
+| §2.3 gate-side overrides | **ACCEPT** | The mock now takes a gate decision sequence and a gate policy bundle. Each gives `AUTHORIZATION_BINDING_INVALID` in state `APPROVED`, with no create call and the single check already spent. Both cases are in the stale-evidence test |
+| §2.4 wording | **ACCEPT** | An approved supplier with an empty record version halts as `SUPPLIER_EVIDENCE_INCOMPLETE`, with no later check and no dispatch. From the code, the eligibility test still comes first, so an ineligible supplier keeps `SUPPLIER_INELIGIBLE` |
+| `ALREADY_EXISTS` without an original-result reference | **ACCEPT** | With no reference, and with an empty-string reference, the create result is treated as unconfirmed: effect state `UNKNOWN`, `RECOVERY_PENDING`, no final response, and a same-key rerun stays pending with no second create or check. With a reference the run completes with `ALREADY_EXISTING` and a same-key rerun returns the same purchase order id with one create and one check. The earlier probe that ended `SUCCEEDED` now ends `RECOVERY_PENDING` |
+
+**Remaining mock-level corrections: none required.** Nour's own note that the replay fixture first exposed a same-key recovery regression, fixed by letting the mock lookup recognize the stored reference, is consistent with what the probes show.
+
+### 6.2 Platform integration requirements, not mock corrections
+
+- **A lost ledger must not look like a fresh claim.** Unchanged from §3: with the mock's ledger cleared, the same key still reaches a second create and a second check. Nour's follow-up states this plainly. The condition for citing stands: a consumed claim with no outcome record must return `STILL_UNRESOLVED`, never `None` (`OD-12-CLAIM`, `OD-12-OUTCOME`, `SA-02`).
+- **Resolvability of the original-result reference.** A non-empty string is a local mock condition. The platform must resolve it to a source record (`OC-5`, §6.6 of the evidence document) and treat an unresolvable one as a consistency finding.
+- **Echo mismatch is treated as pending.** A recovery result whose echoed key or request differs from the run's is handled like an unresolved lookup, not as `IDEMPOTENCY_CONFLICT`. That is fail-closed and acceptable for the mock. Which outcome the platform raises for an echo mismatch is for `OD-12` and the recovery contract to settle.
+- **Recovery emits no effect state.** A resumed run completed from a committed record emits `recovery_check` and `final_response`, but no `side_effect_state`, so a recovered `ALREADY_EXISTING` cannot be told from `COMMITTED` after the resume. The canonical effect mapping is open.
+- **Still open, as before:** terminal approval and supersession across executions (`SA-03`); atomic consumption and currentness proof (`SA-02`); the real policy gate and read-tool checks (`OD-06`, `S2-01`); business-payload digest identity (the identity comparison is still the whole mock request); durable restart and concurrency tests; the real bundle-to-corpus pairing, which is Mohab's to represent.
+
+### 6.3 Effect on §4
+
+The condition in §4, that §2.1 and §2.2 be made before the scaffold is cited, is met at `163b32f`. The scaffold at that commit may be cited as evidence for the mock's ordering, early-stop, no-false-completion, no-second-effect, recovery-evidence and effect-state-vocabulary behavior only. §4's other limits are unchanged: it is not evidence for durable terminality, atomic claim, restart recovery, enforcement or any runtime behavior.
+
+### 6.4 What this addendum does not claim
+
+- It does not accept PR #29, approve a merge, or accept anything for another owner.
+- Nothing ran against a runtime, a database or the governance engine. The probes are local and read-only, against the code as extracted from the commit.
+- Governance did not run the repository tests. The hosted check results above are as GitHub shows them and are not governance's validation.
 - The mocks do not establish durable enforcement, and nothing here authorizes automatic write replay.
