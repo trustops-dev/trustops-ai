@@ -1,0 +1,68 @@
+{
+  "package_release_id": "v1.16.0",
+  "executed_at_utc": "2026-11-18T21:11:33Z",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "os_name": "nt",
+  "sys_platform": "win32",
+  "python_version": "3.12.0 (tags/v3.12.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "live_provider_calls": 0,
+  "all_checks_passed": true,
+  "checks": [
+    {
+      "check": "baseline_validator",
+      "command": "C:\\Python312\\python.exe validate_s1_01_schema_v1_11.py",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "Validator Version: 1.11.0\nTarget Specification: updated_schemas_v16.md\n  cat1_envelope_and_syntax: 1513 assertions\n  cat2_ordering_and_refs: 487 assertions\n  cat3_digests_hashes_spans: 105 assertions\n  cat4_contracts_snapshots_bindings: 613 assertions\n  cat5_isolation_and_report: 70 assertions\nTOTAL_ASSERTIONS: 2788\nTOTAL_FAILURES: 0\nFAILURE_CODES_JSON: []\n",
+      "stderr_tail": ""
+    },
+    {
+      "check": "regression_suite_103",
+      "command": "C:\\Python312\\python.exe run_s1_01_regression_suite.py --report-out native_suite_check.json",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "Regression Suite Version: 1.11.0\nBaseline Assertions: 2788 (Pass: True)\nSuite Summary: 103/103 cases matched expectations\n",
+      "stderr_tail": ""
+    },
+    {
+      "check": "independent_probes_6",
+      "command": "C:\\Python312\\python.exe independent_probes.py",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "[\n  {\n    \"case\": \"approval_source_versions_disagree\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_APPROVAL_EVIDENCE_MISMATCH\"\n    ]\n  },\n  {\n    \"case\": \"consumption_proposal_unresolved\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH\"\n    ]\n  },\n  {\n    \"case\": \"normalization_unknown_mode_bypasses_span\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_NORMALIZATION_MODE_INVALID\",\n      \"ERR_REQUEST_NORMALIZATION_MISMATCH\"\n    ]\n  },\n  {\n    \"case\": \"nonfinite_retrieval_score\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_RETRIEVAL_RANK_OR_TIE_BREAK_INVALID\",\n      \"ERR_RETRIEVAL_SCORE_NONFINITE\"\n    ]\n  },\n  {\n    \"case\": \"invalid_generation_parameters\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_GENERATION_PARAMETERS_INVALID\"\n    ]\n  },\n  {\n    \"case\": \"refused_model_still_supplies_tool_proposal\",\n    \"expected\": \"REJECT\",\n    \"actual_pass\": false,\n    \"codes\": [\n      \"ERR_MODEL_REFUSAL_INCONSISTENT\"\n    ]\n  }\n]\n",
+      "stderr_tail": ""
+    },
+    {
+      "check": "reproduce_findings_10",
+      "command": "C:\\Python312\\python.exe reproduce_findings.py .",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "\n      \"error_category\": \"TRANSPORT_WRITE_ERROR\",\n      \"grpc_status_code\": null\n    },\n    {\n      \"probe\": \"P05_body_fault_summary_contradicts_headers\",\n      \"defect_reproduced\": false,\n      \"http_status\": 200,\n      \"http_headers_received\": true,\n      \"summary\": \"HTTP 200 status headers received after request transmission, but response body stream timed out after 14 response bytes (ReadTimeout) at 17ms.\"\n    },\n    {\n      \"probe\": \"P06_missing_required_citation_snapshot\",\n      \"defect_reproduced\": false,\n      \"removed_fields\": 1,\n      \"validator_passed\": false,\n      \"codes\": [\n        \"ERR_CITATION_IDENTITY_INCOMPLETE\",\n        \"ERR_CITATION_SNAPSHOT_MISMATCH\"\n      ]\n    },\n    {\n      \"probe\": \"P06_missing_required_citation_hash\",\n      \"defect_reproduced\": false,\n      \"removed_fields\": 1,\n      \"validator_passed\": false,\n      \"codes\": [\n        \"ERR_CITATION_IDENTITY_INCOMPLETE\",\n        \"ERR_CITATION_SNAPSHOT_MISMATCH\"\n      ]\n    },\n    {\n      \"probe\": \"P06_missing_required_citation_all\",\n      \"defect_reproduced\": false,\n      \"removed_fields\": 3,\n      \"validator_passed\": false,\n      \"codes\": [\n        \"ERR_CITATION_IDENTITY_INCOMPLETE\",\n        \"ERR_CITATION_SNAPSHOT_MISMATCH\"\n      ]\n    },\n    {\n      \"probe\": \"P07_ingestion_without_events\",\n      \"defect_reproduced\": false,\n      \"http_status\": 422,\n      \"status\": \"ERR_STRUCTURAL_VALIDATION_FAILED\"\n    },\n    {\n      \"probe\": \"P08_claim_database_reopen\",\n      \"defect_reproduced\": false\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "check": "probe_remaining_controls_14",
+      "command": "C:\\Python312\\python.exe probe_remaining_controls.py .",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "ssion_lock_held\",\n      \"defect_reproduced\": false,\n      \"lock_backend\": \"windows_msvcrt\",\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q07_admission_count_only_no_evidence\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\",\n      \"admission_attested\": false\n    },\n    {\n      \"probe\": \"Q08_timeout_session_lock_held_until_worker_exit\",\n      \"defect_reproduced\": false,\n      \"elapsed_ms\": 61.1,\n      \"session_lock_reacquired_while_worker_active\": false,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q09_expired_2020_observations\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q10_expired_pause_window\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q11_missing_expected_project_id\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q12_future_observation_timestamps\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    },\n    {\n      \"probe\": \"Q13_pause_window_starting_30s_in_future\",\n      \"defect_reproduced\": false,\n      \"mock_requests\": 0,\n      \"stopped_reason\": \"STOPPED_ON_C01_FAILURE\"\n    }\n  ]\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "check": "g01_diagnostic_tests_33",
+      "command": "C:\\Python312\\python.exe test_g01_isolated_diagnostic.py",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "",
+      "stderr_tail": "nsport_shuts_down_worker_completely_before_lock_release (__main__.TestIsolatedG01DiagnosticRunner.test_26_v14_cancellable_transport_shuts_down_worker_completely_before_lock_release) ... ok\ntest_27_v14_uncancellable_worker_keeps_session_lock_held_until_worker_exits (__main__.TestIsolatedG01DiagnosticRunner.test_27_v14_uncancellable_worker_keeps_session_lock_held_until_worker_exits) ... ok\ntest_28_v14_subprocess_worker_terminated_at_deadline_before_lock_release_with_debit_retained (__main__.TestIsolatedG01DiagnosticRunner.test_28_v14_subprocess_worker_terminated_at_deadline_before_lock_release_with_debit_retained) ... ok\ntest_29_v15_expired_2020_observations_rejected (__main__.TestIsolatedG01DiagnosticRunner.test_29_v15_expired_2020_observations_rejected) ... ok\ntest_30_v15_future_observation_timestamps_rejected (__main__.TestIsolatedG01DiagnosticRunner.test_30_v15_future_observation_timestamps_rejected) ... ok\ntest_31_v15_expired_or_insufficient_pause_window_rejected (__main__.TestIsolatedG01DiagnosticRunner.test_31_v15_expired_or_insufficient_pause_window_rejected) ... ok\ntest_32_v15_missing_expected_project_id_rejected (__main__.TestIsolatedG01DiagnosticRunner.test_32_v15_missing_expected_project_id_rejected) ... ok\ntest_33_v16_pause_window_starting_30s_in_future_rejected (__main__.TestIsolatedG01DiagnosticRunner.test_33_v16_pause_window_starting_30s_in_future_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 33 tests in 4.495s\n\nOK\n"
+    },
+    {
+      "check": "trustops_sdk_selftest",
+      "command": "C:\\Python312\\python.exe trustops_sdk.py",
+      "exit_code": 0,
+      "passed": true,
+      "stdout_tail": "{\n  \"incomplete_envelope_rejected_status\": 422,\n  \"claim_db_reopen_idempotent_verified\": true,\n  \"sdk_version\": \"0.4.0-week2-draft-interface\",\n  \"interface_status\": \"DRAFT_WEEK2_PROTOTYPE_NOT_LIVE_POSTGRES_DEPLOYMENT\",\n  \"transactional_claim_lock_verified\": true,\n  \"duplicate_claim_rejected_code\": \"ERR_DUPLICATE_PO_DISPATCH_CLAIM\",\n  \"stale_record_at_consumption_rejected_code\": \"ERR_STALE_RECORD_VERSION_AT_CONSUMPTION\",\n  \"procurement_trace_ingested\": \"tr_proc_101\",\n  \"rag_trace_ingested\": \"tr_rag_210\",\n  \"idempotent_replay_status\": 200,\n  \"conflicting_replay_status\": 409,\n  \"stub_check_mode_verified\": \"STUB_CONTRACT_TEST\",\n  \"otel_mapped_keys_count\": 17\n}\n",
+      "stderr_tail": ""
+    }
+  ]
+}
