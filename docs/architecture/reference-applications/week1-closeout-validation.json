@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "25d03f4f3d99a8509052952793d5e9444c524db0ed85d09d5961764338dc4fc7",
+  "manifest_sha256": "ba605740d8d1efdb5170f2a022ab05d8ab1c436f23ebadbd653a8f994317413a",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16460,5 +16460,23 @@
     "policy_cases": "31/31",
     "manifest_entries": 250,
     "publication": "PUSH_VERIFIED_75534fa9dc1b2fe89d5721202f9d429aa69e9c72"
+  },
+  "mohab_v113_owner_record_20261118": {
+    "report": "docs/architecture/reference-applications/validation/mohab-v1.13-review-2026-11-18.json",
+    "scope": "Documentation integration of prior completed archive review; no external suite rerun",
+    "disposition": "AMEND",
+    "g01": "HOLD",
+    "provider_calls": 0,
+    "manifest_entries": 252,
+    "fresh_documentation_validation": {
+      "manual_checks": 1038,
+      "corpus_checks": 426,
+      "manual_status": "PASS",
+      "corpus_status": "PASS",
+      "manifest_hashes": "252/252 PASS",
+      "provider_calls": 0,
+      "external_archive_suites_rerun": false,
+      "execution_environment": "Windows Python 3.12.14 on exact staged Git bytes; fresh run during this integration"
+    }
   }
 }
