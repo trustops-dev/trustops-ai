@@ -32,6 +32,7 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 MATRIX_FILE = REPO_ROOT / "tests" / "fixtures" / "governance" / "policy-matrices.json"
+SAMPLES_FILE = REPO_ROOT / "tests" / "fixtures" / "governance" / "policy-check-samples.json"
 SPEC_FILE = REPO_ROOT / "docs" / "architecture" / "governance" / "policy-truth-tables.md"
 ENGINE_MODULE = "trustops_governance.policy.engine"
 
@@ -43,25 +44,20 @@ VERDICT_BASES = {"ALL_APPLICABLE_PASSED", "MANDATORY_POLICY_FAILED", "FAIL_CLOSE
 POLICY_IDS = ("PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01")
 SPEC_PREFIX = {"PROC-APPROVAL-01": "AP", "PROC-TOOL-STAGE-01": "TS", "PROC-SUPPLIER-01": "SU"}
 CONFIGURATION_KEYS = ("configuration_present", "configuration_edits")
-# The combined-case table of the spec still words its basis column in older terms.
-SPEC_BASIS_WORDS = (
-    ("satisfied", "ALL_APPLICABLE_PASSED"),
-    ("violation", "MANDATORY_POLICY_FAILED"),
-    ("evaluation error", "FAIL_CLOSED_ON_POLICY_ERROR"),
-)
 
 SPEC_ROW = re.compile(r"^\|\s*((?:AP|TS|SU|AG|CB)-\d+)\s*\|(.*)\|\s*$")
 TICKED = re.compile(r"`([^`]+)`")
 POLICY_REF = re.compile(r"^((?:AP|TS|SU)-\d+)\s+`(\w+)`")
 
 
-def _load_matrix() -> Json:
-    with MATRIX_FILE.open(encoding="utf-8") as handle:
-        matrix: Json = json.load(handle)
-    return matrix
+def _load_json(path: Path) -> Json:
+    with path.open(encoding="utf-8") as handle:
+        loaded: Json = json.load(handle)
+    return loaded
 
 
-MATRIX = _load_matrix()
+MATRIX = _load_json(MATRIX_FILE)
+SAMPLES: list[Json] = _load_json(SAMPLES_FILE)["samples"]
 POLICY_CASES: list[Json] = MATRIX["policy_cases"]
 AGGREGATION_CASES: list[Json] = MATRIX["aggregation_cases"]
 COMBINED_CASES: list[Json] = MATRIX["combined_cases"]
@@ -151,11 +147,9 @@ def first_ticked(cell: str) -> str | None:
 
 
 def spec_basis(cell: str) -> str | None:
-    tail = cell.partition("/")[2].strip().lower()
-    for word, basis in SPEC_BASIS_WORDS:
-        if tail.startswith(word):
-            return basis
-    return None
+    """The second backticked word of a combined-case cell, such as `BLOCK` / `BASIS`."""
+    tokens = TICKED.findall(cell)
+    return tokens[1] if len(tokens) > 1 else None
 
 
 SPEC_ROWS = spec_rows()
@@ -278,6 +272,76 @@ def test_amount_relation_matches_the_decimals(case: Json) -> None:
     threshold = Decimal(rule["threshold"])
     relation = "ABOVE" if amount > threshold else "EQUAL" if amount == threshold else "BELOW"
     assert relation == case["amount_relation"]
+
+
+# --- sample request and response pairs: run today -----------------------------------------
+
+
+def sample_request(check_input: Json) -> Json:
+    """The part of a matrix input that a pre-tool check request carries, in v1.9 names."""
+    proposal, approval, supplier = (
+        check_input["proposal"],
+        check_input["approval"],
+        check_input["supplier"],
+    )
+    return {
+        "tool_name": proposal["tool"],
+        "checked_policy_stage": check_input["stage"],
+        "validated_arguments": {
+            "total_amount": proposal["total_amount"],
+            "currency": proposal["currency"],
+            "supplier_id": proposal["supplier_id"],
+        },
+        "supplier_evidence_ref": None
+        if supplier is None
+        else {"supplier_id": supplier["supplier_id"], "supplier_status": supplier["status"]},
+        "approval_evidence_ref": None
+        if approval is None
+        else {"decision_status": approval["status"]},
+    }
+
+
+def sample_policy(policy_id: str, outcome: Json) -> Json:
+    return {
+        "policy_id": policy_id,
+        "policy_result": outcome["result"],
+        "criticality": "critical",
+        "reason_code": outcome["reason_code"],
+    }
+
+
+def sample_response(expected: Json) -> Json:
+    """The response a matrix case expects, in the contract's output names."""
+    return {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+            sample_policy(policy_id, expected["policy_results"][policy_id])
+            for policy_id in POLICY_IDS
+        ],
+        "action_verdict": expected["verdict"],
+        "verdict_basis": expected["verdict_basis"],
+    }
+
+
+def test_sample_ids_are_unique() -> None:
+    assert len(ids(SAMPLES)) == len(set(ids(SAMPLES)))
+
+
+@pytest.mark.parametrize("sample", SAMPLES, ids=ids(SAMPLES))
+def test_sample_agrees_with_its_matrix_case(sample: Json) -> None:
+    case = next(case for case in COMBINED_CASES if case["id"] == sample["case"])
+    assert sample["request"] == sample_request(build_input(case))
+    assert sample["response"] == sample_response(case["expected"])
+
+
+@pytest.mark.parametrize("sample", SAMPLES, ids=ids(SAMPLES))
+def test_sample_kind_matches_its_verdict(sample: Json) -> None:
+    verdict = sample["response"]["action_verdict"]
+    assert (sample["kind"], verdict) in {("success", "ALLOW"), ("failure", "BLOCK")}
+
+
+def test_samples_include_both_a_success_and_a_failure() -> None:
+    assert {sample["kind"] for sample in SAMPLES} == {"success", "failure"}
 
 
 # --- engine checks: skipped until the engine exists ---------------------------------------
