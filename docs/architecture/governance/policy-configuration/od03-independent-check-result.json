@@ -54,7 +54,7 @@
     "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
     "verify_od03_independent.py": "792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f"
   },
-  "source_note": "candidate files read from commit 479cab00c021db7a58b826b46a653c3e2308b798 (unchanged at 9e6affaa and a62f4e7)",
+  "source_note": "candidate files exported from PR #27 commit a62f4e7929337af5be661d50b7200909bfe84fe9; byte-identical (SHA-256) at 479cab00c021db7a58b826b46a653c3e2308b798, 9e6affaa6d2f9bfca675e63e1c536d47005cd74d and c5b256843054911b798c159ca74b9c156bb39448",
   "python": "3.13.7",
   "pyyaml": "6.0.3",
   "command": "python verify_od03_independent.py --truth-table <truth-table.json> --policy-text <policy-text.txt> --output <result.json>",
