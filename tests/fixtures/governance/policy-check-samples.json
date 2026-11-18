@@ -1,0 +1,174 @@
+{
+  "status": "SPECIFICATION SAMPLES. Synthetic values only. Not output of a running engine, not a policy release, not runtime validation.",
+  "purpose": "Reusable pre-tool check request and response pairs for consumers: Nour's contract test (success and failure paths), Malak's result fixtures and Mohab's route test.",
+  "source": "Derived from the combined cases of policy-matrices.json (spec section 5.1) and kept in step with them by a test. Governance contract section 4.1 and 4.2 name the fields.",
+  "notes": [
+    "The request carries only the fields the three policies read. The full Trace Schema v1.9 policy_check event has more (the 19-key authorization snapshot, evidence references, ids and the attempt). This is not that event.",
+    "Amounts are decimal strings. The threshold used by these samples is the test value 1000.00 USD, not the policy value.",
+    "response.evaluated_policies[].reason_code is the governance reason code of every result. Trace Schema v1.9 has failure_or_error_reason for FAIL and ERROR only. Where the code of a PASS or NOT_APPLICABLE result is recorded is an open question for Mohab.",
+    "policy_version and policy_bundle_version are left out until the policy versions are fixed."
+  ],
+  "samples": [
+    {
+      "id": "SAMPLE-01",
+      "case": "CB-01",
+      "kind": "success",
+      "description": "Valid approved purchase above the threshold, stage APPROVED, supplier APPROVED: ALLOW.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": "APPROVED",
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "approval_evidence_ref": { "decision_status": "APPROVED" }
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+        ],
+        "action_verdict": "ALLOW",
+        "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "SAMPLE-02",
+      "case": "CB-02",
+      "kind": "success",
+      "description": "Amount exactly at the threshold needs no approval, stage APPROVED, supplier APPROVED: ALLOW. Equality does not exceed.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": "APPROVED",
+        "validated_arguments": { "total_amount": "1000.00", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "approval_evidence_ref": null
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "APPROVAL_NOT_REQUIRED" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+        ],
+        "action_verdict": "ALLOW",
+        "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "SAMPLE-03",
+      "case": "CB-09",
+      "kind": "success",
+      "description": "A read tool proposed in PRE_APPROVAL: ALLOW. The approval and supplier policies do not apply to it.",
+      "request": {
+        "tool_name": "get_supplier",
+        "checked_policy_stage": "PRE_APPROVAL",
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "approval_evidence_ref": { "decision_status": "APPROVED" }
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "TOOL_OUT_OF_SCOPE" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "TOOL_OUT_OF_SCOPE" }
+        ],
+        "action_verdict": "ALLOW",
+        "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "SAMPLE-04",
+      "case": "CB-03",
+      "kind": "failure",
+      "description": "Approval bypass: over the threshold, no approval, stage still PRE_APPROVAL. BLOCK, with both findings recorded.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": "PRE_APPROVAL",
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "approval_evidence_ref": null
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "APPROVAL_MISSING" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+        ],
+        "action_verdict": "BLOCK",
+        "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "SAMPLE-05",
+      "case": "CB-05",
+      "kind": "failure",
+      "description": "Unapproved supplier: approval valid and stage APPROVED, but the supplier is NOT_APPROVED. BLOCK, one failing policy is enough.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": "APPROVED",
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "NOT_APPROVED" },
+        "approval_evidence_ref": { "decision_status": "APPROVED" }
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "SUPPLIER_NOT_APPROVED" }
+        ],
+        "action_verdict": "BLOCK",
+        "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "SAMPLE-06",
+      "case": "CB-06",
+      "kind": "failure",
+      "description": "Approval still PENDING and the supplier NOT_APPROVED, stage APPROVED. BLOCK with two findings.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": "APPROVED",
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "NOT_APPROVED" },
+        "approval_evidence_ref": { "decision_status": "PENDING" }
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "APPROVAL_PENDING" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "SUPPLIER_NOT_APPROVED" }
+        ],
+        "action_verdict": "BLOCK",
+        "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "SAMPLE-07",
+      "case": "CB-11.a",
+      "kind": "failure",
+      "description": "Stage unknown, everything else valid: the stage policy cannot decide (ERROR), so the check fails closed with BLOCK.",
+      "request": {
+        "tool_name": "create_purchase_order",
+        "checked_policy_stage": null,
+        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
+        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "approval_evidence_ref": { "decision_status": "APPROVED" }
+      },
+      "response": {
+        "check_mode": "ONLINE_PRE_TOOL",
+        "evaluated_policies": [
+          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
+          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "ERROR", "criticality": "critical", "reason_code": "STAGE_UNKNOWN" },
+          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+        ],
+        "action_verdict": "BLOCK",
+        "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR"
+      }
+    }
+  ]
+}
