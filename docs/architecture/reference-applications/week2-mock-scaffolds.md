@@ -52,6 +52,39 @@ exceptions propagate; real authorization and provider adapters are not implement
 the qualitative sufficiency decision; this is not an automatic semantic entailment
 checker, a vector store, an embedding call or a general retrieval-quality result.
 
+## Initial offline RAG index
+
+From the repository root, use Python 3.12 with SQLite FTS5 and the pinned uv toolchain.
+
+```sh
+uv run --locked --all-packages python -m trustops_rag_assistant.offline_index
+uv run --locked --all-packages pytest -q tests/unit/reference_applications/test_rag_offline_index.py
+```
+
+The build writes a local database under `artifacts/rag-index/`. The corpus manifest and
+review-r1 source files are copied byte-for-byte from owner-packet commit
+`14c426261cba852c49fd441a1b0c0efc6f942bca`. The builder checks the manifest SHA-256,
+indexes only the seven members of `corpus-review-s01`, and checks each source hash and
+full-passage span. It reads only the manifest and those seven documents. The corpus ID
+is `corpus-review-v1-proposed`. The separate index version encodes the snapshot,
+lexical profile revision and SQLite version, for example
+`corpus-review-s01-fts5-bm25-v1-sqlite-3.53.1`. The profile uses SQLite FTS5 Unicode61
+tokenization, literal query terms joined by OR and BM25 over title and passage.
+Smaller scores rank first, with chunk ID breaking exact ties.
+
+Use `OfflineRetriever(index_path)` as the retriever argument to the existing
+`Pipeline`. The `q-002` test searches the persisted database, selects the first
+retrieved passage, and passes it through the existing generator interface and citation
+checks using an extractive test double. The expected source is `src-003:review-r1`,
+chunk `doc-003@review-r1:0:332`. The cited passage preserves both the emergency notice
+exception and the separate approval condition. The local selected-context event
+records the index version alongside the snapshot and chunk identity.
+
+This proof covers lexical retrieval and structural citation binding. Production vector
+backend selection, embedding compatibility, semantic evaluation and operative
+policy–corpus pairing remain open. The historical authored retrieval fixtures are
+separate, and their expected results and authored rankings are excluded from search.
+
 ## Trace integration seam
 
 Each app accepts an `EventSink` and emits local `AppEvent` objects. `RecordingSink`

@@ -23,6 +23,7 @@ class RetrievedEvidence:
     domain: str
     locator: str
     snapshot_ref: str
+    index_version: str | None = None
 
 
 @dataclass(frozen=True)
@@ -171,6 +172,7 @@ class Pipeline:
                 content_hash=item.content_hash,
                 snapshot_ref=item.snapshot_ref,
                 chunk_text=item.chunk_text,
+                **({"index_version": item.index_version} if item.index_version else {}),
             )
 
         def abstain(reason: str, missing: str) -> RAGResult:
