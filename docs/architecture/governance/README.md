@@ -33,7 +33,7 @@ At the time of revision 0.3, revision 0.2 had been reviewed by nobody. Malak's S
 | Canonical names (Q-15) | Governance's position in contract §4.5; Mohab and Nour have to agree it |
 | Answers to Q-06, Q-07, Q-09, Q-10, Q-13, Q-14 and a review of the 21 dashboard rows | Contract §9.2 and §9.3 |
 | Contract sent to all five teammates | The packet was prepared in revision 0.3 and has not been sent as one package. The exchanges that did happen, and the responses recorded, are in the owner review record below |
-| S1-01 sign-off | Not given; see below |
+| S1-01 sign-off | Given by Mohamed on 2026-11-18 with conditions; see below |
 
 ## Revision 0.4 (2026-11-05, historical): Trace Schema Draft v1.5 review (items 1 and 2)
 
@@ -80,17 +80,20 @@ Status on 16 November 2026. Records are Nour's, kept in the reference-applicatio
 | Nour's exact-revision record, with hashes of the seven reviewed files and her independent rerun | `reviews/mohamed-7c26168-governance-response.md` and `validation/od03-independent-7c26168-result.json`, PR #27 branch `docs/nour-week1-review-014` at commit `04789d7` |
 | Why `accepted_by`, `accepted_at` and `acceptance_evidence` are null | The header of [procurement-policy-set-v0.1.yaml](policy-configuration/procurement-policy-set-v0.1.yaml): they mean acceptance as the operative runtime configuration, which needs Mohab's transport and digest agreement, Nour's corpus pairing and integration, and Nour's row-level plan decisions on OD-02, OD-06 and OD-16 (pending; the amendments have not been accepted). A file also cannot hold the hash of its own acceptance. `runtime_enabled` stays `false` |
 
-## S1-01 sign-off by Mohamed (not given)
+## S1-01 sign-off by Mohamed (given)
 
-The [S1-01 handoff checklist](../reference-applications/handoffs.md#mohamed--s1-04-policy-interaction-and-approval-authority) asks Mohamed for a written policy-evidence sign-off. **It has not been given.** Only Mohamed can give it. The text below is a draft for him to edit and send; until he replaces the status line with his name and the date, this section is a draft and not an acceptance.
+The [S1-01 handoff checklist](../reference-applications/handoffs.md#mohamed--s1-04-policy-interaction-and-approval-authority) asks Mohamed for a written policy-evidence sign-off. **Mohamed gave it to Nour by message on 2026-11-18**, with the conditions below. The message to Nour is the authoritative copy; the text below records it. It is a sign-off on the rows and revisions it names. It is not acceptance of the policy release, it does not set `runtime_enabled`, and it is not OD-14 acceptance.
 
 ```text
 Reviewer: Mohamed Elnaggar
-Date: not given (the status below is NOT GIVEN)
+Date: 2026-11-18
 Revision reviewed: reference-application package at commit 479cab00c021db7a58b826b46a653c3e2308b798
-  (file hashes in response-to-owner-packet-0.14.md); governance revision 0.6 at PR #28,
-  first published at commit 7c26168ea47a611d233202e21f0c0b9f7a5cb3c8
-Status: NOT GIVEN
+  (file hashes in response-to-owner-packet-0.14.md). Later material was reviewed
+  separately and is not covered here: the policy bundle pairing at 14ee4a2 and
+  PR #29 at ebdefc1, each with its own response file.
+Governance revision: 0.6 with addenda, PR #28 at commit
+  fb27a2016306eccac30e70b708b89da8c5634507
+Status: GIVEN, with the conditions below
 Rows accepted: the trusted-context rule, the approval boundary owned by governance,
   the proposal / check / dispatch separation, and the authorization-binding
   principle, subject to the conditions below
@@ -108,6 +111,8 @@ Conditions:
      allowance once, atomically (GD-07, GD-28, GD-30)
   6. no verdict, timeout or error means no dispatch, covered by a test (GD-09)
   7. the application contains no policy threshold logic of its own (contract §5.1)
+Not covered: this sign-off does not accept the policy release, set runtime_enabled,
+  or constitute OD-14 acceptance. Nothing was run against a runtime.
 ```
 
 ## Revision history
@@ -118,6 +123,7 @@ Conditions:
 | 0.2 | 2026-10-18 | Decision flow and contract register merged to `dev` in PR #14, reconciled with the reference-application contracts |
 | 0.3 | 2026-10-21 | Policy truth tables, decision log with statuses, canonical-values proposal, approval validity, roles and overrides, review packet, responses to the wrap-up and to the dashboard questions |
 | 0.6 | 2026-11-12 | Naming aligned to Trace Schema Draft v1.9 (`GD-31`); contract §4.1 to §4.8 rewritten; claim identity made root-scoped; approval-record supersession, terminal rule and chronology proposals (`GD-32`); policy stage versus policy-check result for the dashboard; RAG policy evidence aligned with Ahmed's evaluator contract; reproducible 31-case check and its result; reply to Nour's follow-up; `SA-01` to `SA-09` |
+| 0.6 addendum 5 | 2026-11-18 | Follow-up commit `fb27a20` (Tier 3/4 scope wording, result provenance, `.gitleaksignore` for a verified false positive) was pushed to PR #28 on 2026-11-18. This update records Mohamed's S1-01 policy-evidence sign-off, given to Nour by message on 2026-11-18 with seven conditions, covering the package at `479cab0` and governance at `fb27a20`; the sign-off block and the contract's status row are updated. Contract §6.3 and the GD-16 row now mark governance's earlier blanket `POLICY_VIOLATION` label recommendation as historical, superseded by Ahmed's tier-based rule |
 | 0.6 addendum 4 | 2026-11-17 | Nour's provenance wording points: Ahmed's 16 November reply settles Tier 3 versus Tier 4 precedence on the evaluator side only (the joint OD-09/GD-26 mapping and the SC-03 root cause remain open); the check result's source note now names the exact export revision of the candidate inputs (`a62f4e7`, byte-identical at `479cab0`, `9e6affa` and `c5b2568`) instead of saying they were read from `479cab0` |
 | 0.6 addendum 3 | 2026-11-16 | Nour's wording checks: Nour recorded as the internal team plan decision owner (row-level decisions on OD-02, OD-06 and OD-16 pending, amendments not accepted); every "not received" states which governance request has no response and lists the Mohab and Ahmed replies that are recorded; current-status wording no longer says nobody acknowledged the work, and older revision sections are marked historical. New governance responses to the pairing proposal and to PR #29. Contract §6.3 notes Ahmed's recorded label rule. The YAML and its hash are unchanged since the 14 November commit |
 | 0.6 addendum 2 | 2026-11-14 | Nour's request of 14 November: the outreach and scoped responses received are recorded with exact references (README and owner review packet); the revision-template wording is replaced by exact commits; the configuration header is reconciled with the final dated response and explains the null acceptance fields; the configuration's hash and the check result's input hash change because only a header comment changed (canonical content, `runtime_enabled: false` and the 31-case result are unchanged) |
