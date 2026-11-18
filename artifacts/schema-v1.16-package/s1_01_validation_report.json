@@ -1,0 +1,1474 @@
+{
+  "report_version": "1.11.0",
+  "validator_version": "1.11.0",
+  "comparison_baselines": {
+    "application_contracts_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "v1_8_review_baseline_commit": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+    "experiment_requirements_baseline": "experiment_requirements_v2-4.md"
+  },
+  "files": {
+    "specification": {
+      "filename": "updated_schemas_v16.md",
+      "sha256": "0f6784dc014123c92f043dc9567f5c72ef5f4faa984a797235082f48b079470d"
+    },
+    "validator": {
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "sha256": "b406f4b35949205cd90dbf19df0a333a1836a13d1cbd2f922b7c88d802a23d5b"
+    },
+    "regression_runner": {
+      "filename": "run_s1_01_regression_suite.py",
+      "sha256": "137678b90176c140ea527bc1478ba3cca1ba7815df0773975d672fd9df6d80e2"
+    },
+    "walkthrough_fixtures_canonical_bundle_sha256": "ebfd4b07231f28bc32025a2294fe3fa02f5c08bef6b63cdfb6129891fb010079"
+  },
+  "baseline_validation": {
+    "passed": true,
+    "total_assertions": 2788,
+    "total_failures": 0,
+    "category_assertions": {
+      "cat1_envelope_and_syntax": 1513,
+      "cat2_ordering_and_refs": 487,
+      "cat3_digests_hashes_spans": 105,
+      "cat4_contracts_snapshots_bindings": 613,
+      "cat5_isolation_and_report": 70
+    }
+  },
+  "regression_suite_summary": {
+    "total_cases": 103,
+    "positive_controls": 23,
+    "negative_probes": 80,
+    "matched_expectations": 103,
+    "unmet_expectations": 0,
+    "all_expectations_met": true
+  },
+  "cases": [
+    {
+      "case_id": "BASE-00",
+      "kind": "POSITIVE",
+      "description": "Unmodified updated_schemas_v16.md baseline",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-11",
+      "kind": "POSITIVE",
+      "description": "Valid get_supplier status=ERROR stopping in POLICY_CHECKED",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-12",
+      "kind": "POSITIVE",
+      "description": "Valid calculate_approval_level UNRESOLVED stopping in SUPPLIER_CHECKED",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-13",
+      "kind": "POSITIVE",
+      "description": "Valid RAG zero-hit empty retrieval ending in ABSTENTION",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-14",
+      "kind": "POSITIVE",
+      "description": "Valid retry_accounting on WT1 model_call reconciled with budget",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-15",
+      "kind": "POSITIVE",
+      "description": "unknown_after_runtime_exception: Dispatched PO with RUNTIME_EXCEPTION + UNKNOWN_OUTCOME + read-only recovery",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-16",
+      "kind": "POSITIVE",
+      "description": "valid_unresolved_recovery_fragment: STILL_UNRESOLVED recovery retaining PO_CREATION and RECOVERY_PENDING",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-17",
+      "kind": "POSITIVE",
+      "description": "valid_observation_retry_accounted: OBSERVE_APPROVAL retry with resolved prior attempt and reconciled debits",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-18",
+      "kind": "POSITIVE",
+      "description": "valid_g01_run2_provider_or_sdk_error_no_http_status: G01 Run 2 PROVIDER_OR_SDK_ERROR with http_status=null & transport evidence",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-19",
+      "kind": "POSITIVE",
+      "description": "valid_e03_explicit_policy_ids_filter: search_policy with explicit policy_ids=['POL-114'] matched in filter_provenance",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-20",
+      "kind": "POSITIVE",
+      "description": "valid_security_subset_benign_control: Benign look-alike tagged is_security_subset=true & security_case_role='CONTROL'",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-21",
+      "kind": "POSITIVE",
+      "description": "valid_g01_run1_timeout_outcome_unknown_no_http_status: G01 Run 1 TIMEOUT_OUTCOME_UNKNOWN with http_status=null & transport evidence",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-01",
+      "kind": "NEGATIVE",
+      "description": "WT1 e3 arguments_digest replaced with all-zero SHA-256",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_ARG_DIGEST_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_ARG_DIGEST_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-02",
+      "kind": "NEGATIVE",
+      "description": "WT1 e5 authorization_check_id set to chk_does_not_exist",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_AUTH_CHECK_UNRESOLVED"
+      ],
+      "actual_codes": [
+        "ERR_AUTH_CHECK_UNRESOLVED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-03",
+      "kind": "NEGATIVE",
+      "description": "[COMPOUND] WT1 e5 sequence_number=999 and parent_event_id=e_does_not_exist",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_EVENT_PARENT_UNRESOLVED",
+        "ERR_EVENT_SEQ_ORDER"
+      ],
+      "actual_codes": [
+        "ERR_EVENT_PARENT_UNRESOLVED",
+        "ERR_EVENT_SEQ_ORDER"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-04",
+      "kind": "NEGATIVE",
+      "description": "WT1 e4 authorization_snapshot removed from policy_check",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SNAPSHOT_MISSING"
+      ],
+      "actual_codes": [
+        "ERR_SNAPSHOT_MISSING"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-05",
+      "kind": "NEGATIVE",
+      "description": "WT1 e38 citation chunk_id set to NONEXISTENT-CHUNK",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_SOURCE_UNRESOLVED"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_SOURCE_UNRESOLVED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-06",
+      "kind": "NEGATIVE",
+      "description": "WT1 e33 bound_authorization_check_id mutated",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_PO_STATE_TRANSITION_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH",
+        "ERR_CLAIM_CONSUMPTION_RECORD_INVALID",
+        "ERR_PO_BINDING_FAILED",
+        "ERR_PO_STATE_TRANSITION_INVALID",
+        "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-07",
+      "kind": "NEGATIVE",
+      "description": "Injects trace-only business_status into WT1 e7 result_payload",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_UNKNOWN_FIELD_REJECTED"
+      ],
+      "actual_codes": [
+        "ERR_UNKNOWN_FIELD_REJECTED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-08",
+      "kind": "NEGATIVE",
+      "description": "Injects unretrieved POL-119 into WT4 sufficiency_rationale",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_GROUND_TRUTH_LEAK"
+      ],
+      "actual_codes": [
+        "ERR_GROUND_TRUTH_LEAK"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-09",
+      "kind": "NEGATIVE",
+      "description": "Mutates WT1 e32 snapshot request_revision to rev_000_stale",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SNAPSHOT_REQUEST_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_SNAPSHOT_REQUEST_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-10",
+      "kind": "NEGATIVE",
+      "description": "Actual get_supplier result e13 changed to NOT_APPROVED while snapshot claims APPROVED",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-11",
+      "kind": "NEGATIVE",
+      "description": "Actual approval event e27 changed to DENIED while snapshot claims APPROVED",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-12",
+      "kind": "NEGATIVE",
+      "description": "Root request.structured_input.total_amount changed to 1.00 while PO remains 16000.00",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_REQUEST_TOOL_ARG_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_REQUEST_TOOL_ARG_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-13",
+      "kind": "NEGATIVE",
+      "description": "All three evaluated policy IDs in WT1 e32 collapsed to PROC-APPROVAL-01",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_POLICY_IDS_NOT_DISTINCT"
+      ],
+      "actual_codes": [
+        "ERR_POLICY_IDS_NOT_DISTINCT"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-14",
+      "kind": "NEGATIVE",
+      "description": "WT1 e32 snapshot dispatch_claim.dispatch_claim_id changed to dclaim_tampered",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_DISPATCH_CLAIM_MISMATCH",
+        "ERR_PO_BINDING_FAILED"
+      ],
+      "actual_codes": [
+        "ERR_DISPATCH_CLAIM_MISMATCH",
+        "ERR_PO_BINDING_FAILED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-15",
+      "kind": "NEGATIVE",
+      "description": "WT3 timeout tool_result e7 sets side_effect_state=NONE under UNKNOWN_OUTCOME",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_TIMEOUT_CLAIMS_NO_EFFECT",
+        "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+      ],
+      "actual_codes": [
+        "ERR_TIMEOUT_CLAIMS_NO_EFFECT",
+        "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-16",
+      "kind": "NEGATIVE",
+      "description": "[COMPOUND] WT3 recovery_check e8 changes queried_idempotency_key and total_amount",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_RESULT_REQUEST_MISMATCH",
+        "ERR_RECOVERY_KEY_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_PO_RESULT_REQUEST_MISMATCH",
+        "ERR_RECOVERY_KEY_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-17",
+      "kind": "NEGATIVE",
+      "description": "Appends a second terminal tool_result for call_id=call_sup_01 in WT1",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_DUPLICATE_TERMINAL_TOOL_RESULT"
+      ],
+      "actual_codes": [
+        "ERR_DUPLICATE_TERMINAL_TOOL_RESULT",
+        "ERR_EVENT_TIMESTAMP_ORDER"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-18",
+      "kind": "NEGATIVE",
+      "description": "Corrupts WT1 execution_budget_telemetry.counters.logical_tool_operations.spent_count to 99",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_BUDGET_COUNTER_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_BUDGET_COUNTER_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-19",
+      "kind": "NEGATIVE",
+      "description": "Mutates WT1 e34 budget_context.fencing_token to 99 while trace fencing_token is 1",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_BUDGET_FENCING_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_BUDGET_FENCING_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-20",
+      "kind": "NEGATIVE",
+      "description": "Mutates WT1 e38 visible_citations[0].cited_doc_version to v999_wrong",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_VERSION_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_VERSION_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-21",
+      "kind": "NEGATIVE",
+      "description": "Truncates WT1 e6 canonical_chunk_slice so cited source_quote lies outside selected slice",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_OUTSIDE_SELECTED_SLICE"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_OUTSIDE_SELECTED_SLICE"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-22",
+      "kind": "NEGATIVE",
+      "description": "[COMPOUND] Corrupts e30 raw_arguments_serialized and appends duplicate PO tool_call",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_AUTH_CHECK_REUSED",
+        "ERR_PO_DUPLICATE_DISPATCH_CLAIM",
+        "ERR_RAW_ARGS_PARSE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_AUTH_CHECK_REUSED",
+        "ERR_CLAIM_CONSUMPTION_RECORD_INVALID",
+        "ERR_EVENT_TIMESTAMP_ORDER",
+        "ERR_PO_DUPLICATE_DISPATCH_CLAIM",
+        "ERR_RAW_ARGS_PARSE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-23",
+      "kind": "NEGATIVE",
+      "description": "Isolated recovery_check.queried_idempotency_key mismatch in WT3 e8",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RECOVERY_KEY_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_RECOVERY_KEY_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-24",
+      "kind": "NEGATIVE",
+      "description": "Isolated recovery_check.recovered_result_envelope.data.total_amount mismatch in WT3 e8",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_RESULT_REQUEST_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_PO_RESULT_REQUEST_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-25",
+      "kind": "NEGATIVE",
+      "description": "Isolated malformed raw_arguments_serialized on WT1 e30",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RAW_ARGS_PARSE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_RAW_ARGS_PARSE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-26",
+      "kind": "NEGATIVE",
+      "description": "Isolated duplicate create_purchase_order tool_call reusing chk_101 and dclaim_req_9001",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_AUTH_CHECK_REUSED",
+        "ERR_PO_DUPLICATE_DISPATCH_CLAIM"
+      ],
+      "actual_codes": [
+        "ERR_AUTH_CHECK_REUSED",
+        "ERR_EVENT_TIMESTAMP_ORDER",
+        "ERR_PO_DUPLICATE_DISPATCH_CLAIM"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-27",
+      "kind": "NEGATIVE",
+      "description": "approval_event_id in WT1 e32 points to nonexistent event e999_missing",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-28",
+      "kind": "NEGATIVE",
+      "description": "Approval submission result e25 contains different approval_request_id",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-29",
+      "kind": "NEGATIVE",
+      "description": "Embedded ApprovalEvidence.approval_level in WT1 e25 disagrees with approval event",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-30",
+      "kind": "NEGATIVE",
+      "description": "Embedded ApprovalEvidence.source_ref in WT1 e25 identifies a different approval decision",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-31",
+      "kind": "NEGATIVE",
+      "description": "An evaluated policy in WT1 e32 has a different policy_version",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SNAPSHOT_POLICY_VERSION"
+      ],
+      "actual_codes": [
+        "ERR_SNAPSHOT_POLICY_VERSION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-32",
+      "kind": "NEGATIVE",
+      "description": "approved_amount_ceiling in WT1 e27 is 1.00 while bound_amount is 16000.00",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_CEILING_EXCEEDED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_CEILING_EXCEEDED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-33",
+      "kind": "NEGATIVE",
+      "description": "approval_timestamp in WT1 e27 is 2099-01-01T00:00:00.000Z",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_CHRONOLOGY_INVALID",
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_CHRONOLOGY_INVALID",
+        "ERR_APPROVAL_EVIDENCE_MISMATCH",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-34",
+      "kind": "NEGATIVE",
+      "description": "timeout_error_claims_no_effect: Dispatched PO timeout claims status=ERROR and side_effect_state=NONE",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_TIMEOUT_CLAIMS_NO_EFFECT",
+        "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+      ],
+      "actual_codes": [
+        "ERR_TIMEOUT_CLAIMS_NO_EFFECT",
+        "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-35",
+      "kind": "NEGATIVE",
+      "description": "unresolved_recovery_still_completed: recovery_check is STILL_UNRESOLVED but trace transitions to COMPLETION",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_UNRESOLVED_RECOVERY_COMPLETION"
+      ],
+      "actual_codes": [
+        "ERR_UNRESOLVED_RECOVERY_COMPLETION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-36",
+      "kind": "NEGATIVE",
+      "description": "unknown_result_wrong_claim: WT3 e7 UNKNOWN_OUTCOME references dclaim_wrong_999",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_UNKNOWN_RESULT_CLAIM_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_UNKNOWN_RESULT_CLAIM_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-37",
+      "kind": "NEGATIVE",
+      "description": "unknown_result_wrong_proposal: WT3 e7 UNKNOWN_OUTCOME references prop_wrong_999",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_UNKNOWN_RESULT_PROPOSAL_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_UNKNOWN_RESULT_PROPOSAL_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-38",
+      "kind": "NEGATIVE",
+      "description": "approval_submission_retry_unaccounted: CREATE_APPROVAL_REQUEST labeled as retry without prior attempt or debit",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_BUDGET_COUNTER_INVALID",
+        "ERR_RETRY_PRIOR_ATTEMPT_UNRESOLVED",
+        "ERR_WRITE_RETRY_FORBIDDEN"
+      ],
+      "actual_codes": [
+        "ERR_BUDGET_COUNTER_INVALID",
+        "ERR_RETRY_PRIOR_ATTEMPT_UNRESOLVED",
+        "ERR_WRITE_RETRY_FORBIDDEN"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-39",
+      "kind": "NEGATIVE",
+      "description": "injected_root_cause_in_runtime: Copies scenario_metadata.injected_root_cause ('retriever') into WT4 runtime rationale",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_GROUND_TRUTH_LEAK"
+      ],
+      "actual_codes": [
+        "ERR_GROUND_TRUTH_LEAK"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-40",
+      "kind": "NEGATIVE",
+      "description": "approval_unknown_field: Adds undeclared attribute to WT1 e27 (approval)",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_UNKNOWN_FIELD_REJECTED"
+      ],
+      "actual_codes": [
+        "ERR_UNKNOWN_FIELD_REJECTED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-41",
+      "kind": "NEGATIVE",
+      "description": "invalid_event_timestamps: Replaces event timestamp in WT1 e1 with not-a-time",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_TIMESTAMP"
+      ],
+      "actual_codes": [
+        "ERR_TIMESTAMP"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-42",
+      "kind": "NEGATIVE",
+      "description": "read_allow_used_for_po_transition: Binds APPROVED -> PO_CREATION transition e33 to read-only chk_pol_01",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED",
+        "ERR_PO_STATE_TRANSITION_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH",
+        "ERR_CLAIM_CONSUMPTION_RECORD_INVALID",
+        "ERR_PO_BINDING_FAILED",
+        "ERR_PO_STATE_TRANSITION_INVALID",
+        "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-43",
+      "kind": "NEGATIVE",
+      "description": "Isolated sequence_number out-of-order (999) on WT1 e5",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_EVENT_SEQ_ORDER"
+      ],
+      "actual_codes": [
+        "ERR_EVENT_SEQ_ORDER"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-44",
+      "kind": "NEGATIVE",
+      "description": "Isolated unresolved parent_event_id on WT1 e5",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_EVENT_PARENT_UNRESOLVED"
+      ],
+      "actual_codes": [
+        "ERR_EVENT_PARENT_UNRESOLVED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-45",
+      "kind": "NEGATIVE",
+      "description": "E02 Negative Probe: WT1 e29 model_call effective_config_ref or generation_parameters missing/mismatched",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_MODEL_CALL_EVIDENCE_INCOMPLETE"
+      ],
+      "actual_codes": [
+        "ERR_MODEL_CALL_EVIDENCE_INCOMPLETE"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-46",
+      "kind": "NEGATIVE",
+      "description": "E03/E04 Negative Probe: WT4 e1 retrieval EXPLICIT_NO_FILTER_ALL_ELIGIBLE has non-empty metadata_predicates",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-47",
+      "kind": "NEGATIVE",
+      "description": "E06 Negative Probe: WT4 e1 retrieved_documents rank/score ordering inverted against tie_break_rule",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RETRIEVAL_RANK_OR_TIE_BREAK_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_RETRIEVAL_RANK_OR_TIE_BREAK_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-48",
+      "kind": "NEGATIVE",
+      "description": "E07 Negative Probe: WT4 e1 evidence_sufficiency.selected_chunk_ids does not match included_in_prompt chunks",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_EVIDENCE_SELECTOR_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_EVIDENCE_SELECTOR_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-49",
+      "kind": "NEGATIVE",
+      "description": "E08 Negative Probe: WT1 request.normalization_provenance raw_char_span does not match raw_substring",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_REQUEST_NORMALIZATION_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_REQUEST_NORMALIZATION_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-50",
+      "kind": "NEGATIVE",
+      "description": "E14/E17 & Mohamed #1 Negative Probe: Stale supplier/approval record version at dispatch claim",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_STALE_RECORD_VERSION_AT_CLAIM"
+      ],
+      "actual_codes": [
+        "ERR_STALE_RECORD_VERSION_AT_CLAIM"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-51",
+      "kind": "NEGATIVE",
+      "description": "E17 & Mohamed #2 Negative Probe: Missing immutable dispatch_claim_consumption record on PO_CREATION transition",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CLAIM_CONSUMPTION_RECORD_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH",
+        "ERR_CLAIM_CONSUMPTION_RECORD_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-52",
+      "kind": "NEGATIVE",
+      "description": "E14 & Mohamed #3 Negative Probe: Approval decision_record_seq (104) superseded by newer sequence (105)",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_APPROVAL_SUPERSEDED_SEQUENCE"
+      ],
+      "actual_codes": [
+        "ERR_APPROVAL_SUPERSEDED_SEQUENCE"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-53",
+      "kind": "NEGATIVE",
+      "description": "E25/G01 Negative Probe: model_call has execution_status=PROVIDER_OR_SDK_ERROR but provider_fault_details=null",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PROVIDER_FAULT_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_PROVIDER_FAULT_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-54",
+      "kind": "NEGATIVE",
+      "description": "Alaa #3 / Nour OD-13 #2 Negative Probe: Flat scenario_metadata.security_case_role disagrees with security_subset_metadata",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SECURITY_METADATA_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_SECURITY_METADATA_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-55",
+      "kind": "NEGATIVE",
+      "description": "Alaa #4 / Nour Section 8 Closure Probe: Citation references retrieved chunk HR-002#chunk-01 excluded from prompt",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_CONTEXT_FLAG_MISMATCH",
+        "ERR_CITATION_OUTSIDE_SELECTED_SLICE"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_CONTEXT_FLAG_MISMATCH",
+        "ERR_CITATION_OUTSIDE_SELECTED_SLICE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-56",
+      "kind": "NEGATIVE",
+      "description": "Alaa #1/#2/#5 Probe: Terminal policy_stage typo COMPLETION, invalid adjudication_record, and OD-LLM-02 token mismatch",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_ADJUDICATION_RECORD_INVALID",
+        "ERR_STATE_STAGE_MAPPING_INVALID",
+        "ERR_WORKLOAD_QUOTA_LEDGER_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_ADJUDICATION_RECORD_INVALID",
+        "ERR_STATE_STAGE_MAPPING_INVALID",
+        "ERR_WORKLOAD_QUOTA_LEDGER_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-22",
+      "kind": "POSITIVE",
+      "description": "valid_model_refusal_abstention: REFUSED model_call with refusal_reason, null proposed_tool_calls, and no downstream PO dispatch",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-23",
+      "kind": "POSITIVE",
+      "description": "valid_approved_then_cancelled_revocation_blocks_po: Revoked/CANCELLED approval superseding APR-43 halts safely",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-24",
+      "kind": "POSITIVE",
+      "description": "valid_pre_existing_approval_before_trace_start: Existing approval timestamp precedes trace.started_at while <= verified_at <= e27.timestamp",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-25",
+      "kind": "POSITIVE",
+      "description": "valid_stub_contract_test_check_mode: Isolated Week 2-3 contract test trace in environment='test' with check_mode='STUB_CONTRACT_TEST'",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-26",
+      "kind": "POSITIVE",
+      "description": "valid_od03_stage_only_proc_tool_stage_01_zero_hit_no_match: Stage-only PROC-TOOL-STAGE-01 search_policy returns status='NO_MATCH', matches=[], applicability='MISSING' with 0-hit retrieval",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-27",
+      "kind": "POSITIVE",
+      "description": "valid_retrieval_timeout_and_provider_fault_halt: Retrieval timeout records retrieval_fault_details, UNAVAILABLE_DUE_TO_RETRIEVAL_FAULT, and INCOMPLETE gate decision",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-57",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-02a Probe: WT1 e33 dispatch_claim_consumption.preallocated_at_proposal_id set to NONEXISTENT",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-58",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-02b Probe: WT1 e33 dispatch_claim_consumption.preallocated_at_proposal_id points to wrong existing proposal prop_pol_01",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CLAIM_CONSUMPTION_PROPOSAL_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-59",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-03 Probe: Undeclared derivation_mode=INVALID_UNDECLARED_MODE attempts to bypass span verification",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_NORMALIZATION_MODE_INVALID",
+        "ERR_REQUEST_NORMALIZATION_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_NORMALIZATION_MODE_INVALID",
+        "ERR_REQUEST_NORMALIZATION_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-60",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-04 Probe: Non-finite retrieval score (1e309 / Infinity) in WT4 e1",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RETRIEVAL_SCORE_NONFINITE"
+      ],
+      "actual_codes": [
+        "ERR_RETRIEVAL_RANK_OR_TIE_BREAK_INVALID",
+        "ERR_RETRIEVAL_SCORE_NONFINITE"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-61",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-05a Probe: Invalid generation_parameters (top_p=-1, max_output_tokens=-10) on completed model_call",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_GENERATION_PARAMETERS_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_GENERATION_PARAMETERS_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-62",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-05b Probe: Mismatched operation_profile_id (rag_grounded_answer_v1) on procurement tool_selection step",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_GENERATION_PARAMETERS_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_GENERATION_PARAMETERS_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-63",
+      "kind": "NEGATIVE",
+      "description": "Email 1 V19-06 Probe: Model call e29 marked REFUSED while leaving refusal_reason=null and downstream tool_proposal e30 active",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_MODEL_REFUSAL_INCONSISTENT"
+      ],
+      "actual_codes": [
+        "ERR_MODEL_REFUSAL_INCONSISTENT"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-64",
+      "kind": "NEGATIVE",
+      "description": "Email 1 OD-13 Domain Probe: Injects float value into normalized_arguments digested by trustops-canonical-json-v1",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CANONICAL_JSON_DOMAIN_VIOLATION"
+      ],
+      "actual_codes": [
+        "ERR_CANONICAL_JSON_DOMAIN_VIOLATION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-65",
+      "kind": "NEGATIVE",
+      "description": "Email 2 SA-02 Probe: Approval record version/sequence changes between policy_check and dispatch_claim_consumption",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION"
+      ],
+      "actual_codes": [
+        "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-66",
+      "kind": "NEGATIVE",
+      "description": "Email 2 SA-03 Probe: Terminal CANCELLED approval cannot authorize create_purchase_order",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_PO_BINDING_FAILED"
+      ],
+      "actual_codes": [
+        "ERR_PO_BINDING_FAILED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-67",
+      "kind": "NEGATIVE",
+      "description": "Email 2 SA-05 & SA-06 Probe: EXPIRED approval status and non-canonical criticality spelling rejected",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_POLICY_CRITICALITY_INVALID",
+        "ERR_PO_BINDING_FAILED"
+      ],
+      "actual_codes": [
+        "ERR_POLICY_CRITICALITY_INVALID",
+        "ERR_PO_BINDING_FAILED",
+        "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-68",
+      "kind": "NEGATIVE",
+      "description": "Email 2 SA-07 Probe: STUB_CONTRACT_TEST check_mode rejected in prod environment",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_POLICY_CHECK_MODE_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_POLICY_CHECK_MODE_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-69",
+      "kind": "NEGATIVE",
+      "description": "Email 4 OD-03 Probe: Superseded symbolic revision doc-001@review-r1 in pinned KB release rejected",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_SOURCE_UNRESOLVED",
+        "ERR_GROUND_TRUTH_LEAK",
+        "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-70",
+      "kind": "NEGATIVE",
+      "description": "Email 6 Ahmed Retrieval Fault & SA-09 Probe: Technical retrieval fault mislabeled as normal sufficiency and mismatched enforcement_outcome",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_ENFORCEMENT_OUTCOME_MISMATCH",
+        "ERR_RETRIEVAL_FAULT_MISLABELED_AS_ABSTENTION"
+      ],
+      "actual_codes": [
+        "ERR_ENFORCEMENT_OUTCOME_MISMATCH",
+        "ERR_RETRIEVAL_FAULT_MISLABELED_AS_ABSTENTION"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-28",
+      "kind": "POSITIVE",
+      "description": "valid_four_level_policy_lineage_and_fe944cb_corpus_hashes: 4 distinct policy/KB/rule/source-doc versions plus bare 64-hex source_document_sha256 and sha256:-prefixed passage content_hash",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-29",
+      "kind": "POSITIVE",
+      "description": "valid_sa03_post_consumption_subsequent_approval_cancellation: Action bound to APR-44 (apr_rec_44_v1, seq=104) at check/consumption remains historically valid while recording subsequent APR-44-REV (seq=109) cancellation",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-30",
+      "kind": "POSITIVE",
+      "description": "valid_pr29_c9aa20c_rag_selected_context_and_citation_snapshot_binding: Verifies PR #29 c9aa20c identity chain (doc_id, source_id, doc_version, chunk_id, content_hash, cited_snapshot_id) and slice_relative_char_span",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-71",
+      "kind": "NEGATIVE",
+      "description": "Blocker 2 Probe A: Rejects non-contract search_policy status='OK' and dict applicability object",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SEARCH_POLICY_CONTRACT_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_SEARCH_POLICY_CONTRACT_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-72",
+      "kind": "NEGATIVE",
+      "description": "Blocker 2 Probe B: Rejects search_policy status='NO_MATCH' when matches is non-empty or applicability != 'MISSING'",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SEARCH_POLICY_CONTRACT_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_SEARCH_POLICY_CONTRACT_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-73",
+      "kind": "NEGATIVE",
+      "description": "Integration Gap 3 Probe A: Detects mutated chunk passage text even when bare 64-hex source_document_sha256 is unchanged",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CONTENT_HASH_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CONTENT_HASH_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-74",
+      "kind": "NEGATIVE",
+      "description": "Integration Gap 3 Probe B: Rejects conflating KB version with per-policy rule version and rejects sha256:-prefixed source_document_sha256",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_POLICY_LINEAGE_MISMATCH",
+        "ERR_SOURCE_DOCUMENT_HASH_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_POLICY_LINEAGE_MISMATCH",
+        "ERR_SOURCE_DOCUMENT_HASH_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-75",
+      "kind": "NEGATIVE",
+      "description": "Email 2 PR #29 c9aa20c Probe A: Rejects citation_binding whose cited_snapshot_id disagrees with observed retrieval.source_snapshot_id",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-76",
+      "kind": "NEGATIVE",
+      "description": "Email 2 PR #29 c9aa20c Probe B: Rejects unsanitized database URI credentials and multiline traceback in retrieval_fault_details",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_RETRIEVAL_FAULT_UNSANITIZED"
+      ],
+      "actual_codes": [
+        "ERR_RETRIEVAL_FAULT_UNSANITIZED"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-77",
+      "kind": "NEGATIVE",
+      "description": "Emails 3 & 4 SA-03 Probe: Rejects unversioned/non-advancing approval cancellation link lacking distinct record_version and higher decision_record_seq",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID"
+      ],
+      "actual_codes": [
+        "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-78",
+      "kind": "NEGATIVE",
+      "description": "R12-05 Probe A: Removing cited_snapshot_id alone from visible_citations is rejected without defaulting",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-79",
+      "kind": "NEGATIVE",
+      "description": "R12-05 Probe B: Removing cited_content_hash alone from visible_citations is rejected without defaulting",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "NEG-80",
+      "kind": "NEGATIVE",
+      "description": "R12-05 Probe C: Removing cited_snapshot_id, cited_content_hash, and cited_source_id together is rejected",
+      "expected_pass": false,
+      "actual_pass": false,
+      "expected_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "actual_codes": [
+        "ERR_CITATION_IDENTITY_INCOMPLETE",
+        "ERR_CITATION_SNAPSHOT_MISMATCH"
+      ],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-31",
+      "kind": "POSITIVE",
+      "description": "v1.16 isolated stage-only PROC-TOOL-STAGE-01 NO_MATCH lookup (stops in REQUEST_CAPTURED; does NOT replace normal policy-applicability search)",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    },
+    {
+      "case_id": "POS-32",
+      "kind": "POSITIVE",
+      "description": "v1.16 continuation case: normal MATCHED policy-applicability search + active executable PROC-TOOL-STAGE-01 rule (rule_stage_v0.1) progressing to COMPLETED",
+      "expected_pass": true,
+      "actual_pass": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "case_matched_expectation": true
+    }
+  ]
+}
