@@ -12,6 +12,8 @@ These tables turn the rules in the [governance contract](governance-contract.md)
 
 Result states: `PASS`, `FAIL`, `NOT_APPLICABLE`, `ERROR`. `ERROR` means "could not decide" and is never a violation and never a success. Reason codes are drafts for review; the final taxonomy is frozen with the contract models.
 
+**Criticality.** All three policies, `PROC-APPROVAL-01`, `PROC-TOOL-STAGE-01` and `PROC-SUPPLIER-01`, are `critical` (contract §4.2). A `FAIL` of any of them is a critical policy failure and drives `DEC-1`. The result vocabulary and the criticality value are the same in every case below, so the tables do not repeat them.
+
 ---
 
 ## 1. Notation
@@ -51,11 +53,11 @@ Evaluated when `t = create_purchase_order`. For any other tool the result is `NO
 | AP-10 | `a > T`, `APPROVED`, bound correctly, decided before the proposal, validity rule holds | `PASS` | `APPROVAL_VALID` |
 | AP-11 | `a` missing, not a decimal, or not positive | `ERROR` | `AMOUNT_INVALID` |
 | AP-12 | `c` not in `C`, or no threshold configured in `c` | `ERROR` | `CURRENCY_UNSUPPORTED` |
-| AP-13 | `T` or the rule configuration missing | `ERROR` | `POLICY_CONFIG_MISSING` |
+| AP-13 | No approval rule can be found: the configuration, the approval policy block or its currency rules are absent or empty | `ERROR` | `POLICY_CONFIG_MISSING` |
 | AP-14 | `t ≠ create_purchase_order` | `NOT_APPLICABLE` | `TOOL_OUT_OF_SCOPE` |
 | AP-15 | `a > T`, and the approval event and governance's approval record disagree on the decision or its binding | `FAIL` | `APPROVAL_EVIDENCE_CONTRADICTION` |
 | AP-16 | `a > T`, and the approval's order relative to the proposal cannot be established (future-dated, unorderable or conflicting evidence) | `ERROR` | `APPROVAL_ORDER_UNDETERMINED` |
-| AP-17 | The configuration is invalid (comparator is not `GT`, threshold or approval level missing) | `ERROR` | `POLICY_CONFIG_INVALID` |
+| AP-17 | The configuration is present but unusable: the comparator is absent or not `GT`, or a currency rule is present with its threshold or approval level missing | `ERROR` | `POLICY_CONFIG_INVALID` |
 | AP-18 | The approval-validity block is missing from the configuration (contract §5.3 V01) | `ERROR` | `POLICY_CONFIG_MISSING` |
 | AP-19 | `a > T`, `APPROVED`, but the approver reference does not resolve to an approver whose level satisfies the required level | `FAIL` | `APPROVER_NOT_ELIGIBLE` |
 
@@ -65,6 +67,7 @@ Notes:
 - **Approval status is authoritative.** It is read from governance's approval record, not from a status string in the request.
 - **Proposal versus request mismatch.** If the amount, currency or supplier in the proposal's arguments differs from the immutable request snapshot, that is not a policy case. It is a check-level `CONTEXT_MISMATCH` (§5, case AG-06), which fails closed.
 - **Validity rule.** AP-10 requires the validity rule in the policy set (contract §5.3): valid while the bound request revision is current and the record has not become `DENIED` or `CANCELLED`; no time-based expiry in the MVP.
+- **Missing versus invalid configuration (AP-13, AP-17, AP-18).** A block that is absent or empty is missing. A block or field that is present but unusable is invalid. So an absent rule list is AP-13, a rule with a null threshold is AP-17, and an absent validity block is AP-18. When more than one fault is present, the comparator is judged first, then the currency rules, then the validity block.
 
 ---
 
@@ -144,17 +147,17 @@ These are the cases most likely to be implemented wrongly, so each becomes its o
 
 | Case | Situation | Approval | Stage | Supplier | Verdict / basis |
 |---|---|---|---|---|---|
-| CB-01 | Valid approved purchase, stage `APPROVED` | AP-10 `PASS` | TS-03 `PASS` | SU-01 `PASS` | `ALLOW` / satisfied |
-| CB-02 | Purchase at exactly `T`, stage `APPROVED`, supplier approved | AP-02 `NOT_APPLICABLE` | TS-03 `PASS` | SU-01 `PASS` | `ALLOW` / satisfied |
-| CB-03 | Approval bypass: over `T`, no approval, stage `PRE_APPROVAL` | AP-03 `FAIL` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / violation (both findings recorded) |
-| CB-04 | Valid approval but the stage is still `PRE_APPROVAL` | AP-10 `PASS` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / violation — a valid approval does not override the stage rule |
-| CB-05 | Over `T`, approval valid, stage `APPROVED`, supplier `NOT_APPROVED` | AP-10 `PASS` | TS-03 `PASS` | SU-02 `FAIL` | `BLOCK` / violation — one failing policy is enough |
-| CB-06 | Over `T`, approval `PENDING`, supplier `NOT_APPROVED`, stage `APPROVED` | AP-04 `FAIL` | TS-03 `PASS` | SU-02 `FAIL` | `BLOCK` / violation (two findings) |
-| CB-07 | Approval fails and supplier evidence is missing | AP-03 `FAIL` | TS-03 `PASS` | SU-07 `ERROR` | `BLOCK` / violation (AG-04) |
-| CB-08 | Below `T`, stage `PRE_APPROVAL`, tool is `create_purchase_order` | AP-01 `NOT_APPLICABLE` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / violation — no approval needed does not allow the wrong stage |
-| CB-09 | `get_supplier` proposed in `PRE_APPROVAL` | AP-14 `NOT_APPLICABLE` | TS-01 `PASS` | SU-08 `NOT_APPLICABLE` | `ALLOW` / satisfied |
-| CB-10 | Second `create_purchase_order` proposal while in `PO_CREATION` | AP-14 or per evidence | TS-05 `FAIL` | per evidence | `BLOCK` / violation — an earlier `ALLOW` cannot be reused |
-| CB-11 | Stage unknown | per evidence | TS-08 `ERROR` | per evidence | `BLOCK` / evaluation error, unless another policy already `FAIL`s (then violation) |
+| CB-01 | Valid approved purchase, stage `APPROVED` | AP-10 `PASS` | TS-03 `PASS` | SU-01 `PASS` | `ALLOW` / `ALL_APPLICABLE_PASSED` |
+| CB-02 | Purchase at exactly `T`, stage `APPROVED`, supplier approved | AP-02 `NOT_APPLICABLE` | TS-03 `PASS` | SU-01 `PASS` | `ALLOW` / `ALL_APPLICABLE_PASSED` |
+| CB-03 | Approval bypass: over `T`, no approval, stage `PRE_APPROVAL` | AP-03 `FAIL` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / `MANDATORY_POLICY_FAILED` (both findings recorded) |
+| CB-04 | Valid approval but the stage is still `PRE_APPROVAL` | AP-10 `PASS` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / `MANDATORY_POLICY_FAILED` — a valid approval does not override the stage rule |
+| CB-05 | Over `T`, approval valid, stage `APPROVED`, supplier `NOT_APPROVED` | AP-10 `PASS` | TS-03 `PASS` | SU-02 `FAIL` | `BLOCK` / `MANDATORY_POLICY_FAILED` — one failing policy is enough |
+| CB-06 | Over `T`, approval `PENDING`, supplier `NOT_APPROVED`, stage `APPROVED` | AP-04 `FAIL` | TS-03 `PASS` | SU-02 `FAIL` | `BLOCK` / `MANDATORY_POLICY_FAILED` (two findings) |
+| CB-07 | Approval fails and supplier evidence is missing | AP-03 `FAIL` | TS-03 `PASS` | SU-07 `ERROR` | `BLOCK` / `MANDATORY_POLICY_FAILED` (AG-04) |
+| CB-08 | Below `T`, stage `PRE_APPROVAL`, tool is `create_purchase_order` | AP-01 `NOT_APPLICABLE` | TS-02 `FAIL` | SU-01 `PASS` | `BLOCK` / `MANDATORY_POLICY_FAILED` — no approval needed does not allow the wrong stage |
+| CB-09 | `get_supplier` proposed in `PRE_APPROVAL` | AP-14 `NOT_APPLICABLE` | TS-01 `PASS` | SU-08 `NOT_APPLICABLE` | `ALLOW` / `ALL_APPLICABLE_PASSED` |
+| CB-10 | Second `create_purchase_order` proposal while in `PO_CREATION` (the tool is in scope for approval and supplier, so both follow the evidence) | per evidence | TS-05 `FAIL` | per evidence | `BLOCK` / `MANDATORY_POLICY_FAILED` — an earlier `ALLOW` cannot be reused |
+| CB-11 | Stage unknown | per evidence | TS-08 `ERROR` | per evidence | `BLOCK` / `FAIL_CLOSED_ON_POLICY_ERROR`, unless another policy already `FAIL`s (then `MANDATORY_POLICY_FAILED`) |
 
 ---
 
