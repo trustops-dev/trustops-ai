@@ -133,7 +133,7 @@
     "audit_cause": "UNVERIFIED; public job log download requires authentication; connected diagnostics unavailable",
     "frontend_audit_reproduced": false,
     "supplied_reports": "Retained as supplied historical evidence; fresh counts are recorded separately",
-    "publication": "PREPARED_LOCALLY_NOT_COMMITTED_NOT_PUSHED",
+    "publication": "PUSH_VERIFIED_75534fa9dc1b2fe89d5721202f9d429aa69e9c72",
     "manual_fixture_link_checks": 1032,
     "corpus_boundary_checks": 421
   }

@@ -5,7 +5,7 @@
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
   "remote_verification": "VERIFIED_2026-11-18_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_5ef9ef9981081aa044300c0abcd957a49ebd6b1b_PR28_fb27a2016306eccac30e70b708b89da8c5634507_GIT_REFS_AND_PR28_GITHUB_CHECK_RUNS_API",
-  "commit_push_pr": "PR27_BASE_PUSH_VERIFIED_5ef9ef9981081aa044300c0abcd957a49ebd6b1b; THIS_2026_11_18_SIGNOFF_UPDATE_PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED; NO_MERGE_OR_FULL_ACCEPTANCE",
+  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MOHAMED_SIGNOFF_UPDATE_PUSH_VERIFIED_75534fa9dc1b2fe89d5721202f9d429aa69e9c72; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
   "approval_status": "MOHAMED_S1_01_GIVEN_SCOPED_CONDITIONAL_BY_EMAIL_REPOSITORY_SYNC_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING; OD09_GD26_OPEN; SIX_NOUR_PLAN_DECISIONS_PENDING; G01_HOLD",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
@@ -1180,8 +1180,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/validation/mohamed-fb27a20-signoff-refresh.json",
-      "sha256": "e2e35c289874d85ad77ea6309c5cbacf561097bc5af0c6acf854a0dd5c266c12",
-      "size_bytes": 6439,
+      "sha256": "c3539464f0eb6a504b078d5519a983f638b80b4e151d7681872306c1c5416b48",
+      "size_bytes": 6452,
       "document_revision": "2026-11-18"
     },
     {
