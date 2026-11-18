@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "6b8bca0135b3837660d5bf224b0fdb07936a2656d0c78cb847c5f7d13ecb5d74",
+  "manifest_sha256": "29e4ddda1a410c7d2e37fb92623783f7fc2e33d560b57ea790d07e8835d8a843",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,
@@ -16438,5 +16438,27 @@
     "runtime": "NOT_RUN",
     "g01": "HOLD",
     "paid_use_authorized_usd": 0
+  },
+  "mohamed_scoped_signoff_20261118": {
+    "date": "2026-11-18",
+    "report": "docs/architecture/reference-applications/validation/mohamed-fb27a20-signoff-refresh.json",
+    "signoff": "GIVEN_SCOPED_CONDITIONAL",
+    "repository_sync": "PENDING",
+    "independent_od03": "PASS_31_OF_31",
+    "manifest_entries_verified": 250,
+    "frontend_audit": "HOSTED_FAIL_CAUSE_UNVERIFIED",
+    "runtime": "NOT_RUN",
+    "historical_checks": "RETAINED_AS_HISTORICAL_NOT_RERUN_BY_THIS_RECORD",
+    "manual_fixture_link_checks": 1032,
+    "corpus_boundary_checks": 421,
+    "whitespace_check": "PASS"
+  },
+  "fresh_signoff_integration_20261118": {
+    "scope": "Fresh local offline validation; supplied baseline reports retained",
+    "manual_fixture_link_checks": 1032,
+    "corpus_boundary_checks": 421,
+    "policy_cases": "31/31",
+    "manifest_entries": 250,
+    "publication": "PREPARED_LOCALLY_NOT_COMMITTED_NOT_PUSHED"
   }
 }

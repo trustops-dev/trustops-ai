@@ -1,12 +1,12 @@
 {
-  "packet_id": "nour-owner-review-2026-11-16-alaa-four-followups",
+  "packet_id": "nour-owner-review-2026-11-18-mohamed-scoped-signoff",
   "status": "REVIEW_CANDIDATE_NOT_FROZEN",
-  "date": "2026-11-16",
+  "date": "2026-11-18",
   "repository_base": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
   "branch": "docs/nour-week1-review-014",
-  "remote_verification": "VERIFIED_2026-11-16_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_fe944cb9e90c795a5efbefa72b61539e39c6cf7f_GIT_REFS; GITHUB_WEB_READER_UNAVAILABLE",
-  "commit_push_pr": "PUBLISHED_DRAFT_PR_27_TARGET_DEV; MOHAMED_PAIRING_PUSH_VERIFIED_0c32ac66415d8aab436b65714195a6b94eb8ba1b; PR29_PROCUREMENT_PUSH_VERIFIED_9735513060b3caf7ec35fb210d0489d7153895bf; HOSTED_CHECKS_REPORTED_SEPARATELY; NOT_MERGED; FULL_ACCEPTANCE_PENDING",
-  "approval_status": "ALAA_FOUR_FOLLOWUPS_SCOPED_ACCEPT_AMEND_RECEIVED; OD09_GD26_AND_V11_DIRECT_RAG_RETRIEVAL_FAULT_OPEN; G01_ADMISSION_HOLD; MOHAMED_OD03_VALUES_ACCEPTED; TEAM_LEAD_NOUR_IDENTIFIED_SIX_PLAN_DECISIONS_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
+  "remote_verification": "VERIFIED_2026-11-18_MAIN_3ef7da1f190cd5a22efdcd6798af59199924bac3_DEV_72e7975384d5e8b32d1e0e68ff4742cce96fa336_PR27_5ef9ef9981081aa044300c0abcd957a49ebd6b1b_PR28_fb27a2016306eccac30e70b708b89da8c5634507_GIT_REFS_AND_PR28_GITHUB_CHECK_RUNS_API",
+  "commit_push_pr": "PR27_BASE_PUSH_VERIFIED_5ef9ef9981081aa044300c0abcd957a49ebd6b1b; THIS_2026_11_18_SIGNOFF_UPDATE_PREPARED_LOCALLY_NOT_COMMITTED_OR_PUSHED; NO_MERGE_OR_FULL_ACCEPTANCE",
+  "approval_status": "MOHAMED_S1_01_GIVEN_SCOPED_CONDITIONAL_BY_EMAIL_REPOSITORY_SYNC_PENDING; FULL_CROSS_TEAM_ACCEPTANCE_PENDING; OD09_GD26_OPEN; SIX_NOUR_PLAN_DECISIONS_PENDING; G01_HOLD",
   "hash_convention": "SHA-256 of exact file bytes; paths relative to repository root. Not a proposal for cross-language JSON runtime canonicalization.",
   "excluded_self_and_generated_report": [
     "docs/architecture/reference-applications/week1-review-manifest.json",
@@ -140,8 +140,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/acceptance.md",
-      "sha256": "0b185be37c712dc32755a2b82d48eb125d9d8b003ec2de74b7b3db6ffc8630a5",
-      "size_bytes": 17425,
+      "sha256": "f6177604e413f9e874fe04c701c2297521fccdd11f73dc6327774dd642cc91fd",
+      "size_bytes": 18185,
       "document_revision": "2026-11-15-Ahmed-evaluator-response-record"
     },
     {
@@ -344,8 +344,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/handoffs.md",
-      "sha256": "01b5491b7613002da08f12c4997de3a9741b0d943f47a6449dc8f6c483390917",
-      "size_bytes": 36682
+      "sha256": "c23d74316ebfaba301de50282a5d32a4005b29a2a1a3f3981da9edf6e6749a15",
+      "size_bytes": 37823
     },
     {
       "path": "docs/architecture/reference-applications/manual-boundary-cases.md",
@@ -1026,6 +1026,12 @@
       "size_bytes": 14229
     },
     {
+      "path": "docs/architecture/reference-applications/reviews/mohamed-fb27a20-signoff-2026-11-18.md",
+      "sha256": "69c0cd63c7f3bba67476afcce8015cbe409d9cd5662e55efb78bba949e1bb76a",
+      "size_bytes": 7176,
+      "document_revision": "2026-11-18"
+    },
+    {
       "path": "docs/architecture/reference-applications/reviews/mohamed-policy-pairing-2026-11-16.md",
       "document_revision": "Mohamed scoped policy-pairing follow-up, 2026-11-16",
       "sha256": "6b7f3c59133ac41bff5bfee383599542428990d8508f4afec9d2fa642d778f63",
@@ -1173,6 +1179,12 @@
       "size_bytes": 8628
     },
     {
+      "path": "docs/architecture/reference-applications/validation/mohamed-fb27a20-signoff-refresh.json",
+      "sha256": "e2e35c289874d85ad77ea6309c5cbacf561097bc5af0c6acf854a0dd5c266c12",
+      "size_bytes": 6439,
+      "document_revision": "2026-11-18"
+    },
+    {
       "path": "docs/architecture/reference-applications/validation/od03-independent-7c26168-result.json",
       "document_revision": "2026-11-14 exact governance revision review",
       "sha256": "32701c1943185c97f0e8bc661391b645f34b8cd2ef6aa391cd24ad088a8931d7",
@@ -1260,8 +1272,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/week1-owner-closeout.md",
-      "sha256": "f4e5d92e8148e7034d6e4b02e3363c2e0ea04f1bfcc764ba0303537b446463a6",
-      "size_bytes": 23106
+      "sha256": "728fa16c60b7bc7c75337c4e7c614dc33b5b64bc8567a68f6d4f3f5e7066b7e9",
+      "size_bytes": 23866
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -1709,7 +1721,7 @@
     "superseded_state": "CLOSED_BRANCH_AND_HISTORY_PRESERVED",
     "email_sent_status": "USER_REPORTED_SENT",
     "email_confirmation_evidence": "User stated: I sent emails for teammate now, and i don't have replay until this time",
-    "specialist_acceptance": "ALAA_PARTIAL_CONDITIONAL; FULL_SIGNOFFS_PENDING",
+    "specialist_acceptance": "MOHAMED_GIVEN_SCOPED_CONDITIONAL; OTHER_FULL_SIGNOFFS_PENDING",
     "runtime_verification": "PENDING",
     "email_sent_date": "2026-11-06",
     "email_date_basis": "User said emails were sent now in the Africa/Cairo session.",
@@ -1718,10 +1730,10 @@
     "email_message_references": [],
     "email_independently_verified": false,
     "email_reply_status": "ALAA_PARTIAL_MOHAMED_FINAL_SCOPED_MALAK_FIXTURE_BASED_RESPONSES_RECEIVED",
-    "teammate_acceptance": "MOHAMED_FINAL_SCOPED_GOVERNANCE_DISPOSITIONS_RECEIVED; ALAA_PARTIAL_CONDITIONAL; MALAK_FIXTURE_BASED_CONDITIONAL; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
+    "teammate_acceptance": "MOHAMED_GIVEN_SCOPED_CONDITIONAL; ALAA_PARTIAL_CONDITIONAL; MALAK_FIXTURE_BASED_CONDITIONAL; FULL_CROSS_TEAM_ACCEPTANCE_PENDING",
     "reply_record": "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
     "reply_provenance": "USER_SUPPLIED_ALAA_EMAIL_TEXT; EMAIL_DATE_AND_MESSAGE_REFERENCE_NOT_PROVIDED",
-    "latest_governance_review_record": "docs/architecture/reference-applications/reviews/mohamed-7c26168-governance-response.md"
+    "latest_governance_review_record": "docs/architecture/reference-applications/reviews/mohamed-fb27a20-signoff-2026-11-18.md"
   },
   "publication_refresh": {
     "date": "2026-11-06",
@@ -1815,6 +1827,22 @@
       "reviewed_revisions": "9e6affaa; PR27 g01 plan exact commit not supplied; Ahmed b875c7c; dashboard view",
       "status": "SCOPED_ACCEPT_AMEND; G01_DIAGNOSTIC_RESERVATION_AMENDED; RUNTIME_PENDING",
       "record": "docs/architecture/reference-applications/reviews/alaa-four-followups-2026-11-16.md",
+      "joint_acceptance": false,
+      "runtime_verification": "NOT_CLAIMED"
+    },
+    {
+      "record_id": "MOHAMED-S1-01-FB27A20-20261118",
+      "reviewer": "Mohamed Elnaggar",
+      "recorded_on": "2026-11-18",
+      "signed_date": "2026-11-18",
+      "source_status": "USER_SUPPLIED_EMAIL_TEXT",
+      "email_message_reference": null,
+      "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+      "governance_commit": "fb27a2016306eccac30e70b708b89da8c5634507",
+      "status": "GIVEN_SCOPED_CONDITIONAL",
+      "repository_sync": "PENDING_README_STILL_NOT_GIVEN_AT_FB27A20",
+      "record": "docs/architecture/reference-applications/reviews/mohamed-fb27a20-signoff-2026-11-18.md",
+      "validation_report": "docs/architecture/reference-applications/validation/mohamed-fb27a20-signoff-refresh.json",
       "joint_acceptance": false,
       "runtime_verification": "NOT_CLAIMED"
     }
@@ -2236,5 +2264,21 @@
       "Alaa/Ahmed lineage and fixtures",
       "ingestion and runtime evidence"
     ]
+  },
+  "mohamed_scoped_signoff_20261118": {
+    "record_id": "MOHAMED-S1-01-FB27A20-20261118",
+    "reviewer": "Mohamed Elnaggar",
+    "recorded_on": "2026-11-18",
+    "signed_date": "2026-11-18",
+    "source_status": "USER_SUPPLIED_EMAIL_TEXT",
+    "email_message_reference": null,
+    "reviewed_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "governance_commit": "fb27a2016306eccac30e70b708b89da8c5634507",
+    "status": "GIVEN_SCOPED_CONDITIONAL",
+    "repository_sync": "PENDING_README_STILL_NOT_GIVEN_AT_FB27A20",
+    "record": "docs/architecture/reference-applications/reviews/mohamed-fb27a20-signoff-2026-11-18.md",
+    "validation_report": "docs/architecture/reference-applications/validation/mohamed-fb27a20-signoff-refresh.json",
+    "joint_acceptance": false,
+    "runtime_verification": "NOT_CLAIMED"
   }
 }
