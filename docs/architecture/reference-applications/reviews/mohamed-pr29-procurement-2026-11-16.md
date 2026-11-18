@@ -1,5 +1,7 @@
 # Mohamed's scoped Procurement scaffold review
 
+**Later response:** Mohamed reviewed the published corrections at `9735513` and returned [a scoped ACCEPT with AMEND items](mohamed-pr29-corrections-followup-2026-11-18.md). The table below remains the record of his earlier `ebdefc1` review and the initial follow-up; it does not describe his later disposition.
+
 **Source:** Nour-supplied email received 2026-11-16; original send date and message ID unavailable. **Reviewed revision:** PR #29 `ebdefc194d397804dca8238caf64842cb367ecaf`, `workflow.py`, `mock_tools.py`, and `test_procurement_boundaries.py`. Mohamed ran seven external read-only probes, not the repository pytest suite. This is governance review of a synthetic scaffold, not runtime or canonical schema acceptance.
 
 | Area | Governance disposition | Application follow-up in this patch | Remaining gate |

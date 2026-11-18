@@ -128,6 +128,7 @@ class PurchaseOrderResult:
     total_amount: str
     currency: str
     mock: bool
+    original_result_ref: str | None = None
 
 
 @dataclass(frozen=True)
@@ -137,6 +138,8 @@ class RecoveryResult:
     status: str  # STILL_UNRESOLVED, RESOLVED_COMMITTED, RESOLVED_ABORTED, IDENTITY_CONFLICT
     po_id: str | None = None
     resolution_basis: str | None = None
+    idempotency_key: str | None = None
+    bound_request: PurchaseRequest | None = None
 
 
 class ProcurementTools(Protocol):
@@ -203,6 +206,9 @@ class Workflow:
         # repeat the policy check or call the creating tool to discover its effect.
         recovery = self.tools.recover_purchase_order(request, idempotency_key)
         if recovery is not None:
+            identity_verified = (
+                recovery.idempotency_key == idempotency_key and recovery.bound_request == request
+            )
             event(
                 "recovery_check",
                 operation="RECOVERY_LOOKUP",
@@ -210,15 +216,22 @@ class Workflow:
                 resolution_basis=recovery.resolution_basis,
                 po_id=recovery.po_id,
                 read_only=True,
+                identity_verified=identity_verified,
             )
             if recovery.status == "IDENTITY_CONFLICT":
                 return RunResult(State.REQUEST_CAPTURED, "BLOCKED", "IDEMPOTENCY_CONFLICT")
             if (
-                recovery.status == "RESOLVED_ABORTED"
+                identity_verified
+                and recovery.status == "RESOLVED_ABORTED"
                 and recovery.resolution_basis == "EXPLICIT_ABORT_TOMBSTONE_FOUND"
             ):
                 return RunResult(State.PO_CREATION, "FAILED", "DEFINITIVE_NO_EFFECT")
-            if recovery.status == "RESOLVED_COMMITTED" and recovery.po_id:
+            if (
+                identity_verified
+                and recovery.status == "RESOLVED_COMMITTED"
+                and recovery.resolution_basis == "COMMITTED_RECORD_FOUND"
+                and recovery.po_id
+            ):
                 event("final_response", po_id=recovery.po_id, mock=True)
                 return RunResult(State.COMPLETION, "SUCCEEDED", po_id=recovery.po_id)
             return RunResult(State.PO_CREATION, "RECOVERY_PENDING", "UNKNOWN_PO_OUTCOME")
@@ -252,10 +265,11 @@ class Workflow:
         if (
             supplier.status != "FOUND"
             or supplier.eligibility != "APPROVED"
-            or supplier.supplier_id != request.supplier_id
-            or not supplier.record_version
+            or (supplier.supplier_id != request.supplier_id)
         ):
             return halt("SUPPLIER_INELIGIBLE")
+        if not supplier.record_version:
+            return halt("SUPPLIER_EVIDENCE_INCOMPLETE")
         advance(State.SUPPLIER_CHECKED)
 
         calculation = self.tools.calculate_approval_level(request)
@@ -400,6 +414,7 @@ class Workflow:
         confirmed = (
             po.status in ("CREATED", "ALREADY_EXISTS")
             and bool(po.po_id)
+            and (po.status != "ALREADY_EXISTS" or bool(po.original_result_ref))
             and po.mock
             and po.request_revision == request.request_revision
             and po.supplier_id == request.supplier_id
@@ -410,10 +425,17 @@ class Workflow:
             "tool_result",
             tool="create_purchase_order",
             status=po.status if confirmed else "UNKNOWN_OUTCOME",
-            side_effect_state="KNOWN" if confirmed else "UNKNOWN",
+            side_effect_state=(
+                "COMMITTED"
+                if confirmed and po.status == "CREATED"
+                else "ALREADY_EXISTING"
+                if confirmed
+                else "UNKNOWN"
+            ),
             check_ref=authorization.check_ref,
             po_id=po.po_id,
             mock=po.mock,
+            original_result_ref=po.original_result_ref,
         )
         if not confirmed:
             return halt("UNKNOWN_PO_OUTCOME", "RECOVERY_PENDING")

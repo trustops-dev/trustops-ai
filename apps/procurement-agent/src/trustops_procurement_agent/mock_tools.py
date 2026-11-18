@@ -32,8 +32,10 @@ class MockTools:
     current_policy_bundle_version: str | None = None
     gate_supplier_version: str | None = None
     gate_approval_version: str | None = None
+    gate_decision_record_seq: int | None = None
+    gate_policy_bundle_version: str | None = None
     dispatch_count: int = 0
-    po_outcome: Literal["CREATED", "UNKNOWN_OUTCOME", "ERROR"] = "CREATED"
+    po_outcome: Literal["CREATED", "ALREADY_EXISTS", "UNKNOWN_OUTCOME", "ERROR"] = "CREATED"
     paired_policy_kb_version: str = "policy-kb-v1"
     paired_policy_bundle_version: str = "policy-bundle-v1"
     recovery_resolution: Literal["STILL_UNRESOLVED", "RESOLVED_COMMITTED", "RESOLVED_ABORTED"] = (
@@ -63,15 +65,36 @@ class MockTools:
         original_request, result = existing
         if original_request != request:
             return RecoveryResult("IDENTITY_CONFLICT")
-        if result.status == "CREATED":
-            return RecoveryResult("RESOLVED_COMMITTED", po_id=result.po_id)
+        if result.status == "CREATED" or (
+            result.status == "ALREADY_EXISTS" and result.original_result_ref
+        ):
+            return RecoveryResult(
+                "RESOLVED_COMMITTED",
+                result.po_id,
+                "COMMITTED_RECORD_FOUND",
+                idempotency_key,
+                original_request,
+            )
         if self.recovery_resolution == "RESOLVED_COMMITTED":
-            return RecoveryResult("RESOLVED_COMMITTED", po_id=f"recovered-{idempotency_key}")
+            return RecoveryResult(
+                "RESOLVED_COMMITTED",
+                f"recovered-{idempotency_key}",
+                "COMMITTED_RECORD_FOUND",
+                idempotency_key,
+                original_request,
+            )
         if self.recovery_resolution == "RESOLVED_ABORTED":
             return RecoveryResult(
-                "RESOLVED_ABORTED", resolution_basis="EXPLICIT_ABORT_TOMBSTONE_FOUND"
+                "RESOLVED_ABORTED",
+                resolution_basis="EXPLICIT_ABORT_TOMBSTONE_FOUND",
+                idempotency_key=idempotency_key,
+                bound_request=original_request,
             )
-        return RecoveryResult("STILL_UNRESOLVED")
+        return RecoveryResult(
+            "STILL_UNRESOLVED",
+            idempotency_key=idempotency_key,
+            bound_request=original_request,
+        )
 
     def search_policy(self, request: PurchaseRequest) -> PolicyResult:
         return self.policy
@@ -118,8 +141,12 @@ class MockTools:
             self.gate_approval_version
             if self.gate_approval_version is not None
             else (approval.record_version if approval else None),
-            approval.decision_record_seq if approval else None,
-            calculation.policy_version,
+            self.gate_decision_record_seq
+            if self.gate_decision_record_seq is not None
+            else (approval.decision_record_seq if approval else None),
+            self.gate_policy_bundle_version
+            if self.gate_policy_bundle_version is not None
+            else calculation.policy_version,
         )
 
     def current_evidence(
@@ -169,12 +196,15 @@ class MockTools:
         self.dispatch_count += 1
         result = PurchaseOrderResult(
             "UNKNOWN_OUTCOME" if self.raise_after_dispatch else self.po_outcome,
-            f"mock-po-{self.dispatch_count}" if self.po_outcome == "CREATED" else None,
+            f"mock-po-{self.dispatch_count}"
+            if self.po_outcome in ("CREATED", "ALREADY_EXISTS")
+            else None,
             request.request_revision,
             request.supplier_id,
             request.total_amount,
             request.currency,
             True,
+            "mock-original-result-1" if self.po_outcome == "ALREADY_EXISTS" else None,
         )
         self._ledger[idempotency_key] = (request, result)
         self._root_keys[request.request_id] = idempotency_key

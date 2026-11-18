@@ -7,7 +7,7 @@ from unittest.mock import Mock
 import pytest
 
 from trustops_procurement_agent.trace import RecordingSink
-from trustops_procurement_agent.workflow import RecoveryResult, State, Workflow
+from trustops_procurement_agent.workflow import PurchaseOrderResult, RecoveryResult, State, Workflow
 
 from .test_procurement_scaffold import fixtures
 
@@ -277,11 +277,88 @@ def test_incomplete_recovery_evidence_cannot_establish_success_or_no_effect(
     assert not any(event.kind == "final_response" for event in sink.events)
 
 
+@pytest.mark.parametrize(
+    ("status", "basis", "key", "request_matches"),
+    [
+        ("RESOLVED_COMMITTED", None, "key-recover", True),
+        ("RESOLVED_COMMITTED", "COMMITTED_RECORD_FOUND", "wrong-key", True),
+        ("RESOLVED_COMMITTED", "COMMITTED_RECORD_FOUND", "key-recover", False),
+        ("RESOLVED_ABORTED", "EXPLICIT_ABORT_TOMBSTONE_FOUND", "wrong-key", True),
+    ],
+)
+def test_recovery_requires_basis_and_echoed_identity(
+    status: str, basis: str | None, key: str, request_matches: bool
+) -> None:
+    request, tools = fixtures()
+    observed = Mock(wraps=tools)
+    observed.recover_purchase_order.return_value = RecoveryResult(
+        status,
+        po_id="po-1" if status == "RESOLVED_COMMITTED" else None,
+        resolution_basis=basis,
+        idempotency_key=key,
+        bound_request=request if request_matches else replace(request, request_revision="rev-2"),
+    )
+    sink = RecordingSink()
+    result = Workflow(observed, sink).run(request, idempotency_key="key-recover")
+    assert (result.state, result.status, result.reason) == (
+        State.PO_CREATION,
+        "RECOVERY_PENDING",
+        "UNKNOWN_PO_OUTCOME",
+    )
+    observed.create_purchase_order.assert_not_called()
+    observed.check_purchase_order.assert_not_called()
+    assert not any(e.kind == "final_response" for e in sink.events)
+
+
+def test_replay_requires_original_result_reference() -> None:
+    request, tools = fixtures()
+    tools.po_outcome = "ALREADY_EXISTS"
+    observed = Mock(wraps=tools)
+    sink = RecordingSink()
+    valid = Workflow(observed, sink).run(request, idempotency_key="key-replay")
+    assert (valid.state, valid.status) == (State.COMPLETION, "SUCCEEDED")
+    resumed = Workflow(observed, sink).run(request, idempotency_key="key-replay")
+    assert resumed == valid
+    observed.create_purchase_order.assert_called_once()
+    observed.check_purchase_order.assert_called_once()
+    assert (
+        next(
+            e.details["side_effect_state"]
+            for e in sink.events
+            if e.kind == "tool_result" and e.details.get("tool") == "create_purchase_order"
+        )
+        == "ALREADY_EXISTING"
+    )
+
+    request, tools = fixtures()
+    tools.po_outcome = "ALREADY_EXISTS"
+    observed = Mock(wraps=tools)
+    original_create = tools.create_purchase_order
+
+    def missing_reference(*args: Any, **kwargs: Any) -> PurchaseOrderResult:
+        result = original_create(*args, **kwargs)
+        return replace(result, status="ALREADY_EXISTS", original_result_ref=None)
+
+    observed.create_purchase_order.side_effect = missing_reference
+    sink = RecordingSink()
+    result = Workflow(observed, sink).run(request, idempotency_key="key-no-reference")
+    assert (result.state, result.status) == (State.PO_CREATION, "RECOVERY_PENDING")
+    assert not any(e.kind == "final_response" for e in sink.events)
+    assert (
+        next(
+            e.details["side_effect_state"]
+            for e in sink.events
+            if e.kind == "tool_result" and e.details.get("tool") == "create_purchase_order"
+        )
+        == "UNKNOWN"
+    )
+
+
 def test_empty_supplier_version_and_wrong_calculation_ref_fail_closed() -> None:
     request, tools = fixtures()
     tools.supplier = replace(tools.supplier, record_version="")
     result = Workflow(tools).run(request, idempotency_key="key-no-version")
-    assert result.state == State.POLICY_CHECKED
+    assert (result.state, result.reason) == (State.POLICY_CHECKED, "SUPPLIER_EVIDENCE_INCOMPLETE")
     assert tools.dispatch_count == 0
     request, tools = fixtures()
     tools.observation = replace(tools.observation, calculation_ref="wrong")
@@ -304,6 +381,8 @@ def test_empty_supplier_version_and_wrong_calculation_ref_fail_closed() -> None:
         ("current_policy_bundle_version", "policy-bundle-v2", "POLICY_BUNDLE_CHANGED"),
         ("gate_supplier_version", "supplier-v2", "AUTHORIZATION_BINDING_INVALID"),
         ("gate_approval_version", "a-v3", "AUTHORIZATION_BINDING_INVALID"),
+        ("gate_decision_record_seq", 3, "AUTHORIZATION_BINDING_INVALID"),
+        ("gate_policy_bundle_version", "policy-bundle-v2", "AUTHORIZATION_BINDING_INVALID"),
     ],
 )
 def test_stale_or_mismatched_evidence_suppresses_dispatch(

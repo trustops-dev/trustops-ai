@@ -55,6 +55,14 @@ def test_valid_approved_mock_path_and_same_key_no_second_effect() -> None:
     first = Workflow(tools, sink).run(request, idempotency_key="runtime-key-1")
     assert (first.state, first.status, first.po_id) == (State.COMPLETION, "SUCCEEDED", "mock-po-1")
     assert tools.dispatch_count == 1
+    assert (
+        next(
+            e.details["side_effect_state"]
+            for e in sink.events
+            if e.kind == "tool_result" and e.details.get("tool") == "create_purchase_order"
+        )
+        == "COMMITTED"
+    )
     assert [e.details["to_state"] for e in sink.events if e.kind == "state_transition"] == [
         "POLICY_CHECKED",
         "SUPPLIER_CHECKED",

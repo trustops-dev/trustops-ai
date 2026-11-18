@@ -29,6 +29,14 @@ fixture blocks a denial/cancellation reversal while that mock object lives. The
 calculation is a supplied fixture, not an app-owned
 threshold rule. Workflow budgets and continuation are future integration points.
 
+Mohamed's 18 November [review of the corrections](reviews/mohamed-pr29-corrections-followup-2026-11-18.md)
+is scoped to this mock. A confirmed created effect emits `COMMITTED`; a confirmed
+replay with a fixture original-result reference emits `ALREADY_EXISTING`. A replay
+without a reference remains `UNKNOWN`. Read-only committed recovery requires
+`COMMITTED_RECORD_FOUND` plus a matching echoed key and mock request identity;
+missing proof stays pending. These comparisons do not establish an authoritative
+purchase-order record or a durable claim.
+
 ## RAG
 
 `Pipeline.answer()` performs one retrieval, explicit curated selection, mock candidate
