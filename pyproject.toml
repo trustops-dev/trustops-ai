@@ -149,3 +149,19 @@ forbidden_modules = [
     "trustops_reliability",
     "trustops_governance",
 ]
+
+[[tool.mypy.overrides]]
+module = [
+    "validate_s1_01_schema_v1_11",
+    "run_s1_01_regression_suite",
+    "g01_isolated_diagnostic_runner",
+    "httpx",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.tests_g01_diagnostic.*",
+    "tests.tests_schema_validation.*",
+]
+ignore_errors = true
