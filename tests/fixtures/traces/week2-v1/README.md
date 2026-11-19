@@ -21,11 +21,12 @@ and evidence from the historical files.
 
 ## Reproduce from the application checkout
 
-Use Python 3.12. Fetch the schema branch once if the pinned Git object is
-absent, then run the verifier from the repository root.
+Use Python 3.12. Fetch the exact schema revision if the pinned Git object is
+absent, then run the verifier from the repository root. The mutable schema
+branch may have advanced or been rewritten; the verifier remains pinned.
 
 ```sh
-git fetch origin feat/mohab-schema-v1.16-closeout
+git fetch origin c645cfc72ef9d718cfe326990059a5ca0a37b3a1
 python tests/fixtures/traces/week2-v1/verify.py
 ```
 
