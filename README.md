@@ -1,8 +1,8 @@
 # TrustOps AI
 
-This repository contains the **repository base** for the TrustOps AI project, including the planned directories, contribution guidance, Python and frontend workspaces, and secret scanning. The approved repository architecture document defines the planned files, ownership, and dependency rules. `.gitkeep` files allow Git to retain empty directories.
+TrustOps AI contains two offline reference applications. The [Procurement Agent](apps/procurement-agent/) runs the approval workflow with mock tools. The [RAG Assistant](apps/rag-assistant/) retrieves passages from a pinned synthetic corpus using SQLite FTS5 and binds citations to the selected text. The [application tests](tests/unit/reference_applications/) exercise both paths.
 
-Python packages currently provide installable shells with packaging smoke tests. The dashboard has a minimal Next.js entry page and a rendering smoke test. Domain behavior, API integration, infrastructure configuration, datasets, and scenarios have not been implemented yet. Add each file together with its feature. See [ARCHITECTURE.md](ARCHITECTURE.md) for the planned module boundaries.
+The [Week 2 proof traces](tests/fixtures/traces/week2-v1/) are manually authored fixtures with a reproducible schema check. Runtime trace emission, shared pgvector access and live provider compatibility remain open. See [ARCHITECTURE.md](ARCHITECTURE.md) for the integration boundaries.
 
 The Security workflow scans Git history for secrets on pull requests and pushes to `main` and `dev`. Python CI checks linting, formatting, types, import boundaries, and package installation. Frontend CI checks linting, types, rendering tests, and a production build. Dependabot proposes weekly GitHub Actions, Python, and frontend dependency updates to `main`. See [SECURITY.md](SECURITY.md) for scanner maintenance.
 
@@ -19,8 +19,5 @@ with its implementation and tests; adding these templates does not enable new ch
 
 ## Week 1 reference application contracts
 
-See the [S1-01 reference application contracts](docs/architecture/reference-applications/README.md)
-for the procurement state machine, tool and RAG contracts, trace evidence, scenario
-plans and proposed orchestration ADR. These are revision 0.5 drafts awaiting
-canonical-schema alignment and named team sign-offs; they do not represent
-implemented or runtime-validated application behavior.
+Revision 0.5 of the [Week 1 reference application contracts](docs/architecture/reference-applications/README.md)
+documents the proposed Procurement state machine, tool and RAG contracts, trace evidence and scenario plans.
