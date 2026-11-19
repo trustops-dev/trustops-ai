@@ -38,3 +38,19 @@ As negative controls during preparation, replacing the PO dispatch's
 authorization check reference with an absent ID produced
 `ERR_AUTH_CHECK_UNRESOLVED` and `ERR_PO_BINDING_FAILED`. Changing only the
 RAG citation's snapshot produced `ERR_CITATION_SNAPSHOT_MISMATCH`.
+
+### Published validator rerun
+
+PR #29 commit `a05caec9f8786ede09c552f3be2a20a555d01d7a` contains the two
+fixture files used for both runs. The published schema branch at
+`882505573b3d28db362532e038100a91e9c0ea52` carries the same specification
+text and a different validator blob. Its manifest lists the reviewed archive's
+validator hash. The verifier supports both pins and defaults to the original.
+
+```sh
+git fetch origin 882505573b3d28db362532e038100a91e9c0ea52
+python tests/fixtures/traces/week2-v1/verify.py --schema-commit 882505573b3d28db362532e038100a91e9c0ea52
+```
+
+See [validation-results.json](validation-results.json) for both observed runs,
+Python version, fixture and validator hashes, and the archive-to-Git comparison.

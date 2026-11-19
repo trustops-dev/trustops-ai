@@ -1,0 +1,180 @@
+{
+  "scope": "Offline validation of two manually authored application traces using SpecValidator._validate_walkthrough; no live provider calls.",
+  "observed_utc": "2026-11-19T05:15:43.629194+00:00",
+  "application_pr": 29,
+  "application_fixture_commit": "a05caec9f8786ede09c552f3be2a20a555d01d7a",
+  "python_version": "3.12.14",
+  "repo_python_pin": "3.12",
+  "verifier_path": "tests/fixtures/traces/week2-v1/verify.py",
+  "verifier_sha256": "a9945ecfc7ea405962ba83452b29cb4f21b7396e313f66d644128e825f19037d",
+  "package_release": "v1.16.0",
+  "reviewed_archive": "TrustOps_v1.16_Complete_Package.zip",
+  "archive_sha256": "baae06754b93556b4645a5df26895a3b91641e655b93f8b235d33abe66003c49",
+  "published_schema_commit": "882505573b3d28db362532e038100a91e9c0ea52",
+  "published_manifest_validator_sha256": "b406f4b35949205cd90dbf19df0a333a1836a13d1cbd2f922b7c88d802a23d5b",
+  "package_file_comparison": [
+    {
+      "archive_file": "updated_schemas_v16.md",
+      "archive_sha256": "0f6784dc014123c92f043dc9567f5c72ef5f4faa984a797235082f48b079470d",
+      "published_path": "docs/architecture/schemas/updated_schemas_v16.md",
+      "published_sha256": "0f6784dc014123c92f043dc9567f5c72ef5f4faa984a797235082f48b079470d",
+      "byte_match": true
+    },
+    {
+      "archive_file": "validate_s1_01_schema_v1_11.py",
+      "archive_sha256": "b406f4b35949205cd90dbf19df0a333a1836a13d1cbd2f922b7c88d802a23d5b",
+      "published_path": "scripts/schema_validation/validate_s1_01_schema_v1_11.py",
+      "published_sha256": "c55e9c32a94cb94951f9719a713b8f055ed2c8a9eb8dc25b3d4ef49044acd458",
+      "byte_match": false
+    },
+    {
+      "archive_file": "run_s1_01_regression_suite.py",
+      "archive_sha256": "137678b90176c140ea527bc1478ba3cca1ba7815df0773975d672fd9df6d80e2",
+      "published_path": "scripts/schema_validation/run_s1_01_regression_suite.py",
+      "published_sha256": "58f98238d8b5fbedbdbbf1ba08b9532f810c334b3258fdb72411b2636a62fce3",
+      "byte_match": false
+    },
+    {
+      "archive_file": "independent_probes.py",
+      "archive_sha256": "e9c6493271be37b16d3ea17dd53cc1990e8bae93aa21342e8d29882f414804e3",
+      "published_path": "tests/tests_schema_validation/independent_probes.py",
+      "published_sha256": "5ad3b16f4238ede3815daeff9a2606dab84dc48d32543c7e1065fe5e6b666ce8",
+      "byte_match": false
+    },
+    {
+      "archive_file": "reproduce_findings.py",
+      "archive_sha256": "09e37a8aa8ec2357e6dca35d72707e55b5d9e2d2a73426ee1d95078a8c08f6b1",
+      "published_path": "tests/tests_schema_validation/reproduce_findings.py",
+      "published_sha256": "fc8c3d4a9fde0ae2cf6a567b0961d9bd1c231f753aa212893e0568962d6d65a6",
+      "byte_match": false
+    },
+    {
+      "archive_file": "probe_remaining_controls.py",
+      "archive_sha256": "3aae188f390c0aac7e0606bccc70df8f2f1b3696bce5e6c6fdad04262de78a39",
+      "published_path": "tests/tests_g01_diagnostic/probe_remaining_controls.py",
+      "published_sha256": "71764c147dee2b96e559d3ac5ec8faadc004a502e8f10658f5c2256aa80073a6",
+      "byte_match": false
+    },
+    {
+      "archive_file": "s1_01_validation_report.json",
+      "archive_sha256": "c3eea42b58494d82d6e7992be33878e25288d801ef0d873abbe9565682072afd",
+      "published_path": "artifacts/schema-v1.16-package/s1_01_validation_report.json",
+      "published_sha256": "c3eea42b58494d82d6e7992be33878e25288d801ef0d873abbe9565682072afd",
+      "byte_match": true
+    },
+    {
+      "archive_file": "g01_isolated_diagnostic_runner.py",
+      "archive_sha256": "7c63fc7bbdfb28e510f10f7139e2133197d2178507f4517a243695f661ba4083",
+      "published_path": "scripts/g01_diagnostic/g01_isolated_diagnostic_runner.py",
+      "published_sha256": "53296f30b9e944270874ce6de551cbbcc69240bb82db657e6f83d4bcc1c8086d",
+      "byte_match": false
+    },
+    {
+      "archive_file": "test_g01_isolated_diagnostic.py",
+      "archive_sha256": "71ac080638e4aa6702320f2fb8c6ab5619eb9bf4eefbf6667e59bcdd5288db17",
+      "published_path": "tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py",
+      "published_sha256": "1fa8e0893f47ddcef0fb7d8f9d881a86f0e4f5d3954cb403e84b4407767a218d",
+      "byte_match": false
+    },
+    {
+      "archive_file": "run_native_verification.py",
+      "archive_sha256": "8f89c9f77d1e6c8405b165f5efa10b1d874211e328da29672a22e8dfabaea6ab",
+      "published_path": "scripts/schema_validation/run_native_verification.py",
+      "published_sha256": "c500288ce916b31e077c5b7092eeb6bdfa47a58df73c42683b2192d31a254748",
+      "byte_match": false
+    },
+    {
+      "archive_file": "run_windows_g01_verification.bat",
+      "archive_sha256": "e46d315ad2f4697dedd9ef8e9228e2c1eddf9bcb9699a162e2e91bfe162de162",
+      "published_path": "scripts/schema_validation/run_windows_g01_verification.bat",
+      "published_sha256": "e46d315ad2f4697dedd9ef8e9228e2c1eddf9bcb9699a162e2e91bfe162de162",
+      "byte_match": true
+    },
+    {
+      "archive_file": "001_core.sql",
+      "archive_sha256": "5e88f50b497a29e6a7c53e74811d818551f7f97d3b20478d5c69cda29559dd8b",
+      "published_path": "migrations/001_core.sql",
+      "published_sha256": "5e88f50b497a29e6a7c53e74811d818551f7f97d3b20478d5c69cda29559dd8b",
+      "byte_match": true
+    },
+    {
+      "archive_file": "trustops_sdk.py",
+      "archive_sha256": "cf9bbfaa9782c922add593a0930ac679853381b7287387f80db2cc2ba4ed0434",
+      "published_path": "packages/instrumentation-sdk/src/trustops_sdk/trustops_sdk.py",
+      "published_sha256": "0b6edaad12f9786a02b53b873302fae5b77363ef8d67e9b97ce4dc399c210bae",
+      "byte_match": false
+    },
+    {
+      "archive_file": "week_2.md",
+      "archive_sha256": "3a9293aa2d27804da041a15e1b02f5804b5b31739796102f39ccfe980a3630b9",
+      "published_path": "docs/architecture/schemas/week_2.md",
+      "published_sha256": "3a9293aa2d27804da041a15e1b02f5804b5b31739796102f39ccfe980a3630b9",
+      "byte_match": true
+    },
+    {
+      "archive_file": "manifest_v1_16.json",
+      "archive_sha256": "353a259175c0b39bb5cac7253b1083a0587ea4eaa3210ee7346198d44fbc296c",
+      "published_path": "artifacts/schema-v1.16-package/manifest_v1_16.json",
+      "published_sha256": "353a259175c0b39bb5cac7253b1083a0587ea4eaa3210ee7346198d44fbc296c",
+      "byte_match": true
+    }
+  ],
+  "runs": [
+    {
+      "command": "python tests/fixtures/traces/week2-v1/verify.py --schema-commit c645cfc72ef9d718cfe326990059a5ca0a37b3a1",
+      "exit_code": 0,
+      "validator_revision": "c645cfc72ef9d718cfe326990059a5ca0a37b3a1",
+      "validator_sha256": "b406f4b35949205cd90dbf19df0a333a1836a13d1cbd2f922b7c88d802a23d5b",
+      "results": [
+        {
+          "schema_commit": "c645cfc72ef9d718cfe326990059a5ca0a37b3a1",
+          "finding_count": 0,
+          "trace_id": "tr_w2_01_r1",
+          "sha256": "6a2a4340f8fa61cfe6d43ae0debacfee830cca4326bd9f22340b090672cba0b9",
+          "assertions": 1644,
+          "findings": [],
+          "status": "PASS",
+          "fixture_path": "tests/fixtures/traces/week2-v1/01-procurement-success.json"
+        },
+        {
+          "schema_commit": "c645cfc72ef9d718cfe326990059a5ca0a37b3a1",
+          "finding_count": 0,
+          "trace_id": "tr_w2_03_r1",
+          "sha256": "122b8c69d7e5ba1698d62226c156ccfdab766a1f7e97a2cfd13f35f7c3896240",
+          "assertions": 168,
+          "findings": [],
+          "status": "PASS",
+          "fixture_path": "tests/fixtures/traces/week2-v1/03-rag-grounded.json"
+        }
+      ]
+    },
+    {
+      "command": "python tests/fixtures/traces/week2-v1/verify.py --schema-commit 882505573b3d28db362532e038100a91e9c0ea52",
+      "exit_code": 0,
+      "validator_revision": "882505573b3d28db362532e038100a91e9c0ea52",
+      "validator_sha256": "c55e9c32a94cb94951f9719a713b8f055ed2c8a9eb8dc25b3d4ef49044acd458",
+      "results": [
+        {
+          "schema_commit": "882505573b3d28db362532e038100a91e9c0ea52",
+          "finding_count": 0,
+          "trace_id": "tr_w2_01_r1",
+          "sha256": "6a2a4340f8fa61cfe6d43ae0debacfee830cca4326bd9f22340b090672cba0b9",
+          "assertions": 1644,
+          "findings": [],
+          "status": "PASS",
+          "fixture_path": "tests/fixtures/traces/week2-v1/01-procurement-success.json"
+        },
+        {
+          "schema_commit": "882505573b3d28db362532e038100a91e9c0ea52",
+          "finding_count": 0,
+          "trace_id": "tr_w2_03_r1",
+          "sha256": "122b8c69d7e5ba1698d62226c156ccfdab766a1f7e97a2cfd13f35f7c3896240",
+          "assertions": 168,
+          "findings": [],
+          "status": "PASS",
+          "fixture_path": "tests/fixtures/traces/week2-v1/03-rag-grounded.json"
+        }
+      ]
+    }
+  ]
+}
