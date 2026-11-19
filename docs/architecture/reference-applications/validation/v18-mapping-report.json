@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-09",
+  "scope": "Offline owner mapping structure, four embedded walkthrough field witnesses checked during generation; external supplied suite rerun independently before this report; no runtime or reviewer acceptance",
+  "mapping_rows": 27,
+  "status_counts": {
+    "OK": 11,
+    "CHANGE REQUIRED": 9,
+    "OPEN": 7
+  },
+  "mapping_source_sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+  "external_suite": {
+    "baseline_assertions": 2306,
+    "cases_passed": 52,
+    "cases_total": 52,
+    "report_sha256": "61a57d5b626d645289f404e51e978b3f1e3f00754a253bb1515c1e7ce56bbe1f"
+  },
+  "package_identity": "MISMATCH; corrected evidence required",
+  "result": "PASS_MAPPING_COVERAGE_ONLY; SCHEMA_ACCEPTANCE_OPEN",
+  "integration_validation": {
+    "date": "2026-11-09",
+    "baseline_commit": "f8201554b59f49f1b011ca31db2b2696ac80dc9f",
+    "python": "3.12.15",
+    "mapping_structure": "PASS_27_UNIQUE_ORDERED_ROWS_STATUS_COUNTS_AND_NONEMPTY_WITNESS_PATHS",
+    "manual_fixture_summary": {
+      "status": "PASS",
+      "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+      "canonical_schema": "BLOCKED",
+      "runtime": "NOT_RUN",
+      "team_approvals": "PENDING",
+      "git_checks": "NOT_REQUESTED",
+      "fixture_event_counts": {
+        "01-procurement-success.json": 37,
+        "02-procurement-bypass.json": 32,
+        "03-rag-grounded.json": 6,
+        "04-rag-insufficient.json": 4
+      },
+      "check_count": 915,
+      "execution_environment": {
+        "python": "3.12.15",
+        "helper_sha256": "ed99b3532c8d901e3900912b113256f4d8d3b901b97952fda1e27531bdac4185"
+      }
+    },
+    "corpus_boundary_summary": {
+      "result": "PASS",
+      "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+      "checks": 342,
+      "source_documents": 8,
+      "snapshots": 2,
+      "corpus_review_cases": 8,
+      "boundary_cases": 10,
+      "not_run": [
+        "chunk token counts",
+        "embedding API",
+        "pgvector/FAISS",
+        "runtime workflow",
+        "canonical trace validator",
+        "semantic evaluator",
+        "shared acceptance"
+      ],
+      "execution_environment": {
+        "python": "3.12.15",
+        "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+      }
+    },
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_101_FILES",
+    "whitespace": "PASS",
+    "external_suite_rerun": false,
+    "external_suite_scope": "Supplied package results retained. Exact external inputs unavailable in this ZIP; field witnesses could not be independently checked against those files."
+  }
+}

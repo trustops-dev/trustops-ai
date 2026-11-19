@@ -1,0 +1,1200 @@
+{
+  "result": "PASS",
+  "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+  "checks": 294,
+  "source_documents": 8,
+  "snapshots": 2,
+  "corpus_review_cases": 8,
+  "boundary_cases": 10,
+  "assertions": [
+    {
+      "check": "Eight authored sources",
+      "status": "PASS"
+    },
+    {
+      "check": "Four requested categories covered",
+      "status": "PASS"
+    },
+    {
+      "check": "Document IDs unique",
+      "status": "PASS"
+    },
+    {
+      "check": "Source IDs unique",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: protected phrase exists: a request with A > T requires approval",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: protected phrase exists: When A <= T, this rule does not require approval",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: protected phrase exists: Urgency does not waive approval or supplier checks.",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: protected phrase exists: If T, C or the applicable policy version is unresolved",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-001: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: protected phrase exists: A NOT_APPROVED, UNKNOWN or missing supplier record stops the application",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: protected phrase exists: This requirement still applies to urgent requests.",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-002: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: protected phrase exists: planned leave requests should be submitted five working days",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: protected phrase exists: Unplanned emergency leave is exempt",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: protected phrase exists: does not establish approval of the leave",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-003: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: protected phrase exists: routine service maintenance requires an approved maintenance window",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: protected phrase exists: only when the incident commander has authorized the exception",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: protected phrase exists: An urgent label by itself is not authorization.",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-004: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: protected phrase exists: submit a laptop support request through the internal service portal",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: protected phrase exists: does not authorize buying a replacement device",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-005: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-006: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-007: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: exact UTF-8 hash",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: NFC/LF canonical text",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: synthetic permitted review scope",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: version explicit and no fabricated token count",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: exact Unicode span",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: whole rule/exception unit retained",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: dates explicitly unassigned",
+      "status": "PASS"
+    },
+    {
+      "check": "doc-008: no review labels in source record",
+      "status": "PASS"
+    },
+    {
+      "check": "pgvector remains conditional",
+      "status": "PASS"
+    },
+    {
+      "check": "corpus-review-s01: one version per logical document",
+      "status": "PASS"
+    },
+    {
+      "check": "corpus-review-s01: manifest references resolve",
+      "status": "PASS"
+    },
+    {
+      "check": "corpus-review-s02: one version per logical document",
+      "status": "PASS"
+    },
+    {
+      "check": "corpus-review-s02: manifest references resolve",
+      "status": "PASS"
+    },
+    {
+      "check": "Conflict variant changes only one document membership",
+      "status": "PASS"
+    },
+    {
+      "check": "Eight review queries",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-001: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-002: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-003: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-004: supporting phrase available",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-005: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-006: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-007: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: authored_returned_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: authored_selected_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: review_only_relevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: review_only_irrelevant_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: review_only_conflicting_documents resolve within snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: selected subset of authored returned set",
+      "status": "PASS"
+    },
+    {
+      "check": "q-008: relevance classes disjoint",
+      "status": "PASS"
+    },
+    {
+      "check": "Conflict outcome cites two distinct sources",
+      "status": "PASS"
+    },
+    {
+      "check": "Conflicting literal deadlines reproduced",
+      "status": "PASS"
+    },
+    {
+      "check": "Rejected truncation remains an exact source slice",
+      "status": "PASS"
+    },
+    {
+      "check": "Rejected slice demonstrably omits emergency exception",
+      "status": "PASS"
+    },
+    {
+      "check": "Ten unique boundary cases",
+      "status": "PASS"
+    },
+    {
+      "check": "No claimed runtime executions",
+      "status": "PASS"
+    },
+    {
+      "check": "BC-07: symbolic threshold, no business value",
+      "status": "PASS"
+    },
+    {
+      "check": "BC-08: symbolic threshold, no business value",
+      "status": "PASS"
+    },
+    {
+      "check": "BC-09: symbolic threshold, no business value",
+      "status": "PASS"
+    },
+    {
+      "check": "Proposed comparison remains strict greater-than",
+      "status": "PASS"
+    },
+    {
+      "check": "Denial result uses existing tool envelope",
+      "status": "PASS"
+    },
+    {
+      "check": "Denial status agrees across envelope/data",
+      "status": "PASS"
+    },
+    {
+      "check": "Denial carries no approval grant and is not technical ERROR",
+      "status": "PASS"
+    },
+    {
+      "check": "Denial identity/revision/calculation/decision references present",
+      "status": "PASS"
+    },
+    {
+      "check": "Embedded denial observation equals standalone JSON",
+      "status": "PASS"
+    },
+    {
+      "check": "Observation proposal has exactly the existing three arguments",
+      "status": "PASS"
+    },
+    {
+      "check": "Observation request/result identity matches",
+      "status": "PASS"
+    },
+    {
+      "check": "Denied outcome retains last state with explicit prohibited transitions",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link fixtures/03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link fixtures/04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link corpus-review/source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/rag-contract.md: link corpus-review/review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: link boundary-review/cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/manual-boundary-cases.md: link boundary-review/denied-approval-observation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link ../../adr/application-execution-budgets.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/week1-owner-closeout.md: link week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link fixtures/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link audit.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link overview.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link ../../adr/reference-application-orchestration-and-llm.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link acceptance.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link prompt-pack.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/README.md: link repository-integration.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.5-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link validation/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link validation/reproduction-results.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link week1-closeout-validation.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/acceptance.md: link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link week1-owner-closeout.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link week1-review-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link open-decisions.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link policy-candidate/od03-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link approval-validity/od04-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link trace-evidence-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link failure-planning-matrix.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/handoffs.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link schema-v1.6-evidence-mapping.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link schema-v1.6-evidence-mapping.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link schema-v1.6-review-observations.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link schema-v1.5-review.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link handoffs.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link policy-candidate/od03-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link approval-validity/od04-v0.1/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link procurement-state-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/open-decisions.md: link procurement-tool-contracts.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link ../manual-boundary-cases.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link ../corpus-review/README.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link 01-procurement-success.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link 02-procurement-bypass.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link 03-rag-grounded.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/fixtures/README.md: link 04-rag-insufficient.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link ../rag-contract.md",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link source-manifest.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link review-cases.json",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-001.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-002.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-003.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-004.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-005.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-006.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-007.txt",
+      "status": "PASS"
+    },
+    {
+      "check": "docs/architecture/reference-applications/corpus-review/README.md: link documents/doc-008.txt",
+      "status": "PASS"
+    }
+  ],
+  "not_run": [
+    "chunk token counts",
+    "embedding API",
+    "pgvector/FAISS",
+    "runtime workflow",
+    "canonical trace validator",
+    "semantic evaluator",
+    "shared acceptance"
+  ],
+  "execution_environment": {
+    "python": "3.12.14",
+    "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+  }
+}

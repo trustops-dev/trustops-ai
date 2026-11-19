@@ -1,0 +1,7 @@
+{
+  "user_request": "Where should employees submit laptop requests?",
+  "runtime_context": {
+    "stage": "RETRIEVAL",
+    "technical_failure": "Database search timed out; no successful retrieval snapshot exists."
+  }
+}

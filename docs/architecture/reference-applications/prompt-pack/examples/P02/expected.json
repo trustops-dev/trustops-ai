@@ -1,0 +1,18 @@
+{
+  "kind": "EXTRACTION",
+  "tool_name": null,
+  "output": {
+    "status": "NEEDS_CLARIFICATION",
+    "item_description": "business laptops",
+    "quantity": null,
+    "total_amount": "16000.00",
+    "currency": null,
+    "supplier_id": "SUP-088",
+    "missing_fields": [
+      "quantity",
+      "currency"
+    ]
+  },
+  "later_authored_observation": null,
+  "runtime_delivery": null
+}

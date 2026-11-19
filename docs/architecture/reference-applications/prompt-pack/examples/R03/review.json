@@ -1,0 +1,10 @@
+{
+  "id": "R03",
+  "title": "Abstain when relevant evidence is absent",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Sufficiency is known to fail before generation, so runtime authors this schema-compatible review representation without a model call. No warranty duration is inferred.",
+  "gate": null
+}

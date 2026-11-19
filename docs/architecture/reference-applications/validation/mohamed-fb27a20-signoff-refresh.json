@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-18",
+  "observed_at_utc": "2026-11-18T09:15:44.968405+00:00",
+  "owner_packet_base": "5ef9ef9981081aa044300c0abcd957a49ebd6b1b",
+  "governance_commit": "fb27a2016306eccac30e70b708b89da8c5634507",
+  "verified_main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+  "verified_dev": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+  "committed_blob_sha256": {
+    ".gitleaksignore": "0de2a971420a5a85a8a6453c761779fff6b07b7684b1b7510b8ef07953447000",
+    "docs/architecture/governance/README.md": "81bf94d4a30545eb97194f5c77a84e75ce2f9feeef9ebcb732ac8e6bacf530b5",
+    "docs/architecture/governance/governance-contract.md": "bf055bcd564beef3dabdff4f0ece41fc9eb7bfb925a593a06e96a69adfc10b0a",
+    "docs/architecture/governance/owner-review-packet.md": "556edb93dfe931d60cc791bdcceb630e06fcbcb7c7a4b8334fc15b2f36f43a1f",
+    "docs/architecture/governance/policy-configuration/od03-independent-check-result.json": "f6e6dab32db13e72e11d2fa75ad918c29a5cf325997751f695f44a2928f78d97",
+    "docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml": "0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678",
+    "docs/architecture/governance/policy-configuration/verify_od03_independent.py": "792ae8425bb30dd9c38cf825b8a4c119d76cbd72bdea692c47b41b251130846f"
+  },
+  "candidate_input_sha256": {
+    "479cab0": {
+      "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578"
+    },
+    "9e6affa": {
+      "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578"
+    },
+    "a62f4e7": {
+      "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578"
+    },
+    "c5b2568": {
+      "truth-table.json": "94624cdb8f47223113190b6870cd0a75e1172e6479606691107701a5d6bfc86c",
+      "policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578"
+    }
+  },
+  "result_fields_changed": [
+    "source_note"
+  ],
+  "od03_rerun": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+      "verify_od03_independent.py",
+      "--config",
+      "procurement-policy-set-v0.1.yaml",
+      "--truth-table",
+      "truth-table.json",
+      "--policy-text",
+      "policy-text.txt",
+      "--output",
+      "result.json"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS: 31/31 cases agree; configuration_valid=True; policy text consistent=True",
+    "python": "3.12.14",
+    "scope": "Offline configuration/case agreement and checker-defined text consistency; not runtime or complete semantic text verification"
+  },
+  "hosted_checks": [
+    {
+      "name": "Python checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232953137/job/134562165425"
+    },
+    {
+      "name": "Frontend checks",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232953202/job/134562164661"
+    },
+    {
+      "name": "Secret scan",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232953069/job/134562164412"
+    },
+    {
+      "name": "Frontend dependency audit",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232952957/job/134562164244"
+    },
+    {
+      "name": "Python dependency audit",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232952957/job/134562164171"
+    },
+    {
+      "name": "Dependency review",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44232952957/job/134562163871"
+    }
+  ],
+  "frontend_audit": {
+    "cause": "UNVERIFIED",
+    "hosted_log_download": "403_FORBIDDEN_ON_PREVIOUS_REVIEW",
+    "local_attempt": "BLOCKED_BEFORE_AUDIT_BY_ENGINE_REQUIREMENT",
+    "required_pnpm": "11.28.2",
+    "available_pnpm": "11.25.0",
+    "lockfile_and_package_json_equal_verified_dev": true
+  },
+  "signoff": {
+    "source": "USER_SUPPLIED_EMAIL_TEXT",
+    "reviewer": "Mohamed Elnaggar",
+    "signed_date": "2026-11-18",
+    "email_message_id": null,
+    "status": "GIVEN_SCOPED_CONDITIONAL",
+    "application_commit": "479cab00c021db7a58b826b46a653c3e2308b798",
+    "readme_at_governance_commit": "NOT_GIVEN_REPOSITORY_SYNC_PENDING",
+    "runtime_verified": false,
+    "joint_acceptance": false
+  },
+  "provider_requests_sent": 0,
+  "g01": "HOLD",
+  "paid_use_authorized_usd": 0,
+  "fresh_local_integration_20261118": {
+    "remote_verification": "Public Git fetch and unauthenticated GitHub API succeeded; no newer governance head at observation",
+    "main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+    "dev": "72e7975384d5e8b32d1e0e68ff4742cce96fa336",
+    "pr27": "5ef9ef9981081aa044300c0abcd957a49ebd6b1b",
+    "pr28": "fb27a2016306eccac30e70b708b89da8c5634507",
+    "governance_artifact_hashes_verified": 7,
+    "candidate_input_hashes_verified": 8,
+    "source_note_only_change_verified": true,
+    "policy_case_rerun": {
+      "result": "PASS",
+      "cases": "31/31",
+      "environment": "Windows Python 3.12.14, existing isolated PyYAML 6.0.3",
+      "command": "python verify_od03_independent.py --config procurement-policy-set-v0.1.yaml --truth-table truth-table.json --policy-text policy-text.txt --output <outside-repository>/policy-result.json"
+    },
+    "pr27_hosted_checks": "Five pass; Dependency review fails with unsupported repository configuration",
+    "pr28_hosted_checks": "Five pass; Frontend dependency audit fails with exit code 1",
+    "audit_cause": "UNVERIFIED; public job log download requires authentication; connected diagnostics unavailable",
+    "frontend_audit_reproduced": false,
+    "supplied_reports": "Retained as supplied historical evidence; fresh counts are recorded separately",
+    "publication": "PUSH_VERIFIED_75534fa9dc1b2fe89d5721202f9d429aa69e9c72",
+    "manual_fixture_link_checks": 1032,
+    "corpus_boundary_checks": 421
+  }
+}

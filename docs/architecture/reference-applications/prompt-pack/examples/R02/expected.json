@@ -1,0 +1,48 @@
+{
+  "kind": "MODEL_CANDIDATE",
+  "tool_name": null,
+  "output": {
+    "outcome": "ANSWER",
+    "answer": "Employees submit laptop requests through the IT service desk. [S1] Requisition records are retained for three years after closure. [S2]",
+    "abstention_reason": "NONE",
+    "missing_information": "",
+    "claims": [
+      {
+        "claim_id": "claim-1",
+        "text": "Employees submit laptop requests through the IT service desk.",
+        "answer_start": 0,
+        "answer_end": 61,
+        "citations": [
+          {
+            "citation_id": "S1",
+            "source_id": "src-demo-it",
+            "chunk_id": "CH-DEMO-IT-01",
+            "source_version": "demo-source-v1",
+            "source_start": 0,
+            "source_end": 61,
+            "quote": "Employees submit laptop requests through the IT service desk."
+          }
+        ]
+      },
+      {
+        "claim_id": "claim-2",
+        "text": "Requisition records are retained for three years after closure.",
+        "answer_start": 67,
+        "answer_end": 130,
+        "citations": [
+          {
+            "citation_id": "S2",
+            "source_id": "src-demo-retention",
+            "chunk_id": "CH-DEMO-RET-01",
+            "source_version": "demo-source-v1",
+            "source_start": 0,
+            "source_end": 63,
+            "quote": "Requisition records are retained for three years after closure."
+          }
+        ]
+      }
+    ]
+  },
+  "later_authored_observation": null,
+  "runtime_delivery": null
+}
