@@ -134,8 +134,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "92fbe1f010f443912a07272036872cc3b0b85b1b14dab928abf5e91f97bc8357",
-      "size_bytes": 11076,
+      "sha256": "a0bf7794874541ea5d119cbd54c3e21ffdd2fbc3a029ce300e46ab82cc737846",
+      "size_bytes": 11126,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -1295,9 +1295,9 @@
     },
     {
       "path": "docs/architecture/reference-applications/week2-application-closeout.md",
-      "sha256": "48b2374010dc026a907940959ad48268a431f9bbd539ad0f8536694b10ebf4d1",
-      "size_bytes": 5495,
-      "document_revision": "Week 2 offline closeout at 61560bd"
+      "sha256": "1b1c573660dc063e3e29503749912932311f167bbd0e485e157911a0634d9d99",
+      "size_bytes": 6447,
+      "document_revision": "Week 2 offline closeout at 61560bd with hosted follow-up at decf7cb"
     },
     {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
@@ -2342,6 +2342,10 @@
     "application_pr": 29,
     "application_head": "61560bda1c13f38355a06838934e8d493587e1f5",
     "published_schema_commit": "882505573b3d28db362532e038100a91e9c0ea52",
-    "scope": "Offline application scaffolds and manually authored proof fixtures"
+    "scope": "Offline application scaffolds and manually authored proof fixtures",
+    "offline_deliverables_status": "Complete",
+    "hosted_followup_commit": "decf7cb012ceb988c051f656cbd8849af6dde58c",
+    "hosted_checks_passed": 7,
+    "proof_trace_check_url": "https://github.com/trustops-dev/trustops-ai/actions/runs/44533258923/job/135591881923"
   }
 }

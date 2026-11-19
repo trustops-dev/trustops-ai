@@ -2,6 +2,12 @@
 
 The offline application deliverables were reproduced from [PR #29 at `61560bd`](https://github.com/trustops-dev/trustops-ai/commit/61560bda1c13f38355a06838934e8d493587e1f5). The owner packet base for this record is [PR #27 at `14c4262`](https://github.com/trustops-dev/trustops-ai/commit/14c426261cba852c49fd441a1b0c0efc6f942bca).
 
+## Week 2 deliverable tracker
+
+| Owner | Scope | Status | Evidence |
+|---|---|---|---|
+| Nour El-Rouby | Offline Procurement and RAG scaffolds, initial retrieval index, both happy paths and one validated manual trace per application | Complete | Local reproduction at `61560bd` below and automated trace validation at `decf7cb` |
+
 ## Results on the application revision
 
 | Check | Observed result |
@@ -55,3 +61,7 @@ GitHub returned six completed check runs for `61560bda1c13f38355a06838934e8d4935
 | [Python dependency audit](https://github.com/trustops-dev/trustops-ai/actions/runs/44464642698/job/135359374707) | PASS |
 | [Frontend checks](https://github.com/trustops-dev/trustops-ai/actions/runs/44464642616/job/135359374160) | PASS |
 | [Python checks](https://github.com/trustops-dev/trustops-ai/actions/runs/44464642555/job/135359373779) | PASS |
+
+### Hosted follow-up on 19 November 2026
+
+All seven hosted checks passed on [PR #29 revision `decf7cb012ceb988c051f656cbd8849af6dde58c`](https://github.com/trustops-dev/trustops-ai/commit/decf7cb012ceb988c051f656cbd8849af6dde58c), including the frontend dependency audit. The [automated Procurement and RAG proof-trace check](https://github.com/trustops-dev/trustops-ai/actions/runs/44533258923/job/135591881923) validated both application fixtures against the published schema commit `882505573b3d28db362532e038100a91e9c0ea52`. The local reproduction results and the six earlier hosted checks above apply to `61560bd`.

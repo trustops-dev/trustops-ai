@@ -1,6 +1,6 @@
 # TrustOps AI — Week 1 Reference Application Contracts
 
-The [Week 2 application closeout](week2-application-closeout.md) records the offline index build, two happy paths, two schema-validated manual traces and hosted checks on PR #29 at `61560bd`.
+Nour’s [Week 2 offline application deliverables](week2-application-closeout.md) are **Complete**. The closeout records the local reproduction at `61560bd` and seven passing hosted checks, including automated trace validation, at `decf7cb`.
 
 **Current workload candidates — 2026-11-07.** The [free-only 0.2 baseline](workload-review/od-llm02-v0.2/README.md) and [Flash Lite 0.3 alternative](workload-review/od-llm02-v0.3/README.md) supersede the earlier USD 10 allocation proposal with a USD 0 paid-spend requirement. Ownership is user-reported and free-tier quotas are screenshot-observed as recorded in the supplied update; capture times, remaining quota and runtime compatibility remain unverified. Flash remains the current proposed primary. Lite promotion requires scoped application/interface/workload review and executed evidence. Alaa’s prior response remains partial/conditional against its original revision. Credential replacement, quota headroom, OD-03/OD-04 acceptance and the existing schema gates remain pending.
 
