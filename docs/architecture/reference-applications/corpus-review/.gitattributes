@@ -1,0 +1,2 @@
+source-manifest.json text eol=lf
+documents/*.txt text eol=lf

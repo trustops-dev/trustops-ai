@@ -1,0 +1,43 @@
+name: Week 2 trace fixtures
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - tests/fixtures/traces/week2-v1/**
+      - .github/workflows/week2-trace-fixtures.yml
+      - .python-version
+  push:
+    branches: [dev, main]
+    paths:
+      - tests/fixtures/traces/week2-v1/**
+      - .github/workflows/week2-trace-fixtures.yml
+      - .python-version
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Procurement and RAG proof traces
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out application fixtures
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.13.0"
+          enable-cache: false
+
+      - name: Verify both fixtures with the published v1.16 validator
+        env:
+          SCHEMA_COMMIT: 882505573b3d28db362532e038100a91e9c0ea52
+        run: |
+          git fetch --no-tags --depth=1 origin "$SCHEMA_COMMIT"
+          uv run --no-project --python "$(cat .python-version)" python tests/fixtures/traces/week2-v1/verify.py --schema-commit "$SCHEMA_COMMIT"
