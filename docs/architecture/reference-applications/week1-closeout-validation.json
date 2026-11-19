@@ -2,7 +2,7 @@
   "date": "2026-11-14",
   "result": "PASS_FOR_OWNER_ARTIFACTS_ONLY",
   "scope": "Final governance scoped response at 7c26168, independent OD-03 reproduction and current PR #27 publication-status wording. Historical validation payloads retain their recorded revisions and counts; the governance rerun is in governance_7c26168_integration and the status-only refresh is in manifest_status_refresh. Team-lead internal plan ownership corrected 2026-11-14; six decisions remain pending. Historical plan-routing validation retains its 2026-11-09 scope. Six-row team-lead decision recommendations prepared; no plan change accepted or activated. OD-03 proposed policy-KB pairing with exact source identities; offline 31-case checker and static document checks pass, ingestion/runtime not run.",
-  "manifest_sha256": "d385be85c58c668d38e7a9aafac2a7df64ff1fe975c17a31fe1ca905c9ae7103",
+  "manifest_sha256": "0c3dab4b90d8b46a56a97f5f5f5549577bd9dd3188c5122ae83ecccb4bc3e688",
   "check_counts": {
     "runner_tests": 23,
     "manual_fixture_link_checks": 886,

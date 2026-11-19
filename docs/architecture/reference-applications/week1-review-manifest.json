@@ -134,8 +134,8 @@
     },
     {
       "path": "docs/architecture/reference-applications/README.md",
-      "sha256": "1d5b716579176221ca47347831a7b78dc90f365e8fd5aa67c4428f68e55045cd",
-      "size_bytes": 10883,
+      "sha256": "92fbe1f010f443912a07272036872cc3b0b85b1b14dab928abf5e91f97bc8357",
+      "size_bytes": 11076,
       "document_revision": "0.7 closeout addendum; historical 0.6 content retained"
     },
     {
@@ -1294,6 +1294,12 @@
       "size_bytes": 25203
     },
     {
+      "path": "docs/architecture/reference-applications/week2-application-closeout.md",
+      "sha256": "48b2374010dc026a907940959ad48268a431f9bbd539ad0f8536694b10ebf4d1",
+      "size_bytes": 5495,
+      "document_revision": "Week 2 offline closeout at 61560bd"
+    },
+    {
       "path": "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md",
       "document_revision": "0.1",
       "sha256": "9e8011a7717c7bc0b956ff94e9358473c50803b4f3be5eb8d6ac71e4cffb91e9",
@@ -2329,5 +2335,13 @@
     "runtime_acceptance": false,
     "full_cross_team_acceptance": false,
     "published_pr29_corrections": "163b32f813efb4e1e616f3bcfede9f73dcf6c7ad"
+  },
+  "week2_application_closeout": {
+    "date": "2026-11-19",
+    "record": "docs/architecture/reference-applications/week2-application-closeout.md",
+    "application_pr": 29,
+    "application_head": "61560bda1c13f38355a06838934e8d493587e1f5",
+    "published_schema_commit": "882505573b3d28db362532e038100a91e9c0ea52",
+    "scope": "Offline application scaffolds and manually authored proof fixtures"
   }
 }
