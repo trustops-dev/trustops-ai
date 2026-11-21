@@ -1,6 +1,14 @@
 # Verify pgvector for the RAG integration environment
 
-**Decision as of 19 November 2026.** Keep pgvector as the preferred integration backend. Its exact cosine search passed a local capability test. Availability under the shared application role is pending Mohab’s observation. FAISS remains a proposed fallback requiring explicit team selection. The Week 2 SQLite FTS5 proof remains reproducible independently.
+**Decision as of 21 November 2026.** pgvector remains the preferred integration backend. Mohab confirmed that the shared integration database (`shared-dev`) and its ordinary RAG application role are awaiting provisioning. The application-role probe has yet to run. FAISS remains a proposed fallback requiring explicit team selection.
+
+## Shared integration handoff
+
+Mohab ran the [21 November probe](mohab-local-2026-11-21.json) on his local PostgreSQL 17.12 instance with pgvector 0.8.6. The receipt reports a read-only transaction, `superuser: true` and `bypass_rls: true`. The verifier at application commit `b956e95` matched all seven distances and bound the first hit, `doc-003@review-r1:0:332`, to citation `[src-003:review-r1]` at offsets [0, 331).
+
+The original receipt SHA-256 is `661d2d6bb78ca9a9b8e30ec516d65ad6f66edcd49e766b0cf588cb05bf16956c`. Git normalizes the trailing CRLF to LF in the repository copy.
+
+Once provisioning is complete, Mohab will run the same SQL in `shared-dev` with the ordinary application role and return the receipt and environment label. Nour will verify that receipt before connecting the Week 4 retriever. The current dependency is provisioning. There has been no shared-target query or permission failure.
 
 ## What was verified
 
@@ -18,6 +26,7 @@ From the application checkout with Python 3.12 and uv 0.13.0:
 
 ```sh
 uv run --locked --all-packages python tools/rag_vector_probe/probe.py verify tools/rag_vector_probe/isolated-pg17-result.json
+uv run --locked --all-packages python tools/rag_vector_probe/probe.py verify tools/rag_vector_probe/mohab-local-2026-11-21.json
 uv run --locked --all-packages python tools/rag_vector_probe/probe.py prepare rag-pgvector-probe.sql
 ```
 
