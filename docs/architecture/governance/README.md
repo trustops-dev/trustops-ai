@@ -135,6 +135,22 @@ How the baseline is controlled:
 
 What B1 is not: it is not the freeze of the application contracts, not OD-14 policy-release acceptance and not runtime activation. `runtime_enabled` stays `false` and the acceptance fields in the configuration stay null.
 
+## Implementation baseline B2
+
+Decision [GD-35](governance-contract.md#8-decisions). B2 follows the control rule of B1: the first implementation of `PROC-APPROVAL-01` needed three behaviors that the truth tables did not state, so they were recorded before being relied on. It adds rows AP-20 to AP-22 and a precision clause to AP-11, documents the order of evaluation, and adds 11 matrix cases for the new rows. B1 above remains the earlier record. The content hash is the authority; the commit that adds this section is where B2 was first recorded.
+
+| Artifact | Path | Changed since B1 | SHA-256 |
+|---|---|---|---|
+| Policy truth tables | `docs/architecture/governance/policy-truth-tables.md` | yes: AP-11 text, AP-20 to AP-22, the notes on statuses, the bound amount and the order | `0335af777e9e7b073badcb86a73700e91133b5b3996188b3a5bf3416c0e2e3b3` |
+| Synthetic policy configuration v0.1 | `docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml` | no | `0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678` |
+| Test matrices | `tests/fixtures/governance/policy-matrices.json` | yes: 11 new cases (84 policy cases) | `7bd31a2dfbf52630157fc697931f30b1a4a538b44c0420bad27d4073c1ef6a4c` |
+| Sample request and response pairs | `tests/fixtures/governance/policy-check-samples.json` | no | `0a8bb58335bce5c3192caae33a62b618131f53b06f4528113c499d33d20233f9` |
+
+What B2 settles and what it leaves open:
+
+- `STALE_REVISION` is reported like an approval bound to another revision. `EXPIRED` and any unrecognised status are unresolved evidence. Mohab's trace schema v1.18 lists both statuses and says both force `FAIL`. Governance proposes that `EXPIRED` is never produced, so the difference is open with Mohab and is for him to drop or accept.
+- B2 is still a baseline for implementation only. It is not the freeze of the application contracts, not OD-14 policy-release acceptance and not runtime activation.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -143,6 +159,7 @@ What B1 is not: it is not the freeze of the application contracts, not OD-14 pol
 | 0.2 | 2026-10-18 | Decision flow and contract register merged to `dev` in PR #14, reconciled with the reference-application contracts |
 | 0.3 | 2026-10-21 | Policy truth tables, decision log with statuses, canonical-values proposal, approval validity, roles and overrides, review packet, responses to the wrap-up and to the dashboard questions |
 | 0.6 | 2026-11-12 | Naming aligned to Trace Schema Draft v1.9 (`GD-31`); contract §4.1 to §4.8 rewritten; claim identity made root-scoped; approval-record supersession, terminal rule and chronology proposals (`GD-32`); policy stage versus policy-check result for the dashboard; RAG policy evidence aligned with Ahmed's evaluator contract; reproducible 31-case check and its result; reply to Nour's follow-up; `SA-01` to `SA-09` |
+| 0.6 addendum 10 | 2026-11-23 | Baseline B2 under the control rule of `GD-35`: truth-table rows AP-20 (status `STALE_REVISION`), AP-21 (`EXPIRED` or an unrecognised status) and AP-22 (a bound amount that cannot be read), a precision clause in AP-11, and notes on statuses, the bound amount and the order of evaluation in [policy-truth-tables.md](policy-truth-tables.md). 11 new matrix cases. New section "Implementation baseline B2" with the new content hashes. No change to the configuration or the samples |
 | 0.6 addendum 9 | 2026-11-23 | Nour's review of the Week 3 revision asked for a versioned implementation baseline with decision-log control. New decision `GD-34` in the governance contract and a new section "Implementation baseline B1" here, naming the truth tables, the configuration, the matrices and the samples by commit and content hash. Wording and recording only: no change to a truth-table row, the contract's rules, the configuration or the check result |
 | 0.6 addendum 8 | 2026-11-18 | Roadmap Week 2 close-out. [policy-truth-tables.md](policy-truth-tables.md) states criticality (all three policies are critical), words the combined-case basis column with the Trace Schema v1.9 values, no longer cites AP-14 for CB-10 (the tool is in scope), and separates AP-13 from AP-17 with a missing-versus-invalid rule. Seven sample pre-tool request and response pairs (three success, four failure) are added under `tests/fixtures/governance/policy-check-samples.json`, kept in step with the matrices by a test. No change to the contract, the configuration or the check result |
 | 0.6 addendum 7 | 2026-11-18 | Nour's request to review her follow-up to the PR #29 corrections at `163b32f`: new §6 in [response-to-pr29-corrections.md](response-to-pr29-corrections.md) with ACCEPT for §2.1 to §2.4 and the original-result-reference case, no mock-level correction required, and the platform integration requirements listed separately. No change to the contract, the configuration or the check result |

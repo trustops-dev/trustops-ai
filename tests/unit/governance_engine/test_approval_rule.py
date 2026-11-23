@@ -221,6 +221,7 @@ def test_no_approval_record_fails(
         ("PENDING", ReasonCode.APPROVAL_PENDING),
         ("DENIED", ReasonCode.APPROVAL_DENIED),
         ("CANCELLED", ReasonCode.APPROVAL_CANCELLED),
+        ("STALE_REVISION", ReasonCode.APPROVAL_STALE_REVISION),
     ],
 )
 def test_an_approval_that_is_not_granted_fails(
@@ -234,7 +235,7 @@ def test_an_approval_that_is_not_granted_fails(
     assert_outcome(outcome, FAIL, reason)
 
 
-@pytest.mark.parametrize("status", ["approved", "Approved", "REVOKED", "EXPIRED", "", " APPROVED"])
+@pytest.mark.parametrize("status", ["approved", "Approved", "REVOKED", "", " APPROVED", "expired"])
 def test_an_unrecognised_approval_status_is_an_error_never_a_pass(
     proposal: PurchaseProposal,
     approval: ApprovalEvidence,
@@ -243,6 +244,25 @@ def test_an_unrecognised_approval_status_is_an_error_never_a_pass(
 ) -> None:
     outcome = evaluate_approval(proposal, replace(approval, status=status), configuration)
     assert_outcome(outcome, ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+
+
+def test_an_expired_record_is_unresolved_evidence_because_the_mvp_has_no_expiry(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    """EXPIRED is a status of the trace schema, but governance never produces it (no expiry)."""
+    outcome = evaluate_approval(proposal, replace(approval, status="EXPIRED"), configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+
+
+def test_a_stale_revision_record_is_reported_like_an_approval_for_another_revision(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    stale_status = replace(approval, status="STALE_REVISION")
+    other_revision = with_bound(approval, request_revision="rev-2")
+    status_outcome = evaluate_approval(proposal, stale_status, configuration)
+    revision_outcome = evaluate_approval(proposal, other_revision, configuration)
+    assert status_outcome == revision_outcome
+    assert_outcome(status_outcome, FAIL, ReasonCode.APPROVAL_STALE_REVISION)
 
 
 def test_an_approval_event_that_disagrees_with_the_record_fails(
@@ -552,6 +572,8 @@ def faulty_record(approval: ApprovalEvidence) -> ApprovalEvidence:
         ("PENDING", FAIL, ReasonCode.APPROVAL_PENDING),
         ("DENIED", FAIL, ReasonCode.APPROVAL_DENIED),
         ("CANCELLED", FAIL, ReasonCode.APPROVAL_CANCELLED),
+        ("STALE_REVISION", FAIL, ReasonCode.APPROVAL_STALE_REVISION),
+        ("EXPIRED", ERROR, ReasonCode.EVIDENCE_UNRESOLVED),
         ("REVOKED", ERROR, ReasonCode.EVIDENCE_UNRESOLVED),
     ],
 )

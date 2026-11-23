@@ -16,7 +16,10 @@ Order of evaluation. The first fault found is the one reported; later checks do 
 Above the threshold the approval record is judged:
 
 7. No record is FAIL (APPROVAL_MISSING).
-8. Status: PENDING, DENIED or CANCELLED is FAIL; any other status is ERROR (EVIDENCE_UNRESOLVED).
+8. Status: PENDING, DENIED, CANCELLED or STALE_REVISION is FAIL (STALE_REVISION reports
+   APPROVAL_STALE_REVISION, as a record bound to another revision does). EXPIRED and any status
+   that is not recognised is ERROR (EVIDENCE_UNRESOLVED): the MVP has no time-based expiry, so a
+   record that claims to be EXPIRED is itself inconsistent evidence, never a pass.
 
 For an APPROVED record, in this order:
 
@@ -56,10 +59,12 @@ _CONFIG_REASONS = {
     ConfigErrorCode.POLICY_CONFIG_MISSING: ReasonCode.POLICY_CONFIG_MISSING,
     ConfigErrorCode.POLICY_CONFIG_INVALID: ReasonCode.POLICY_CONFIG_INVALID,
 }
+# EXPIRED is deliberately absent: it has no failure reason because the MVP has no expiry.
 _UNFINISHED_STATUS = {
     ApprovalStatus.PENDING: ReasonCode.APPROVAL_PENDING,
     ApprovalStatus.DENIED: ReasonCode.APPROVAL_DENIED,
     ApprovalStatus.CANCELLED: ReasonCode.APPROVAL_CANCELLED,
+    ApprovalStatus.STALE_REVISION: ReasonCode.APPROVAL_STALE_REVISION,
 }
 
 
