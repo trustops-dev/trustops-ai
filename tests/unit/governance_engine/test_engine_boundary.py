@@ -114,6 +114,15 @@ def test_evaluate_policy_reports_the_basis_when_approval_is_not_required(
     assert (outcome["result"], outcome["basis"]) == ("NOT_APPLICABLE", "NOT_REQUIRED")
 
 
+@pytest.mark.parametrize("granted", ["+1000.01", " 1000.01", "1.00001E3", "1000.010", "1_000.01"])
+def test_evaluate_policy_does_not_pass_a_malformed_bound_amount(
+    granted: str, configuration: dict[str, Any]
+) -> None:
+    malformed = edited(check_input(), "approval.bound.total_amount", granted)
+    outcome = engine.evaluate_policy(POLICY_APPROVAL, malformed, configuration)
+    assert (outcome["result"], outcome["reason_code"]) == ("ERROR", "EVIDENCE_UNRESOLVED")
+
+
 def test_evaluate_policy_turns_a_missing_configuration_into_an_error_outcome() -> None:
     outcome = engine.evaluate_policy(POLICY_APPROVAL, check_input(), None)
     assert (outcome["result"], outcome["reason_code"]) == ("ERROR", "POLICY_CONFIG_MISSING")

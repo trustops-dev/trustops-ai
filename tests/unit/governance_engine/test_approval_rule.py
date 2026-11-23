@@ -5,7 +5,9 @@ test changes one thing and states the result the policy must give.
 """
 
 import copy
-from dataclasses import FrozenInstanceError, replace
+from collections.abc import Callable
+from dataclasses import FrozenInstanceError, dataclass, replace
+from itertools import combinations
 from typing import Any
 
 import pytest
@@ -300,8 +302,7 @@ def test_an_approval_for_another_request_revision_is_stale(
     "changes",
     [
         {"total_amount": "1000.02"},
-        {"total_amount": "abc"},
-        {"total_amount": ""},
+        {"total_amount": "999.99"},
         {"currency": "EUR"},
         {"currency": "usd"},
         {"supplier_id": "sup-2"},
@@ -320,7 +321,53 @@ def test_an_approval_granted_for_something_else_is_a_binding_mismatch(
     assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_BINDING_MISMATCH)
 
 
-@pytest.mark.parametrize(("proposed", "granted"), [("1000.1", "1000.10"), ("1000.10", "1000.1")])
+MALFORMED_BOUND_AMOUNTS = [
+    # signs, padding, exponents and leading zeros that Decimal alone would accept
+    "+1000.01",
+    " 1000.01",
+    "1000.01 ",
+    "\t1000.01\n",
+    "1.00001E3",
+    "1e3",
+    "1E3",
+    "01000.01",
+    "1000.010",
+    "1000.01000",
+    "1_000.01",
+    "1000,01",
+    # digits that are not ASCII 0-9: full-width and Arabic-Indic
+    "１０００.０１",
+    "١٠٠٠.٠١",
+    # not finite, not positive, not a number
+    "NaN",
+    "nan",
+    "Infinity",
+    "-Infinity",
+    "-1000.01",
+    "0",
+    "0.00",
+    "",
+    " ",
+    "abc",
+    "1000.001",
+]
+
+
+@pytest.mark.parametrize("granted", MALFORMED_BOUND_AMOUNTS, ids=repr)
+def test_a_malformed_bound_amount_is_unresolved_evidence_and_never_matches(
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence,
+    configuration: dict[str, Any],
+    granted: str,
+) -> None:
+    outcome = evaluate_approval(proposal, with_bound(approval, total_amount=granted), configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+
+
+@pytest.mark.parametrize(
+    ("proposed", "granted"),
+    [("1000.1", "1000.10"), ("1000.10", "1000.1"), ("1001", "1001.00"), ("1001.0", "1001")],
+)
 def test_amounts_equal_in_value_are_the_same_amount(
     proposal: PurchaseProposal,
     approval: ApprovalEvidence,
@@ -334,41 +381,243 @@ def test_amounts_equal_in_value_are_the_same_amount(
     assert_outcome(outcome, PASS, ReasonCode.APPROVAL_VALID)
 
 
+# --- the precision a rule allows ---------------------------------------------------------
+
+
+def allow_four_fraction_digits(configuration: dict[str, Any]) -> None:
+    """A pattern looser than the rule's fraction digits, so only the precision check stops it."""
+    block = configuration["policies"][POLICY_APPROVAL]
+    block["amount_input"]["pattern"] = r"(?:0|[1-9][0-9]*)(?:\.[0-9]{1,4})?"
+
+
+def test_a_proposal_amount_with_more_digits_than_the_rule_allows_is_invalid(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    allow_four_fraction_digits(configuration)
+    outcome = evaluate_approval(with_amount(proposal, "1000.001"), approval, configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.AMOUNT_INVALID)
+
+
+def test_a_bound_amount_with_more_digits_than_the_rule_allows_is_unresolved(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    allow_four_fraction_digits(configuration)
+    outcome = evaluate_approval(
+        proposal, with_bound(approval, total_amount="1000.0100"), configuration
+    )
+    assert_outcome(outcome, ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+
+
+def test_a_rule_with_no_fraction_digits_accepts_whole_amounts_only(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    rule = configuration["policies"][POLICY_APPROVAL]["currency_rules"][0]
+    rule["fraction_digits"] = 0
+    fractional = evaluate_approval(with_amount(proposal, "1000.5"), approval, configuration)
+    assert_outcome(fractional, ERROR, ReasonCode.AMOUNT_INVALID)
+    whole = evaluate_approval(
+        with_amount(proposal, "1001"), with_bound(approval, total_amount="1001"), configuration
+    )
+    assert_outcome(whole, PASS, ReasonCode.APPROVAL_VALID)
+
+
 # --- when several things are wrong, the order is fixed ----------------------------------
 
 
-def test_a_contradiction_is_reported_before_the_order(
+@dataclass(frozen=True)
+class Fault:
+    """One fault of an APPROVED record and the single outcome it must produce on its own."""
+
+    name: str
+    result: PolicyResult
+    reason: ReasonCode
+    apply: Callable[[ApprovalEvidence], ApprovalEvidence]
+
+
+# In the documented order of evaluation (see the module docstring of approval_rule).
+APPROVED_RECORD_FAULTS = [
+    Fault(
+        "contradiction",
+        FAIL,
+        ReasonCode.APPROVAL_EVIDENCE_CONTRADICTION,
+        lambda approval: replace(approval, record_agrees=False),
+    ),
+    Fault(
+        "decided-after",
+        FAIL,
+        ReasonCode.APPROVAL_AFTER_PROPOSAL,
+        lambda approval: replace(approval, decision_order=DecisionOrder.AFTER_PROPOSAL),
+    ),
+    Fault(
+        "stale-revision",
+        FAIL,
+        ReasonCode.APPROVAL_STALE_REVISION,
+        lambda approval: with_bound(approval, request_revision="rev-2"),
+    ),
+    Fault(
+        "malformed-bound-amount",
+        ERROR,
+        ReasonCode.EVIDENCE_UNRESOLVED,
+        lambda approval: with_bound(approval, total_amount="+1000.01"),
+    ),
+    Fault(
+        "binding-mismatch",
+        FAIL,
+        ReasonCode.APPROVAL_BINDING_MISMATCH,
+        lambda approval: with_bound(approval, supplier_id="sup-2"),
+    ),
+    Fault(
+        "approver-not-eligible",
+        FAIL,
+        ReasonCode.APPROVER_NOT_ELIGIBLE,
+        lambda approval: replace(approval, approver_eligible=False),
+    ),
+]
+FAULT_PAIRS = list(combinations(range(len(APPROVED_RECORD_FAULTS)), 2))
+FAULT_NAMES = [fault.name for fault in APPROVED_RECORD_FAULTS]
+
+
+@pytest.mark.parametrize("fault", APPROVED_RECORD_FAULTS, ids=FAULT_NAMES)
+def test_each_fault_of_an_approved_record_is_reported_on_its_own(
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence,
+    configuration: dict[str, Any],
+    fault: Fault,
+) -> None:
+    outcome = evaluate_approval(proposal, fault.apply(approval), configuration)
+    assert_outcome(outcome, fault.result, fault.reason)
+
+
+@pytest.mark.parametrize(
+    ("first", "second"),
+    FAULT_PAIRS,
+    ids=[f"{FAULT_NAMES[a]}+{FAULT_NAMES[b]}" for a, b in FAULT_PAIRS],
+)
+def test_with_two_faults_the_earlier_one_in_the_documented_order_is_reported(
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence,
+    configuration: dict[str, Any],
+    first: int,
+    second: int,
+) -> None:
+    earlier, later = APPROVED_RECORD_FAULTS[first], APPROVED_RECORD_FAULTS[second]
+    both = later.apply(earlier.apply(approval))
+    outcome = evaluate_approval(proposal, both, configuration)
+    assert_outcome(outcome, earlier.result, earlier.reason)
+
+
+def test_with_every_fault_at_once_the_first_in_the_order_is_reported(
     proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
 ) -> None:
-    both = replace(approval, record_agrees=False, decision_order=DecisionOrder.AFTER_PROPOSAL)
+    everything = approval
+    for fault in APPROVED_RECORD_FAULTS:
+        everything = fault.apply(everything)
+    outcome = evaluate_approval(proposal, everything, configuration)
+    assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_EVIDENCE_CONTRADICTION)
+
+
+@pytest.mark.parametrize("later", APPROVED_RECORD_FAULTS[2:], ids=FAULT_NAMES[2:])
+def test_an_order_that_cannot_be_proved_is_reported_before_the_later_faults(
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence,
+    configuration: dict[str, Any],
+    later: Fault,
+) -> None:
+    unprovable = replace(approval, decision_order=DecisionOrder.UNORDERABLE)
+    outcome = evaluate_approval(proposal, later.apply(unprovable), configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.APPROVAL_ORDER_UNDETERMINED)
+
+
+def test_a_contradiction_is_reported_before_an_order_that_cannot_be_proved(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    both = replace(approval, record_agrees=False, decision_order=DecisionOrder.UNORDERABLE)
     outcome = evaluate_approval(proposal, both, configuration)
     assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_EVIDENCE_CONTRADICTION)
 
 
-def test_the_order_is_reported_before_the_binding(
-    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+# --- faults of the proposal and the record status come before the record's own faults ----
+
+
+def faulty_record(approval: ApprovalEvidence) -> ApprovalEvidence:
+    """A record with every fault of an approved record, so that none of them may be reached."""
+    for fault in APPROVED_RECORD_FAULTS:
+        approval = fault.apply(approval)
+    return approval
+
+
+@pytest.mark.parametrize(
+    ("status", "result", "reason"),
+    [
+        ("PENDING", FAIL, ReasonCode.APPROVAL_PENDING),
+        ("DENIED", FAIL, ReasonCode.APPROVAL_DENIED),
+        ("CANCELLED", FAIL, ReasonCode.APPROVAL_CANCELLED),
+        ("REVOKED", ERROR, ReasonCode.EVIDENCE_UNRESOLVED),
+    ],
+)
+def test_the_status_is_reported_before_any_fault_of_an_approved_record(
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence,
+    configuration: dict[str, Any],
+    status: str,
+    result: PolicyResult,
+    reason: ReasonCode,
 ) -> None:
-    both = replace(
-        with_bound(approval, request_revision="rev-2"), decision_order=DecisionOrder.AFTER_PROPOSAL
+    record = replace(faulty_record(approval), status=status)
+    assert_outcome(evaluate_approval(proposal, record, configuration), result, reason)
+
+
+def test_a_missing_record_is_reported_even_when_nothing_else_can_be_read(
+    proposal: PurchaseProposal, configuration: dict[str, Any]
+) -> None:
+    assert_outcome(
+        evaluate_approval(proposal, None, configuration), FAIL, ReasonCode.APPROVAL_MISSING
     )
-    outcome = evaluate_approval(proposal, both, configuration)
-    assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_AFTER_PROPOSAL)
 
 
-def test_a_stale_revision_is_reported_before_another_binding_mismatch(
+def test_an_invalid_amount_is_reported_before_the_approval_record(
     proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
 ) -> None:
-    both = with_bound(approval, request_revision="rev-2", supplier_id="sup-2")
-    outcome = evaluate_approval(proposal, both, configuration)
-    assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_STALE_REVISION)
+    outcome = evaluate_approval(
+        with_amount(proposal, "abc"), faulty_record(approval), configuration
+    )
+    assert_outcome(outcome, ERROR, ReasonCode.AMOUNT_INVALID)
+    assert_outcome(
+        evaluate_approval(with_amount(proposal, None), None, configuration),
+        ERROR,
+        ReasonCode.AMOUNT_INVALID,
+    )
 
 
-def test_the_binding_is_reported_before_the_approver(
+def test_an_unsupported_currency_is_reported_before_the_approval_record(
     proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
 ) -> None:
-    both = replace(with_bound(approval, supplier_id="sup-2"), approver_eligible=False)
-    outcome = evaluate_approval(proposal, both, configuration)
-    assert_outcome(outcome, FAIL, ReasonCode.APPROVAL_BINDING_MISMATCH)
+    eur = replace(proposal, currency="EUR")
+    outcome = evaluate_approval(eur, faulty_record(approval), configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.CURRENCY_UNSUPPORTED)
+
+
+def test_an_invalid_amount_is_reported_before_an_unsupported_currency(
+    proposal: PurchaseProposal, configuration: dict[str, Any]
+) -> None:
+    both = replace(with_amount(proposal, "abc"), currency="EUR")
+    assert_outcome(evaluate_approval(both, None, configuration), ERROR, ReasonCode.AMOUNT_INVALID)
+
+
+def test_a_broken_configuration_is_reported_before_an_invalid_amount(
+    proposal: PurchaseProposal, configuration: dict[str, Any]
+) -> None:
+    configuration["policies"][POLICY_APPROVAL]["comparator"] = "GTE"
+    outcome = evaluate_approval(with_amount(proposal, "abc"), None, configuration)
+    assert_outcome(outcome, ERROR, ReasonCode.POLICY_CONFIG_INVALID)
+
+
+def test_below_the_threshold_no_fault_of_the_record_is_reached(
+    proposal: PurchaseProposal, approval: ApprovalEvidence, configuration: dict[str, Any]
+) -> None:
+    below = with_amount(proposal, "999.99")
+    outcome = evaluate_approval(below, faulty_record(approval), configuration)
+    assert_outcome(outcome, NOT_APPLICABLE, ReasonCode.APPROVAL_NOT_REQUIRED)
 
 
 # --- safe to call and to share -----------------------------------------------------------
