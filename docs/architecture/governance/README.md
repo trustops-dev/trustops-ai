@@ -116,6 +116,25 @@ Not covered: this sign-off does not accept the policy release, set runtime_enabl
   or constitute OD-14 acceptance. Nothing was run against a runtime.
 ```
 
+## Implementation baseline B1
+
+Decision [GD-34](governance-contract.md#8-decisions), asked for by Nour on 2026-11-23: a versioned implementation baseline with decision-log control. B1 is the set of inputs that the three policy implementations are written and tested against. Each artifact is identified by commit and by the SHA-256 of its content (line endings as stored in Git, LF), so it stays identifiable after a merge, a squash or a rebase. The content hash is the authority; the commit is where the file was first recorded.
+
+| Artifact | Path | Recorded at | SHA-256 |
+|---|---|---|---|
+| Policy truth tables | `docs/architecture/governance/policy-truth-tables.md` | PR #28 head `1b7bdf4` | `9d0b067eb96f8a23fac61ece95185122592074fdeca1828b5ecec2f817c9a1ff` |
+| Synthetic policy configuration v0.1 | `docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml` | PR #28 head `1b7bdf4` | `0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678` |
+| Test matrices | `tests/fixtures/governance/policy-matrices.json` | PR #30 head `cb40713` | `ebdaabbf3436958566a0d68ddfc4cf238b39b3fbca8a05b15622d908e58a368f` |
+| Sample request and response pairs | `tests/fixtures/governance/policy-check-samples.json` | PR #30 head `cb40713` | `0a8bb58335bce5c3192caae33a62b618131f53b06f4528113c499d33d20233f9` |
+
+How the baseline is controlled:
+
+- After B1, a change to a truth-table row, a reason code, a configuration value, a matrix case or a sample needs a decision-log entry before the change is made: an id, the date, the reason and the affected rows. The change then starts baseline B2 with new hashes. An implementation is judged against the baseline that was current when it was written.
+- The governance contract and this README are not in the table. They carry the baseline record, and a file cannot contain its own hash. Their revision is the 0.6 addendum number in the revision history.
+- Item owners are unchanged: Nour owns the internal plan decisions and the application and corpus pairing, Mohamed owns policy semantics and configuration, and Mohab owns transport, digest, canonical fields and platform currentness. Joint acceptance stays recorded per item.
+
+What B1 is not: it is not the freeze of the application contracts, not OD-14 policy-release acceptance and not runtime activation. `runtime_enabled` stays `false` and the acceptance fields in the configuration stay null.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -124,6 +143,7 @@ Not covered: this sign-off does not accept the policy release, set runtime_enabl
 | 0.2 | 2026-10-18 | Decision flow and contract register merged to `dev` in PR #14, reconciled with the reference-application contracts |
 | 0.3 | 2026-10-21 | Policy truth tables, decision log with statuses, canonical-values proposal, approval validity, roles and overrides, review packet, responses to the wrap-up and to the dashboard questions |
 | 0.6 | 2026-11-12 | Naming aligned to Trace Schema Draft v1.9 (`GD-31`); contract §4.1 to §4.8 rewritten; claim identity made root-scoped; approval-record supersession, terminal rule and chronology proposals (`GD-32`); policy stage versus policy-check result for the dashboard; RAG policy evidence aligned with Ahmed's evaluator contract; reproducible 31-case check and its result; reply to Nour's follow-up; `SA-01` to `SA-09` |
+| 0.6 addendum 9 | 2026-11-23 | Nour's review of the Week 3 revision asked for a versioned implementation baseline with decision-log control. New decision `GD-34` in the governance contract and a new section "Implementation baseline B1" here, naming the truth tables, the configuration, the matrices and the samples by commit and content hash. Wording and recording only: no change to a truth-table row, the contract's rules, the configuration or the check result |
 | 0.6 addendum 8 | 2026-11-18 | Roadmap Week 2 close-out. [policy-truth-tables.md](policy-truth-tables.md) states criticality (all three policies are critical), words the combined-case basis column with the Trace Schema v1.9 values, no longer cites AP-14 for CB-10 (the tool is in scope), and separates AP-13 from AP-17 with a missing-versus-invalid rule. No change to the contract, the configuration or the check result |
 | 0.6 addendum 7 | 2026-11-18 | Nour's request to review her follow-up to the PR #29 corrections at `163b32f`: new §6 in [response-to-pr29-corrections.md](response-to-pr29-corrections.md) with ACCEPT for §2.1 to §2.4 and the original-result-reference case, no mock-level correction required, and the platform integration requirements listed separately. No change to the contract, the configuration or the check result |
 | 0.6 addendum 6 | 2026-11-18 | Nour's request of 18 November: new [response-to-pr29-corrections.md](response-to-pr29-corrections.md), governance's review of the published PR #29 corrections at `9735513` against the earlier seven findings. No change to the contract, the configuration or the check result |
