@@ -53,3 +53,13 @@ jobs:
 
       - name: Run unit and contract tests
         run: uv run --no-sync pytest tests/unit tests/contract
+
+      - name: Clean non-editable SDK install and out-of-tree import smoke test
+        run: |
+          python -m venv /tmp/sdk-smoke-venv || uv venv /tmp/sdk-smoke-venv
+          uv pip install --python /tmp/sdk-smoke-venv/bin/python --no-deps ./packages/instrumentation-sdk
+          cd /tmp && env -u PYTHONPATH /tmp/sdk-smoke-venv/bin/python -c "import trustops_sdk.trustops_sdk as m; print(m.SDK_VERSION, m.schema_validator.__file__)"
+
+      - name: Run offline G01 diagnostic suite and SDK smoke test
+        run: |
+          uv run --no-sync pytest tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py tests/test_sdk_clean_install_smoke.py

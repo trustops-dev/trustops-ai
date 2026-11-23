@@ -17,14 +17,22 @@ import copy
 import hashlib
 import json
 import os
+import pathlib
 import re
+import sqlite3
 import sys
 from typing import Any
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import sqlite3
-
-import validate_s1_01_schema_v1_11 as schema_validator  # noqa: E402
+try:
+    from . import validate_s1_01_schema_v1_11 as schema_validator
+except ImportError:
+    try:
+        from trustops_sdk import validate_s1_01_schema_v1_11 as schema_validator
+    except ImportError:
+        _sdk_here = os.path.dirname(os.path.abspath(__file__))
+        if _sdk_here not in sys.path:
+            sys.path.insert(0, _sdk_here)
+        import validate_s1_01_schema_v1_11 as schema_validator  # type: ignore[no-redef]
 
 SDK_VERSION = "0.4.0-week2-draft-interface"
 
@@ -220,6 +228,8 @@ class InMemoryIngestionGate:
         "1.14.0-draft",
         "1.15.0-draft",
         "1.16.0-draft",
+        "1.17.0-draft",
+        "1.18.0-draft",
     }
 
     def ingest_trace(self, trace_payload: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
@@ -629,9 +639,72 @@ def run_week2_sdk_self_test(spec_path: str) -> dict[str, Any]:
     }
 
 
+_REPO_SKIP_DIRS = {
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "negative_and_variant_probes",
+    ".tox",
+    ".eggs",
+}
+
+
+def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
+    cur = start.resolve()
+    if cur.is_file():
+        cur = cur.parent
+    for candidate in (cur, *cur.parents):
+        if (candidate / ".git").exists() or (candidate / "pyproject.toml").is_file():
+            return candidate
+    return start.resolve().parent if start.is_file() else start.resolve()
+
+
+def _find_repo_file(
+    filename: str,
+    start: "pathlib.Path",
+    prefer_in: tuple[str, ...] = (),
+    avoid_in: tuple[str, ...] = (),
+) -> "pathlib.Path":
+    here = start.resolve().parent if start.is_file() else start.resolve()
+    direct = here / filename
+    if direct.is_file():
+        return direct
+    cwd_direct = pathlib.Path.cwd() / filename
+    if cwd_direct.is_file():
+        return cwd_direct
+    repo_root = _find_repo_root(here)
+    matches = []
+    for root, dirs, files in os.walk(repo_root):
+        dirs[:] = sorted(
+            d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info")
+        )
+        if filename in files:
+            matches.append(pathlib.Path(root) / filename)
+    if not matches:
+        raise FileNotFoundError(f"Could not locate {filename} from {here} or repo root {repo_root}")
+
+    def _rank(p: "pathlib.Path") -> tuple[int, int, int, str]:
+        parts = set(p.parts)
+        pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
+        avoid_score = 1 if any(x in parts for x in avoid_in) else 0
+        return (avoid_score, pref_score, len(p.parts), str(p))
+
+    matches.sort(key=_rank)
+    return matches[0]
+
+
 if __name__ == "__main__":
-    default_spec = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "updated_schemas_v16.md"
-    )
+    if len(sys.argv) > 1:
+        default_spec = sys.argv[1]
+    else:
+        default_spec = str(_find_repo_file("updated_schemas_v18.md", pathlib.Path(__file__)))
     summary = run_week2_sdk_self_test(default_spec)
     print(json.dumps(summary, indent=2))

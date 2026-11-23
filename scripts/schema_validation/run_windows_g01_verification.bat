@@ -2,7 +2,7 @@
 setlocal
 cd /d "%~dp0"
 echo ========================================================================
-echo TrustOps AI v1.16.0 - Native Windows Offline Verification (Double-Click)
+echo TrustOps AI v1.18.0 - Native Windows Offline Verification (Double-Click)
 echo ========================================================================
 where py >nul 2>nul
 if %ERRORLEVEL%==0 (
