@@ -35,6 +35,10 @@ For an APPROVED record, in this order:
 13. Binding: amount (equal in value, so 1000.1 equals 1000.10), currency, supplier or approval
     level differ is FAIL (APPROVAL_BINDING_MISMATCH).
 14. Approver: below the required level is FAIL (APPROVER_NOT_ELIGIBLE).
+
+Every outcome carries the per-rule policy version (none when the configuration could not be
+read) and the values observed: the tool, the amount and currency as given, the configured
+threshold once known, and the approval status and decision order.
 """
 
 import re
@@ -42,23 +46,18 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 
-from .evidence import ApprovalEvidence, ApprovalStatus, DecisionOrder, PurchaseProposal
-from .loader import Configuration, load_approval_policy
-from .policy_schema import (
-    POLICY_APPROVAL,
-    ApprovalPolicy,
-    ApprovalRule,
-    ConfigErrorCode,
-    PolicyConfigError,
+from .evidence import (
+    CREATE_PURCHASE_ORDER,
+    ApprovalEvidence,
+    ApprovalStatus,
+    DecisionOrder,
+    PurchaseProposal,
 )
+from .loader import Configuration, load_approval_policy
+from .policy_schema import POLICY_APPROVAL, ApprovalPolicy, ApprovalRule, PolicyConfigError
+from .reporting import Reporter, config_reason, text_or_none
 from .results import OutcomeBasis, PolicyOutcome, PolicyResult, ReasonCode
 
-CREATE_PURCHASE_ORDER = "create_purchase_order"
-
-_CONFIG_REASONS = {
-    ConfigErrorCode.POLICY_CONFIG_MISSING: ReasonCode.POLICY_CONFIG_MISSING,
-    ConfigErrorCode.POLICY_CONFIG_INVALID: ReasonCode.POLICY_CONFIG_INVALID,
-}
 # EXPIRED is deliberately absent: it has no failure reason because the MVP has no expiry.
 _UNFINISHED_STATUS = {
     ApprovalStatus.PENDING: ReasonCode.APPROVAL_PENDING,
@@ -69,14 +68,22 @@ _UNFINISHED_STATUS = {
 
 
 @dataclass(frozen=True)
-class _Case:
-    """Everything one approval check needs, already validated up to this point."""
+class _Scope:
+    """The proposal as validated so far: its amount, its currency rule and its reporter."""
 
     proposal: PurchaseProposal
     amount: Decimal
     rule: ApprovalRule
-    approval: ApprovalEvidence
     amount_pattern: str
+    reporter: Reporter
+
+
+@dataclass(frozen=True)
+class _Case:
+    """Everything one check of an APPROVED record needs."""
+
+    scope: _Scope
+    approval: ApprovalEvidence
 
 
 Check = Callable[[_Case], PolicyOutcome | None]
@@ -88,30 +95,50 @@ def evaluate_approval(
     configuration: Configuration,
 ) -> PolicyOutcome:
     """Evaluate PROC-APPROVAL-01 for one proposal. Never raises for a bad configuration."""
+    reporter = Reporter(POLICY_APPROVAL, None, _observed(proposal, approval))
     if proposal.tool != CREATE_PURCHASE_ORDER:
-        return _outcome(PolicyResult.NOT_APPLICABLE, ReasonCode.TOOL_OUT_OF_SCOPE)
+        return reporter.outcome(PolicyResult.NOT_APPLICABLE, ReasonCode.TOOL_OUT_OF_SCOPE)
     try:
         policy = load_approval_policy(configuration)
     except PolicyConfigError as error:
-        reason = _CONFIG_REASONS.get(error.code, ReasonCode.POLICY_CONFIG_INVALID)
-        return _outcome(PolicyResult.ERROR, reason)
-    return _evaluate_in_scope(proposal, approval, policy)
+        return reporter.outcome(PolicyResult.ERROR, config_reason(error))
+    return _evaluate_in_scope(proposal, approval, policy, reporter.knowing(policy.version))
+
+
+def _observed(
+    proposal: PurchaseProposal, approval: ApprovalEvidence | None
+) -> dict[str, str | None]:
+    """The values this policy looks at, as text. The threshold is added once it is known."""
+    order = None if approval is None else approval.decision_order
+    return {
+        "tool": proposal.tool,
+        "total_amount": text_or_none(proposal.total_amount),
+        "currency": proposal.currency,
+        "configured_threshold": None,
+        "approval_status": None if approval is None else approval.status,
+        "decision_order": None if order is None else order.value,
+    }
 
 
 def _evaluate_in_scope(
-    proposal: PurchaseProposal, approval: ApprovalEvidence | None, policy: ApprovalPolicy
+    proposal: PurchaseProposal,
+    approval: ApprovalEvidence | None,
+    policy: ApprovalPolicy,
+    reporter: Reporter,
 ) -> PolicyOutcome:
     amount = _parse_amount(proposal.total_amount, policy.amount_pattern)
     if amount is None:
-        return _outcome(PolicyResult.ERROR, ReasonCode.AMOUNT_INVALID)
+        return reporter.outcome(PolicyResult.ERROR, ReasonCode.AMOUNT_INVALID)
     rule = _rule_for_currency(policy, proposal.currency)
     if rule is None:
-        return _outcome(PolicyResult.ERROR, ReasonCode.CURRENCY_UNSUPPORTED)
+        return reporter.outcome(PolicyResult.ERROR, ReasonCode.CURRENCY_UNSUPPORTED)
+    reporter = reporter.knowing(configured_threshold=str(rule.threshold))
     if not _fits_precision(amount, rule):
-        return _outcome(PolicyResult.ERROR, ReasonCode.AMOUNT_INVALID)
+        return reporter.outcome(PolicyResult.ERROR, ReasonCode.AMOUNT_INVALID)
     if not amount > rule.threshold:
-        return _not_required()
-    return _evaluate_approval_evidence(proposal, amount, rule, approval, policy.amount_pattern)
+        return _not_required(reporter)
+    scope = _Scope(proposal, amount, rule, policy.amount_pattern, reporter)
+    return _evaluate_approval_evidence(scope, approval)
 
 
 def _parse_amount(raw: object, pattern: str) -> Decimal | None:
@@ -140,28 +167,23 @@ def _rule_for_currency(policy: ApprovalPolicy, currency: str) -> ApprovalRule | 
     return next((rule for rule in policy.rules if rule.currency == currency), None)
 
 
-def _evaluate_approval_evidence(
-    proposal: PurchaseProposal,
-    amount: Decimal,
-    rule: ApprovalRule,
-    approval: ApprovalEvidence | None,
-    amount_pattern: str,
-) -> PolicyOutcome:
+def _evaluate_approval_evidence(scope: _Scope, approval: ApprovalEvidence | None) -> PolicyOutcome:
+    reporter = scope.reporter
     if approval is None:
-        return _outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_MISSING)
-    unfinished = _unfinished_status_outcome(approval.status)
+        return reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_MISSING)
+    unfinished = _unfinished_status_outcome(approval.status, reporter)
     if unfinished is not None:
         return unfinished
-    return _evaluate_approved(_Case(proposal, amount, rule, approval, amount_pattern))
+    return _evaluate_approved(_Case(scope, approval))
 
 
-def _unfinished_status_outcome(status: str) -> PolicyOutcome | None:
+def _unfinished_status_outcome(status: str, reporter: Reporter) -> PolicyOutcome | None:
     """The outcome for every status except APPROVED, or None when the record is APPROVED."""
     if status == ApprovalStatus.APPROVED:
         return None
     if status in _UNFINISHED_STATUS:
-        return _outcome(PolicyResult.FAIL, _UNFINISHED_STATUS[ApprovalStatus(status)])
-    return _outcome(PolicyResult.ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+        return reporter.outcome(PolicyResult.FAIL, _UNFINISHED_STATUS[ApprovalStatus(status)])
+    return reporter.outcome(PolicyResult.ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
 
 
 def _evaluate_approved(case: _Case) -> PolicyOutcome:
@@ -177,13 +199,14 @@ def _evaluate_approved(case: _Case) -> PolicyOutcome:
         outcome = check(case)
         if outcome is not None:
             return outcome
-    return _outcome(PolicyResult.PASS, ReasonCode.APPROVAL_VALID)
+    return case.scope.reporter.outcome(PolicyResult.PASS, ReasonCode.APPROVAL_VALID)
 
 
 def _check_agreement(case: _Case) -> PolicyOutcome | None:
     if case.approval.record_agrees:
         return None
-    return _outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_EVIDENCE_CONTRADICTION)
+    reporter = case.scope.reporter
+    return reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_EVIDENCE_CONTRADICTION)
 
 
 def _check_order(case: _Case) -> PolicyOutcome | None:
@@ -191,60 +214,56 @@ def _check_order(case: _Case) -> PolicyOutcome | None:
     order = case.approval.decision_order
     if order == DecisionOrder.BEFORE_PROPOSAL:
         return None
+    reporter = case.scope.reporter
     if order == DecisionOrder.AFTER_PROPOSAL:
-        return _outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_AFTER_PROPOSAL)
-    return _outcome(PolicyResult.ERROR, ReasonCode.APPROVAL_ORDER_UNDETERMINED)
+        return reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_AFTER_PROPOSAL)
+    return reporter.outcome(PolicyResult.ERROR, ReasonCode.APPROVAL_ORDER_UNDETERMINED)
 
 
 def _check_revision(case: _Case) -> PolicyOutcome | None:
-    if case.approval.bound.request_revision == case.proposal.request_revision:
+    if case.approval.bound.request_revision == case.scope.proposal.request_revision:
         return None
-    return _outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_STALE_REVISION)
+    return case.scope.reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_STALE_REVISION)
 
 
 def _check_binding(case: _Case) -> PolicyOutcome | None:
     """The bound amount is read strictly first. Evidence that cannot be read never matches."""
+    reporter = case.scope.reporter
     bound_amount = _read_bound_amount(case)
     if bound_amount is None:
-        return _outcome(PolicyResult.ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
+        return reporter.outcome(PolicyResult.ERROR, ReasonCode.EVIDENCE_UNRESOLVED)
     if not _binding_matches(case, bound_amount):
-        return _outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_BINDING_MISMATCH)
+        return reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVAL_BINDING_MISMATCH)
     return None
 
 
 def _read_bound_amount(case: _Case) -> Decimal | None:
     """The approved amount, read as strictly as the proposal amount, or None if unreadable."""
-    amount = _parse_amount(case.approval.bound.total_amount, case.amount_pattern)
-    if amount is None or not _fits_precision(amount, case.rule):
+    scope = case.scope
+    amount = _parse_amount(case.approval.bound.total_amount, scope.amount_pattern)
+    if amount is None or not _fits_precision(amount, scope.rule):
         return None
     return amount
 
 
 def _binding_matches(case: _Case, bound_amount: Decimal) -> bool:
     """The approval was granted for this amount, currency, supplier and approval level."""
-    bound = case.approval.bound
+    bound, scope = case.approval.bound, case.scope
     return (
-        bound_amount == case.amount
-        and bound.currency == case.proposal.currency
-        and bound.supplier_id == case.proposal.supplier_id
-        and bound.approval_level == case.rule.approval_level
+        bound_amount == scope.amount
+        and bound.currency == scope.proposal.currency
+        and bound.supplier_id == scope.proposal.supplier_id
+        and bound.approval_level == scope.rule.approval_level
     )
 
 
 def _check_approver(case: _Case) -> PolicyOutcome | None:
     if case.approval.approver_eligible:
         return None
-    return _outcome(PolicyResult.FAIL, ReasonCode.APPROVER_NOT_ELIGIBLE)
+    return case.scope.reporter.outcome(PolicyResult.FAIL, ReasonCode.APPROVER_NOT_ELIGIBLE)
 
 
-def _not_required() -> PolicyOutcome:
-    return PolicyOutcome(
-        POLICY_APPROVAL,
-        PolicyResult.NOT_APPLICABLE,
-        ReasonCode.APPROVAL_NOT_REQUIRED,
-        OutcomeBasis.NOT_REQUIRED,
+def _not_required(reporter: Reporter) -> PolicyOutcome:
+    return reporter.outcome(
+        PolicyResult.NOT_APPLICABLE, ReasonCode.APPROVAL_NOT_REQUIRED, OutcomeBasis.NOT_REQUIRED
     )
-
-
-def _outcome(result: PolicyResult, reason: ReasonCode) -> PolicyOutcome:
-    return PolicyOutcome(POLICY_APPROVAL, result, reason)

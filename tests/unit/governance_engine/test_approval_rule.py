@@ -261,8 +261,10 @@ def test_a_stale_revision_record_is_reported_like_an_approval_for_another_revisi
     other_revision = with_bound(approval, request_revision="rev-2")
     status_outcome = evaluate_approval(proposal, stale_status, configuration)
     revision_outcome = evaluate_approval(proposal, other_revision, configuration)
-    assert status_outcome == revision_outcome
     assert_outcome(status_outcome, FAIL, ReasonCode.APPROVAL_STALE_REVISION)
+    assert_outcome(revision_outcome, FAIL, ReasonCode.APPROVAL_STALE_REVISION)
+    assert status_outcome.observed_evidence["approval_status"] == "STALE_REVISION"
+    assert revision_outcome.observed_evidence["approval_status"] == "APPROVED"
 
 
 def test_an_approval_event_that_disagrees_with_the_record_fails(

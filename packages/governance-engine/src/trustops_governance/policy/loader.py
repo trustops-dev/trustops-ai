@@ -108,7 +108,8 @@ def load_approval_policy(configuration: Configuration) -> ApprovalPolicy:
     _require_strict_comparator(block, path)
     rules = _load_rules(block, path)
     _require_no_time_expiry(block, path)
-    return ApprovalPolicy(rules=rules, amount_pattern=_load_amount_pattern(block, path))
+    pattern = _load_amount_pattern(block, path)
+    return ApprovalPolicy(version=text(block, "version", path), rules=rules, amount_pattern=pattern)
 
 
 def _require_strict_comparator(block: Mapping[str, Any], path: str) -> None:
@@ -173,7 +174,8 @@ def load_tool_stage_policy(configuration: Configuration) -> ToolStagePolicy:
     allowlist = child_block(block, "stage_allowlist", f"policies.{POLICY_TOOL_STAGE}")
     _require_known_stages(allowlist, path)
     loaded = {stage: _load_stage_tools(allowlist, stage, path) for stage in PolicyStage}
-    return ToolStagePolicy(stage_allowlist=MappingProxyType(loaded))
+    version = text(block, "version", f"policies.{POLICY_TOOL_STAGE}")
+    return ToolStagePolicy(version=version, stage_allowlist=MappingProxyType(loaded))
 
 
 def _require_known_stages(allowlist: Mapping[str, Any], path: str) -> None:
@@ -204,9 +206,9 @@ def _is_tool_name(value: object) -> bool:
 
 def load_supplier_policy(configuration: Configuration) -> SupplierPolicy:
     block = _policy_block(configuration, POLICY_SUPPLIER)
-    return SupplierPolicy(
-        eligible_status=text(block, "eligible_status", f"policies.{POLICY_SUPPLIER}")
-    )
+    path = f"policies.{POLICY_SUPPLIER}"
+    eligible_status = text(block, "eligible_status", path)
+    return SupplierPolicy(version=text(block, "version", path), eligible_status=eligible_status)
 
 
 # --- shared -------------------------------------------------------------------------------

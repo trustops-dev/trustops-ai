@@ -1,7 +1,7 @@
 {
   "source": {
     "spec": "docs/architecture/governance/policy-truth-tables.md",
-    "spec_revision": "governance 0.6 addendum 10 (implementation baseline B2, GD-35)",
+    "spec_revision": "governance 0.6 addendum 12 (implementation baseline B3, GD-37)",
     "status": "DRAFT matrices. Test-fixture values only. Not a policy release, not a configuration acceptance, not runtime validation.",
     "covers": "Section 2 (AP), 3 (TS), 4 (SU), 5 (AG) and 5.1 (CB) of the spec.",
     "not_covered": [
@@ -23,6 +23,7 @@
     "policy_set": { "id": "test-fixture-policy-set", "version": "test" },
     "policies": {
       "PROC-APPROVAL-01": {
+        "version": "test-approval-v1",
         "criticality": "critical",
         "applies_to_tools": ["create_purchase_order"],
         "comparator": "GT",
@@ -54,6 +55,7 @@
         }
       },
       "PROC-TOOL-STAGE-01": {
+        "version": "test-tool-stage-v1",
         "criticality": "critical",
         "applies_to_tools": "ALL",
         "match": "EXACT_CASE_SENSITIVE",
@@ -65,6 +67,7 @@
         }
       },
       "PROC-SUPPLIER-01": {
+        "version": "test-supplier-v1",
         "criticality": "critical",
         "applies_to_tools": ["create_purchase_order"],
         "eligible_status": "APPROVED"
@@ -615,6 +618,12 @@
       "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
     },
     {
+      "id": "SU-04.d", "policy": "PROC-SUPPLIER-01",
+      "description": "an empty status string is a non-null status other than APPROVED",
+      "input_overrides": { "supplier": { "status": "" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+    },
+    {
       "id": "SU-05", "policy": "PROC-SUPPLIER-01",
       "description": "lookup outcome NOT_FOUND",
       "input_overrides": { "supplier": { "lookup_outcome": "NOT_FOUND", "supplier_id": null, "status": null } },
@@ -649,6 +658,18 @@
       "description": "tool is get_supplier, not create_purchase_order",
       "input_overrides": { "proposal": { "tool": "get_supplier" }, "stage": "PRE_APPROVAL" },
       "expected": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" }
+    },
+    {
+      "id": "SU-09.a", "policy": "PROC-SUPPLIER-01",
+      "description": "lookup outcome in lowercase; lookup outcomes match exactly",
+      "input_overrides": { "supplier": { "lookup_outcome": "found" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "SU-09.b", "policy": "PROC-SUPPLIER-01",
+      "description": "a lookup outcome that is not FOUND, NOT_FOUND or ERROR",
+      "input_overrides": { "supplier": { "lookup_outcome": "TIMEOUT" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
     }
   ],
   "aggregation_cases": [

@@ -4,7 +4,8 @@ The values are the draft names of the policy truth tables (governance contract s
 They move to the shared contracts package once the canonical enums are frozen.
 """
 
-from dataclasses import dataclass
+from collections.abc import Mapping
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 
@@ -18,7 +19,7 @@ class PolicyResult(StrEnum):
 
 
 class ReasonCode(StrEnum):
-    """Why a policy gave its result. Only the codes of the policies implemented so far."""
+    """Why a policy gave its result: the codes of the three mandatory policies, and shared ones."""
 
     # PROC-APPROVAL-01
     APPROVAL_NOT_REQUIRED = "APPROVAL_NOT_REQUIRED"
@@ -35,6 +36,17 @@ class ReasonCode(StrEnum):
     APPROVER_NOT_ELIGIBLE = "APPROVER_NOT_ELIGIBLE"
     AMOUNT_INVALID = "AMOUNT_INVALID"
     CURRENCY_UNSUPPORTED = "CURRENCY_UNSUPPORTED"
+    # PROC-TOOL-STAGE-01
+    TOOL_ALLOWED_IN_STAGE = "TOOL_ALLOWED_IN_STAGE"
+    TOOL_NOT_ALLOWED_IN_STAGE = "TOOL_NOT_ALLOWED_IN_STAGE"
+    STAGE_UNKNOWN = "STAGE_UNKNOWN"
+    # PROC-SUPPLIER-01
+    SUPPLIER_APPROVED = "SUPPLIER_APPROVED"
+    SUPPLIER_NOT_APPROVED = "SUPPLIER_NOT_APPROVED"
+    SUPPLIER_STATUS_UNKNOWN = "SUPPLIER_STATUS_UNKNOWN"
+    SUPPLIER_NOT_FOUND = "SUPPLIER_NOT_FOUND"
+    SUPPLIER_ID_MISMATCH = "SUPPLIER_ID_MISMATCH"
+    SUPPLIER_EVIDENCE_MISSING = "SUPPLIER_EVIDENCE_MISSING"
     # Shared
     TOOL_OUT_OF_SCOPE = "TOOL_OUT_OF_SCOPE"
     EVIDENCE_UNRESOLVED = "EVIDENCE_UNRESOLVED"
@@ -61,14 +73,23 @@ class VerdictBasis(StrEnum):
     FAIL_CLOSED_ON_POLICY_ERROR = "FAIL_CLOSED_ON_POLICY_ERROR"
 
 
+Evidence = Mapping[str, str | None]
+
+
 @dataclass(frozen=True)
 class PolicyOutcome:
-    """The result of one policy for one proposal."""
+    """The result of one policy for one proposal.
+
+    ``policy_version`` is the per-rule version from the configuration, or None when the
+    configuration could not be read. ``observed_evidence`` lists the values the policy looked at.
+    """
 
     policy_id: str
     result: PolicyResult
     reason_code: ReasonCode
     basis: OutcomeBasis | None = None
+    policy_version: str | None = None
+    observed_evidence: Evidence = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -77,3 +98,13 @@ class AggregateOutcome:
 
     verdict: Verdict
     verdict_basis: VerdictBasis
+
+
+@dataclass(frozen=True)
+class CheckOutcome:
+    """The full pre-tool check: every mandatory policy result and the verdict."""
+
+    outcomes: tuple[PolicyOutcome, ...]
+    aggregate: AggregateOutcome
+    policy_bundle_version: str | None
+    check_mode: str

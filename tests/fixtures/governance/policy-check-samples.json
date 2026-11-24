@@ -1,12 +1,14 @@
 {
-  "status": "SPECIFICATION SAMPLES. Synthetic values only. Not output of a running engine, not a policy release, not runtime validation.",
+  "status": "SAMPLES. Synthetic values only. The responses are the output of the governance policy engine for the test configuration, not of a running service, not a policy release, not runtime validation.",
   "purpose": "Reusable pre-tool check request and response pairs for consumers: Nour's contract test (success and failure paths), Malak's result fixtures and Mohab's route test.",
   "source": "Derived from the combined cases of policy-matrices.json (spec section 5.1) and kept in step with them by a test. Governance contract section 4.1 and 4.2 name the fields.",
   "notes": [
-    "The request carries only the fields the three policies read. The full Trace Schema v1.9 policy_check event has more (the 19-key authorization snapshot, evidence references, ids and the attempt). This is not that event.",
+    "The request carries only the fields the three policies read. The full Trace Schema v1.9 policy_check event has more (the authorization snapshot, evidence references, ids and the attempt). This is not that event.",
     "Amounts are decimal strings. The threshold used by these samples is the test value 1000.00 USD, not the policy value.",
-    "response.evaluated_policies[].reason_code is the governance reason code of every result. Trace Schema v1.9 has failure_or_error_reason for FAIL and ERROR only. Where the code of a PASS or NOT_APPLICABLE result is recorded is an open question for Mohab.",
-    "policy_version and policy_bundle_version are left out until the policy versions are fixed."
+    "response.evaluated_policies[].reason_code is the governance reason code of every result. Trace Schema v1.9 has failure_or_error_reason for FAIL and ERROR only: the platform adapter maps those codes to it and keeps the codes of PASS and NOT_APPLICABLE results in observed_evidence (agreed with Mohab on 2026-11-24).",
+    "policy_version is the per-rule version from the configuration and policy_bundle_version is the policy set's id and version. The values here are those of the test configuration, not of the policy configuration.",
+    "observed_evidence lists the values each policy looked at, as text. It is not the full source evidence.",
+    "The responses are the real engine's output for each request, kept in step by a test."
   ],
   "samples": [
     {
@@ -17,16 +19,63 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": "APPROVED",
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
-        "approval_evidence_ref": { "decision_status": "APPROVED" }
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "APPROVED"
+        },
+        "approval_evidence_ref": {
+          "decision_status": "APPROVED"
+        }
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_VALID",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": "APPROVED",
+              "decision_order": "BEFORE_PROPOSAL"
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "TOOL_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": "APPROVED"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "ALLOW",
         "verdict_basis": "ALL_APPLICABLE_PASSED"
@@ -40,16 +89,61 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": "APPROVED",
-        "validated_arguments": { "total_amount": "1000.00", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "validated_arguments": {
+          "total_amount": "1000.00",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "APPROVED"
+        },
         "approval_evidence_ref": null
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "APPROVAL_NOT_REQUIRED" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "NOT_APPLICABLE",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_NOT_REQUIRED",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.00",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": null,
+              "decision_order": null
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "TOOL_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": "APPROVED"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "ALLOW",
         "verdict_basis": "ALL_APPLICABLE_PASSED"
@@ -63,16 +157,63 @@
       "request": {
         "tool_name": "get_supplier",
         "checked_policy_stage": "PRE_APPROVAL",
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
-        "approval_evidence_ref": { "decision_status": "APPROVED" }
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "APPROVED"
+        },
+        "approval_evidence_ref": {
+          "decision_status": "APPROVED"
+        }
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "TOOL_OUT_OF_SCOPE" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "NOT_APPLICABLE", "criticality": "critical", "reason_code": "TOOL_OUT_OF_SCOPE" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": null,
+            "policy_result": "NOT_APPLICABLE",
+            "criticality": "critical",
+            "reason_code": "TOOL_OUT_OF_SCOPE",
+            "observed_evidence": {
+              "tool": "get_supplier",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": null,
+              "approval_status": "APPROVED",
+              "decision_order": "BEFORE_PROPOSAL"
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "TOOL_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "get_supplier",
+              "checked_policy_stage": "PRE_APPROVAL"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": null,
+            "policy_result": "NOT_APPLICABLE",
+            "criticality": "critical",
+            "reason_code": "TOOL_OUT_OF_SCOPE",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "APPROVED",
+              "eligible_status": null
+            }
+          }
         ],
         "action_verdict": "ALLOW",
         "verdict_basis": "ALL_APPLICABLE_PASSED"
@@ -86,16 +227,61 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": "PRE_APPROVAL",
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "APPROVED"
+        },
         "approval_evidence_ref": null
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "APPROVAL_MISSING" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "FAIL",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_MISSING",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": null,
+              "decision_order": null
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "FAIL",
+            "criticality": "critical",
+            "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": "PRE_APPROVAL"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "BLOCK",
         "verdict_basis": "MANDATORY_POLICY_FAILED"
@@ -109,16 +295,63 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": "APPROVED",
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "NOT_APPROVED" },
-        "approval_evidence_ref": { "decision_status": "APPROVED" }
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "NOT_APPROVED"
+        },
+        "approval_evidence_ref": {
+          "decision_status": "APPROVED"
+        }
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "SUPPLIER_NOT_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_VALID",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": "APPROVED",
+              "decision_order": "BEFORE_PROPOSAL"
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "TOOL_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": "APPROVED"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "FAIL",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_NOT_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "NOT_APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "BLOCK",
         "verdict_basis": "MANDATORY_POLICY_FAILED"
@@ -132,16 +365,63 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": "APPROVED",
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "NOT_APPROVED" },
-        "approval_evidence_ref": { "decision_status": "PENDING" }
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "NOT_APPROVED"
+        },
+        "approval_evidence_ref": {
+          "decision_status": "PENDING"
+        }
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "APPROVAL_PENDING" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "FAIL", "criticality": "critical", "reason_code": "SUPPLIER_NOT_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "FAIL",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_PENDING",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": "PENDING",
+              "decision_order": null
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "TOOL_ALLOWED_IN_STAGE",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": "APPROVED"
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "FAIL",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_NOT_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "NOT_APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "BLOCK",
         "verdict_basis": "MANDATORY_POLICY_FAILED"
@@ -155,16 +435,63 @@
       "request": {
         "tool_name": "create_purchase_order",
         "checked_policy_stage": null,
-        "validated_arguments": { "total_amount": "1000.01", "currency": "USD", "supplier_id": "sup-1" },
-        "supplier_evidence_ref": { "supplier_id": "sup-1", "supplier_status": "APPROVED" },
-        "approval_evidence_ref": { "decision_status": "APPROVED" }
+        "validated_arguments": {
+          "total_amount": "1000.01",
+          "currency": "USD",
+          "supplier_id": "sup-1"
+        },
+        "supplier_evidence_ref": {
+          "supplier_id": "sup-1",
+          "supplier_status": "APPROVED"
+        },
+        "approval_evidence_ref": {
+          "decision_status": "APPROVED"
+        }
       },
       "response": {
         "check_mode": "ONLINE_PRE_TOOL",
+        "policy_bundle_version": "test-fixture-policy-set-test",
         "evaluated_policies": [
-          { "policy_id": "PROC-APPROVAL-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "APPROVAL_VALID" },
-          { "policy_id": "PROC-TOOL-STAGE-01", "policy_result": "ERROR", "criticality": "critical", "reason_code": "STAGE_UNKNOWN" },
-          { "policy_id": "PROC-SUPPLIER-01", "policy_result": "PASS", "criticality": "critical", "reason_code": "SUPPLIER_APPROVED" }
+          {
+            "policy_id": "PROC-APPROVAL-01",
+            "policy_version": "test-approval-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "APPROVAL_VALID",
+            "observed_evidence": {
+              "tool": "create_purchase_order",
+              "total_amount": "1000.01",
+              "currency": "USD",
+              "configured_threshold": "1000.00",
+              "approval_status": "APPROVED",
+              "decision_order": "BEFORE_PROPOSAL"
+            }
+          },
+          {
+            "policy_id": "PROC-TOOL-STAGE-01",
+            "policy_version": "test-tool-stage-v1",
+            "policy_result": "ERROR",
+            "criticality": "critical",
+            "reason_code": "STAGE_UNKNOWN",
+            "observed_evidence": {
+              "proposed_tool": "create_purchase_order",
+              "checked_policy_stage": null
+            }
+          },
+          {
+            "policy_id": "PROC-SUPPLIER-01",
+            "policy_version": "test-supplier-v1",
+            "policy_result": "PASS",
+            "criticality": "critical",
+            "reason_code": "SUPPLIER_APPROVED",
+            "observed_evidence": {
+              "proposed_supplier_id": "sup-1",
+              "supplier_id": "sup-1",
+              "lookup_outcome": "FOUND",
+              "supplier_status": "APPROVED",
+              "eligible_status": "APPROVED"
+            }
+          }
         ],
         "action_verdict": "BLOCK",
         "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR"
