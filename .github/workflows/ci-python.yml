@@ -62,4 +62,4 @@ jobs:
 
       - name: Run offline G01 diagnostic suite and SDK smoke test
         run: |
-          uv run --no-sync pytest tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py tests/test_sdk_clean_install_smoke.py
+          PYTHONPATH=. uv run --no-sync pytest tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py tests/test_sdk_clean_install_smoke.py
