@@ -69,10 +69,6 @@ def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (),
     matches.sort(key=_rank)
     return matches[0]
 
-_repo_root = _find_repo_root(pathlib.Path(__file__))
-if str(_repo_root) not in sys.path:
-    sys.path.insert(0, str(_repo_root))
-
 _g01_runner_path = _find_repo_file('g01_isolated_diagnostic_runner.py', pathlib.Path(__file__))
 if str(_g01_runner_path.parent) not in sys.path:
     sys.path.insert(0, str(_g01_runner_path.parent))

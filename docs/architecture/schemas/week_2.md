@@ -116,23 +116,23 @@ All 19 rows of Mohamed's governance translation table (including the 3 amended r
 
 ### 4.1 Delivered Package Manifest & Exact-Byte SHA-256 Hashes
 
-The active delivered-package manifest is `manifest_v1_18.json` (14 tracked deliverables + `manifest_v1_18.json` = 15 archive files in `TrustOps_v1.18_Complete_Package.zip`).
+The active delivered-package manifest is `manifest_v1_18.json` (14 tracked deliverables; updated in-place for PR #32 post-review batch `GD-23`/`GD-35`/`GD-36` & `A1`–`A5`).
 
 | # | File | Bytes | Exact SHA-256 |
 | :---: | :--- | :---: | :--- |
-| 1 | `001_core.sql` | `22,221` | `5e88f50b497a29e6a7c53e74811d818551f7f97d3b20478d5c69cda29559dd8b` |
+| 1 | `001_core.sql` | `23,050` | `a161530ef6f06cf3841d0f40ca2ef61ed87194fb8ea6afc13d952e4e3e5a14f7` |
 | 2 | `g01_isolated_diagnostic_runner.py` | `111,337` | `9a74d89ddaf84044c45a2dd04fcb8afd207e47f3239a1a2677367348a8ee6ac8` |
-| 3 | `independent_probes.py` | `3,430` | `a89897587571179513785c4a9bfb6742b0ce4d5c09eca7f44be4fc1949cc06e4` |
-| 4 | `probe_remaining_controls.py` | `15,057` | `3aae188f390c0aac7e0606bccc70df8f2f1b3696bce5e6c6fdad04262de78a39` |
-| 5 | `reproduce_findings.py` | `7,954` | `77f013d3cb008856ce338fcea51b0f19bfb76da97328cc4d3f9a245a8aa8edec` |
-| 6 | `run_native_verification.py` | `3,317` | `be5cd4ae9307237188f54883337a2499d10edf1c95818587ea38945d44eadf70` |
-| 7 | `run_s1_01_regression_suite.py` | `99,382` | `f690521ef76afb364d4a6574d43fb4de3c2999db27c142fbbae83535f0758a1d` |
+| 3 | `independent_probes.py` | `5,337` | `aa2ce468eb026827694593512980bebf36b799891fee634fa16d7ab90cb45c2b` |
+| 4 | `probe_remaining_controls.py` | `16,940` | `46da4455f22f49d6acecb1999f69be5f432e13583cad7eaaf461d3127f7dd072` |
+| 5 | `reproduce_findings.py` | `10,175` | `7a3a0765fcd9e4cfd685c4df56e8be56d1f6564d5c18d9f1ef9ae19bf3d59b6c` |
+| 6 | `run_native_verification.py` | `7,035` | `9c70364198d63f0145f272ea505694d149f89b4fd7c74a241cf1cafb73e5af0d` |
+| 7 | `run_s1_01_regression_suite.py` | `108,172` | `8fb657235c09b78f09bcbd0a28aa3fbd5d3e465974599fb518d6ed745bb15cce` |
 | 8 | `run_windows_g01_verification.bat` | `487` | `5d2d51f927428f1605f02e7330ed2f86a37171fb65e11326beec752d8e212a0a` |
-| 9 | `s1_01_validation_report.json` | `48,558` | `e695a2eb1dd3954a24fbf474c750230821324f4b4659981a9e098d7c75090007` |
-| 10 | `test_g01_isolated_diagnostic.py` | `49,656` | `71ac080638e4aa6702320f2fb8c6ab5619eb9bf4eefbf6667e59bcdd5288db17` |
-| 11 | `trustops_sdk.py` | `23,719` | `0057809d79d36c78edf72498642e0142fdd018e6dfef38aa414aa35ee002573c` |
-| 12 | `updated_schemas_v18.md` | `418,425` | `6ad921e6b4ded5d61b905977bc6ee57f286c71a58b7aa5fda9a8a88d79d71d28` |
-| 13 | `validate_s1_01_schema_v1_11.py` | `151,110` | `48003abbc3386bac24e84cc4cd54a0f53f0058e3f7f49ecaf52e6af33f17562a` |
+| 9 | `s1_01_validation_report.json` | `52,171` | `48dbfee5e656132a7a72e343dce5af8bb027b43df80ebbadb71b557a00e0a6de` |
+| 10 | `test_g01_isolated_diagnostic.py` | `51,514` | `5f8ccdfa8eec3d0e2a53c7de91df321f1bf27473e19b47dc5ee8439ad96f1c50` |
+| 11 | `trustops_sdk.py` | `29,645` | `9b4ba06c4984f13c95b6933ee481f6ff68579f8f94aee10775df21c1415675e3` |
+| 12 | `updated_schemas_v18.md` | `421,172` | `f2784b5b7dbf23c6d9d54111ab37d51c98af3042b12c443039ded43f3532e9fd` |
+| 13 | `validate_s1_01_schema_v1_11.py` | `157,491` | `b2dd0ee525fc508471be77a4e8fcfbae9e6b7542417f2e82e6058cc27ad9c149` |
 | 14 | `week_2.md` | *(self — recorded in `manifest_v1_18.json`)* | *(self — recorded in `manifest_v1_18.json`)* |
 
 ### 4.2 Exact Reproduction Commands (Native Windows Double-Click & Linux/macOS CLI)
@@ -555,3 +555,21 @@ When a retrieved chunk's full normalized text $S =  ext{content\_snippet}$ is sl
 | **1. Why `validate_s1_01_schema_v1_11.py` includes `record_version`, `decision_record_seq`, `supersedes_approval_id`, `superseded_by_approval_id`, `verified_at` chronology, and `SA-03` supersession checks** | Those rules are intentionally present as **provisional Draft `v1.18` validator self-validation** under the default `--approval-validation-profile provisional_draft` profile (now explicitly labeled in CLI stdout and JSON output via `approval_extension_status: "PROVISIONAL_DRAFT_ENFORCEMENT_PENDING_JOINT_SIGN_OFF"`). They are **not** governance ratification. | **`PROVISIONAL DRAFT ENFORCEMENT ONLY`** (`OD-04` / `SA-03` & `RC-07` remain pending joint sign-off) |
 | **2. Clean Validator-Scope Separation for S1-03 Base Approval Evidence** | Split `ALLOWED_EVENT_ATTR_KEYS["approval"]` into `APPROVAL_BASE_ATTR_KEYS` (17 S1-03 Row 9 base fields) and `APPROVAL_PROVISIONAL_OD04_SA03_ATTR_KEYS` (4 provisional `OD-04` / `SA-03` fields), and added `--approval-validation-profile base_only` (`approval_extension_status: "BASE_APPROVAL_ONLY_OD04_SA03_EXCLUDED"`). | **`BASE_ONLY PROFILE VERIFIED`** (`POS-33` passes with all provisional `OD-04` / `SA-03` fields stripped; `105/105` cases passing, `2,788/2,788` baseline assertions on default profile) |
 | **3. S1-03 Row 9 & Evaluator Boundary** | `S1-03` Row 9 documents the 17-field base Approval subset independently (`DRAFT / ALIGNED TO 479cab0, PENDING SCOPED OWNER REVIEW`) and excludes `record_version`, `decision_record_seq`, `supersedes_approval_id`, `superseded_by_approval_id`, `verified_at` chronology, and `SA-03` supersession from base evidence requirements and evaluator decisions until joint sign-off. | **`RC-07 REMAINS BLOCKED`** (no premature ratification) |
+
+---
+
+## 19. Post-Review Governance Ratification Batch (`GD-23`, `GD-35`, `GD-36`, and `OD-04` / `SA-03` Amendments `A1`–`A5`)
+
+Applied in-place to the PR #32 `v1.18` package (`TrustOps_v1.18_PR32_Fixed.zip`, preserving exact filenames) per Mohamed's governance review (`response-to-sa03-design.md` at `4a3b503`; joint `RC-07` sign-off with Nour and Ahmed remains open):
+
+| Item | Canonical Implementation Across Spec, `001_core.sql`, `trustops_sdk.py` & Validator | Regression Coverage |
+| :--- | :--- | :--- |
+| **`GD-23` (`execution_scope`)** | Confirmed `BOUNDARY_TEST` -> `ISOLATED_CONTRACT_PROBE` and `FULL_APPLICATION` -> `FULL_END_TO_END` (`PARTIAL_WALKTHROUGH_SLICE` for partial walkthroughs). | Documented in `updated_schemas_v18.md` §4.4.1 & `week_2.md` §19 |
+| **`GD-35` (`EXPIRED` Cleanup)** | Dropped `EXPIRED` from `APPROVAL_STATUS_ENUM` (now 5 values); unexpected `EXPIRED` handled fail-closed as `ERROR` / `EVIDENCE_UNRESOLVED`. | `NEG-67`, `NEG-82` (`ERR_APPROVAL_STATUS_INVALID`) |
+| **`GD-36` (`AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT` & Wrong `PASS`)** | Added `AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT` to `ENFORCEMENT_OUTCOME_ENUM` (8 values) and `001_core.sql` `governance_decisions`; wrong `PASS` stays `AUTHORIZED_AND_COMMITTED` at runtime with `EC-11` critical `FAIL` separated at post-run layer. | `POS-34` |
+| **`A1` (Post-`APPROVED` Transitions)** | After an `APPROVED` record for an `approval_request_id`, only `CANCELLED` is permitted next; later `PENDING`, `DENIED`, or second `APPROVED` rejected. | `NEG-83` (`ERR_SA03_ACTION_APPROVAL_BINDING_INVALID`) |
+| **`A2` (Contiguous `supersedes_approval_id`)** | Every approval record after the first for the same `approval_request_id` must carry non-null `supersedes_approval_id` naming the immediately preceding record with higher `decision_record_seq` and distinct `record_version`. | `NEG-84` (`ERR_SA03_ACTION_APPROVAL_BINDING_INVALID`) |
+| **`A3` (`superseded_by_approval_id` Read-Model Only)** | Strictly `null` in every stored/emitted approval event (`validate_s1_01_schema_v1_11.py`, `trustops_sdk.py`, `001_core.sql` `chk_approval_event_superseded_by_null`); derived read-model column only. | `NEG-85` (`ERR_SA03_ACTION_APPROVAL_BINDING_INVALID`) |
+| **`A4` (Stale Reason Codes & `base_only` Scope)** | Added `STALE_REASON_CODES_ENUM` (5 codes) on `approval_evidence_ref`, `dispatch_claim_consumption`, and `001_core.sql` `dispatch_claim_ledger.stale_reason_code`; documented `base_only` is strictly for `S1-03` base evidence while procurement traces must use `provisional_draft`. | `POS-35`, `NEG-86` (`ERR_STALE_REASON_CODE_INVALID`) |
+| **`A5` (Deterministic Adapter Ordering)** | Enforced `approval.sequence_number < tool_proposal.sequence_number` AND highest `decision_record_seq` (never wall-clock timestamps) in `validate_s1_01_schema_v1_11.py` and `trustops_sdk.derive_approval_before_proposal_order()`. | `NEG-87` (`ERR_APPROVAL_ORDER_INVALID`) |
+| **Alaa's `001_core.sql` `schema_version` Fix** | Expanded `traces.schema_version` `CHECK` constraint through `'1.18.0-draft'` and removed duplicate `'1.12.0'`. | `001_core.sql` updated |

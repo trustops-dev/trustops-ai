@@ -90,7 +90,7 @@ def main() -> int:
                 [sys.executable, _rel(validator_path, repo_root), _rel(spec_path, repo_root)],
             ),
             (
-                "regression_suite_105",
+                "regression_suite_113",
                 [
                     sys.executable,
                     _rel(regression_path, repo_root),

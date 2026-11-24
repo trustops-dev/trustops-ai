@@ -14,7 +14,6 @@ Usage:
   - Or full end-to-end clean-venv wheel install verification:
       python test_sdk_clean_install_smoke.py --build-venv path/to/trustops_sdk_package
 """
-
 import argparse
 import json
 import os
@@ -24,7 +23,6 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from typing import Any
 
 SMOKE_SNIPPET = """
 import json
@@ -60,7 +58,7 @@ print(json.dumps({
 """
 
 
-def run_out_of_tree_import_check(python_executable: str = sys.executable) -> dict[str, Any]:
+def run_out_of_tree_import_check(python_executable: str = sys.executable) -> dict:
     env = {k: v for k, v in os.environ.items() if k != "PYTHONPATH"}
     with tempfile.TemporaryDirectory(prefix="trustops_sdk_smoke_cwd_") as outside_dir:
         proc = subprocess.run(
@@ -75,8 +73,7 @@ def run_out_of_tree_import_check(python_executable: str = sys.executable) -> dic
             f"Out-of-tree SDK import failed (exit={proc.returncode}):\n"
             f"STDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}"
         )
-    res: dict[str, Any] = json.loads(proc.stdout.strip())
-    return res
+    return json.loads(proc.stdout.strip())
 
 
 class TestInstalledSdkSmoke(unittest.TestCase):
@@ -87,7 +84,7 @@ class TestInstalledSdkSmoke(unittest.TestCase):
         self.assertGreater(result["allowed_keys_count"], 0)
 
 
-def verify_clean_non_editable_venv(package_dir: pathlib.Path) -> dict[str, Any]:
+def verify_clean_non_editable_venv(package_dir: pathlib.Path) -> dict:
     with tempfile.TemporaryDirectory(prefix="trustops_clean_venv_") as venv_parent:
         venv_dir = pathlib.Path(venv_parent) / "venv"
         venv_proc = subprocess.run(
@@ -99,38 +96,15 @@ def verify_clean_non_editable_venv(package_dir: pathlib.Path) -> dict[str, Any]:
             vpy = str(venv_dir / "Scripts" / "python.exe")
         else:
             vpy = str(venv_dir / "bin" / "python")
-        if shutil.which("uv"):
+        if venv_proc.returncode == 0:
             subprocess.run(
-                [
-                    "uv",
-                    "pip",
-                    "install",
-                    "--python",
-                    vpy,
-                    "--no-deps",
-                    str(package_dir.resolve()),
-                ],
-                check=True,
-            )
-        elif venv_proc.returncode == 0:
-            subprocess.run(
-                [
-                    vpy,
-                    "-m",
-                    "pip",
-                    "install",
-                    "--no-deps",
-                    "--no-build-isolation",
-                    str(package_dir.resolve()),
-                ],
+                [vpy, "-m", "pip", "install", "--no-deps", "--no-build-isolation", str(package_dir.resolve())],
                 check=True,
             )
         else:
             if venv_dir.exists():
                 shutil.rmtree(venv_dir)
-            subprocess.run(
-                [sys.executable, "-m", "venv", "--without-pip", str(venv_dir)], check=True
-            )
+            subprocess.run([sys.executable, "-m", "venv", "--without-pip", str(venv_dir)], check=True)
             subprocess.run(
                 [
                     sys.executable,

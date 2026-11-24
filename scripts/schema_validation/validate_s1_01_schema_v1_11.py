@@ -127,13 +127,22 @@ SECURITY_CATEGORIES_ENUM = {
     "BENIGN_SECURITY_LOOKALIKE",
 }
 
+# GD-35: EXPIRED removed (MVP has no time-based expiry; unexpected EXPIRED handled fail-closed as ERROR / EVIDENCE_UNRESOLVED)
 APPROVAL_STATUS_ENUM = {
     "PENDING",
     "APPROVED",
     "DENIED",
     "CANCELLED",
-    "EXPIRED",
     "STALE_REVISION",
+}
+
+# A4: Canonical stale reason codes for approval_evidence_ref and dispatch_claim_consumption
+STALE_REASON_CODES_ENUM = {
+    "APPROVAL_RECORD_SUPERSEDED",
+    "APPROVAL_NO_LONGER_APPROVED",
+    "SUPPLIER_RECORD_SUPERSEDED",
+    "REQUEST_REVISION_CHANGED",
+    "POLICY_BUNDLE_CHANGED",
 }
 
 POLICY_CHECK_MODES_ENUM = {
@@ -157,12 +166,14 @@ RETRIEVAL_TECHNICAL_FAULT_STATUSES = {
     "CORPUS_INTEGRITY_OR_PIN_MISMATCH_ERROR",
 }
 
+# GD-36: Includes AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT (covers authoritative tool failure and recovery-to-aborted)
 ENFORCEMENT_OUTCOME_ENUM = {
     "AUTHORIZED_AND_COMMITTED",
-    "BLOCKED_PRE_TOOL_NO_SIDE_EFFECT",
     "AUTHORIZED_DISPATCH_RESOLVED_COMMITTED_VIA_RECOVERY",
+    "AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT",
     "AUTHORIZED_DISPATCH_UNRESOLVED_HOLD",
     "UNAUTHORIZED_DISPATCH_POLICY_BYPASS",
+    "BLOCKED_PRE_TOOL_NO_SIDE_EFFECT",
     "NOT_REACHED_STOPPED_BEFORE_PO_GATE",
     "NOT_APPLICABLE_RAG_WORKFLOW",
 }
@@ -1225,7 +1236,7 @@ class SpecValidator:
                     and span is None
                     and raw_sub is None
                     and (
-                        (fname == "requester_ref" and isinstance(sess_meta, dict) and norm_val == sess_meta.get("actor_id"))
+                        (fname == "requester_ref" and norm_val == sess_meta.get("actor_id"))
                         or (fname == "category" and norm_val in {"hardware", "software", "services"})
                         or (fname == "urgency" and norm_val == "standard")
                     )
@@ -1456,7 +1467,6 @@ class SpecValidator:
                                 self.check(
                                     cat4,
                                     req_mf.get("policy_ids") == expected_pids
-                                    and isinstance(eff_filters, dict)
                                     and eff_filters.get("policy_ids") == expected_pids,
                                     "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID",
                                     f"{tid}.{eid}: filter_provenance policy_ids mismatch with search_policy arguments",
@@ -1653,9 +1663,7 @@ class SpecValidator:
                 and math.isfinite(float(top_p))
                 and 0.0 < float(top_p) <= 1.0
                 and is_strict_int(max_tok)
-                and isinstance(max_tok, int)
-                and not isinstance(max_tok, bool)
-                and 0 < max_tok <= 65536
+                and 0 < int(max_tok) <= 65536
             )
             self.check(
                 cat4,
@@ -1952,33 +1960,63 @@ class SpecValidator:
         )
 
         # SA-03 & OD-04 provisional draft checks (enforced under `provisional_draft` profile;
-        # excluded under `base_only` profile for S1-03 Row 9 base Approval evidence validation)
+        # excluded under `base_only` profile for S1-03 Row 9 base Approval evidence validation only —
+        # procurement traces MUST use `provisional_draft` per A4)
         if is_provisional:
+            # A3: superseded_by_approval_id is a derived read-model field only and MUST be null in every stored event
+            if attrs.get("superseded_by_approval_id") is not None:
+                self.check(
+                    cat4,
+                    False,
+                    "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID",
+                    f"{tid}.{eid}: superseded_by_approval_id must be null in stored/emitted approval events (derived read-model only)",
+                )
+
             ap_req_id = attrs.get("approval_request_id")
             cur_seq = seq_by_id.get(eid, 0)
             sup_id = attrs.get("supersedes_approval_id")
-            for other_eid, other_ev in approval_events_by_event_id.items():
-                if other_eid != eid and seq_by_id.get(other_eid, 0) < cur_seq:
+            prior_same_req = sorted(
+                [
+                    (other_eid, other_ev)
+                    for other_eid, other_ev in approval_events_by_event_id.items()
+                    if other_eid != eid
+                    and seq_by_id.get(other_eid, 0) < cur_seq
+                    and other_ev["attributes"].get("approval_request_id") == ap_req_id
+                ],
+                key=lambda item: seq_by_id.get(item[0], 0),
+            )
+            if prior_same_req:
+                for _, other_ev in prior_same_req:
                     other_attrs = other_ev["attributes"]
-                    if other_attrs.get("approval_request_id") == ap_req_id:
-                        if other_attrs.get("approval_status") in {"DENIED", "CANCELLED"}:
-                            self.check(
-                                cat4,
-                                False,
-                                "ERR_APPROVAL_TERMINAL_STATUS_VIOLATION",
-                                f"{tid}.{eid}: terminal approval status {other_attrs.get('approval_status')} on {ap_req_id} cannot transition to {ap_status}",
-                            )
-                        if ap_status == "CANCELLED" and other_attrs.get("approval_status") == "APPROVED":
-                            self.check(
-                                cat4,
-                                sup_id == other_attrs.get("approval_id")
-                                and is_strict_int(attrs.get("decision_record_seq"))
-                                and is_strict_int(other_attrs.get("decision_record_seq"))
-                                and int(attrs.get("decision_record_seq", 0)) > int(other_attrs.get("decision_record_seq", 0))
-                                and attrs.get("record_version") != other_attrs.get("record_version"),
-                                "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID",
-                                f"{tid}.{eid}: subsequent CANCELLED approval on {ap_req_id} must supersede {other_attrs.get('approval_id')} with higher decision_record_seq and distinct record_version",
-                            )
+                    if other_attrs.get("approval_status") in {"DENIED", "CANCELLED"}:
+                        self.check(
+                            cat4,
+                            False,
+                            "ERR_APPROVAL_TERMINAL_STATUS_VIOLATION",
+                            f"{tid}.{eid}: terminal approval status {other_attrs.get('approval_status')} on {ap_req_id} cannot transition to {ap_status}",
+                        )
+                    # A1: After an APPROVED record for an approval_request_id, ONLY CANCELLED is allowed next
+                    if other_attrs.get("approval_status") == "APPROVED" and ap_status != "CANCELLED":
+                        self.check(
+                            cat4,
+                            False,
+                            "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID",
+                            f"{tid}.{eid}: after APPROVED on {ap_req_id}, only CANCELLED is allowed next (got {ap_status!r})",
+                        )
+                # A2: Every record after the first carries a non-null supersedes_approval_id naming the immediately preceding record
+                prev_attrs = prior_same_req[-1][1]["attributes"]
+                self.check(
+                    cat4,
+                    isinstance(sup_id, str)
+                    and len(sup_id) > 0
+                    and sup_id == prev_attrs.get("approval_id")
+                    and is_strict_int(attrs.get("decision_record_seq"))
+                    and is_strict_int(prev_attrs.get("decision_record_seq"))
+                    and int(attrs.get("decision_record_seq", 0)) > int(prev_attrs.get("decision_record_seq", 0))
+                    and attrs.get("record_version") != prev_attrs.get("record_version"),
+                    "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID",
+                    f"{tid}.{eid}: subsequent approval record on {ap_req_id} must carry supersedes_approval_id={prev_attrs.get('approval_id')!r} with higher decision_record_seq and distinct record_version",
+                )
 
             rec_ver = attrs.get("record_version")
             dec_seq = attrs.get("decision_record_seq")
@@ -1987,8 +2025,6 @@ class SpecValidator:
                 isinstance(rec_ver, str)
                 and len(rec_ver) > 0
                 and is_strict_int(dec_seq)
-                and isinstance(dec_seq, int)
-                and not isinstance(dec_seq, bool)
                 and dec_seq > 0
                 and ts_obj.get("record_version") == rec_ver
                 and ts_obj.get("decision_record_seq") == dec_seq,
@@ -2312,6 +2348,17 @@ class SpecValidator:
                         and seq_by_id.get(other_id, 0) < seq_by_id.get(eid, 0)
                         and other_ev["attributes"].get("decision_record_seq", 0) > ap_attrs.get("decision_record_seq", 0)
                     ]
+                    # A4: Validate stale_reason_code on approval_evidence_ref when present
+                    if "stale_reason_code" in app_ref:
+                        s_code = app_ref.get("stale_reason_code")
+                        stale_ok = (s_code is None) if app_ref.get("is_current_at_check") is True else (s_code in STALE_REASON_CODES_ENUM)
+                        self.check(
+                            cat4,
+                            stale_ok,
+                            "ERR_STALE_REASON_CODE_INVALID",
+                            f"{tid}.{eid}: invalid approval_evidence_ref.stale_reason_code {s_code!r}",
+                        )
+
                     # If action_verdict == ALLOW, approval must not be superseded
                     if attrs.get("action_verdict") == "ALLOW":
                         self.check(
@@ -2325,6 +2372,19 @@ class SpecValidator:
                             "ERR_APPROVAL_SUPERSEDED_SEQUENCE",
                             f"{tid}.{eid}: approval decision_record_seq {dec_seq} superseded by higher sequence {latest_seq}",
                         )
+                        # A5: Deterministic ordering — observed approval event MUST precede tool_proposal by trace sequence_number
+                        # (wall-clock time never decides) and hold highest decision_record_seq
+                        prop_ev_for_order = proposals_by_id.get(str(snap.get("proposal_id")))
+                        if prop_ev_for_order is not None:
+                            prop_seq_num = seq_by_id.get(prop_ev_for_order["event_id"], 0)
+                            ap_seq_num = seq_by_id.get(ap_ev_id, 999999)
+                            if ap_seq_num >= prop_seq_num:
+                                self.check(
+                                    cat4,
+                                    False,
+                                    "ERR_APPROVAL_ORDER_INVALID",
+                                    f"{tid}.{eid}: approval event {ap_ev_id} (seq {ap_seq_num}) does not precede tool_proposal {prop_ev_for_order['event_id']} (seq {prop_seq_num})",
+                                )
 
         dclaim = snap.get("dispatch_claim")
         if snap.get("tool_name") == "create_purchase_order":
@@ -2436,6 +2496,7 @@ class SpecValidator:
                 "bound_decision_record_seq",
                 "observed_decision_record_seq_at_consumption",
                 "currentness_verified_at_consumption",
+                "stale_reason_code",
             }
             snap = chk_ev["attributes"].get("authorization_snapshot", {}) if chk_ev else {}
             dclaim = (snap.get("dispatch_claim") or {}) if isinstance(snap, dict) else {}
@@ -2485,6 +2546,19 @@ class SpecValidator:
                     "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION",
                     f"{tid}.{eid}: stale or mismatched supplier/approval version or decision_record_seq at consumption",
                 )
+                if "stale_reason_code" in dcc:
+                    dcc_stale = dcc.get("stale_reason_code")
+                    dcc_stale_ok = (
+                        (dcc_stale is None)
+                        if dcc.get("currentness_verified_at_consumption") is True
+                        else (dcc_stale in STALE_REASON_CODES_ENUM)
+                    )
+                    self.check(
+                        cat4,
+                        dcc_stale_ok,
+                        "ERR_STALE_REASON_CODE_INVALID",
+                        f"{tid}.{eid}: invalid dispatch_claim_consumption.stale_reason_code {dcc_stale!r}",
+                    )
 
             valid_dcc = (
                 isinstance(dcc, dict)
@@ -2746,7 +2820,7 @@ class SpecValidator:
                     and is_strict_int(sp_ret_cnt)
                     and sp_ret_cnt == len(sp_matches)
                 )
-                if sp_shape_ok and isinstance(sp_matches, list) and isinstance(sp_ret_cnt, int):
+                if sp_shape_ok:
                     if b_status == "NO_MATCH":
                         sp_shape_ok = sp_ret_cnt == 0 and len(sp_matches) == 0 and sp_app == "MISSING"
                     elif b_status == "MATCHED":
@@ -2999,10 +3073,10 @@ class SpecValidator:
                     f"{tid}.{eid}: claim_text span mismatch",
                 )
             for ses in clm.get("source_evidence_spans", []):
-                matched_ret_ev = retrievals_by_id.get(str(ses.get("retrieval_id")))
+                ret_ev = retrievals_by_id.get(str(ses.get("retrieval_id")))
                 matched_doc = None
-                if matched_ret_ev:
-                    for d in matched_ret_ev["attributes"].get("retrieved_documents", []):
+                if ret_ev:
+                    for d in ret_ev["attributes"].get("retrieved_documents", []):
                         if d.get("chunk_id") == ses.get("chunk_id"):
                             matched_doc = d
                             break
@@ -3312,7 +3386,7 @@ def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
             return candidate
     return start.resolve().parent if start.is_file() else start.resolve()
 
-def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple[str, ...] = (), avoid_in: tuple[str, ...] = ()) -> "pathlib.Path":
+def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (), avoid_in: tuple = ()) -> "pathlib.Path":
     here = start.resolve().parent if start.is_file() else start.resolve()
     direct = here / filename
     if direct.is_file():
@@ -3328,7 +3402,7 @@ def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple[str, 
             matches.append(pathlib.Path(root) / filename)
     if not matches:
         raise FileNotFoundError(f"Could not locate {filename} from {here} or repo root {repo_root}")
-    def _rank(p: "pathlib.Path") -> tuple[int, int, int, str]:
+    def _rank(p: "pathlib.Path") -> tuple:
         parts = set(p.parts)
         pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
         avoid_score = 1 if any(x in parts for x in avoid_in) else 0
@@ -3347,9 +3421,9 @@ def main() -> int:
         choices=list(APPROVAL_VALIDATION_PROFILES),
         default="provisional_draft",
         help=(
-            "Approval validation profile: 'provisional_draft' (default; enforces provisional OD-04/SA-03 "
-            "draft rules pending joint sign-off) or 'base_only' (enforces only the 17-field S1-03 Row 9 "
-            "base Approval Event subset, excluding OD-04/SA-03 extensions)"
+            "Approval validation profile: 'provisional_draft' (default; required for all procurement traces "
+            "and enforces OD-04/SA-03 A1-A5 rules) or 'base_only' (restricted strictly to S1-03 Row 9 base "
+            "Approval evidence validation; skips approval version/sequence checks at consumption)"
         ),
     )
     args = parser.parse_args()
@@ -3389,7 +3463,7 @@ def main() -> int:
     print(f"FAILURE_CODES_JSON: {json.dumps(codes)}")
 
     if args.json_out:
-        with open(args.json_out, "w", encoding="utf-8") as jf:
+        with open(args.json_out, "w", encoding="utf-8") as f:
             json.dump(
                 {
                     "validator_version": VALIDATOR_VERSION,
@@ -3403,7 +3477,7 @@ def main() -> int:
                     "failure_codes": codes,
                     "failures": validator.failures,
                 },
-                jf,
+                f,
                 indent=2,
             )
 

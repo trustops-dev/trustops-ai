@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS version_registry (
 -- 3. Traces Table (Separates Inference-Safe Runtime Columns from Test-Only Ground-Truth Metadata)
 CREATE TABLE IF NOT EXISTS traces (
     trace_id                        VARCHAR(128) PRIMARY KEY,
-    schema_version                  VARCHAR(32)  NOT NULL CHECK (schema_version IN ('1.0', '1.0.0', 'v1.0', '1.12.0', '1.10.0-draft', '1.11.0', '1.11.0-draft', '1.12.0', '1.14.0-draft')),
+    schema_version                  VARCHAR(32)  NOT NULL CHECK (schema_version IN ('1.0', '1.0.0', 'v1.0', '1.10.0-draft', '1.11.0', '1.11.0-draft', '1.12.0', '1.14.0-draft', '1.15.0-draft', '1.16.0-draft', '1.17.0-draft', '1.18.0-draft')),
     application_id                  VARCHAR(128) NOT NULL REFERENCES applications(application_id),
     application_type                VARCHAR(16)  NOT NULL CHECK (application_type IN ('agent', 'rag')),
     ingestion_mode                  VARCHAR(32)  NOT NULL CHECK (ingestion_mode IN (
@@ -115,7 +115,11 @@ CREATE TABLE IF NOT EXISTS trace_events (
     attributes_json     JSONB        NOT NULL,
     PRIMARY KEY (trace_id, event_id),
     UNIQUE (trace_id, sequence_number),
-    FOREIGN KEY (trace_id, parent_event_id) REFERENCES trace_events(trace_id, event_id)
+    FOREIGN KEY (trace_id, parent_event_id) REFERENCES trace_events(trace_id, event_id),
+    -- A3: superseded_by_approval_id is a derived read-model field only and MUST stay NULL in every stored event
+    CONSTRAINT chk_approval_event_superseded_by_null CHECK (
+        event_type <> 'approval' OR (attributes_json->>'superseded_by_approval_id') IS NULL
+    )
 );
 
 CREATE INDEX IF NOT EXISTS idx_trace_events_type
@@ -141,6 +145,14 @@ CREATE TABLE IF NOT EXISTS dispatch_claim_ledger (
     bound_decision_record_seq                       INTEGER      NULL,
     observed_decision_record_seq_at_consumption     INTEGER      NULL,
     currentness_verified_at_consumption             BOOLEAN      NOT NULL CHECK (currentness_verified_at_consumption = TRUE),
+    -- A4: Explicit stale reason code when a check/consumption is stale (NULL when currentness_verified_at_consumption = TRUE)
+    stale_reason_code                               VARCHAR(64)  NULL CHECK (stale_reason_code IS NULL OR stale_reason_code IN (
+        'APPROVAL_RECORD_SUPERSEDED',
+        'APPROVAL_NO_LONGER_APPROVED',
+        'SUPPLIER_RECORD_SUPERSEDED',
+        'REQUEST_REVISION_CHANGED',
+        'POLICY_BUNDLE_CHANGED'
+    )),
     consumption_status                              VARCHAR(64)  NOT NULL CHECK (consumption_status = 'CONSUMED_SINGLE_USE_LOCKED'),
     redispatch_or_reset_permitted                   BOOLEAN      NOT NULL CHECK (redispatch_or_reset_permitted = FALSE),
     consumed_at                                     TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
@@ -330,6 +342,7 @@ CREATE TABLE IF NOT EXISTS governance_decisions (
         'AUTHORIZED_AND_COMMITTED',
         'BLOCKED_PRE_TOOL_NO_SIDE_EFFECT',
         'AUTHORIZED_DISPATCH_RESOLVED_COMMITTED_VIA_RECOVERY',
+        'AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT',
         'AUTHORIZED_DISPATCH_UNRESOLVED_HOLD',
         'UNAUTHORIZED_DISPATCH_POLICY_BYPASS',
         'NOT_REACHED_STOPPED_BEFORE_PO_GATE',

@@ -14,8 +14,8 @@
   "files": [
     {
       "filename": "001_core.sql",
-      "bytes": 22221,
-      "sha256": "5e88f50b497a29e6a7c53e74811d818551f7f97d3b20478d5c69cda29559dd8b",
+      "bytes": 23050,
+      "sha256": "a161530ef6f06cf3841d0f40ca2ef61ed87194fb8ea6afc13d952e4e3e5a14f7",
       "role": "PostgreSQL Core Migration (Draft Week 2 Interface)"
     },
     {
@@ -26,32 +26,32 @@
     },
     {
       "filename": "independent_probes.py",
-      "bytes": 3430,
-      "sha256": "a89897587571179513785c4a9bfb6742b0ce4d5c09eca7f44be4fc1949cc06e4",
+      "bytes": 5337,
+      "sha256": "aa2ce468eb026827694593512980bebf36b799891fee634fa16d7ab90cb45c2b",
       "role": "Bundled 6-Case Independent Probe Runner"
     },
     {
       "filename": "probe_remaining_controls.py",
-      "bytes": 15057,
-      "sha256": "3aae188f390c0aac7e0606bccc70df8f2f1b3696bce5e6c6fdad04262de78a39",
+      "bytes": 16940,
+      "sha256": "46da4455f22f49d6acecb1999f69be5f432e13583cad7eaaf461d3127f7dd072",
       "role": "Portable 14-Probe Remaining Controls Runner (Zero fcntl)"
     },
     {
       "filename": "reproduce_findings.py",
-      "bytes": 7954,
-      "sha256": "77f013d3cb008856ce338fcea51b0f19bfb76da97328cc4d3f9a245a8aa8edec",
+      "bytes": 10175,
+      "sha256": "7a3a0765fcd9e4cfd685c4df56e8be56d1f6564d5c18d9f1ef9ae19bf3d59b6c",
       "role": "Nour's 10-Probe R12-01..08 Reproduction Runner"
     },
     {
       "filename": "run_native_verification.py",
-      "bytes": 3317,
-      "sha256": "be5cd4ae9307237188f54883337a2499d10edf1c95818587ea38945d44eadf70",
+      "bytes": 7035,
+      "sha256": "9c70364198d63f0145f272ea505694d149f89b4fd7c74a241cf1cafb73e5af0d",
       "role": "Cross-Platform Native Verification Runner"
     },
     {
       "filename": "run_s1_01_regression_suite.py",
-      "bytes": 99382,
-      "sha256": "f690521ef76afb364d4a6574d43fb4de3c2999db27c142fbbae83535f0758a1d",
+      "bytes": 108172,
+      "sha256": "8fb657235c09b78f09bcbd0a28aa3fbd5d3e465974599fb518d6ed745bb15cce",
       "role": "Self-Contained 104-Case Regression Runner"
     },
     {
@@ -62,38 +62,38 @@
     },
     {
       "filename": "s1_01_validation_report.json",
-      "bytes": 48558,
-      "sha256": "e695a2eb1dd3954a24fbf474c750230821324f4b4659981a9e098d7c75090007",
+      "bytes": 52171,
+      "sha256": "48dbfee5e656132a7a72e343dce5af8bb027b43df80ebbadb71b557a00e0a6de",
       "role": "Machine-Readable Validation & Suite Report"
     },
     {
       "filename": "test_g01_isolated_diagnostic.py",
-      "bytes": 49656,
-      "sha256": "71ac080638e4aa6702320f2fb8c6ab5619eb9bf4eefbf6667e59bcdd5288db17",
+      "bytes": 51514,
+      "sha256": "5f8ccdfa8eec3d0e2a53c7de91df321f1bf27473e19b47dc5ee8439ad96f1c50",
       "role": "Offline Cross-Platform G01 Test Suite (33 Tests)"
     },
     {
       "filename": "trustops_sdk.py",
-      "bytes": 23719,
-      "sha256": "0057809d79d36c78edf72498642e0142fdd018e6dfef38aa414aa35ee002573c",
+      "bytes": 29645,
+      "sha256": "9b4ba06c4984f13c95b6933ee481f6ff68579f8f94aee10775df21c1415675e3",
       "role": "Python SDK & Idempotent Claim Gate Prototype (Draft)"
     },
     {
       "filename": "updated_schemas_v18.md",
-      "bytes": 418425,
-      "sha256": "6ad921e6b4ded5d61b905977bc6ee57f286c71a58b7aa5fda9a8a88d79d71d28",
+      "bytes": 421172,
+      "sha256": "f2784b5b7dbf23c6d9d54111ab37d51c98af3042b12c443039ded43f3532e9fd",
       "role": "Core Trace Schema Specification"
     },
     {
       "filename": "validate_s1_01_schema_v1_11.py",
-      "bytes": 151110,
-      "sha256": "48003abbc3386bac24e84cc4cd54a0f53f0058e3f7f49ecaf52e6af33f17562a",
+      "bytes": 157491,
+      "sha256": "b2dd0ee525fc508471be77a4e8fcfbae9e6b7542417f2e82e6058cc27ad9c149",
       "role": "Standalone Specification & Contract Validator"
     },
     {
       "filename": "week_2.md",
-      "bytes": 111722,
-      "sha256": "067399165312b90e86641c1a9bf78e39c503fce063e3a428539c41be39226061",
+      "bytes": 115193,
+      "sha256": "b47415fe7fd882ce14e877b8f5e7eaa0f7469c4df7383f9e66e6ce9bbd486827",
       "role": "Consolidated Week 2 Closeout & Review Report"
     }
   ]

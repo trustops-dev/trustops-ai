@@ -14,14 +14,17 @@ Provides:
 """
 
 import copy
+import datetime
 import hashlib
 import json
 import os
-import pathlib
 import re
-import sqlite3
 import sys
-from typing import Any
+import unicodedata
+from typing import Any, Dict, List, Optional, Tuple
+
+import pathlib
+import sqlite3
 
 try:
     from . import validate_s1_01_schema_v1_11 as schema_validator
@@ -32,19 +35,12 @@ except ImportError:
         _sdk_here = os.path.dirname(os.path.abspath(__file__))
         if _sdk_here not in sys.path:
             sys.path.insert(0, _sdk_here)
-        import validate_s1_01_schema_v1_11 as schema_validator  # type: ignore[no-redef]
+        import validate_s1_01_schema_v1_11 as schema_validator  # type: ignore[import-not-found,no-redef]
 
 SDK_VERSION = "0.4.0-week2-draft-interface"
 
 REDACTED_PLACEHOLDER = "[REDACTED_BY_TRUSTOPS_INGESTION_POLICY]"
-SENSITIVE_KEY_NAMES = {
-    "api_key",
-    "authorization",
-    "x-goog-api-key",
-    "password",
-    "client_secret",
-    "access_token",
-}
+SENSITIVE_KEY_NAMES = {"api_key", "authorization", "x-goog-api-key", "password", "client_secret", "access_token"}
 
 
 def redact_sensitive_fields(obj: Any) -> Any:
@@ -66,13 +62,11 @@ class OTelGenAIMapper:
     """Maps TrustOps TraceEvent envelopes to pinned OpenTelemetry GenAI semantic conventions (§6)."""
 
     @staticmethod
-    def to_otel_span_attributes(
-        trace_envelope: dict[str, Any], event: dict[str, Any]
-    ) -> dict[str, Any]:
+    def to_otel_span_attributes(trace_envelope: Dict[str, Any], event: Dict[str, Any]) -> Dict[str, Any]:
         et = event.get("event_type")
         attrs = event.get("attributes", {})
         versions = trace_envelope.get("versions", {})
-        otel: dict[str, Any] = {
+        otel: Dict[str, Any] = {
             "trustops.trace_id": trace_envelope.get("trace_id"),
             "trustops.event_id": event.get("event_id"),
             "trustops.sequence_number": event.get("sequence_number"),
@@ -95,9 +89,7 @@ class OTelGenAIMapper:
                     "gen_ai.usage.input_tokens": tu.get("prompt_tokens"),
                     "gen_ai.usage.output_tokens": tu.get("completion_tokens"),
                     "trustops.model_call.operation_profile_id": attrs.get("operation_profile_id"),
-                    "trustops.model_call.effective_config_ref": attrs.get(
-                        "effective_config_ref", versions.get("effective_config_ref")
-                    ),
+                    "trustops.model_call.effective_config_ref": attrs.get("effective_config_ref", versions.get("effective_config_ref")),
                 }
             )
         elif et in {"tool_proposal", "tool_call", "tool_result", "tool_suppression"}:
@@ -129,16 +121,9 @@ class PreToolPolicyStubClient:
     so contract-test verdicts are never confused with Mohamed's real ONLINE_PRE_TOOL engine.
     """
 
-    def __init__(
-        self,
-        environment: str = "test",
-        policy_bundle_version: str = "proc_policies_v1.0",
-        policy_kb_version: str = "kb_v3",
-    ) -> None:
+    def __init__(self, environment: str = "test", policy_bundle_version: str = "proc_policies_v1.0", policy_kb_version: str = "kb_v3") -> None:
         if environment == "prod":
-            raise ValueError(
-                "ERR_POLICY_CHECK_MODE_INVALID: PreToolPolicyStubClient cannot be instantiated in prod"
-            )
+            raise ValueError("ERR_POLICY_CHECK_MODE_INVALID: PreToolPolicyStubClient cannot be instantiated in prod")
         self.environment = environment
         self.policy_bundle_version = policy_bundle_version
         self.policy_kb_version = policy_kb_version
@@ -146,9 +131,9 @@ class PreToolPolicyStubClient:
     def evaluate_pre_tool_stub(
         self,
         check_id: str,
-        authorization_snapshot: dict[str, Any],
+        authorization_snapshot: Dict[str, Any],
         simulate_verdict: str = "ALLOW",
-    ) -> dict[str, Any]:
+    ) -> Dict[str, Any]:
         assert simulate_verdict in {"ALLOW", "BLOCK"}
         pol_res = "PASS" if simulate_verdict == "ALLOW" else "FAIL"
         return {
@@ -165,9 +150,7 @@ class PreToolPolicyStubClient:
                     "criticality": "critical",
                     "binding_verification": {"stub_contract_test": True},
                     "observed_evidence": {"tool_name": authorization_snapshot["tool_name"]},
-                    "failure_or_error_reason": None
-                    if simulate_verdict == "ALLOW"
-                    else "Simulated stub block",
+                    "failure_or_error_reason": None if simulate_verdict == "ALLOW" else "Simulated stub block",
                 },
                 {
                     "policy_id": "PROC-TOOL-STAGE-01",
@@ -176,9 +159,7 @@ class PreToolPolicyStubClient:
                     "policy_result": "PASS",
                     "criticality": "critical",
                     "binding_verification": {"stub_contract_test": True},
-                    "observed_evidence": {
-                        "checked_policy_stage": authorization_snapshot["checked_policy_stage"]
-                    },
+                    "observed_evidence": {"checked_policy_stage": authorization_snapshot["checked_policy_stage"]},
                     "failure_or_error_reason": None,
                 },
                 {
@@ -194,9 +175,7 @@ class PreToolPolicyStubClient:
             ],
             "authorization_snapshot": copy.deepcopy(authorization_snapshot),
             "action_verdict": simulate_verdict,
-            "verdict_basis": "ALL_APPLICABLE_PASSED"
-            if simulate_verdict == "ALLOW"
-            else "MANDATORY_POLICY_FAILED",
+            "verdict_basis": "ALL_APPLICABLE_PASSED" if simulate_verdict == "ALLOW" else "MANDATORY_POLICY_FAILED",
         }
 
 
@@ -212,9 +191,9 @@ class InMemoryIngestionGate:
     """
 
     def __init__(self) -> None:
-        self.stored_traces: dict[str, dict[str, Any]] = {}
-        self.stored_hashes: dict[str, str] = {}
-        self.quarantine_log: list[dict[str, Any]] = []
+        self.stored_traces: Dict[str, Dict[str, Any]] = {}
+        self.stored_hashes: Dict[str, str] = {}
+        self.quarantine_log: List[Dict[str, Any]] = []
 
     ALLOWED_INGESTION_SCHEMA_VERSIONS = {
         "1.0",
@@ -225,14 +204,10 @@ class InMemoryIngestionGate:
         "1.11.0",
         "1.11.0-draft",
         "1.12.0",
-        "1.14.0-draft",
-        "1.15.0-draft",
-        "1.16.0-draft",
-        "1.17.0-draft",
-        "1.18.0-draft",
+        "1.14.0-draft", "1.15.0-draft", "1.16.0-draft", "1.17.0-draft", "1.18.0-draft",
     }
 
-    def ingest_trace(self, trace_payload: dict[str, Any]) -> tuple[int, str, dict[str, Any]]:
+    def ingest_trace(self, trace_payload: Dict[str, Any]) -> Tuple[int, str, Dict[str, Any]]:
         if not isinstance(trace_payload, dict):
             return 422, "ERR_INVALID_TRACE_ENVELOPE", {"detail": "Payload must be a JSON object"}
 
@@ -252,13 +227,7 @@ class InMemoryIngestionGate:
             and len(events) > 0
             and all(
                 isinstance(ev, dict)
-                and {
-                    "event_id",
-                    "sequence_number",
-                    "event_type",
-                    "timestamp",
-                    "attributes",
-                }.issubset(set(ev.keys()))
+                and {"event_id", "sequence_number", "event_type", "timestamp", "attributes"}.issubset(set(ev.keys()))
                 for ev in events
             )
         )
@@ -287,38 +256,26 @@ class InMemoryIngestionGate:
                     "events_valid": events_struct_ok,
                 }
             )
-            return (
-                422,
-                "ERR_STRUCTURAL_VALIDATION_FAILED",
-                {"trace_id": tid, "missing_keys": sorted(missing_top)},
-            )
+            return 422, "ERR_STRUCTURAL_VALIDATION_FAILED", {"trace_id": tid, "missing_keys": sorted(missing_top)}
 
         payload_hash = hashlib.sha256(
-            json.dumps(redacted, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode(
-                "utf-8"
-            )
+            json.dumps(redacted, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
         ).hexdigest()
 
         if tid in self.stored_hashes:
             if self.stored_hashes[tid] == payload_hash:
-                return (
-                    200,
-                    "IDEMPOTENT_REPLAY_ACCEPTED",
-                    {"trace_id": tid, "envelope_sha256": payload_hash},
-                )
-            return (
-                409,
-                "ERR_CONFLICTING_TRACE_REPLAY",
-                {
-                    "trace_id": tid,
-                    "existing_envelope_sha256": self.stored_hashes[tid],
-                    "conflicting_envelope_sha256": payload_hash,
-                },
-            )
+                return 200, "IDEMPOTENT_REPLAY_ACCEPTED", {"trace_id": tid, "envelope_sha256": payload_hash}
+            return 409, "ERR_CONFLICTING_TRACE_REPLAY", {
+                "trace_id": tid,
+                "existing_envelope_sha256": self.stored_hashes[tid],
+                "conflicting_envelope_sha256": payload_hash,
+            }
 
         self.stored_traces[tid] = redacted
         self.stored_hashes[tid] = payload_hash
         return 201, "CREATED", {"trace_id": tid, "envelope_sha256": payload_hash}
+
+
 
 
 class SqliteTransactionalClaimGate:
@@ -401,7 +358,7 @@ class SqliteTransactionalClaimGate:
         approval_id: str,
         bound_approval_version: str,
         bound_decision_seq: int,
-    ) -> tuple[bool, str]:
+    ) -> Tuple[bool, str]:
         self.conn.execute("BEGIN IMMEDIATE")
         try:
             sup_row = self.conn.execute(
@@ -461,14 +418,108 @@ class SqliteTransactionalClaimGate:
             raise
 
 
-def run_week2_sdk_self_test(spec_path: str) -> dict[str, Any]:
+
+
+# Post-Review Governance Alignment Constants & Helpers (GD-35, GD-36, A1-A5)
+APPROVAL_STATUS_ENUM = (
+    "PENDING",
+    "APPROVED",
+    "DENIED",
+    "CANCELLED",
+    "STALE_REVISION",
+)
+
+ENFORCEMENT_OUTCOME_ENUM = (
+    "AUTHORIZED_AND_COMMITTED",
+    "AUTHORIZED_DISPATCH_RESOLVED_COMMITTED_VIA_RECOVERY",
+    "AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT",
+    "AUTHORIZED_DISPATCH_UNRESOLVED_HOLD",
+    "UNAUTHORIZED_DISPATCH_POLICY_BYPASS",
+    "BLOCKED_PRE_TOOL_NO_SIDE_EFFECT",
+    "NOT_REACHED_STOPPED_BEFORE_PO_GATE",
+    "NOT_APPLICABLE_RAG_WORKFLOW",
+)
+
+STALE_REASON_CODES_ENUM = (
+    "APPROVAL_RECORD_SUPERSEDED",
+    "APPROVAL_NO_LONGER_APPROVED",
+    "SUPPLIER_RECORD_SUPERSEDED",
+    "REQUEST_REVISION_CHANGED",
+    "POLICY_BUNDLE_CHANGED",
+)
+
+
+def build_approval_event_attributes(
+    base_attributes: Dict[str, Any],
+    *,
+    record_version: str,
+    decision_record_seq: int,
+    supersedes_approval_id: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    Build a stored/emitted approval event attribute payload enforcing A2 & A3:
+    - A2: decision_record_seq > 1 requires a non-null supersedes_approval_id naming the prior record.
+    - A3: superseded_by_approval_id is always emitted as None (derived read-model field only).
+    """
+    if decision_record_seq > 1 and not (isinstance(supersedes_approval_id, str) and supersedes_approval_id.strip()):
+        raise ValueError("ERR_SA03_ACTION_APPROVAL_BINDING_INVALID: supersedes_approval_id is required when decision_record_seq > 1")
+    attrs = copy.deepcopy(base_attributes)
+    attrs["record_version"] = record_version
+    attrs["decision_record_seq"] = decision_record_seq
+    attrs["supersedes_approval_id"] = supersedes_approval_id
+    attrs["superseded_by_approval_id"] = None
+    return attrs
+
+
+def derive_approval_before_proposal_order(
+    approval_events: List[Dict[str, Any]],
+    proposal_sequence_number: int,
+    approval_request_id: str,
+    target_approval_id: str,
+) -> Dict[str, Any]:
+    """
+    A5 deterministic ordering helper (wall-clock timestamps never decide):
+    "before the proposal" means the observed approval event has sequence_number < proposal_sequence_number
+    AND holds the highest decision_record_seq for that approval_request_id.
+    """
+    matching = [
+        ev
+        for ev in approval_events
+        if ev.get("event_type") == "approval"
+        and (ev.get("attributes") or {}).get("approval_request_id") == approval_request_id
+    ]
+    if not matching:
+        return {"is_before_proposal": False, "is_current_record": False, "stale_reason_code": "APPROVAL_NO_LONGER_APPROVED"}
+    max_seq = max(int((ev.get("attributes") or {}).get("decision_record_seq", 0)) for ev in matching)
+    target = next((ev for ev in matching if (ev.get("attributes") or {}).get("approval_id") == target_approval_id), None)
+    if target is None:
+        return {"is_before_proposal": False, "is_current_record": False, "stale_reason_code": "APPROVAL_NO_LONGER_APPROVED"}
+    t_attrs = target.get("attributes") or {}
+    is_current = int(t_attrs.get("decision_record_seq", 0)) == max_seq and t_attrs.get("approval_status") == "APPROVED"
+    is_before = int(target.get("sequence_number", 999999)) < int(proposal_sequence_number)
+    stale_reason = None
+    if int(t_attrs.get("decision_record_seq", 0)) < max_seq:
+        stale_reason = "APPROVAL_RECORD_SUPERSEDED"
+    elif t_attrs.get("approval_status") != "APPROVED":
+        stale_reason = "APPROVAL_NO_LONGER_APPROVED"
+    return {
+        "is_before_proposal": is_before and is_current,
+        "is_current_record": is_current,
+        "approval_sequence_number": target.get("sequence_number"),
+        "proposal_sequence_number": proposal_sequence_number,
+        "highest_decision_record_seq": max_seq,
+        "stale_reason_code": stale_reason,
+    }
+
+
+def run_week2_sdk_self_test(spec_path: str) -> Dict[str, Any]:
     """
     Verifies the Week 2 Exit Gate (Mohab.md §4 & §5 Week 2):
       - Validates manual Procurement trace (WT1) and RAG trace (WT4) via SpecValidator.
       - Exercises OTelGenAIMapper, PreToolPolicyStubClient (STUB_CONTRACT_TEST),
         redaction, idempotent replay (200), and conflicting replay rejection (409).
     """
-    with open(spec_path, encoding="utf-8") as f:
+    with open(spec_path, "r", encoding="utf-8") as f:
         text = f.read()
     blocks = [json.loads(m.group(1)) for m in re.finditer(r"```json\n(.*?)\n```", text, re.DOTALL)]
     wt1_proc = blocks[9]
@@ -492,132 +543,61 @@ def run_week2_sdk_self_test(spec_path: str) -> dict[str, Any]:
 
     stub = PreToolPolicyStubClient(environment="test")
     stub_check = stub.evaluate_pre_tool_stub(
-        "chk_stub_01",
-        wt1_proc["events"][31]["attributes"]["authorization_snapshot"],
-        simulate_verdict="ALLOW",
+        "chk_stub_01", wt1_proc["events"][31]["attributes"]["authorization_snapshot"], simulate_verdict="ALLOW"
     )
     assert stub_check["check_mode"] == "STUB_CONTRACT_TEST"
 
     # Verify transactional database claim-consumption lock & live currentness check (Integration Gap 5)
     tx_gate = SqliteTransactionalClaimGate()
     tx_gate.seed_authoritative_records(
-        "SUP-01",
-        "APPROVED",
-        "sup_rec_01_v3",
-        "APR-44",
-        "areq_101",
-        "APPROVED",
-        "apr_rec_44_v1",
-        104,
+        "SUP-01", "APPROVED", "sup_rec_01_v3", "APR-44", "areq_101", "APPROVED", "apr_rec_44_v1", 104
     )
     ok_consume, code_consume = tx_gate.consume_claim_atomic(
-        "dcons_req_proc_101",
-        "dclaim_req_proc_101",
-        "req_proc_101",
-        "prop_po_01",
-        "chk_104",
-        "call_po_01",
-        "SUP-01",
-        "sup_rec_01_v3",
-        "APR-44",
-        "apr_rec_44_v1",
-        104,
+        "dcons_req_proc_101", "dclaim_req_proc_101", "req_proc_101", "prop_po_01", "chk_104", "call_po_01",
+        "SUP-01", "sup_rec_01_v3", "APR-44", "apr_rec_44_v1", 104
     )
     assert ok_consume is True and code_consume == "CONSUMED_ATOMICALLY"
 
     # Second consumption on same claim/root_workflow_id is rejected by DB UNIQUE constraint
     ok_dup, code_dup = tx_gate.consume_claim_atomic(
-        "dcons_req_proc_101_dup",
-        "dclaim_req_proc_101",
-        "req_proc_101",
-        "prop_po_01",
-        "chk_104",
-        "call_po_02",
-        "SUP-01",
-        "sup_rec_01_v3",
-        "APR-44",
-        "apr_rec_44_v1",
-        104,
+        "dcons_req_proc_101_dup", "dclaim_req_proc_101", "req_proc_101", "prop_po_01", "chk_104", "call_po_02",
+        "SUP-01", "sup_rec_01_v3", "APR-44", "apr_rec_44_v1", 104
     )
     assert ok_dup is False and code_dup == "ERR_DUPLICATE_PO_DISPATCH_CLAIM"
 
     # Mutate approval record version/status in authoritative table between check and consumption -> rejected!
     tx_gate.seed_authoritative_records(
-        "SUP-01",
-        "APPROVED",
-        "sup_rec_01_v3",
-        "APR-45",
-        "areq_102",
-        "CANCELLED",
-        "apr_rec_45_v2_revoked",
-        105,
+        "SUP-01", "APPROVED", "sup_rec_01_v3", "APR-45", "areq_102", "CANCELLED", "apr_rec_45_v2_revoked", 105
     )
     ok_stale, code_stale = tx_gate.consume_claim_atomic(
-        "dcons_req_proc_102",
-        "dclaim_req_proc_102",
-        "req_proc_102",
-        "prop_po_02",
-        "chk_204",
-        "call_po_03",
-        "SUP-01",
-        "sup_rec_01_v3",
-        "APR-45",
-        "apr_rec_45_v1",
-        104,
+        "dcons_req_proc_102", "dclaim_req_proc_102", "req_proc_102", "prop_po_02", "chk_204", "call_po_03",
+        "SUP-01", "sup_rec_01_v3", "APR-45", "apr_rec_45_v1", 104
     )
     assert ok_stale is False and code_stale == "ERR_STALE_RECORD_VERSION_AT_CONSUMPTION"
 
     # R12-06 Verification: Incomplete minimal envelope without events/request/versions is rejected with 422
-    status_min, code_min, _ = gate.ingest_trace(
-        {"trace_id": "invalid_minimal", "schema_version": "1.0.0"}
-    )
+    status_min, code_min, _ = gate.ingest_trace({"trace_id": "invalid_minimal", "schema_version": "1.0.0"})
     assert status_min == 422 and code_min == "ERR_STRUCTURAL_VALIDATION_FAILED"
 
     # R12-07 Verification: File-backed SqliteTransactionalClaimGate reopens idempotently and retains consumed claims
     import tempfile
-
     with tempfile.TemporaryDirectory() as tmp_claim_dir:
         claim_db_file = os.path.join(tmp_claim_dir, "claims_reopen_test.sqlite3")
         fg1 = SqliteTransactionalClaimGate(claim_db_file)
         fg1.seed_authoritative_records(
-            "SUP-01",
-            "APPROVED",
-            "sup_rec_01_v3",
-            "APR-44",
-            "areq_101",
-            "APPROVED",
-            "apr_rec_44_v1",
-            104,
+            "SUP-01", "APPROVED", "sup_rec_01_v3", "APR-44", "areq_101", "APPROVED", "apr_rec_44_v1", 104
         )
         ok_f1, _ = fg1.consume_claim_atomic(
-            "dcons_reopen_01",
-            "dclaim_reopen_01",
-            "req_reopen_01",
-            "prop_po_01",
-            "chk_104",
-            "call_po_01",
-            "SUP-01",
-            "sup_rec_01_v3",
-            "APR-44",
-            "apr_rec_44_v1",
-            104,
+            "dcons_reopen_01", "dclaim_reopen_01", "req_reopen_01", "prop_po_01", "chk_104", "call_po_01",
+            "SUP-01", "sup_rec_01_v3", "APR-44", "apr_rec_44_v1", 104
         )
         assert ok_f1 is True
         fg1.conn.close()
 
         fg2 = SqliteTransactionalClaimGate(claim_db_file)
         ok_f2_dup, code_f2_dup = fg2.consume_claim_atomic(
-            "dcons_reopen_02",
-            "dclaim_reopen_01",
-            "req_reopen_01",
-            "prop_po_01",
-            "chk_104",
-            "call_po_02",
-            "SUP-01",
-            "sup_rec_01_v3",
-            "APR-44",
-            "apr_rec_44_v1",
-            104,
+            "dcons_reopen_02", "dclaim_reopen_01", "req_reopen_01", "prop_po_01", "chk_104", "call_po_02",
+            "SUP-01", "sup_rec_01_v3", "APR-44", "apr_rec_44_v1", 104
         )
         assert ok_f2_dup is False and code_f2_dup == "ERR_DUPLICATE_PO_DISPATCH_CLAIM"
         fg2.conn.close()
@@ -640,22 +620,10 @@ def run_week2_sdk_self_test(spec_path: str) -> dict[str, Any]:
 
 
 _REPO_SKIP_DIRS = {
-    ".git",
-    ".venv",
-    "venv",
-    "env",
-    "node_modules",
-    "__pycache__",
-    "build",
-    "dist",
-    ".mypy_cache",
-    ".pytest_cache",
-    ".ruff_cache",
-    "negative_and_variant_probes",
-    ".tox",
-    ".eggs",
+    ".git", ".venv", "venv", "env", "node_modules", "__pycache__",
+    "build", "dist", ".mypy_cache", ".pytest_cache", ".ruff_cache",
+    "negative_and_variant_probes", ".tox", ".eggs",
 }
-
 
 def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
     cur = start.resolve()
@@ -666,13 +634,7 @@ def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
             return candidate
     return start.resolve().parent if start.is_file() else start.resolve()
 
-
-def _find_repo_file(
-    filename: str,
-    start: "pathlib.Path",
-    prefer_in: tuple[str, ...] = (),
-    avoid_in: tuple[str, ...] = (),
-) -> "pathlib.Path":
+def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (), avoid_in: tuple = ()) -> "pathlib.Path":
     here = start.resolve().parent if start.is_file() else start.resolve()
     direct = here / filename
     if direct.is_file():
@@ -683,20 +645,16 @@ def _find_repo_file(
     repo_root = _find_repo_root(here)
     matches = []
     for root, dirs, files in os.walk(repo_root):
-        dirs[:] = sorted(
-            d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info")
-        )
+        dirs[:] = sorted(d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info"))
         if filename in files:
             matches.append(pathlib.Path(root) / filename)
     if not matches:
         raise FileNotFoundError(f"Could not locate {filename} from {here} or repo root {repo_root}")
-
-    def _rank(p: "pathlib.Path") -> tuple[int, int, int, str]:
+    def _rank(p: "pathlib.Path") -> tuple:
         parts = set(p.parts)
         pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
         avoid_score = 1 if any(x in parts for x in avoid_in) else 0
         return (avoid_score, pref_score, len(p.parts), str(p))
-
     matches.sort(key=_rank)
     return matches[0]
 

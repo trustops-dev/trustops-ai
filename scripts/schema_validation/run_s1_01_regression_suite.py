@@ -2143,11 +2143,164 @@ def build_cases() -> List[Dict[str, Any]]:
         approval_validation_profile="base_only",
     )
 
+    # POS-34 (GD-36): AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT accepted in enforcement_outcome
+    def pos_34(wt: Dict[str, Any]) -> None:
+        wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = (
+            "AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT"
+        )
+
+    add_case(
+        "POS-34",
+        "POSITIVE",
+        1,
+        [],
+        "GD-36: AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT accepted as canonical definitive no-effect enforcement_outcome",
+        pos_34,
+    )
+
+    # POS-35 (A4): Explicit stale_reason_code=None on current approval_evidence_ref and dispatch_claim_consumption
+    def pos_35(wt: Dict[str, Any]) -> None:
+        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"]["stale_reason_code"] = None
+        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["stale_reason_code"] = None
+        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0]["stale_reason_code"] = None
+
+    add_case(
+        "POS-35",
+        "POSITIVE",
+        1,
+        [],
+        "A4: explicit stale_reason_code=None on current approval_evidence_ref and dispatch_claim_consumption passes",
+        pos_35,
+    )
+
+    # NEG-82 (GD-35): EXPIRED approval_status rejected as invalid enum value
+    def neg_82(wt: Dict[str, Any]) -> None:
+        find_event(wt, "e27")["attributes"]["approval_status"] = "EXPIRED"
+
+    add_case(
+        "NEG-82",
+        "NEGATIVE",
+        1,
+        ["ERR_APPROVAL_STATUS_INVALID"],
+        "GD-35: dropped EXPIRED approval_status is rejected with ERR_APPROVAL_STATUS_INVALID",
+        neg_82,
+    )
+
+    # NEG-83 (A1): Second APPROVED record after APPROVED on same approval_request_id rejected
+    def neg_83(wt: Dict[str, Any]) -> None:
+        e27 = find_event(wt, "e27")
+        e_dup = copy.deepcopy(e27)
+        e_dup["event_id"] = "e39"
+        e_dup["sequence_number"] = 39
+        e_dup["parent_event_id"] = "e38"
+        e_dup["timestamp"] = "2026-10-18T09:00:02.400Z"
+        e_dup["attributes"]["approval_id"] = "APR-44-SECOND"
+        e_dup["attributes"]["approval_status"] = "APPROVED"
+        e_dup["attributes"]["record_version"] = "apr_rec_44_v2_dup"
+        e_dup["attributes"]["decision_record_seq"] = 109
+        e_dup["attributes"]["supersedes_approval_id"] = "APR-44"
+        e_dup["attributes"]["superseded_by_approval_id"] = None
+        e_dup["attributes"]["trusted_source"]["record_version"] = "apr_rec_44_v2_dup"
+        e_dup["attributes"]["trusted_source"]["decision_record_seq"] = 109
+        e_dup["attributes"]["trusted_source"]["source_ref"] = "approval_registry://records/areq_101/APR-44-SECOND"
+        e_dup["attributes"]["trusted_source"]["verified_at"] = "2026-10-18T09:00:02.350Z"
+        wt["events"].append(e_dup)
+
+    add_case(
+        "NEG-83",
+        "NEGATIVE",
+        1,
+        ["ERR_SA03_ACTION_APPROVAL_BINDING_INVALID"],
+        "A1: second APPROVED record after APPROVED on same approval_request_id is rejected",
+        neg_83,
+    )
+
+    # NEG-84 (A2): Subsequent approval record missing supersedes_approval_id rejected
+    def neg_84(wt: Dict[str, Any]) -> None:
+        e27 = find_event(wt, "e27")
+        e_rev = copy.deepcopy(e27)
+        e_rev["event_id"] = "e39"
+        e_rev["sequence_number"] = 39
+        e_rev["parent_event_id"] = "e38"
+        e_rev["timestamp"] = "2026-10-18T09:00:02.400Z"
+        e_rev["attributes"]["approval_id"] = "APR-44-REV-NOLINK"
+        e_rev["attributes"]["approval_status"] = "CANCELLED"
+        e_rev["attributes"]["record_version"] = "apr_rec_44_v2_nolink"
+        e_rev["attributes"]["decision_record_seq"] = 109
+        e_rev["attributes"]["supersedes_approval_id"] = None
+        e_rev["attributes"]["superseded_by_approval_id"] = None
+        e_rev["attributes"]["trusted_source"]["record_version"] = "apr_rec_44_v2_nolink"
+        e_rev["attributes"]["trusted_source"]["decision_record_seq"] = 109
+        e_rev["attributes"]["trusted_source"]["source_ref"] = "approval_registry://records/areq_101/APR-44-REV-NOLINK"
+        e_rev["attributes"]["trusted_source"]["verified_at"] = "2026-10-18T09:00:02.350Z"
+        wt["events"].append(e_rev)
+
+    add_case(
+        "NEG-84",
+        "NEGATIVE",
+        1,
+        ["ERR_SA03_ACTION_APPROVAL_BINDING_INVALID"],
+        "A2: subsequent approval record with null supersedes_approval_id is rejected",
+        neg_84,
+    )
+
+    # NEG-85 (A3): Stored approval event with non-null superseded_by_approval_id rejected
+    def neg_85(wt: Dict[str, Any]) -> None:
+        find_event(wt, "e27")["attributes"]["superseded_by_approval_id"] = "APR-44-REV"
+
+    add_case(
+        "NEG-85",
+        "NEGATIVE",
+        1,
+        ["ERR_SA03_ACTION_APPROVAL_BINDING_INVALID"],
+        "A3: stored approval event with non-null superseded_by_approval_id (read-model only) is rejected",
+        neg_85,
+    )
+
+    # NEG-86 (A4): Invalid stale_reason_code rejected on approval_evidence_ref
+    def neg_86(wt: Dict[str, Any]) -> None:
+        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"]["stale_reason_code"] = (
+            "UNKNOWN_STALE_CODE"
+        )
+
+    add_case(
+        "NEG-86",
+        "NEGATIVE",
+        1,
+        ["ERR_STALE_REASON_CODE_INVALID"],
+        "A4: unknown stale_reason_code on approval_evidence_ref is rejected",
+        neg_86,
+    )
+
+    # NEG-87 (A5): Approval event sequence_number after create_purchase_order tool_proposal rejected on ALLOW
+    def neg_87(wt: Dict[str, Any]) -> None:
+        evs = wt["events"]
+        ap_idx = next(i for i, e in enumerate(evs) if e["event_id"] == "e27")
+        po_prop_idx = next(
+            i for i, e in enumerate(evs)
+            if e.get("event_type") == "tool_proposal"
+            and (e.get("attributes") or {}).get("known_tool_name") == "create_purchase_order"
+        )
+        ap_ev = evs.pop(ap_idx)
+        # Insert approval right after the create_purchase_order tool_proposal (still before policy_check e32)
+        evs.insert(po_prop_idx, ap_ev)
+        for seq_i, e in enumerate(evs, 1):
+            e["sequence_number"] = seq_i
+
+    add_case(
+        "NEG-87",
+        "NEGATIVE",
+        1,
+        ["ERR_APPROVAL_ORDER_INVALID"],
+        "A5: approval event not preceding tool_proposal by trace sequence_number is rejected on ALLOW",
+        neg_87,
+    )
+
     return cases
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run S1-01 105-case regression suite (v1.11.0)")
+    parser = argparse.ArgumentParser(description="Run S1-01 113-case regression suite (v1.11.0)")
     parser.add_argument("--spec", default=DEFAULT_SPEC, help="Path to updated_schemas_v18.md")
     parser.add_argument("--validator", default=DEFAULT_VALIDATOR, help="Path to validate_s1_01_schema_v1_11.py")
     parser.add_argument("--report-out", default="s1_01_validation_report.json", help="Output JSON report path")
