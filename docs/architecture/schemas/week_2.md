@@ -116,21 +116,21 @@ All 19 rows of Mohamed's governance translation table (including the 3 amended r
 
 ### 4.1 Delivered Package Manifest & Exact-Byte SHA-256 Hashes
 
-The active delivered-package manifest is `manifest_v1_18.json` (14 tracked deliverables; updated in-place for PR #32 post-review batch `GD-23`/`GD-35`/`GD-36` & `A1`–`A5`).
+The active delivered-package manifest is `manifest_v1_18.json` (14 tracked deliverables; includes PR #32 post-review batch `GD-23`/`GD-35`/`GD-36` & `A1`–`A5` plus Nour's P1 PostgreSQL claim-consumption & P2 Ruff/mypy fixes).
 
 | # | File | Bytes | Exact SHA-256 |
 | :---: | :--- | :---: | :--- |
-| 1 | `001_core.sql` | `23,050` | `a161530ef6f06cf3841d0f40ca2ef61ed87194fb8ea6afc13d952e4e3e5a14f7` |
-| 2 | `g01_isolated_diagnostic_runner.py` | `111,337` | `9a74d89ddaf84044c45a2dd04fcb8afd207e47f3239a1a2677367348a8ee6ac8` |
-| 3 | `independent_probes.py` | `5,337` | `aa2ce468eb026827694593512980bebf36b799891fee634fa16d7ab90cb45c2b` |
-| 4 | `probe_remaining_controls.py` | `16,940` | `46da4455f22f49d6acecb1999f69be5f432e13583cad7eaaf461d3127f7dd072` |
-| 5 | `reproduce_findings.py` | `10,175` | `7a3a0765fcd9e4cfd685c4df56e8be56d1f6564d5c18d9f1ef9ae19bf3d59b6c` |
+| 1 | `001_core.sql` | `23,977` | `fafb1b3c9a8b96d38e610958107c8a2cc612e0f8fd744a7b3c4347b42ef21688` |
+| 2 | `g01_isolated_diagnostic_runner.py` | `111,352` | `160982a0637a220af6f97becbdaa3acbe5d56ccd9045f7ed5dc98c84e593fe72` |
+| 3 | `independent_probes.py` | `5,366` | `5546473b8417767355593eaddb5f1b1be97a65c78b4547770dd20be7099aafc6` |
+| 4 | `probe_remaining_controls.py` | `16,955` | `4c7235a6265e0039a8da25293496eb28bb19f4455648232d703c37bf556ef721` |
+| 5 | `reproduce_findings.py` | `12,798` | `91ef03458b361de9403403e4aac2ad1be6c541945328718824db8157f6d7bbad` |
 | 6 | `run_native_verification.py` | `7,035` | `9c70364198d63f0145f272ea505694d149f89b4fd7c74a241cf1cafb73e5af0d` |
 | 7 | `run_s1_01_regression_suite.py` | `108,172` | `8fb657235c09b78f09bcbd0a28aa3fbd5d3e465974599fb518d6ed745bb15cce` |
 | 8 | `run_windows_g01_verification.bat` | `487` | `5d2d51f927428f1605f02e7330ed2f86a37171fb65e11326beec752d8e212a0a` |
 | 9 | `s1_01_validation_report.json` | `52,171` | `48dbfee5e656132a7a72e343dce5af8bb027b43df80ebbadb71b557a00e0a6de` |
-| 10 | `test_g01_isolated_diagnostic.py` | `51,514` | `5f8ccdfa8eec3d0e2a53c7de91df321f1bf27473e19b47dc5ee8439ad96f1c50` |
-| 11 | `trustops_sdk.py` | `29,645` | `9b4ba06c4984f13c95b6933ee481f6ff68579f8f94aee10775df21c1415675e3` |
+| 10 | `test_g01_isolated_diagnostic.py` | `51,529` | `aac912aed81beb78cf052b83a0f3d13591f37c65cab378c83fa0830a97b9679d` |
+| 11 | `trustops_sdk.py` | `29,610` | `70fe082f4ed16adaa61808301bbffb7bf4506c2058fd9b71900537c6e066992e` |
 | 12 | `updated_schemas_v18.md` | `421,172` | `f2784b5b7dbf23c6d9d54111ab37d51c98af3042b12c443039ded43f3532e9fd` |
 | 13 | `validate_s1_01_schema_v1_11.py` | `157,491` | `b2dd0ee525fc508471be77a4e8fcfbae9e6b7542417f2e82e6058cc27ad9c149` |
 | 14 | `week_2.md` | *(self — recorded in `manifest_v1_18.json`)* | *(self — recorded in `manifest_v1_18.json`)* |

@@ -7,6 +7,7 @@ SHA-256 values while preserving the original `manifest_v1_18.json` archive recor
 Usage (from repository root after committing PR #32 fixes):
     python path/to/generate_repo_hash_record.py --out repo_verification_hashes.json
 """
+
 import argparse
 import datetime
 import hashlib
@@ -36,8 +37,15 @@ TRACKED_FILENAMES = [
 ]
 
 SKIP_DIRS = {
-    ".git", ".venv", "venv", "node_modules", "__pycache__",
-    "build", "dist", ".mypy_cache", ".pytest_cache",
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".pytest_cache",
 }
 
 
@@ -51,13 +59,20 @@ def git_cmd(repo_root: pathlib.Path, *args: str) -> str:
     return proc.stdout.strip() if proc.returncode == 0 else "UNAVAILABLE_NOT_A_GIT_REPO"
 
 
+_UTC: datetime.tzinfo = (
+    datetime.UTC if sys.version_info >= (3, 11) else datetime.timezone(datetime.timedelta(0))
+)
+
+
 def sha256_exact(path: pathlib.Path) -> tuple[int, str]:
     data = path.read_bytes()
     return len(data), hashlib.sha256(data).hexdigest()
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate repo_verification_hashes.json from exact committed bytes")
+    parser = argparse.ArgumentParser(
+        description="Generate repo_verification_hashes.json from exact committed bytes"
+    )
     parser.add_argument("--repo-root", default=".", help="Repository root directory")
     parser.add_argument("--out", default="repo_verification_hashes.json", help="Output JSON path")
     args = parser.parse_args()
@@ -79,11 +94,11 @@ def main() -> int:
                         "sha256": digest,
                     }
                 )
-    entries.sort(key=lambda x: x["repo_path"])
+    entries.sort(key=lambda x: str(x["repo_path"]))
 
     record = {
         "record_type": "REPOSITORY_COMMITTED_BYTE_VERIFICATION",
-        "generated_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "generated_at_utc": datetime.datetime.now(_UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "git_revision": git_cmd(repo_root, "rev-parse", "HEAD"),
         "git_short_sha": git_cmd(repo_root, "rev-parse", "--short", "HEAD"),
         "git_branch": git_cmd(repo_root, "rev-parse", "--abbrev-ref", "HEAD"),

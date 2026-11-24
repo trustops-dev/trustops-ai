@@ -12,20 +12,33 @@ and writes the byte-verified s1_01_validation_report.json.
 import argparse
 import copy
 import hashlib
+import importlib
 import json
 import os
+import pathlib
 import re
 import sys
-from typing import Any, Callable, Dict, List, Tuple
-
-import pathlib
 import tempfile
+from collections.abc import Callable
+from typing import Any
 
 _REPO_SKIP_DIRS = {
-    ".git", ".venv", "venv", "env", "node_modules", "__pycache__",
-    "build", "dist", ".mypy_cache", ".pytest_cache", ".ruff_cache",
-    "negative_and_variant_probes", ".tox", ".eggs",
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "negative_and_variant_probes",
+    ".tox",
+    ".eggs",
 }
+
 
 def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
     cur = start.resolve()
@@ -36,7 +49,13 @@ def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
             return candidate
     return start.resolve().parent if start.is_file() else start.resolve()
 
-def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (), avoid_in: tuple = ()) -> "pathlib.Path":
+
+def _find_repo_file(
+    filename: str,
+    start: pathlib.Path,
+    prefer_in: tuple[str, ...] = (),
+    avoid_in: tuple[str, ...] = (),
+) -> pathlib.Path:
     here = start.resolve().parent if start.is_file() else start.resolve()
     direct = here / filename
     if direct.is_file():
@@ -47,27 +66,34 @@ def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (),
     repo_root = _find_repo_root(here)
     matches = []
     for root, dirs, files in os.walk(repo_root):
-        dirs[:] = sorted(d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info"))
+        dirs[:] = sorted(
+            d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info")
+        )
         if filename in files:
             matches.append(pathlib.Path(root) / filename)
     if not matches:
         raise FileNotFoundError(f"Could not locate {filename} from {here} or repo root {repo_root}")
-    def _rank(p: "pathlib.Path") -> tuple:
+
+    def _rank(p: pathlib.Path) -> tuple[int, int, int, str]:
         parts = set(p.parts)
         pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
         avoid_score = 1 if any(x in parts for x in avoid_in) else 0
         return (avoid_score, pref_score, len(p.parts), str(p))
+
     matches.sort(key=_rank)
     return matches[0]
 
+
 val_mod: Any = None
-try:
-    import validate_s1_01_schema_v1_11 as val_mod
-except ImportError:
+for _val_mod_name in (
+    "validate_s1_01_schema_v1_11",
+    "trustops_sdk.validate_s1_01_schema_v1_11",
+):
     try:
-        from trustops_sdk import validate_s1_01_schema_v1_11 as val_mod
+        val_mod = importlib.import_module(_val_mod_name)
+        break
     except ImportError:
-        pass
+        continue
 
 SUITE_VERSION = "1.11.0"
 DEFAULT_SPEC = "updated_schemas_v18.md"
@@ -79,37 +105,37 @@ def sha256_file(path: str) -> str:
         return hashlib.sha256(f.read()).hexdigest()
 
 
-def extract_json_blocks(spec_text: str) -> List[Tuple[Tuple[int, int], Dict[str, Any]]]:
+def extract_json_blocks(spec_text: str) -> list[tuple[tuple[int, int], dict[str, Any]]]:
     res = []
     for m in re.finditer(r"```json\n(.*?)\n```", spec_text, re.DOTALL):
         res.append(((m.start(1), m.end(1)), json.loads(m.group(1))))
     return res
 
 
-def rebuild_spec_with_wt(spec_text: str, wt_index: int, mutated_wt: Dict[str, Any]) -> str:
+def rebuild_spec_with_wt(spec_text: str, wt_index: int, mutated_wt: dict[str, Any]) -> str:
     matches = list(re.finditer(r"```json\n(.*?)\n```", spec_text, re.DOTALL))
     target_m = matches[8 + wt_index]
     new_json = json.dumps(mutated_wt, indent=2, ensure_ascii=False)
     return spec_text[: target_m.start(1)] + new_json + spec_text[target_m.end(1) :]
 
 
-def find_event(wt: Dict[str, Any], event_id: str) -> Dict[str, Any]:
+def find_event(wt: dict[str, Any], event_id: str) -> dict[str, Any]:
     for ev in wt["events"]:
-        if ev["event_id"] == event_id:
+        if isinstance(ev, dict) and ev["event_id"] == event_id:
             return ev
     raise KeyError(f"Event {event_id} not found")
 
 
-def build_cases() -> List[Dict[str, Any]]:
-    cases: List[Dict[str, Any]] = []
+def build_cases() -> list[dict[str, Any]]:
+    cases: list[dict[str, Any]] = []
 
     def add_case(
         cid: str,
         kind: str,
         wt_idx: int,
-        expected_codes: List[str],
+        expected_codes: list[str],
         desc: str,
-        mutator: Callable[[Dict[str, Any]], None],
+        mutator: Callable[[dict[str, Any]], None],
         approval_validation_profile: str = "provisional_draft",
     ) -> None:
         cases.append(
@@ -126,16 +152,22 @@ def build_cases() -> List[Dict[str, Any]]:
         )
 
     # BASE-00
-    add_case("BASE-00", "POSITIVE", 1, [], "Unmodified updated_schemas_v18.md baseline", lambda wt: None)
+    add_case(
+        "BASE-00", "POSITIVE", 1, [], "Unmodified updated_schemas_v18.md baseline", lambda wt: None
+    )
 
     # POS-11: Valid get_supplier ERROR stopping in POLICY_CHECKED
-    def pos_11(wt: Dict[str, Any]) -> None:
+    def pos_11(wt: dict[str, Any]) -> None:
         e13 = find_event(wt, "e13")
         e13["attributes"]["execution_status"] = "ERROR"
         e13["attributes"]["result_payload"] = {
             "status": "ERROR",
             "data": None,
-            "error": {"code": "SUPPLIER_DIRECTORY_UNAVAILABLE", "message": "Directory timeout", "retryable": False},
+            "error": {
+                "code": "SUPPLIER_DIRECTORY_UNAVAILABLE",
+                "message": "Directory timeout",
+                "retryable": False,
+            },
         }
         e14 = find_event(wt, "e14")
         e14["attributes"]["to_app_state"] = "POLICY_CHECKED"
@@ -146,34 +178,57 @@ def build_cases() -> List[Dict[str, Any]]:
         wt["last_app_state"] = "POLICY_CHECKED"
         wt["execution_status"] = "FAILED"
         if "post_run_analysis_example" in wt:
-            wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = ["e12", "e13", "e14"]
-            wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = "NOT_REACHED_STOPPED_BEFORE_PO_GATE"
-            wt["post_run_analysis_example"]["governance_enforcement_summary"]["tool_dispatched"] = False
+            wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = [
+                "e12",
+                "e13",
+                "e14",
+            ]
+            wt["post_run_analysis_example"]["governance_enforcement_summary"][
+                "enforcement_outcome"
+            ] = "NOT_REACHED_STOPPED_BEFORE_PO_GATE"
+            wt["post_run_analysis_example"]["governance_enforcement_summary"]["tool_dispatched"] = (
+                False
+            )
         ebt = wt["execution_budget_telemetry"]
         ebt["dispatch_claim_ledger"] = []
         c = ebt["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 2
         c["logical_tool_operations"]["spent_count"] = 2
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 2
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 2
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 2
         c["tool_attempt_debits"]["spent_count"] = 2
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 2
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 2
+        )
         c["logical_generation_operations"]["slice_observed_spent_count"] = 0
         c["logical_generation_operations"]["spent_count"] = 0
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"]
+        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"][
+            "configured_ceiling"
+        ]
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 0
         c["generation_attempt_debits"]["spent_count"] = 0
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"]
+        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"][
+            "configured_ceiling"
+        ]
         wql = ebt["workload_quota_ledger"]
         wql["trace_requests_debited"] = 0
         wql["trace_prompt_tokens_debited"] = 0
         wql["trace_completion_tokens_debited"] = 0
         wql["trace_total_tokens_debited"] = 0
 
-    add_case("POS-11", "POSITIVE", 1, [], "Valid get_supplier status=ERROR stopping in POLICY_CHECKED", pos_11)
+    add_case(
+        "POS-11",
+        "POSITIVE",
+        1,
+        [],
+        "Valid get_supplier status=ERROR stopping in POLICY_CHECKED",
+        pos_11,
+    )
 
     # POS-12: Valid calculate_approval_level UNRESOLVED stopping in SUPPLIER_CHECKED
-    def pos_12(wt: Dict[str, Any]) -> None:
+    def pos_12(wt: dict[str, Any]) -> None:
         e19 = find_event(wt, "e19")
         e19["attributes"]["result_payload"] = {
             "status": "UNRESOLVED",
@@ -196,34 +251,57 @@ def build_cases() -> List[Dict[str, Any]]:
         wt["last_app_state"] = "SUPPLIER_CHECKED"
         wt["execution_status"] = "STOPPED_BUSINESS_BLOCK"
         if "post_run_analysis_example" in wt:
-            wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = ["e18", "e19", "e20"]
-            wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = "NOT_REACHED_STOPPED_BEFORE_PO_GATE"
-            wt["post_run_analysis_example"]["governance_enforcement_summary"]["tool_dispatched"] = False
+            wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = [
+                "e18",
+                "e19",
+                "e20",
+            ]
+            wt["post_run_analysis_example"]["governance_enforcement_summary"][
+                "enforcement_outcome"
+            ] = "NOT_REACHED_STOPPED_BEFORE_PO_GATE"
+            wt["post_run_analysis_example"]["governance_enforcement_summary"]["tool_dispatched"] = (
+                False
+            )
         ebt = wt["execution_budget_telemetry"]
         ebt["dispatch_claim_ledger"] = []
         c = ebt["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 3
         c["logical_tool_operations"]["spent_count"] = 3
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 3
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 3
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 3
         c["tool_attempt_debits"]["spent_count"] = 3
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 3
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 3
+        )
         c["logical_generation_operations"]["slice_observed_spent_count"] = 0
         c["logical_generation_operations"]["spent_count"] = 0
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"]
+        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"][
+            "configured_ceiling"
+        ]
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 0
         c["generation_attempt_debits"]["spent_count"] = 0
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"]
+        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"][
+            "configured_ceiling"
+        ]
         wql = ebt["workload_quota_ledger"]
         wql["trace_requests_debited"] = 0
         wql["trace_prompt_tokens_debited"] = 0
         wql["trace_completion_tokens_debited"] = 0
         wql["trace_total_tokens_debited"] = 0
 
-    add_case("POS-12", "POSITIVE", 1, [], "Valid calculate_approval_level UNRESOLVED stopping in SUPPLIER_CHECKED", pos_12)
+    add_case(
+        "POS-12",
+        "POSITIVE",
+        1,
+        [],
+        "Valid calculate_approval_level UNRESOLVED stopping in SUPPLIER_CHECKED",
+        pos_12,
+    )
 
     # POS-13: Valid RAG zero-hit empty retrieval ending in ABSTENTION
-    def pos_13(wt: Dict[str, Any]) -> None:
+    def pos_13(wt: dict[str, Any]) -> None:
         e1 = find_event(wt, "e1")
         e1["attributes"]["returned_count"] = 0
         e1["attributes"]["execution_status"] = "COMPLETED_ZERO_HITS"
@@ -248,10 +326,17 @@ def build_cases() -> List[Dict[str, Any]]:
         e3["attributes"]["claim_to_source_spans"] = []
         wt["last_rag_stage"] = "ABSTENTION"
 
-    add_case("POS-13", "POSITIVE", 4, [], "Valid RAG zero-hit empty retrieval ending in ABSTENTION", pos_13)
+    add_case(
+        "POS-13",
+        "POSITIVE",
+        4,
+        [],
+        "Valid RAG zero-hit empty retrieval ending in ABSTENTION",
+        pos_13,
+    )
 
     # POS-14: Valid retry_accounting on WT1 model_call
-    def pos_14(wt: Dict[str, Any]) -> None:
+    def pos_14(wt: dict[str, Any]) -> None:
         e29 = find_event(wt, "e29")
         e29["attributes"]["retry_accounting"] = {
             "attempt_number": 2,
@@ -271,13 +356,22 @@ def build_cases() -> List[Dict[str, Any]]:
         )
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 3
         c["generation_attempt_debits"]["spent_count"] = 3
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"] - 3
+        c["generation_attempt_debits"]["remaining_count"] = (
+            c["generation_attempt_debits"]["configured_ceiling"] - 3
+        )
         wt["execution_budget_telemetry"]["workload_quota_ledger"]["trace_requests_debited"] = 3
 
-    add_case("POS-14", "POSITIVE", 1, [], "Valid retry_accounting on WT1 model_call reconciled with budget", pos_14)
+    add_case(
+        "POS-14",
+        "POSITIVE",
+        1,
+        [],
+        "Valid retry_accounting on WT1 model_call reconciled with budget",
+        pos_14,
+    )
 
     # POS-15: unknown_after_runtime_exception on WT3
-    def pos_15(wt: Dict[str, Any]) -> None:
+    def pos_15(wt: dict[str, Any]) -> None:
         e7 = find_event(wt, "e7")
         e7["attributes"]["execution_status"] = "RUNTIME_EXCEPTION"
         e7["attributes"]["transport_diagnostics"]["code"] = "CONNECTION_RESET_AFTER_SEND"
@@ -292,7 +386,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-16: valid_unresolved_recovery_fragment on WT3
-    def pos_16(wt: Dict[str, Any]) -> None:
+    def pos_16(wt: dict[str, Any]) -> None:
         e8 = find_event(wt, "e8")
         e8["attributes"]["ledger_record_status"] = "NO_LEDGER_ENTRY_FOUND"
         e8["attributes"]["reconciliation_status"] = "STILL_UNRESOLVED"
@@ -313,7 +407,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-17: valid_observation_retry_accounted on WT1
-    def pos_17(wt: Dict[str, Any]) -> None:
+    def pos_17(wt: dict[str, Any]) -> None:
         e13 = find_event(wt, "e13")
         e13["attributes"]["transport_diagnostics"] = {
             "code": "TRANSIENT_LOOKUP_RETRYABLE",
@@ -322,7 +416,9 @@ def build_cases() -> List[Dict[str, Any]]:
         }
         e13["attributes"]["execution_status"] = "ERROR"
         e24 = find_event(wt, "e24")
-        e24["attributes"]["trusted_runtime_context"]["budget_context"]["operation_mode"] = "OBSERVE_APPROVAL"
+        e24["attributes"]["trusted_runtime_context"]["budget_context"]["operation_mode"] = (
+            "OBSERVE_APPROVAL"
+        )
         e24["attributes"]["retry_accounting"] = {
             "attempt_number": 2,
             "max_attempts_configured": 2,
@@ -335,7 +431,9 @@ def build_cases() -> List[Dict[str, Any]]:
         c = wt["execution_budget_telemetry"]["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 4
         c["logical_tool_operations"]["spent_count"] = 4
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 4
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 4
+        )
 
     add_case(
         "POS-17",
@@ -347,7 +445,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-18: G01 Run 2 (results (1).json) PROVIDER_OR_SDK_ERROR with http_status=null and request_transport_evidence
-    def pos_18(wt: Dict[str, Any]) -> None:
+    def pos_18(wt: dict[str, Any]) -> None:
         e2 = find_event(wt, "e2")
         e2["status"] = "ERROR"
         e2["attributes"]["execution_status"] = "PROVIDER_OR_SDK_ERROR"
@@ -396,23 +494,29 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-19: valid_e03_explicit_policy_ids_filter
-    def pos_19(wt: Dict[str, Any]) -> None:
+    def pos_19(wt: dict[str, Any]) -> None:
         e2 = find_event(wt, "e2")
         e2["attributes"]["proposed_arguments"]["policy_ids"] = ["POL-114"]
-        e2["attributes"]["raw_arguments_serialized"] = json.dumps(e2["attributes"]["proposed_arguments"])
+        e2["attributes"]["raw_arguments_serialized"] = json.dumps(
+            e2["attributes"]["proposed_arguments"]
+        )
         e3 = find_event(wt, "e3")
         e3["attributes"]["normalized_arguments"]["policy_ids"] = ["POL-114"]
         new_dig = val_mod.compute_arguments_digest(e3["attributes"]["normalized_arguments"])
         e3["attributes"]["arguments_digest"] = new_dig
         e4 = find_event(wt, "e4")
-        e4["attributes"]["authorization_snapshot"]["validated_arguments"]["policy_ids"] = ["POL-114"]
+        e4["attributes"]["authorization_snapshot"]["validated_arguments"]["policy_ids"] = [
+            "POL-114"
+        ]
         e4["attributes"]["authorization_snapshot"]["arguments_digest"] = new_dig
         e5 = find_event(wt, "e5")
         e5["attributes"]["arguments"]["policy_ids"] = ["POL-114"]
         e5["attributes"]["arguments_digest"] = new_dig
         e6 = find_event(wt, "e6")
         e6["attributes"]["filter_provenance"]["requested_model_filters"]["policy_ids"] = ["POL-114"]
-        e6["attributes"]["filter_provenance"]["effective_trusted_filters"]["policy_ids"] = ["POL-114"]
+        e6["attributes"]["filter_provenance"]["effective_trusted_filters"]["policy_ids"] = [
+            "POL-114"
+        ]
 
     add_case(
         "POS-19",
@@ -424,7 +528,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-20 (New v1.10 Alaa/Nour Security Subset Control): valid_security_subset_benign_control
-    def pos_20(wt: Dict[str, Any]) -> None:
+    def pos_20(wt: dict[str, Any]) -> None:
         sm = wt["scenario_metadata"]
         sm["is_security_subset"] = True
         sm["security_category"] = "BENIGN_SECURITY_LOOKALIKE"
@@ -446,7 +550,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-21 (New v1.10 G01 Run 1 Control): valid_g01_run1_timeout_outcome_unknown_no_http_status
-    def pos_21(wt: Dict[str, Any]) -> None:
+    def pos_21(wt: dict[str, Any]) -> None:
         e2 = find_event(wt, "e2")
         e2["status"] = "ERROR"
         e2["attributes"]["execution_status"] = "TIMEOUT_OUTCOME_UNKNOWN"
@@ -501,7 +605,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_ARG_DIGEST_MISMATCH"],
         "WT1 e3 arguments_digest replaced with all-zero SHA-256",
-        lambda wt: find_event(wt, "e3")["attributes"].__setitem__("arguments_digest", "sha256:" + "0" * 64),
+        lambda wt: find_event(wt, "e3")["attributes"].__setitem__(
+            "arguments_digest", "sha256:" + "0" * 64
+        ),
     )
     add_case(
         "NEG-02",
@@ -509,10 +615,12 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_AUTH_CHECK_UNRESOLVED"],
         "WT1 e5 authorization_check_id set to chk_does_not_exist",
-        lambda wt: find_event(wt, "e5")["attributes"].__setitem__("authorization_check_id", "chk_does_not_exist"),
+        lambda wt: find_event(wt, "e5")["attributes"].__setitem__(
+            "authorization_check_id", "chk_does_not_exist"
+        ),
     )
 
-    def neg_03(wt: Dict[str, Any]) -> None:
+    def neg_03(wt: dict[str, Any]) -> None:
         e5 = find_event(wt, "e5")
         e5["sequence_number"] = 999
         e5["parent_event_id"] = "e_does_not_exist"
@@ -549,7 +657,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_PO_STATE_TRANSITION_INVALID", "ERR_PO_BINDING_FAILED"],
         "WT1 e33 bound_authorization_check_id mutated",
-        lambda wt: find_event(wt, "e33")["attributes"].__setitem__("bound_authorization_check_id", "chk_wrong"),
+        lambda wt: find_event(wt, "e33")["attributes"].__setitem__(
+            "bound_authorization_check_id", "chk_wrong"
+        ),
     )
     add_case(
         "NEG-07",
@@ -557,7 +667,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_UNKNOWN_FIELD_REJECTED"],
         "Injects trace-only business_status into WT1 e7 result_payload",
-        lambda wt: find_event(wt, "e7")["attributes"]["result_payload"].__setitem__("business_status", "MATCHED"),
+        lambda wt: find_event(wt, "e7")["attributes"]["result_payload"].__setitem__(
+            "business_status", "MATCHED"
+        ),
     )
     add_case(
         "NEG-08",
@@ -585,9 +697,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH", "ERR_PO_BINDING_FAILED"],
         "Actual get_supplier result e13 changed to NOT_APPROVED while snapshot claims APPROVED",
-        lambda wt: find_event(wt, "e13")["attributes"]["result_payload"]["data"]["supplier"].__setitem__(
-            "status", "NOT_APPROVED"
-        ),
+        lambda wt: find_event(wt, "e13")["attributes"]["result_payload"]["data"][
+            "supplier"
+        ].__setitem__("status", "NOT_APPROVED"),
     )
     add_case(
         "NEG-11",
@@ -598,7 +710,7 @@ def build_cases() -> List[Dict[str, Any]]:
         lambda wt: find_event(wt, "e27")["attributes"].__setitem__("approval_status", "DENIED"),
     )
 
-    def neg_12(wt: Dict[str, Any]) -> None:
+    def neg_12(wt: dict[str, Any]) -> None:
         wt["request"]["structured_input"]["total_amount"] = "1.00"
         for lk in wt["request"]["normalization_provenance"]["raw_to_normalized_field_links"]:
             if lk["field_name"] == "total_amount":
@@ -613,7 +725,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_12,
     )
 
-    def neg_13(wt: Dict[str, Any]) -> None:
+    def neg_13(wt: dict[str, Any]) -> None:
         for p in find_event(wt, "e32")["attributes"]["evaluated_policies"]:
             p["policy_id"] = "PROC-APPROVAL-01"
 
@@ -631,9 +743,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_DISPATCH_CLAIM_MISMATCH", "ERR_PO_BINDING_FAILED"],
         "WT1 e32 snapshot dispatch_claim.dispatch_claim_id changed to dclaim_tampered",
-        lambda wt: find_event(wt, "e32")["attributes"]["authorization_snapshot"]["dispatch_claim"].__setitem__(
-            "dispatch_claim_id", "dclaim_tampered"
-        ),
+        lambda wt: find_event(wt, "e32")["attributes"]["authorization_snapshot"][
+            "dispatch_claim"
+        ].__setitem__("dispatch_claim_id", "dclaim_tampered"),
     )
     add_case(
         "NEG-15",
@@ -644,7 +756,7 @@ def build_cases() -> List[Dict[str, Any]]:
         lambda wt: find_event(wt, "e7")["attributes"].__setitem__("side_effect_state", "NONE"),
     )
 
-    def neg_16(wt: Dict[str, Any]) -> None:
+    def neg_16(wt: dict[str, Any]) -> None:
         e8 = find_event(wt, "e8")
         e8["attributes"]["queried_idempotency_key"] = "idem_wrong"
         e8["attributes"]["recovered_result_envelope"]["data"]["total_amount"] = "9999.00"
@@ -658,7 +770,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_16,
     )
 
-    def neg_17(wt: Dict[str, Any]) -> None:
+    def neg_17(wt: dict[str, Any]) -> None:
         dup = copy.deepcopy(find_event(wt, "e13"))
         dup["event_id"] = "e39"
         dup["sequence_number"] = 39
@@ -680,9 +792,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_BUDGET_COUNTER_INVALID"],
         "Corrupts WT1 execution_budget_telemetry.counters.logical_tool_operations.spent_count to 99",
-        lambda wt: wt["execution_budget_telemetry"]["counters"]["logical_tool_operations"].__setitem__(
-            "spent_count", 99
-        ),
+        lambda wt: wt["execution_budget_telemetry"]["counters"][
+            "logical_tool_operations"
+        ].__setitem__("spent_count", 99),
     )
     add_case(
         "NEG-19",
@@ -690,9 +802,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_BUDGET_FENCING_MISMATCH"],
         "Mutates WT1 e34 budget_context.fencing_token to 99 while trace fencing_token is 1",
-        lambda wt: find_event(wt, "e34")["attributes"]["trusted_runtime_context"]["budget_context"].__setitem__(
-            "fencing_token", 99
-        ),
+        lambda wt: find_event(wt, "e34")["attributes"]["trusted_runtime_context"][
+            "budget_context"
+        ].__setitem__("fencing_token", 99),
     )
     add_case(
         "NEG-20",
@@ -705,7 +817,7 @@ def build_cases() -> List[Dict[str, Any]]:
         ),
     )
 
-    def neg_21(wt: Dict[str, Any]) -> None:
+    def neg_21(wt: dict[str, Any]) -> None:
         doc = find_event(wt, "e6")["attributes"]["retrieved_documents"][0]
         short_text = doc["content_snippet"][:20]
         doc["canonical_chunk_slice"] = short_text
@@ -714,7 +826,9 @@ def build_cases() -> List[Dict[str, Any]]:
         for mc_id in ("e29", "e37"):
             mc = find_event(wt, mc_id)
             mc["attributes"]["selected_context_ref"]["rendered_context_block"] = short_text
-            mc["attributes"]["rendered_prompt_or_messages"][0]["content"] = f"Context:\n{short_text}"
+            mc["attributes"]["rendered_prompt_or_messages"][0]["content"] = (
+                f"Context:\n{short_text}"
+            )
 
     add_case(
         "NEG-21",
@@ -725,7 +839,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_21,
     )
 
-    def neg_22(wt: Dict[str, Any]) -> None:
+    def neg_22(wt: dict[str, Any]) -> None:
         find_event(wt, "e30")["attributes"]["raw_arguments_serialized"] = "{bad_json"
         dup_call = copy.deepcopy(find_event(wt, "e34"))
         dup_call["event_id"] = "e39"
@@ -736,10 +850,14 @@ def build_cases() -> List[Dict[str, Any]]:
         c = wt["execution_budget_telemetry"]["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 6
         c["logical_tool_operations"]["spent_count"] = 6
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 6
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 6
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 6
         c["tool_attempt_debits"]["spent_count"] = 6
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 6
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 6
+        )
 
     add_case(
         "NEG-22",
@@ -755,7 +873,9 @@ def build_cases() -> List[Dict[str, Any]]:
         3,
         ["ERR_RECOVERY_KEY_MISMATCH"],
         "Isolated recovery_check.queried_idempotency_key mismatch in WT3 e8",
-        lambda wt: find_event(wt, "e8")["attributes"].__setitem__("queried_idempotency_key", "idem_wrong_only"),
+        lambda wt: find_event(wt, "e8")["attributes"].__setitem__(
+            "queried_idempotency_key", "idem_wrong_only"
+        ),
     )
     add_case(
         "NEG-24",
@@ -763,9 +883,9 @@ def build_cases() -> List[Dict[str, Any]]:
         3,
         ["ERR_PO_RESULT_REQUEST_MISMATCH"],
         "Isolated recovery_check.recovered_result_envelope.data.total_amount mismatch in WT3 e8",
-        lambda wt: find_event(wt, "e8")["attributes"]["recovered_result_envelope"]["data"].__setitem__(
-            "total_amount", "9999.00"
-        ),
+        lambda wt: find_event(wt, "e8")["attributes"]["recovered_result_envelope"][
+            "data"
+        ].__setitem__("total_amount", "9999.00"),
     )
     add_case(
         "NEG-25",
@@ -773,10 +893,12 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_RAW_ARGS_PARSE_MISMATCH"],
         "Isolated malformed raw_arguments_serialized on WT1 e30",
-        lambda wt: find_event(wt, "e30")["attributes"].__setitem__("raw_arguments_serialized", "{bad_json"),
+        lambda wt: find_event(wt, "e30")["attributes"].__setitem__(
+            "raw_arguments_serialized", "{bad_json"
+        ),
     )
 
-    def neg_26(wt: Dict[str, Any]) -> None:
+    def neg_26(wt: dict[str, Any]) -> None:
         dup_call = copy.deepcopy(find_event(wt, "e34"))
         dup_call["event_id"] = "e39"
         dup_call["sequence_number"] = 39
@@ -786,10 +908,14 @@ def build_cases() -> List[Dict[str, Any]]:
         c = wt["execution_budget_telemetry"]["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 6
         c["logical_tool_operations"]["spent_count"] = 6
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 6
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 6
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 6
         c["tool_attempt_debits"]["spent_count"] = 6
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 6
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 6
+        )
 
     add_case(
         "NEG-26",
@@ -805,9 +931,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH", "ERR_PO_BINDING_FAILED"],
         "approval_event_id in WT1 e32 points to nonexistent event e999_missing",
-        lambda wt: find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"].__setitem__(
-            "approval_event_id", "e999_missing"
-        ),
+        lambda wt: find_event(wt, "e32")["attributes"]["authorization_snapshot"][
+            "approval_evidence_ref"
+        ].__setitem__("approval_event_id", "e999_missing"),
     )
     add_case(
         "NEG-28",
@@ -825,9 +951,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_APPROVAL_EVIDENCE_MISMATCH", "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"],
         "Embedded ApprovalEvidence.approval_level in WT1 e25 disagrees with approval event",
-        lambda wt: find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"].__setitem__(
-            "approval_level", "DIRECTOR_L2"
-        ),
+        lambda wt: find_event(wt, "e25")["attributes"]["result_payload"]["data"][
+            "approval_evidence"
+        ].__setitem__("approval_level", "DIRECTOR_L2"),
     )
     add_case(
         "NEG-30",
@@ -835,9 +961,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_APPROVAL_EVIDENCE_MISMATCH", "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"],
         "Embedded ApprovalEvidence.source_ref in WT1 e25 identifies a different approval decision",
-        lambda wt: find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"].__setitem__(
-            "source_ref", "mock_approval_registry://decisions/APR-999"
-        ),
+        lambda wt: find_event(wt, "e25")["attributes"]["result_payload"]["data"][
+            "approval_evidence"
+        ].__setitem__("source_ref", "mock_approval_registry://decisions/APR-999"),
     )
     add_case(
         "NEG-31",
@@ -855,18 +981,26 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_APPROVAL_CEILING_EXCEEDED", "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"],
         "approved_amount_ceiling in WT1 e27 is 1.00 while bound_amount is 16000.00",
-        lambda wt: find_event(wt, "e27")["attributes"].__setitem__("approved_amount_ceiling", "1.00"),
+        lambda wt: find_event(wt, "e27")["attributes"].__setitem__(
+            "approved_amount_ceiling", "1.00"
+        ),
     )
     add_case(
         "NEG-33",
         "NEGATIVE",
         1,
-        ["ERR_APPROVAL_CHRONOLOGY_INVALID", "ERR_APPROVAL_EVIDENCE_MISMATCH", "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"],
+        [
+            "ERR_APPROVAL_CHRONOLOGY_INVALID",
+            "ERR_APPROVAL_EVIDENCE_MISMATCH",
+            "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+        ],
         "approval_timestamp in WT1 e27 is 2099-01-01T00:00:00.000Z",
-        lambda wt: find_event(wt, "e27")["attributes"].__setitem__("approval_timestamp", "2099-01-01T00:00:00.000Z"),
+        lambda wt: find_event(wt, "e27")["attributes"].__setitem__(
+            "approval_timestamp", "2099-01-01T00:00:00.000Z"
+        ),
     )
 
-    def neg_34(wt: Dict[str, Any]) -> None:
+    def neg_34(wt: dict[str, Any]) -> None:
         e7 = find_event(wt, "e7")
         e7["attributes"]["execution_status"] = "TIMEOUT"
         e7["attributes"]["side_effect_state"] = "NONE"
@@ -885,7 +1019,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_34,
     )
 
-    def neg_35(wt: Dict[str, Any]) -> None:
+    def neg_35(wt: dict[str, Any]) -> None:
         e8 = find_event(wt, "e8")
         e8["attributes"]["ledger_record_status"] = "NO_LEDGER_ENTRY_FOUND"
         e8["attributes"]["reconciliation_status"] = "STILL_UNRESOLVED"
@@ -922,7 +1056,7 @@ def build_cases() -> List[Dict[str, Any]]:
         ),
     )
 
-    def neg_38(wt: Dict[str, Any]) -> None:
+    def neg_38(wt: dict[str, Any]) -> None:
         e24 = find_event(wt, "e24")
         e24["attributes"]["retry_accounting"] = {
             "attempt_number": 2,
@@ -938,7 +1072,11 @@ def build_cases() -> List[Dict[str, Any]]:
         "NEG-38",
         "NEGATIVE",
         1,
-        ["ERR_WRITE_RETRY_FORBIDDEN", "ERR_RETRY_PRIOR_ATTEMPT_UNRESOLVED", "ERR_BUDGET_COUNTER_INVALID"],
+        [
+            "ERR_WRITE_RETRY_FORBIDDEN",
+            "ERR_RETRY_PRIOR_ATTEMPT_UNRESOLVED",
+            "ERR_BUDGET_COUNTER_INVALID",
+        ],
         "approval_submission_retry_unaccounted: CREATE_APPROVAL_REQUEST labeled as retry without prior attempt or debit",
         neg_38,
     )
@@ -958,7 +1096,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_UNKNOWN_FIELD_REJECTED"],
         "approval_unknown_field: Adds undeclared attribute to WT1 e27 (approval)",
-        lambda wt: find_event(wt, "e27")["attributes"].__setitem__("extra_undeclared_field", "unexpected"),
+        lambda wt: find_event(wt, "e27")["attributes"].__setitem__(
+            "extra_undeclared_field", "unexpected"
+        ),
     )
     add_case(
         "NEG-41",
@@ -969,10 +1109,14 @@ def build_cases() -> List[Dict[str, Any]]:
         lambda wt: find_event(wt, "e1").__setitem__("timestamp", "not-a-time"),
     )
 
-    def neg_42(wt: Dict[str, Any]) -> None:
+    def neg_42(wt: dict[str, Any]) -> None:
         find_event(wt, "e33")["attributes"]["bound_authorization_check_id"] = "chk_pol_01"
-        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["bound_authorization_check_id"] = "chk_pol_01"
-        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0]["bound_authorization_check_id"] = "chk_pol_01"
+        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"][
+            "bound_authorization_check_id"
+        ] = "chk_pol_01"
+        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0][
+            "bound_authorization_check_id"
+        ] = "chk_pol_01"
 
     add_case(
         "NEG-42",
@@ -1004,7 +1148,9 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_MODEL_CALL_EVIDENCE_INCOMPLETE"],
         "E02 Negative Probe: WT1 e29 model_call effective_config_ref or generation_parameters missing/mismatched",
-        lambda wt: find_event(wt, "e29")["attributes"].__setitem__("effective_config_ref", "cfg_wrong_mismatch"),
+        lambda wt: find_event(wt, "e29")["attributes"].__setitem__(
+            "effective_config_ref", "cfg_wrong_mismatch"
+        ),
     )
     add_case(
         "NEG-46",
@@ -1012,9 +1158,9 @@ def build_cases() -> List[Dict[str, Any]]:
         4,
         ["ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID"],
         "E03/E04 Negative Probe: WT4 e1 retrieval EXPLICIT_NO_FILTER_ALL_ELIGIBLE has non-empty metadata_predicates",
-        lambda wt: find_event(wt, "e1")["attributes"]["filter_provenance"]["effective_trusted_filters"].__setitem__(
-            "metadata_predicates", {"undeclared_filter": "secret"}
-        ),
+        lambda wt: find_event(wt, "e1")["attributes"]["filter_provenance"][
+            "effective_trusted_filters"
+        ].__setitem__("metadata_predicates", {"undeclared_filter": "secret"}),
     )
     add_case(
         "NEG-47",
@@ -1022,7 +1168,9 @@ def build_cases() -> List[Dict[str, Any]]:
         4,
         ["ERR_RETRIEVAL_RANK_OR_TIE_BREAK_INVALID"],
         "E06 Negative Probe: WT4 e1 retrieved_documents rank/score ordering inverted against tie_break_rule",
-        lambda wt: find_event(wt, "e1")["attributes"]["retrieved_documents"][0].__setitem__("score", 0.10),
+        lambda wt: find_event(wt, "e1")["attributes"]["retrieved_documents"][0].__setitem__(
+            "score", 0.10
+        ),
     )
     add_case(
         "NEG-48",
@@ -1040,14 +1188,16 @@ def build_cases() -> List[Dict[str, Any]]:
         1,
         ["ERR_REQUEST_NORMALIZATION_MISMATCH"],
         "E08 Negative Probe: WT1 request.normalization_provenance raw_char_span does not match raw_substring",
-        lambda wt: wt["request"]["normalization_provenance"]["raw_to_normalized_field_links"][0].__setitem__(
-            "raw_char_span", {"start": 0, "end": 3}
-        ),
+        lambda wt: wt["request"]["normalization_provenance"]["raw_to_normalized_field_links"][
+            0
+        ].__setitem__("raw_char_span", {"start": 0, "end": 3}),
     )
 
-    def neg_50(wt: Dict[str, Any]) -> None:
+    def neg_50(wt: dict[str, Any]) -> None:
         snap = find_event(wt, "e32")["attributes"]["authorization_snapshot"]
-        snap["supplier_evidence_ref"]["latest_observed_supplier_record_version"] = "sup_rec_88_v3_newer"
+        snap["supplier_evidence_ref"]["latest_observed_supplier_record_version"] = (
+            "sup_rec_88_v3_newer"
+        )
         snap["supplier_evidence_ref"]["is_current_at_check"] = False
         snap["dispatch_claim"]["currentness_verified"] = False
 
@@ -1060,7 +1210,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_50,
     )
 
-    def neg_51(wt: Dict[str, Any]) -> None:
+    def neg_51(wt: dict[str, Any]) -> None:
         find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"] = None
 
     add_case(
@@ -1072,7 +1222,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_51,
     )
 
-    def neg_52(wt: Dict[str, Any]) -> None:
+    def neg_52(wt: dict[str, Any]) -> None:
         snap = find_event(wt, "e32")["attributes"]["authorization_snapshot"]
         snap["approval_evidence_ref"]["latest_observed_decision_record_seq"] = 105
 
@@ -1085,7 +1235,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_52,
     )
 
-    def neg_53(wt: Dict[str, Any]) -> None:
+    def neg_53(wt: dict[str, Any]) -> None:
         e29 = find_event(wt, "e29")
         e29["attributes"]["execution_status"] = "PROVIDER_OR_SDK_ERROR"
         e29["attributes"]["provider_fault_details"] = None
@@ -1100,7 +1250,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEW v1.10 NEGATIVE PROBES (NEG-54 .. NEG-56)
-    def neg_54(wt: Dict[str, Any]) -> None:
+    def neg_54(wt: dict[str, Any]) -> None:
         # Flat vs nested security_case_role mismatch or invalid security tag
         wt["scenario_metadata"]["is_security_subset"] = True
         wt["scenario_metadata"]["security_category"] = "DIRECT_USER_PROMPT_INJECTION"
@@ -1117,7 +1267,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_54,
     )
 
-    def neg_55(wt: Dict[str, Any]) -> None:
+    def neg_55(wt: dict[str, Any]) -> None:
         # Alaa #4 / Nour Section 8 item 3 & 5 Closure Test Case:
         # Citing a retrieved chunk (HR-002#chunk-01, rank 3 in WT4 e1) that was excluded from the actual prompt (included_in_prompt=false)
         e3 = find_event(wt, "e3")
@@ -1127,7 +1277,9 @@ def build_cases() -> List[Dict[str, Any]]:
         ses = e3["attributes"]["claim_to_source_spans"][0]["source_evidence_spans"][0]
         ses["doc_id"] = "HR-002"
         ses["chunk_id"] = "HR-002#chunk-01"
-        ses["source_quote"] = "Annual PTO carryover is limited to 5 business days per calendar year."
+        ses["source_quote"] = (
+            "Annual PTO carryover is limited to 5 business days per calendar year."
+        )
 
     add_case(
         "NEG-55",
@@ -1138,12 +1290,16 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_55,
     )
 
-    def neg_56(wt: Dict[str, Any]) -> None:
+    def neg_56(wt: dict[str, Any]) -> None:
         # Alaa #1/#2/#5 Negative Probe: terminal policy_stage typo COMPLETION instead of COMPLETED,
         # corrupted adjudication_record, and unreconciled OD-LLM-02 workload_quota_ledger
         find_event(wt, "e36")["attributes"]["policy_stage"] = "COMPLETION"
-        wt["post_run_analysis_example"]["adjudication_record"]["adjudicated_primary_failure_class"] = "INVALID_CLASS"
-        wt["execution_budget_telemetry"]["workload_quota_ledger"]["trace_total_tokens_debited"] = 999999
+        wt["post_run_analysis_example"]["adjudication_record"][
+            "adjudicated_primary_failure_class"
+        ] = "INVALID_CLASS"
+        wt["execution_budget_telemetry"]["workload_quota_ledger"]["trace_total_tokens_debited"] = (
+            999999
+        )
 
     add_case(
         "NEG-56",
@@ -1158,12 +1314,13 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_56,
     )
 
-
     # POS-22 (Email 1 V19-06 Positive Control): valid_model_refusal_abstention
-    def pos_22(wt: Dict[str, Any]) -> None:
+    def pos_22(wt: dict[str, Any]) -> None:
         e29 = find_event(wt, "e29")
         e29["attributes"]["execution_status"] = "REFUSED"
-        e29["attributes"]["refusal_reason"] = "Safety policy refusal: ambiguous high-value purchase instructions."
+        e29["attributes"]["refusal_reason"] = (
+            "Safety policy refusal: ambiguous high-value purchase instructions."
+        )
         e29["attributes"]["output_text"] = None
         e29["attributes"]["proposed_tool_calls"] = None
         e38 = copy.deepcopy(find_event(wt, "e38"))
@@ -1184,7 +1341,11 @@ def build_cases() -> List[Dict[str, Any]]:
         wt["events"] = wt["events"][:29] + [e38]
         wt["last_app_state"] = "APPROVED"
         wt["execution_status"] = "ABSTAINED"
-        wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = ["e28", "e29", "e30"]
+        wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = [
+            "e28",
+            "e29",
+            "e30",
+        ]
         wt["post_run_analysis_example"]["governance_enforcement_summary"] = {
             "enforcement_outcome": "NOT_REACHED_STOPPED_BEFORE_PO_GATE",
             "pre_tool_action_verdict": None,
@@ -1203,16 +1364,24 @@ def build_cases() -> List[Dict[str, Any]]:
         c = ebt["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 4
         c["logical_tool_operations"]["spent_count"] = 4
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 4
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 4
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 4
         c["tool_attempt_debits"]["spent_count"] = 4
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 4
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 4
+        )
         c["logical_generation_operations"]["slice_observed_spent_count"] = 1
         c["logical_generation_operations"]["spent_count"] = 1
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"] - 1
+        c["logical_generation_operations"]["remaining_count"] = (
+            c["logical_generation_operations"]["configured_ceiling"] - 1
+        )
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 1
         c["generation_attempt_debits"]["spent_count"] = 1
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"] - 1
+        c["generation_attempt_debits"]["remaining_count"] = (
+            c["generation_attempt_debits"]["configured_ceiling"] - 1
+        )
         wql = ebt["workload_quota_ledger"]
         tu = e29["attributes"]["token_usage"]
         wql["trace_requests_debited"] = 1
@@ -1230,7 +1399,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-23 (Email 2 SA-03 Positive Control): valid_approved_then_cancelled_revocation_blocks_po
-    def pos_23(wt: Dict[str, Any]) -> None:
+    def pos_23(wt: dict[str, Any]) -> None:
         e27 = find_event(wt, "e27")
         e27["attributes"]["approval_status"] = "CANCELLED"
         e27["attributes"]["supersedes_approval_id"] = "APR-43"
@@ -1245,7 +1414,11 @@ def build_cases() -> List[Dict[str, Any]]:
         wt["events"] = wt["events"][:28]
         wt["last_app_state"] = "APPROVAL_PENDING"
         wt["execution_status"] = "STOPPED_APPROVAL_DENIED"
-        wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = ["e25", "e27", "e28"]
+        wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = [
+            "e25",
+            "e27",
+            "e28",
+        ]
         wt["post_run_analysis_example"]["governance_enforcement_summary"] = {
             "enforcement_outcome": "NOT_REACHED_STOPPED_BEFORE_PO_GATE",
             "pre_tool_action_verdict": None,
@@ -1264,16 +1437,24 @@ def build_cases() -> List[Dict[str, Any]]:
         c = ebt["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 4
         c["logical_tool_operations"]["spent_count"] = 4
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 4
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 4
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 4
         c["tool_attempt_debits"]["spent_count"] = 4
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 4
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 4
+        )
         c["logical_generation_operations"]["slice_observed_spent_count"] = 0
         c["logical_generation_operations"]["spent_count"] = 0
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"]
+        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"][
+            "configured_ceiling"
+        ]
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 0
         c["generation_attempt_debits"]["spent_count"] = 0
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"]
+        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"][
+            "configured_ceiling"
+        ]
         wql = ebt["workload_quota_ledger"]
         wql["trace_requests_debited"] = 0
         wql["trace_prompt_tokens_debited"] = 0
@@ -1290,10 +1471,12 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-24 (Email 2 SA-04 Positive Control): valid_pre_existing_approval_before_trace_start
-    def pos_24(wt: Dict[str, Any]) -> None:
+    def pos_24(wt: dict[str, Any]) -> None:
         pre_ts = "2026-10-18T08:55:00.000Z"
         find_event(wt, "e27")["attributes"]["approval_timestamp"] = pre_ts
-        find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"]["decision_timestamp"] = pre_ts
+        find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"][
+            "decision_timestamp"
+        ] = pre_ts
 
     add_case(
         "POS-24",
@@ -1305,7 +1488,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-25 (Email 2 SA-07 Positive Control): valid_stub_contract_test_check_mode
-    def pos_25(wt: Dict[str, Any]) -> None:
+    def pos_25(wt: dict[str, Any]) -> None:
         wt["environment"] = "test"
         for ev in wt["events"]:
             if ev["event_type"] == "policy_check":
@@ -1321,18 +1504,22 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-26 (Blocker 2 & OD-03 Genuine Stage-Only Zero-Hit NO_MATCH Fixture): valid_od03_stage_only_proc_tool_stage_01_zero_hit_no_match
-    def pos_26(wt: Dict[str, Any]) -> None:
+    def pos_26(wt: dict[str, Any]) -> None:
         wt["scenario_metadata"]["expected_relevant_doc_ids"] = []
         wt["scenario_metadata"]["qrels_relevant_doc_ids"] = []
         e2 = find_event(wt, "e2")
         e2["attributes"]["proposed_arguments"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
-        e2["attributes"]["raw_arguments_serialized"] = json.dumps(e2["attributes"]["proposed_arguments"])
+        e2["attributes"]["raw_arguments_serialized"] = json.dumps(
+            e2["attributes"]["proposed_arguments"]
+        )
         e3 = find_event(wt, "e3")
         e3["attributes"]["normalized_arguments"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
         stage_dig = val_mod.compute_arguments_digest(e3["attributes"]["normalized_arguments"])
         e3["attributes"]["arguments_digest"] = stage_dig
         e4 = find_event(wt, "e4")
-        e4["attributes"]["authorization_snapshot"]["validated_arguments"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
+        e4["attributes"]["authorization_snapshot"]["validated_arguments"]["policy_ids"] = [
+            "PROC-TOOL-STAGE-01"
+        ]
         e4["attributes"]["authorization_snapshot"]["arguments_digest"] = stage_dig
         e5 = find_event(wt, "e5")
         e5["attributes"]["arguments"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
@@ -1342,9 +1529,15 @@ def build_cases() -> List[Dict[str, Any]]:
         e6["attributes"]["retrieved_documents"] = []
         e6["attributes"]["execution_status"] = "COMPLETED_ZERO_HITS"
         e6["attributes"]["retrieval_fault_details"] = None
-        e6["attributes"]["filter_provenance"]["filter_resolution_status"] = "EXPLICIT_FILTERS_APPLIED"
-        e6["attributes"]["filter_provenance"]["requested_model_filters"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
-        e6["attributes"]["filter_provenance"]["effective_trusted_filters"]["policy_ids"] = ["PROC-TOOL-STAGE-01"]
+        e6["attributes"]["filter_provenance"]["filter_resolution_status"] = (
+            "EXPLICIT_FILTERS_APPLIED"
+        )
+        e6["attributes"]["filter_provenance"]["requested_model_filters"]["policy_ids"] = [
+            "PROC-TOOL-STAGE-01"
+        ]
+        e6["attributes"]["filter_provenance"]["effective_trusted_filters"]["policy_ids"] = [
+            "PROC-TOOL-STAGE-01"
+        ]
         e6["attributes"]["evidence_sufficiency"].update(
             sufficiency_status="NO_RELEVANT_EVIDENCE",
             selected_chunk_ids=[],
@@ -1393,16 +1586,24 @@ def build_cases() -> List[Dict[str, Any]]:
         c = ebt["counters"]
         c["logical_tool_operations"]["slice_observed_spent_count"] = 1
         c["logical_tool_operations"]["spent_count"] = 1
-        c["logical_tool_operations"]["remaining_count"] = c["logical_tool_operations"]["configured_ceiling"] - 1
+        c["logical_tool_operations"]["remaining_count"] = (
+            c["logical_tool_operations"]["configured_ceiling"] - 1
+        )
         c["tool_attempt_debits"]["slice_observed_spent_count"] = 1
         c["tool_attempt_debits"]["spent_count"] = 1
-        c["tool_attempt_debits"]["remaining_count"] = c["tool_attempt_debits"]["configured_ceiling"] - 1
+        c["tool_attempt_debits"]["remaining_count"] = (
+            c["tool_attempt_debits"]["configured_ceiling"] - 1
+        )
         c["logical_generation_operations"]["slice_observed_spent_count"] = 0
         c["logical_generation_operations"]["spent_count"] = 0
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"]
+        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"][
+            "configured_ceiling"
+        ]
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 0
         c["generation_attempt_debits"]["spent_count"] = 0
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"]
+        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"][
+            "configured_ceiling"
+        ]
         wql = ebt["workload_quota_ledger"]
         wql["trace_requests_debited"] = 0
         wql["trace_prompt_tokens_debited"] = 0
@@ -1419,7 +1620,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-27 (Email 6 Ahmed Retrieval Fault Positive Control): valid_retrieval_timeout_and_provider_fault_halt
-    def pos_27(wt: Dict[str, Any]) -> None:
+    def pos_27(wt: dict[str, Any]) -> None:
         e1 = find_event(wt, "e1")
         e1["status"] = "ERROR"
         e1["attributes"]["returned_count"] = 0
@@ -1443,18 +1644,26 @@ def build_cases() -> List[Dict[str, Any]]:
         wt["execution_status"] = "TIMED_OUT"
         wt["last_rag_stage"] = "ERROR"
         wt["post_run_analysis_example"]["reliability_decision"]["decision"] = "INCOMPLETE"
-        wt["post_run_analysis_example"]["reliability_decision"]["evaluation_status"] = "INCOMPLETE_TRACE_EVIDENCE"
-        wt["post_run_analysis_example"]["adjudication_record"]["adjudication_status"] = "INCONCLUSIVE_TECHNICAL_ERROR"
+        wt["post_run_analysis_example"]["reliability_decision"]["evaluation_status"] = (
+            "INCOMPLETE_TRACE_EVIDENCE"
+        )
+        wt["post_run_analysis_example"]["adjudication_record"]["adjudication_status"] = (
+            "INCONCLUSIVE_TECHNICAL_ERROR"
+        )
         wt["post_run_analysis_example"]["adjudication_record"]["evidence_refs"] = ["e1"]
         wt["post_run_analysis_example"]["governance_enforcement_summary"]["evidence_refs"] = ["e1"]
         ebt = wt["execution_budget_telemetry"]
         c = ebt["counters"]
         c["logical_generation_operations"]["slice_observed_spent_count"] = 0
         c["logical_generation_operations"]["spent_count"] = 0
-        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"]["configured_ceiling"]
+        c["logical_generation_operations"]["remaining_count"] = c["logical_generation_operations"][
+            "configured_ceiling"
+        ]
         c["generation_attempt_debits"]["slice_observed_spent_count"] = 0
         c["generation_attempt_debits"]["spent_count"] = 0
-        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"]["configured_ceiling"]
+        c["generation_attempt_debits"]["remaining_count"] = c["generation_attempt_debits"][
+            "configured_ceiling"
+        ]
         wql = ebt["workload_quota_ledger"]
         wql["trace_requests_debited"] = 1
         wql["trace_prompt_tokens_debited"] = 0
@@ -1471,9 +1680,13 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEW NEGATIVE PROBES FOR EMAILS 1-7 (NEG-57 .. NEG-70)
-    def neg_57(wt: Dict[str, Any]) -> None:
-        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["preallocated_at_proposal_id"] = "NONEXISTENT"
-        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0]["preallocated_at_proposal_id"] = "NONEXISTENT"
+    def neg_57(wt: dict[str, Any]) -> None:
+        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"][
+            "preallocated_at_proposal_id"
+        ] = "NONEXISTENT"
+        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0][
+            "preallocated_at_proposal_id"
+        ] = "NONEXISTENT"
 
     add_case(
         "NEG-57",
@@ -1484,9 +1697,13 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_57,
     )
 
-    def neg_58(wt: Dict[str, Any]) -> None:
-        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["preallocated_at_proposal_id"] = "prop_pol_01"
-        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0]["preallocated_at_proposal_id"] = "prop_pol_01"
+    def neg_58(wt: dict[str, Any]) -> None:
+        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"][
+            "preallocated_at_proposal_id"
+        ] = "prop_pol_01"
+        wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0][
+            "preallocated_at_proposal_id"
+        ] = "prop_pol_01"
 
     add_case(
         "NEG-58",
@@ -1497,7 +1714,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_58,
     )
 
-    def neg_59(wt: Dict[str, Any]) -> None:
+    def neg_59(wt: dict[str, Any]) -> None:
         lk = wt["request"]["normalization_provenance"]["raw_to_normalized_field_links"][0]
         lk.update(
             derivation_mode="INVALID_UNDECLARED_MODE",
@@ -1514,7 +1731,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_59,
     )
 
-    def neg_60(wt: Dict[str, Any]) -> None:
+    def neg_60(wt: dict[str, Any]) -> None:
         find_event(wt, "e1")["attributes"]["retrieved_documents"][0]["score"] = float("inf")
 
     add_case(
@@ -1526,8 +1743,10 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_60,
     )
 
-    def neg_61(wt: Dict[str, Any]) -> None:
-        find_event(wt, "e29")["attributes"]["generation_parameters"].update(top_p=-1, max_output_tokens=-10)
+    def neg_61(wt: dict[str, Any]) -> None:
+        find_event(wt, "e29")["attributes"]["generation_parameters"].update(
+            top_p=-1, max_output_tokens=-10
+        )
 
     add_case(
         "NEG-61",
@@ -1538,7 +1757,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_61,
     )
 
-    def neg_62(wt: Dict[str, Any]) -> None:
+    def neg_62(wt: dict[str, Any]) -> None:
         find_event(wt, "e29")["attributes"]["operation_profile_id"] = "rag_grounded_answer_v1"
 
     add_case(
@@ -1550,7 +1769,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_62,
     )
 
-    def neg_63(wt: Dict[str, Any]) -> None:
+    def neg_63(wt: dict[str, Any]) -> None:
         find_event(wt, "e29")["attributes"]["execution_status"] = "REFUSED"
 
     add_case(
@@ -1562,7 +1781,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_63,
     )
 
-    def neg_64(wt: Dict[str, Any]) -> None:
+    def neg_64(wt: dict[str, Any]) -> None:
         find_event(wt, "e31")["attributes"]["normalized_arguments"]["invalid_float_arg"] = 16000.50
 
     add_case(
@@ -1574,7 +1793,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_64,
     )
 
-    def neg_65(wt: Dict[str, Any]) -> None:
+    def neg_65(wt: dict[str, Any]) -> None:
         dcc = find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]
         dcc["observed_approval_record_version_at_consumption"] = "apr_rec_44_v2_stale_race"
         dcc["observed_decision_record_seq_at_consumption"] = 105
@@ -1590,10 +1809,12 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_65,
     )
 
-    def neg_66(wt: Dict[str, Any]) -> None:
+    def neg_66(wt: dict[str, Any]) -> None:
         # Insert an earlier CANCELLED approval event on the same approval_request_id before e27 APPROVED
         find_event(wt, "e27")["attributes"]["approval_status"] = "CANCELLED"
-        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"]["decision_status"] = "CANCELLED"
+        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"][
+            "decision_status"
+        ] = "CANCELLED"
 
     add_case(
         "NEG-66",
@@ -1604,9 +1825,11 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_66,
     )
 
-    def neg_67(wt: Dict[str, Any]) -> None:
+    def neg_67(wt: dict[str, Any]) -> None:
         find_event(wt, "e27")["attributes"]["approval_status"] = "EXPIRED"
-        find_event(wt, "e32")["attributes"]["evaluated_policies"][0]["criticality"] = "CRITICAL_UPPERCASE_MISMATCH"
+        find_event(wt, "e32")["attributes"]["evaluated_policies"][0]["criticality"] = (
+            "CRITICAL_UPPERCASE_MISMATCH"
+        )
 
     add_case(
         "NEG-67",
@@ -1617,7 +1840,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_67,
     )
 
-    def neg_68(wt: Dict[str, Any]) -> None:
+    def neg_68(wt: dict[str, Any]) -> None:
         wt["environment"] = "prod"
         find_event(wt, "e32")["attributes"]["check_mode"] = "STUB_CONTRACT_TEST"
 
@@ -1630,7 +1853,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_68,
     )
 
-    def neg_69(wt: Dict[str, Any]) -> None:
+    def neg_69(wt: dict[str, Any]) -> None:
         doc = find_event(wt, "e6")["attributes"]["retrieved_documents"][0]
         doc["doc_id"] = "doc-001"
         doc["doc_version"] = "review-r1"
@@ -1644,7 +1867,7 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_69,
     )
 
-    def neg_70(wt: Dict[str, Any]) -> None:
+    def neg_70(wt: dict[str, Any]) -> None:
         e1 = find_event(wt, "e1")
         e1["attributes"]["execution_status"] = "VECTOR_STORE_OR_SQL_ERROR"
         e1["attributes"]["retrieval_fault_details"] = {
@@ -1657,7 +1880,9 @@ def build_cases() -> List[Dict[str, Any]]:
             "sanitized_diagnostic_summary": "Database connection or pgvector operator failure.",
         }
         # Leave sufficiency_status as normal and corrupt governance_enforcement_summary
-        wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = "AUTHORIZED_AND_COMMITTED"
+        wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = (
+            "AUTHORIZED_AND_COMMITTED"
+        )
 
     add_case(
         "NEG-70",
@@ -1668,9 +1893,8 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_70,
     )
 
-
     # POS-28 (Integration Gap 3 Positive Control): valid_four_level_policy_lineage_and_fe944cb_corpus_hashes
-    def pos_28(wt: Dict[str, Any]) -> None:
+    def pos_28(wt: dict[str, Any]) -> None:
         wt["versions"]["policy_bundle_version"] = "synthetic-procurement-policy-set-v0.1"
         wt["versions"]["policy_kb_version"] = "synthetic-procurement-policy-kb-v0.1"
         wt["versions"]["policy_rule_versions"] = {
@@ -1678,8 +1902,12 @@ def build_cases() -> List[Dict[str, Any]]:
             "PROC-TOOL-STAGE-01": "rule_stage_v0.1",
             "PROC-SUPPLIER-01": "rule_sup_v0.1",
         }
-        doc001_full_file_bare_sha = hashlib.sha256(b"doc-001@review-r2 full markdown source file bytes").hexdigest()
-        doc004_full_file_bare_sha = hashlib.sha256(b"doc-004@review-r1 full markdown source file bytes").hexdigest()
+        doc001_full_file_bare_sha = hashlib.sha256(
+            b"doc-001@review-r2 full markdown source file bytes"
+        ).hexdigest()
+        doc004_full_file_bare_sha = hashlib.sha256(
+            b"doc-004@review-r1 full markdown source file bytes"
+        ).hexdigest()
 
         e6 = find_event(wt, "e6")
         scope = e6["attributes"]["filter_provenance"]["authorized_corpus_scope"]
@@ -1701,14 +1929,24 @@ def build_cases() -> List[Dict[str, Any]]:
         r_doc["source_document_sha256"] = doc001_full_file_bare_sha
 
         e7 = find_event(wt, "e7")
-        e7["attributes"]["result_payload"]["data"]["policy_set_version"] = "synthetic-procurement-policy-kb-v0.1"
+        e7["attributes"]["result_payload"]["data"]["policy_set_version"] = (
+            "synthetic-procurement-policy-kb-v0.1"
+        )
         e7["attributes"]["result_payload"]["data"]["matches"][0]["source_version"] = "review-r2"
-        e7["attributes"]["result_payload"]["data"]["matches"][0]["source_document_sha256"] = doc001_full_file_bare_sha
+        e7["attributes"]["result_payload"]["data"]["matches"][0]["source_document_sha256"] = (
+            doc001_full_file_bare_sha
+        )
 
-        find_event(wt, "e19")["attributes"]["result_payload"]["data"]["policy_version"] = "rule_apr_v0.2"
-        find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"]["policy_version"] = "rule_apr_v0.2"
+        find_event(wt, "e19")["attributes"]["result_payload"]["data"]["policy_version"] = (
+            "rule_apr_v0.2"
+        )
+        find_event(wt, "e25")["attributes"]["result_payload"]["data"]["approval_evidence"][
+            "policy_version"
+        ] = "rule_apr_v0.2"
         find_event(wt, "e27")["attributes"]["policy_version"] = "rule_apr_v0.2"
-        find_event(wt, "e38")["attributes"]["visible_citations"][0]["cited_doc_version"] = "review-r2"
+        find_event(wt, "e38")["attributes"]["visible_citations"][0]["cited_doc_version"] = (
+            "review-r2"
+        )
 
         for ev in wt["events"]:
             if ev["event_type"] == "policy_check":
@@ -1727,7 +1965,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-29 (Emails 3 & 4 SA-03 Positive Control): valid_sa03_post_consumption_subsequent_approval_cancellation
-    def pos_29(wt: Dict[str, Any]) -> None:
+    def pos_29(wt: dict[str, Any]) -> None:
         # Action e34 (call_po_01) was validly checked at e32 and consumed at e33 under APR-44 (areq_101, apr_rec_44_v1, seq=104).
         # Subsequently (after e36 COMPLETION), a revocation event cancels areq_101 via APR-44-REV (apr_rec_44_v2_cancelled, seq=109).
         e27_orig = find_event(wt, "e27")
@@ -1766,7 +2004,9 @@ def build_cases() -> List[Dict[str, Any]]:
         e38_fr["parent_event_id"] = "e38"
 
         wt["events"] = wt["events"][:36] + [e_rev, e37_mc, e38_fr]
-        wt["post_run_analysis_example"]["governance_enforcement_summary"]["post_consumption_supersession"] = {
+        wt["post_run_analysis_example"]["governance_enforcement_summary"][
+            "post_consumption_supersession"
+        ] = {
             "superseded_after_consumption": True,
             "bound_approval_id_at_consumption": "APR-44",
             "bound_approval_record_version_at_consumption": "apr_rec_44_v1",
@@ -1788,7 +2028,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-30 (Email 2 PR #29 c9aa20c Positive Control): valid_pr29_c9aa20c_rag_selected_context_and_citation_snapshot_binding
-    def pos_30(wt: Dict[str, Any]) -> None:
+    def pos_30(wt: dict[str, Any]) -> None:
         e1 = find_event(wt, "e1")
         doc1 = e1["attributes"]["retrieved_documents"][1]
         doc1["source_id"] = "FAQ-018"
@@ -1811,7 +2051,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-71 (Blocker 2 Probe A): Invalid search_policy status='OK' and dict applicability
-    def neg_71(wt: Dict[str, Any]) -> None:
+    def neg_71(wt: dict[str, Any]) -> None:
         e7 = find_event(wt, "e7")
         e7["attributes"]["result_payload"]["status"] = "OK"
         e7["attributes"]["result_payload"]["data"]["applicability"] = {
@@ -1829,7 +2069,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-72 (Blocker 2 Probe B): Inconsistent search_policy status='NO_MATCH' with non-empty matches and applicability='APPLICABLE'
-    def neg_72(wt: Dict[str, Any]) -> None:
+    def neg_72(wt: dict[str, Any]) -> None:
         e7 = find_event(wt, "e7")
         e7["attributes"]["result_payload"]["status"] = "NO_MATCH"
 
@@ -1843,9 +2083,11 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-73 (Integration Gap 3 Probe A): Changed passage text with unchanged full-file source_document_sha256 and content_hash
-    def neg_73(wt: Dict[str, Any]) -> None:
+    def neg_73(wt: dict[str, Any]) -> None:
         pos_28(wt)
-        find_event(wt, "e6")["attributes"]["retrieved_documents"][0]["content_snippet"] += " [TAMPERED PASSAGE]"
+        find_event(wt, "e6")["attributes"]["retrieved_documents"][0]["content_snippet"] += (
+            " [TAMPERED PASSAGE]"
+        )
 
     add_case(
         "NEG-73",
@@ -1857,11 +2099,14 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-74 (Integration Gap 3 Probe B): Per-policy rule version mismatch & prefixed source_document_sha256 format violation
-    def neg_74(wt: Dict[str, Any]) -> None:
+    def neg_74(wt: dict[str, Any]) -> None:
         pos_28(wt)
-        find_event(wt, "e32")["attributes"]["evaluated_policies"][0]["policy_version"] = "synthetic-procurement-policy-kb-v0.1"
+        find_event(wt, "e32")["attributes"]["evaluated_policies"][0]["policy_version"] = (
+            "synthetic-procurement-policy-kb-v0.1"
+        )
         find_event(wt, "e6")["attributes"]["retrieved_documents"][0]["source_document_sha256"] = (
-            "sha256:" + find_event(wt, "e6")["attributes"]["retrieved_documents"][0]["source_document_sha256"]
+            "sha256:"
+            + find_event(wt, "e6")["attributes"]["retrieved_documents"][0]["source_document_sha256"]
         )
 
     add_case(
@@ -1874,9 +2119,11 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-75 (Email 2 PR #29 c9aa20c Snapshot Mismatch Probe): Citation binds to wrong snapshot_ref
-    def neg_75(wt: Dict[str, Any]) -> None:
+    def neg_75(wt: dict[str, Any]) -> None:
         pos_30(wt)
-        find_event(wt, "e3")["attributes"]["visible_citations"][0]["cited_snapshot_id"] = "kb_snap_ent_v1_stale"
+        find_event(wt, "e3")["attributes"]["visible_citations"][0]["cited_snapshot_id"] = (
+            "kb_snap_ent_v1_stale"
+        )
 
     add_case(
         "NEG-75",
@@ -1888,11 +2135,12 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-76 (Email 2 PR #29 c9aa20c Unsanitized Retrieval Fault Probe): Raw DB URI & stack traceback in retrieval_fault_details
-    def neg_76(wt: Dict[str, Any]) -> None:
+    def neg_76(wt: dict[str, Any]) -> None:
         pos_27(wt)
-        find_event(wt, "e1")["attributes"]["retrieval_fault_details"]["sanitized_diagnostic_summary"] = (
-            "OperationalError on postgresql://postgres:supersecret@10.0.0.12:5432/trustops -- Traceback (most recent call last): File pipeline.py"
-        )
+        find_event(wt, "e1")["attributes"]["retrieval_fault_details"][
+            "sanitized_diagnostic_summary"
+        ] = "OperationalError on postgresql://postgres:supersecret@10.0.0.12:5432/trustops -- Traceback (most recent call last): File pipeline.py"
+
     add_case(
         "NEG-76",
         "NEGATIVE",
@@ -1903,7 +2151,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-77 (Emails 3 & 4 SA-03 Provisional ID-Only / Invalid Post-Consumption Supersession Probe)
-    def neg_77(wt: Dict[str, Any]) -> None:
+    def neg_77(wt: dict[str, Any]) -> None:
         pos_29(wt)
         # Corrupt superseding_decision_record_seq so it does not advance beyond bound_decision_record_seq (104)
         # and leave record_version identical (mimicking an unversioned ID-only link)
@@ -1912,9 +2160,9 @@ def build_cases() -> List[Dict[str, Any]]:
         e37_attr["record_version"] = "apr_rec_44_v1"
         e37_attr["trusted_source"]["decision_record_seq"] = 104
         e37_attr["trusted_source"]["record_version"] = "apr_rec_44_v1"
-        wt["post_run_analysis_example"]["governance_enforcement_summary"]["post_consumption_supersession"][
-            "superseding_decision_record_seq"
-        ] = 104
+        wt["post_run_analysis_example"]["governance_enforcement_summary"][
+            "post_consumption_supersession"
+        ]["superseding_decision_record_seq"] = 104
 
     add_case(
         "NEG-77",
@@ -1925,9 +2173,8 @@ def build_cases() -> List[Dict[str, Any]]:
         neg_77,
     )
 
-
     # NEG-78 (R12-05 Probe A — P06_missing_required_citation_snapshot): Remove cited_snapshot_id alone
-    def neg_78(wt: Dict[str, Any]) -> None:
+    def neg_78(wt: dict[str, Any]) -> None:
         pos_30(wt)
         del find_event(wt, "e3")["attributes"]["visible_citations"][0]["cited_snapshot_id"]
 
@@ -1941,7 +2188,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-79 (R12-05 Probe B — P06_missing_required_citation_hash): Remove cited_content_hash alone
-    def neg_79(wt: Dict[str, Any]) -> None:
+    def neg_79(wt: dict[str, Any]) -> None:
         pos_30(wt)
         del find_event(wt, "e3")["attributes"]["visible_citations"][0]["cited_content_hash"]
 
@@ -1955,7 +2202,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-80 (R12-05 Probe C — P06_missing_required_citation_all): Remove cited_snapshot_id, cited_content_hash, and cited_source_id together
-    def neg_80(wt: Dict[str, Any]) -> None:
+    def neg_80(wt: dict[str, Any]) -> None:
         pos_30(wt)
         vc0 = find_event(wt, "e3")["attributes"]["visible_citations"][0]
         for k in ("cited_snapshot_id", "cited_content_hash", "cited_source_id"):
@@ -1973,7 +2220,7 @@ def build_cases() -> List[Dict[str, Any]]:
     # POS-31 (v1.15): Expected NO_MATCH for non-retrievable PROC-TOOL-STAGE-01 text does NOT
     # make the executable PROC-TOOL-STAGE-01 stage rule unavailable in policy_check.evaluated_policies[],
     # while preserving 4-level policy lineage (KB release on search_policy vs per-rule version on policy_check).
-    def pos_31(wt: Dict[str, Any]) -> None:
+    def pos_31(wt: dict[str, Any]) -> None:
         pos_26(wt)
         # Attach explicit 4-level policy_rule_versions map
         wt["versions"]["policy_rule_versions"] = {
@@ -2002,7 +2249,9 @@ def build_cases() -> List[Dict[str, Any]]:
                 if isinstance(data, dict):
                     data["policy_version"] = "rule_apr_v0.2"
             elif et == "tool_result" and attrs.get("tool_name") == "request_approval":
-                ae = ((attrs.get("result_payload") or {}).get("data") or {}).get("approval_evidence")
+                ae = ((attrs.get("result_payload") or {}).get("data") or {}).get(
+                    "approval_evidence"
+                )
                 if isinstance(ae, dict):
                     ae["policy_version"] = "rule_apr_v0.2"
             elif et == "approval":
@@ -2021,7 +2270,7 @@ def build_cases() -> List[Dict[str, Any]]:
     # the normal policy-applicability search returns MATCHED textual evidence (POL-114 / kb_v3),
     # non-retrievable PROC-TOOL-STAGE-01 remains active as an executable stage rule (PASS, rule_stage_v0.1)
     # under 4-level policy lineage through COMPLETED and AUTHORIZED_AND_COMMITTED.
-    def pos_32(wt: Dict[str, Any]) -> None:
+    def pos_32(wt: dict[str, Any]) -> None:
         wt["versions"]["policy_rule_versions"] = {
             "PROC-APPROVAL-01": "rule_apr_v0.2",
             "PROC-TOOL-STAGE-01": "rule_stage_v0.1",
@@ -2046,7 +2295,9 @@ def build_cases() -> List[Dict[str, Any]]:
                 if isinstance(data, dict):
                     data["policy_version"] = "rule_apr_v0.2"
             elif et == "tool_result" and attrs.get("tool_name") == "request_approval":
-                ae = ((attrs.get("result_payload") or {}).get("data") or {}).get("approval_evidence")
+                ae = ((attrs.get("result_payload") or {}).get("data") or {}).get(
+                    "approval_evidence"
+                )
                 if isinstance(ae, dict):
                     ae["policy_version"] = "rule_apr_v0.2"
             elif et == "approval":
@@ -2064,7 +2315,7 @@ def build_cases() -> List[Dict[str, Any]]:
     # NEG-81 (v1.17 — Ahmed S1-03 Row 9 Amount Field Unification):
     # Substituting the retired legacy alias `approved_amount_limit` for canonical `approved_amount_ceiling`
     # on an `approval` event MUST be rejected.
-    def neg_81(wt: Dict[str, Any]) -> None:
+    def neg_81(wt: dict[str, Any]) -> None:
         e27_attrs = find_event(wt, "e27")["attributes"]
         val = e27_attrs.pop("approved_amount_ceiling")
         e27_attrs["approved_amount_limit"] = val
@@ -2073,7 +2324,11 @@ def build_cases() -> List[Dict[str, Any]]:
         "NEG-81",
         "NEGATIVE",
         1,
-        ["ERR_APPROVAL_CEILING_EXCEEDED", "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH", "ERR_UNKNOWN_FIELD_REJECTED"],
+        [
+            "ERR_APPROVAL_CEILING_EXCEEDED",
+            "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+            "ERR_UNKNOWN_FIELD_REJECTED",
+        ],
         "v1.17 S1-03 Row 9 unification: retired legacy alias approved_amount_limit in place of canonical approved_amount_ceiling is rejected",
         neg_81,
     )
@@ -2084,9 +2339,14 @@ def build_cases() -> List[Dict[str, Any]]:
     # approval version/sequence refs) and validate cleanly under approval_validation_profile="base_only",
     # proving the 17-field S1-03 Row 9 base Approval Event subset validates independently without
     # treating provisional Draft validator enforcement as governance ratification.
-    def pos_33(wt: Dict[str, Any]) -> None:
+    def pos_33(wt: dict[str, Any]) -> None:
         e27_attrs = find_event(wt, "e27")["attributes"]
-        for k in ("record_version", "decision_record_seq", "supersedes_approval_id", "superseded_by_approval_id"):
+        for k in (
+            "record_version",
+            "decision_record_seq",
+            "supersedes_approval_id",
+            "superseded_by_approval_id",
+        ):
             e27_attrs.pop(k, None)
         ts = e27_attrs.get("trusted_source")
         if isinstance(ts, dict):
@@ -2144,7 +2404,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-34 (GD-36): AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT accepted in enforcement_outcome
-    def pos_34(wt: Dict[str, Any]) -> None:
+    def pos_34(wt: dict[str, Any]) -> None:
         wt["post_run_analysis_example"]["governance_enforcement_summary"]["enforcement_outcome"] = (
             "AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT"
         )
@@ -2159,9 +2419,13 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # POS-35 (A4): Explicit stale_reason_code=None on current approval_evidence_ref and dispatch_claim_consumption
-    def pos_35(wt: Dict[str, Any]) -> None:
-        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"]["stale_reason_code"] = None
-        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["stale_reason_code"] = None
+    def pos_35(wt: dict[str, Any]) -> None:
+        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"][
+            "stale_reason_code"
+        ] = None
+        find_event(wt, "e33")["attributes"]["dispatch_claim_consumption"]["stale_reason_code"] = (
+            None
+        )
         wt["execution_budget_telemetry"]["dispatch_claim_ledger"][0]["stale_reason_code"] = None
 
     add_case(
@@ -2174,7 +2438,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-82 (GD-35): EXPIRED approval_status rejected as invalid enum value
-    def neg_82(wt: Dict[str, Any]) -> None:
+    def neg_82(wt: dict[str, Any]) -> None:
         find_event(wt, "e27")["attributes"]["approval_status"] = "EXPIRED"
 
     add_case(
@@ -2187,7 +2451,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-83 (A1): Second APPROVED record after APPROVED on same approval_request_id rejected
-    def neg_83(wt: Dict[str, Any]) -> None:
+    def neg_83(wt: dict[str, Any]) -> None:
         e27 = find_event(wt, "e27")
         e_dup = copy.deepcopy(e27)
         e_dup["event_id"] = "e39"
@@ -2202,7 +2466,9 @@ def build_cases() -> List[Dict[str, Any]]:
         e_dup["attributes"]["superseded_by_approval_id"] = None
         e_dup["attributes"]["trusted_source"]["record_version"] = "apr_rec_44_v2_dup"
         e_dup["attributes"]["trusted_source"]["decision_record_seq"] = 109
-        e_dup["attributes"]["trusted_source"]["source_ref"] = "approval_registry://records/areq_101/APR-44-SECOND"
+        e_dup["attributes"]["trusted_source"]["source_ref"] = (
+            "approval_registry://records/areq_101/APR-44-SECOND"
+        )
         e_dup["attributes"]["trusted_source"]["verified_at"] = "2026-10-18T09:00:02.350Z"
         wt["events"].append(e_dup)
 
@@ -2216,7 +2482,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-84 (A2): Subsequent approval record missing supersedes_approval_id rejected
-    def neg_84(wt: Dict[str, Any]) -> None:
+    def neg_84(wt: dict[str, Any]) -> None:
         e27 = find_event(wt, "e27")
         e_rev = copy.deepcopy(e27)
         e_rev["event_id"] = "e39"
@@ -2231,7 +2497,9 @@ def build_cases() -> List[Dict[str, Any]]:
         e_rev["attributes"]["superseded_by_approval_id"] = None
         e_rev["attributes"]["trusted_source"]["record_version"] = "apr_rec_44_v2_nolink"
         e_rev["attributes"]["trusted_source"]["decision_record_seq"] = 109
-        e_rev["attributes"]["trusted_source"]["source_ref"] = "approval_registry://records/areq_101/APR-44-REV-NOLINK"
+        e_rev["attributes"]["trusted_source"]["source_ref"] = (
+            "approval_registry://records/areq_101/APR-44-REV-NOLINK"
+        )
         e_rev["attributes"]["trusted_source"]["verified_at"] = "2026-10-18T09:00:02.350Z"
         wt["events"].append(e_rev)
 
@@ -2245,7 +2513,7 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-85 (A3): Stored approval event with non-null superseded_by_approval_id rejected
-    def neg_85(wt: Dict[str, Any]) -> None:
+    def neg_85(wt: dict[str, Any]) -> None:
         find_event(wt, "e27")["attributes"]["superseded_by_approval_id"] = "APR-44-REV"
 
     add_case(
@@ -2258,10 +2526,10 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-86 (A4): Invalid stale_reason_code rejected on approval_evidence_ref
-    def neg_86(wt: Dict[str, Any]) -> None:
-        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"]["stale_reason_code"] = (
-            "UNKNOWN_STALE_CODE"
-        )
+    def neg_86(wt: dict[str, Any]) -> None:
+        find_event(wt, "e32")["attributes"]["authorization_snapshot"]["approval_evidence_ref"][
+            "stale_reason_code"
+        ] = "UNKNOWN_STALE_CODE"
 
     add_case(
         "NEG-86",
@@ -2273,11 +2541,12 @@ def build_cases() -> List[Dict[str, Any]]:
     )
 
     # NEG-87 (A5): Approval event sequence_number after create_purchase_order tool_proposal rejected on ALLOW
-    def neg_87(wt: Dict[str, Any]) -> None:
+    def neg_87(wt: dict[str, Any]) -> None:
         evs = wt["events"]
         ap_idx = next(i for i, e in enumerate(evs) if e["event_id"] == "e27")
         po_prop_idx = next(
-            i for i, e in enumerate(evs)
+            i
+            for i, e in enumerate(evs)
             if e.get("event_type") == "tool_proposal"
             and (e.get("attributes") or {}).get("known_tool_name") == "create_purchase_order"
         )
@@ -2302,8 +2571,12 @@ def build_cases() -> List[Dict[str, Any]]:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run S1-01 113-case regression suite (v1.11.0)")
     parser.add_argument("--spec", default=DEFAULT_SPEC, help="Path to updated_schemas_v18.md")
-    parser.add_argument("--validator", default=DEFAULT_VALIDATOR, help="Path to validate_s1_01_schema_v1_11.py")
-    parser.add_argument("--report-out", default="s1_01_validation_report.json", help="Output JSON report path")
+    parser.add_argument(
+        "--validator", default=DEFAULT_VALIDATOR, help="Path to validate_s1_01_schema_v1_11.py"
+    )
+    parser.add_argument(
+        "--report-out", default="s1_01_validation_report.json", help="Output JSON report path"
+    )
     args = parser.parse_args()
 
     if not os.path.exists(args.spec) and args.spec == DEFAULT_SPEC:
@@ -2323,7 +2596,10 @@ def main() -> int:
         print(f"ERROR: Validator module not found: {args.validator}", file=sys.stderr)
         return 2
     import importlib.util
-    spec_obj = importlib.util.spec_from_file_location("dynamic_validator_mod", os.path.abspath(args.validator))
+
+    spec_obj = importlib.util.spec_from_file_location(
+        "dynamic_validator_mod", os.path.abspath(args.validator)
+    )
     if spec_obj is None or spec_obj.loader is None:
         print(f"ERROR: Could not load validator module from {args.validator}", file=sys.stderr)
         return 2
@@ -2331,7 +2607,7 @@ def main() -> int:
     val_mod = importlib.util.module_from_spec(spec_obj)
     spec_obj.loader.exec_module(val_mod)
 
-    with open(args.spec, "r", encoding="utf-8") as f:
+    with open(args.spec, encoding="utf-8") as f:
         base_spec_text = f.read()
 
     blocks = extract_json_blocks(base_spec_text)
@@ -2342,7 +2618,7 @@ def main() -> int:
 
     results = []
     passed_count = 0
-    base_counts: Dict[str, int] = {}
+    base_counts: dict[str, int] = {}
 
     for c in cases:
         cid = c["case_id"]
@@ -2362,7 +2638,13 @@ def main() -> int:
             probe_path = os.path.join(probe_dir, f"{cid}.md")
             with open(probe_path, "w", encoding="utf-8") as pf:
                 pf.write(mut_text)
-            validator = val_mod.SpecValidator(probe_path, check_report_sync=False, approval_validation_profile=c.get("approval_validation_profile", "provisional_draft"))
+            validator = val_mod.SpecValidator(
+                probe_path,
+                check_report_sync=False,
+                approval_validation_profile=c.get(
+                    "approval_validation_profile", "provisional_draft"
+                ),
+            )
             ok, codes, _ = validator.validate()
             try:
                 os.remove(probe_path)
@@ -2451,7 +2733,9 @@ def main() -> int:
     print(f"Suite Summary: {passed_count}/{len(cases)} cases matched expectations")
     for r in results:
         if not r["case_matched_expectation"]:
-            print(f"  [UNMET] {r['case_id']}: expected={r['expected_codes']} actual={r['actual_codes']}")
+            print(
+                f"  [UNMET] {r['case_id']}: expected={r['expected_codes']} actual={r['actual_codes']}"
+            )
 
     return 0 if passed_count == len(cases) else 1
 

@@ -11,23 +11,25 @@ Enforces Three Validation Layers across all 13 JSON blocks and Specification Tab
 """
 
 import argparse
-import pathlib
 import copy
 import datetime
 import hashlib
 import json
 import math
 import os
+import pathlib
 import re
 import sys
 import unicodedata
 from decimal import Decimal, InvalidOperation
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, TypeGuard
 
 VALIDATOR_VERSION = "1.11.0"
 BARE_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 PREFIXED_SHA256_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
-UNSANITIZED_FAULT_RE = re.compile(r"(?i)(postgresql://|postgres://|password=|api_key=|AIza[0-9A-Za-z\-_]{10,}|Traceback \(most recent call last\))")
+UNSANITIZED_FAULT_RE = re.compile(
+    r"(?i)(postgresql://|postgres://|password=|api_key=|AIza[0-9A-Za-z\-_]{10,}|Traceback \(most recent call last\))"
+)
 DEFAULT_SPEC_FILENAME = "updated_schemas_v18.md"
 
 PROC_APP_STATES = {
@@ -178,7 +180,7 @@ ENFORCEMENT_OUTCOME_ENUM = {
     "NOT_APPLICABLE_RAG_WORKFLOW",
 }
 
-OPERATION_PROFILE_CONTRACTS: Dict[str, Dict[str, str]] = {
+OPERATION_PROFILE_CONTRACTS: dict[str, dict[str, str]] = {
     "proc_agent_tool_selection_v1": {
         "step_purpose": "tool_selection",
         "structured_output_schema": "ProcurementToolProposalOrSynthesis_v1",
@@ -193,7 +195,7 @@ OPERATION_PROFILE_CONTRACTS: Dict[str, Dict[str, str]] = {
     },
 }
 
-CANONICAL_JSON_TEST_VECTORS: List[Tuple[Dict[str, Any], str, str]] = [
+CANONICAL_JSON_TEST_VECTORS: list[tuple[dict[str, Any], str, str]] = [
     (
         {"z_key": 1, "a_key": "value", "m_key": True},
         '{"a_key":"value","m_key":true,"z_key":1}',
@@ -260,7 +262,7 @@ ALLOWED_EVENT_ENVELOPE_KEYS = {
 
 # S1-03 Row 9 Base Approval Event attributes (17 fields; aligned to tool contract 479cab0,
 # pending joint governance sign-off as Draft v1.18):
-APPROVAL_BASE_ATTR_KEYS: Set[str] = {
+APPROVAL_BASE_ATTR_KEYS: set[str] = {
     "approval_id",
     "approval_request_id",
     "request_id",
@@ -284,7 +286,7 @@ APPROVAL_BASE_ATTR_KEYS: Set[str] = {
 # under the default `provisional_draft` validator profile for Draft v1.18 self-validation, while
 # governance acceptance remains PENDING joint sign-off and S1-03 excludes them from base Row 9
 # evidence & evaluator decisions until ratified; RC-07 remains BLOCKED):
-APPROVAL_PROVISIONAL_OD04_SA03_ATTR_KEYS: Set[str] = {
+APPROVAL_PROVISIONAL_OD04_SA03_ATTR_KEYS: set[str] = {
     "record_version",
     "decision_record_seq",
     "supersedes_approval_id",
@@ -293,7 +295,7 @@ APPROVAL_PROVISIONAL_OD04_SA03_ATTR_KEYS: Set[str] = {
 
 APPROVAL_VALIDATION_PROFILES = ("provisional_draft", "base_only")
 
-ALLOWED_EVENT_ATTR_KEYS: Dict[str, Set[str]] = {
+ALLOWED_EVENT_ATTR_KEYS: dict[str, set[str]] = {
     "agent_state": {
         "state_revision_id",
         "from_app_state",
@@ -522,11 +524,15 @@ def validate_canonical_json_domain(obj: Any, allow_floats: bool = False) -> bool
     return False
 
 
-def canonical_json_bytes(obj: Any, enforce_domain: bool = False, allow_floats: bool = False) -> bytes:
+def canonical_json_bytes(
+    obj: Any, enforce_domain: bool = False, allow_floats: bool = False
+) -> bytes:
     """Project-specific deterministic canonical JSON (trustops-canonical-json-v1)."""
     if enforce_domain and not validate_canonical_json_domain(obj, allow_floats=allow_floats):
         raise ValueError("ERR_CANONICAL_JSON_DOMAIN_VIOLATION")
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+    return json.dumps(
+        obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+    ).encode("utf-8")
 
 
 def compute_arguments_digest(obj: Any) -> str:
@@ -542,7 +548,7 @@ def compute_content_hash(text: str) -> str:
     return "sha256:" + hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
 
-def parse_iso8601_utc(ts: Any) -> Optional[datetime.datetime]:
+def parse_iso8601_utc(ts: Any) -> datetime.datetime | None:
     if not isinstance(ts, str) or not ts.endswith("Z"):
         return None
     try:
@@ -552,7 +558,7 @@ def parse_iso8601_utc(ts: Any) -> Optional[datetime.datetime]:
         return None
 
 
-def is_strict_int(val: Any) -> bool:
+def is_strict_int(val: Any) -> TypeGuard[int]:
     return isinstance(val, int) and not isinstance(val, bool)
 
 
@@ -560,7 +566,7 @@ def is_money_str(val: Any) -> bool:
     return isinstance(val, str) and bool(re.match(r"^\d+\.\d{2}$", val))
 
 
-def project_trace_for_inference(wt: Dict[str, Any]) -> Dict[str, Any]:
+def project_trace_for_inference(wt: dict[str, Any]) -> dict[str, Any]:
     """Strips all test-only ground-truth, recipe, qrel, security-subset, execution_scope, adjudication, and post-run blocks."""
     projected = {}
     for k, v in wt.items():
@@ -586,19 +592,21 @@ class SpecValidator:
         approval_validation_profile: str = "provisional_draft",
     ) -> None:
         if approval_validation_profile not in APPROVAL_VALIDATION_PROFILES:
-            raise ValueError(f"Unsupported approval_validation_profile: {approval_validation_profile!r}")
+            raise ValueError(
+                f"Unsupported approval_validation_profile: {approval_validation_profile!r}"
+            )
         self.spec_path = spec_path
         self.check_report_sync = check_report_sync
         self.approval_validation_profile = approval_validation_profile
-        self.counts: Dict[str, int] = {
+        self.counts: dict[str, int] = {
             "cat1_envelope_and_syntax": 0,
             "cat2_ordering_and_refs": 0,
             "cat3_digests_hashes_spans": 0,
             "cat4_contracts_snapshots_bindings": 0,
             "cat5_isolation_and_report": 0,
         }
-        self.failures: List[Dict[str, str]] = []
-        self.failure_codes: Set[str] = set()
+        self.failures: list[dict[str, str]] = []
+        self.failure_codes: set[str] = set()
 
     def check(self, cat: str, cond: bool, code: str, msg: str) -> bool:
         self.counts[cat] += 1
@@ -607,8 +615,8 @@ class SpecValidator:
             self.failure_codes.add(code)
         return cond
 
-    def validate(self) -> Tuple[bool, List[str], Dict[str, int]]:
-        with open(self.spec_path, "r", encoding="utf-8") as f:
+    def validate(self) -> tuple[bool, list[str], dict[str, int]]:
+        with open(self.spec_path, encoding="utf-8") as f:
             text = f.read()
 
         raw_blocks = [m.group(1) for m in re.finditer(r"```json\n(.*?)\n```", text, re.DOTALL)]
@@ -618,7 +626,7 @@ class SpecValidator:
             "ERR_JSON_BLOCK_COUNT",
             f"Expected 13 JSON blocks in {self.spec_path}, found {len(raw_blocks)}",
         )
-        blocks: List[Dict[str, Any]] = []
+        blocks: list[dict[str, Any]] = []
         for idx, rb in enumerate(raw_blocks):
             try:
                 parsed = json.loads(rb)
@@ -648,20 +656,28 @@ class SpecValidator:
         self._validate_spec_tables_and_report(text, walkthroughs)
         return len(self.failures) == 0, sorted(self.failure_codes), self.counts
 
-    def _validate_walkthrough(self, wt_idx: int, wt: Dict[str, Any]) -> None:
+    def _validate_walkthrough(self, wt_idx: int, wt: dict[str, Any]) -> None:
         tid = str(wt.get("trace_id", f"WT{wt_idx}"))
         cat1 = "cat1_envelope_and_syntax"
         cat2 = "cat2_ordering_and_refs"
-        cat3 = "cat3_digests_hashes_spans"
-        cat4 = "cat4_contracts_snapshots_bindings"
 
         extra_top = set(wt.keys()) - ALLOWED_TRACE_TOP_KEYS
-        self.check(cat1, len(extra_top) == 0, "ERR_UNKNOWN_FIELD_REJECTED", f"{tid}: unknown top keys {extra_top}")
+        self.check(
+            cat1,
+            len(extra_top) == 0,
+            "ERR_UNKNOWN_FIELD_REJECTED",
+            f"{tid}: unknown top keys {extra_top}",
+        )
         for req_k in PERMITTED_INFERENCE_TOP_KEYS:
             self.check(cat1, req_k in wt, "ERR_ENVELOPE_MISSING_KEY", f"{tid}: missing key {req_k}")
 
         app_type = wt.get("application_type")
-        self.check(cat1, app_type in {"agent", "rag"}, "ERR_APP_TYPE", f"{tid}: invalid application_type {app_type}")
+        self.check(
+            cat1,
+            app_type in {"agent", "rag"},
+            "ERR_APP_TYPE",
+            f"{tid}: invalid application_type {app_type}",
+        )
         exec_status = wt.get("execution_status")
         self.check(
             cat1,
@@ -721,27 +737,32 @@ class SpecValidator:
             self._validate_post_run_and_adjudication(tid, wt, pra)
 
         events = wt.get("events", [])
-        self.check(cat1, isinstance(events, list) and len(events) > 0, "ERR_EVENTS_EMPTY", f"{tid}: empty events")
+        self.check(
+            cat1,
+            isinstance(events, list) and len(events) > 0,
+            "ERR_EVENTS_EMPTY",
+            f"{tid}: empty events",
+        )
 
-        event_by_id: Dict[str, Dict[str, Any]] = {}
-        seq_by_id: Dict[str, int] = {}
-        prev_dt: Optional[datetime.datetime] = None
+        event_by_id: dict[str, dict[str, Any]] = {}
+        seq_by_id: dict[str, int] = {}
+        prev_dt: datetime.datetime | None = None
 
-        proposals_by_id: Dict[str, Dict[str, Any]] = {}
-        validations_by_id: Dict[str, Dict[str, Any]] = {}
-        checks_by_id: Dict[str, Dict[str, Any]] = {}
-        calls_by_id: Dict[str, Dict[str, Any]] = {}
-        results_by_id: Dict[str, Dict[str, Any]] = {}
-        terminal_results_by_call: Dict[str, List[str]] = {}
-        retrievals_by_id: Dict[str, Dict[str, Any]] = {}
-        model_calls_by_id: Dict[str, Dict[str, Any]] = {}
-        approvals_by_id: Dict[str, Dict[str, Any]] = {}
-        approval_events_by_event_id: Dict[str, Dict[str, Any]] = {}
-        recoveries_by_id: Dict[str, Dict[str, Any]] = {}
-        states_by_rev: Dict[str, Dict[str, Any]] = {}
-        po_transition_events: List[Dict[str, Any]] = []
-        used_auth_checks: Set[str] = set()
-        po_dispatch_claims_used: List[str] = []
+        proposals_by_id: dict[str, dict[str, Any]] = {}
+        validations_by_id: dict[str, dict[str, Any]] = {}
+        checks_by_id: dict[str, dict[str, Any]] = {}
+        calls_by_id: dict[str, dict[str, Any]] = {}
+        results_by_id: dict[str, dict[str, Any]] = {}
+        terminal_results_by_call: dict[str, list[str]] = {}
+        retrievals_by_id: dict[str, dict[str, Any]] = {}
+        model_calls_by_id: dict[str, dict[str, Any]] = {}
+        approvals_by_id: dict[str, dict[str, Any]] = {}
+        approval_events_by_event_id: dict[str, dict[str, Any]] = {}
+        recoveries_by_id: dict[str, dict[str, Any]] = {}
+        states_by_rev: dict[str, dict[str, Any]] = {}
+        po_transition_events: list[dict[str, Any]] = []
+        used_auth_checks: set[str] = set()
+        po_dispatch_claims_used: list[str] = []
 
         for idx, ev in enumerate(events, 1):
             eid = str(ev.get("event_id", f"idx_{idx}"))
@@ -758,7 +779,12 @@ class SpecValidator:
                 "ERR_EVENT_ID_INVALID",
                 f"{tid}.{eid}: invalid event_id",
             )
-            self.check(cat2, eid not in event_by_id, "ERR_DUPLICATE_EVENT_ID", f"{tid}.{eid}: duplicate event_id")
+            self.check(
+                cat2,
+                eid not in event_by_id,
+                "ERR_DUPLICATE_EVENT_ID",
+                f"{tid}.{eid}: duplicate event_id",
+            )
             seq = ev.get("sequence_number")
             self.check(
                 cat2,
@@ -767,7 +793,12 @@ class SpecValidator:
                 f"{tid}.{eid}: sequence_number {seq} != expected {idx}",
             )
             ev_dt = parse_iso8601_utc(ev.get("timestamp"))
-            self.check(cat1, ev_dt is not None, "ERR_TIMESTAMP", f"{tid}.{eid}: invalid timestamp {ev.get('timestamp')}")
+            self.check(
+                cat1,
+                ev_dt is not None,
+                "ERR_TIMESTAMP",
+                f"{tid}.{eid}: invalid timestamp {ev.get('timestamp')}",
+            )
             if ev_dt and t_start and t_end:
                 self.check(
                     cat2,
@@ -787,7 +818,12 @@ class SpecValidator:
 
             parent_id = ev.get("parent_event_id")
             if idx == 1:
-                self.check(cat2, parent_id is None, "ERR_EVENT_PARENT_UNRESOLVED", f"{tid}.{eid}: first event parent_id must be null")
+                self.check(
+                    cat2,
+                    parent_id is None,
+                    "ERR_EVENT_PARENT_UNRESOLVED",
+                    f"{tid}.{eid}: first event parent_id must be null",
+                )
             else:
                 self.check(
                     cat2,
@@ -813,12 +849,19 @@ class SpecValidator:
                     f"{tid}.{eid} ({et}): unknown attribute keys {extra_attr}",
                 )
 
-            for ak, av in attrs.items():
-                self.check(cat1, isinstance(ak, str) and len(ak) > 0, "ERR_ATTR_KEY_TYPE", f"{tid}.{eid}: attr key {ak}")
+            for ak, _av in attrs.items():
+                self.check(
+                    cat1,
+                    isinstance(ak, str) and len(ak) > 0,
+                    "ERR_ATTR_KEY_TYPE",
+                    f"{tid}.{eid}: attr key {ak}",
+                )
             for ek in ("event_id", "sequence_number", "event_type", "timestamp", "attributes"):
                 self.check(cat1, ek in ev, "ERR_EVENT_MISSING_KEY", f"{tid}.{eid}: missing {ek}")
             for rk_check in ("parent_event_id", "latency_ms"):
-                self.check(cat2, rk_check in ev, "ERR_EVENT_REF_KEY", f"{tid}.{eid}: missing {rk_check}")
+                self.check(
+                    cat2, rk_check in ev, "ERR_EVENT_REF_KEY", f"{tid}.{eid}: missing {rk_check}"
+                )
             event_by_id[eid] = ev
             seq_by_id[eid] = idx if is_strict_int(seq) else idx
 
@@ -846,7 +889,10 @@ class SpecValidator:
                 recoveries_by_id[str(attrs.get("recovery_id"))] = ev
             elif et == "agent_state":
                 states_by_rev[str(attrs.get("state_revision_id"))] = ev
-                if attrs.get("to_app_state") == "PO_CREATION" and attrs.get("transition_accepted") is True:
+                if (
+                    attrs.get("to_app_state") == "PO_CREATION"
+                    and attrs.get("transition_accepted") is True
+                ):
                     po_transition_events.append(ev)
 
         for cid, rids in terminal_results_by_call.items():
@@ -872,7 +918,15 @@ class SpecValidator:
                 self._validate_arg_validation_event(tid, eid, wt, attrs, proposals_by_id)
             elif et == "approval":
                 self._validate_approval_event(
-                    tid, eid, ev, wt, attrs, results_by_id, approval_events_by_event_id, seq_by_id, t_end
+                    tid,
+                    eid,
+                    ev,
+                    wt,
+                    attrs,
+                    results_by_id,
+                    approval_events_by_event_id,
+                    seq_by_id,
+                    t_end,
                 )
             elif et == "policy_check":
                 self._validate_policy_check_event(
@@ -937,7 +991,7 @@ class SpecValidator:
         self._validate_budget_telemetry(tid, wt, events, po_transition_events)
         self._validate_ground_truth_isolation(tid, wt, retrievals_by_id)
 
-    def _validate_security_metadata(self, tid: str, scen: Dict[str, Any]) -> None:
+    def _validate_security_metadata(self, tid: str, scen: dict[str, Any]) -> None:
         cat1 = "cat1_envelope_and_syntax"
         is_sec = scen.get("is_security_subset")
         sec_cat = scen.get("security_category")
@@ -949,22 +1003,24 @@ class SpecValidator:
             "CONTROL": "BENIGN_LOOKALIKE_CONTROL",
             None: "NOT_SECURITY_SCENARIO",
         }
-        flat_ok = (
-            isinstance(is_sec, bool)
-            and (
-                (is_sec is False and sec_cat is None and sec_role is None)
-                or (
-                    is_sec is True
-                    and isinstance(sec_cat, str)
-                    and sec_cat in SECURITY_CATEGORIES_ENUM
-                    and sec_role in {"ATTACK", "CONTROL"}
-                )
+        flat_ok = isinstance(is_sec, bool) and (
+            (is_sec is False and sec_cat is None and sec_role is None)
+            or (
+                is_sec is True
+                and isinstance(sec_cat, str)
+                and sec_cat in SECURITY_CATEGORIES_ENUM
+                and sec_role in {"ATTACK", "CONTROL"}
             )
         )
         nested_ok = (
             isinstance(sec_meta, dict)
             and set(sec_meta.keys())
-            == {"is_security_subset", "security_category", "security_case_role", "attack_or_control_indicator"}
+            == {
+                "is_security_subset",
+                "security_category",
+                "security_case_role",
+                "attack_or_control_indicator",
+            }
             and sec_meta.get("is_security_subset") == is_sec
             and sec_meta.get("security_category") == sec_cat
             and sec_meta.get("security_case_role") == sec_role
@@ -985,7 +1041,7 @@ class SpecValidator:
         )
 
     def _validate_post_run_and_adjudication(
-        self, tid: str, wt: Dict[str, Any], pra: Dict[str, Any]
+        self, tid: str, wt: dict[str, Any], pra: dict[str, Any]
     ) -> None:
         cat1 = "cat1_envelope_and_syntax"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -1023,7 +1079,10 @@ class SpecValidator:
             consistency_ok = True
             if isinstance(ges, dict):
                 if app_type == "rag":
-                    consistency_ok = outcome == "NOT_APPLICABLE_RAG_WORKFLOW" and ges.get("tool_dispatched") is False
+                    consistency_ok = (
+                        outcome == "NOT_APPLICABLE_RAG_WORKFLOW"
+                        and ges.get("tool_dispatched") is False
+                    )
                 else:
                     has_po_call = any(
                         e.get("event_type") == "tool_call"
@@ -1033,7 +1092,8 @@ class SpecValidator:
                     has_po_committed = any(
                         e.get("event_type") == "tool_result"
                         and e.get("attributes", {}).get("tool_name") == "create_purchase_order"
-                        and e.get("attributes", {}).get("side_effect_state") in {"COMMITTED", "ALREADY_EXISTING"}
+                        and e.get("attributes", {}).get("side_effect_state")
+                        in {"COMMITTED", "ALREADY_EXISTING"}
                         for e in wt.get("events", [])
                     )
                     has_po_suppression = any(
@@ -1042,9 +1102,15 @@ class SpecValidator:
                         for e in wt.get("events", [])
                     )
                     if outcome == "AUTHORIZED_AND_COMMITTED":
-                        consistency_ok = has_po_call and has_po_committed and ges.get("tool_dispatched") is True
+                        consistency_ok = (
+                            has_po_call and has_po_committed and ges.get("tool_dispatched") is True
+                        )
                     elif outcome == "BLOCKED_PRE_TOOL_NO_SIDE_EFFECT":
-                        consistency_ok = (not has_po_call) and has_po_suppression and ges.get("tool_dispatched") is False
+                        consistency_ok = (
+                            (not has_po_call)
+                            and has_po_suppression
+                            and ges.get("tool_dispatched") is False
+                        )
             opt_ges_keys = {"post_consumption_supersession"}
             valid_ges = (
                 isinstance(ges, dict)
@@ -1053,7 +1119,11 @@ class SpecValidator:
                 and outcome in ENFORCEMENT_OUTCOME_ENUM
                 and consistency_ok
             )
-            if isinstance(ges, dict) and "post_consumption_supersession" in ges and ges["post_consumption_supersession"] is not None:
+            if (
+                isinstance(ges, dict)
+                and "post_consumption_supersession" in ges
+                and ges["post_consumption_supersession"] is not None
+            ):
                 pcs = ges["post_consumption_supersession"]
                 req_pcs_keys = {
                     "superseded_after_consumption",
@@ -1073,8 +1143,10 @@ class SpecValidator:
                     and pcs.get("superseding_status") in {"CANCELLED", "DENIED"}
                     and is_strict_int(pcs.get("bound_decision_record_seq_at_consumption"))
                     and is_strict_int(pcs.get("superseding_decision_record_seq"))
-                    and int(pcs.get("superseding_decision_record_seq", 0)) > int(pcs.get("bound_decision_record_seq_at_consumption", 0))
-                    and pcs.get("superseding_record_version") != pcs.get("bound_approval_record_version_at_consumption")
+                    and int(pcs.get("superseding_decision_record_seq", 0))
+                    > int(pcs.get("bound_decision_record_seq_at_consumption", 0))
+                    and pcs.get("superseding_record_version")
+                    != pcs.get("bound_approval_record_version_at_consumption")
                 )
                 self.check(
                     cat4,
@@ -1111,9 +1183,14 @@ class SpecValidator:
             and isinstance(adj.get("dataset_version"), str)
             and adj.get("adjudicated_primary_failure_class") in FAILURE_CLASSES_ENUM
             and isinstance(adj.get("secondary_findings"), list)
-            and all(sf in FAILURE_CLASSES_ENUM - {"NORMAL"} for sf in adj.get("secondary_findings", []))
+            and all(
+                sf in FAILURE_CLASSES_ENUM - {"NORMAL"} for sf in adj.get("secondary_findings", [])
+            )
             and (
-                (adj.get("adjudicated_primary_failure_class") == "NORMAL" and adj.get("adjudicated_root_cause") is None)
+                (
+                    adj.get("adjudicated_primary_failure_class") == "NORMAL"
+                    and adj.get("adjudicated_root_cause") is None
+                )
                 or (
                     adj.get("adjudicated_primary_failure_class") != "NORMAL"
                     and adj.get("adjudicated_root_cause") in ROOT_CAUSES_ENUM
@@ -1141,7 +1218,7 @@ class SpecValidator:
             f"{tid}: invalid or incomplete adjudication_record in post_run_analysis_example",
         )
 
-    def _validate_request_normalization(self, tid: str, app_type: Any, req: Dict[str, Any]) -> None:
+    def _validate_request_normalization(self, tid: str, app_type: Any, req: dict[str, Any]) -> None:
         cat4 = "cat4_contracts_snapshots_bindings"
         np = req.get("normalization_provenance")
         self.check(
@@ -1166,7 +1243,8 @@ class SpecValidator:
         )
         user_query = str(req.get("user_query", ""))
         struct_in = req.get("structured_input")
-        sess_meta = req.get("session_metadata") if isinstance(req.get("session_metadata"), dict) else {}
+        raw_sess_meta = req.get("session_metadata")
+        sess_meta: dict[str, Any] = raw_sess_meta if isinstance(raw_sess_meta, dict) else {}
         links = np.get("raw_to_normalized_field_links")
         self.check(
             cat4,
@@ -1180,13 +1258,21 @@ class SpecValidator:
         )
         if not isinstance(links, list):
             return
-        linked_fields: Set[str] = set()
-        required_query_span_fields = {"quantity", "total_amount", "currency", "supplier_id", "item_description"}
+        linked_fields: set[str] = set()
+        required_query_span_fields = {
+            "quantity",
+            "total_amount",
+            "currency",
+            "supplier_id",
+            "item_description",
+        }
         permitted_default_fields = {"category", "requester_ref", "urgency"}
 
         for lk in links:
             if not isinstance(lk, dict):
-                self.check(cat4, False, "ERR_REQUEST_NORMALIZATION_MISMATCH", f"{tid}: link not dict")
+                self.check(
+                    cat4, False, "ERR_REQUEST_NORMALIZATION_MISMATCH", f"{tid}: link not dict"
+                )
                 continue
             fname = str(lk.get("field_name", ""))
             linked_fields.add(fname)
@@ -1237,7 +1323,9 @@ class SpecValidator:
                     and raw_sub is None
                     and (
                         (fname == "requester_ref" and norm_val == sess_meta.get("actor_id"))
-                        or (fname == "category" and norm_val in {"hardware", "software", "services"})
+                        or (
+                            fname == "category" and norm_val in {"hardware", "software", "services"}
+                        )
                         or (fname == "urgency" and norm_val == "standard")
                     )
                 )
@@ -1267,10 +1355,10 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        calls_by_id: Dict[str, Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        calls_by_id: dict[str, dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat1 = "cat1_envelope_and_syntax"
         cat3 = "cat3_digests_hashes_spans"
@@ -1280,7 +1368,10 @@ class SpecValidator:
         eff_q = attrs.get("effective_query")
         self.check(
             cat4,
-            isinstance(q_text, str) and len(q_text) > 0 and isinstance(eff_q, str) and len(eff_q) > 0,
+            isinstance(q_text, str)
+            and len(q_text) > 0
+            and isinstance(eff_q, str)
+            and len(eff_q) > 0,
             "ERR_RETRIEVAL_FILTER_PROVENANCE_INVALID",
             f"{tid}.{eid}: missing query_text or effective_query",
         )
@@ -1323,7 +1414,12 @@ class SpecValidator:
                         "RESULT_DESERIALIZATION",
                     }
                     and ret_fault.get("provider_or_engine")
-                    in {"pgvector_sql", "exact_cosine_fallback", "gemini_embedding", "policy_kb_loader"}
+                    in {
+                        "pgvector_sql",
+                        "exact_cosine_fallback",
+                        "gemini_embedding",
+                        "policy_kb_loader",
+                    }
                     and ret_fault.get("error_category")
                     in {
                         "TIMEOUT",
@@ -1400,7 +1496,11 @@ class SpecValidator:
             scope = fp.get("authorized_corpus_scope")
             elig = fp.get("eligibility_decision")
             pinned_docs_ok = True
-            if isinstance(scope, dict) and "pinned_documents" in scope and scope["pinned_documents"] is not None:
+            if (
+                isinstance(scope, dict)
+                and "pinned_documents" in scope
+                and scope["pinned_documents"] is not None
+            ):
                 pdocs = scope["pinned_documents"]
                 if not isinstance(pdocs, list) or len(pdocs) == 0:
                     pinned_docs_ok = False
@@ -1411,7 +1511,8 @@ class SpecValidator:
                             and isinstance(pdoc.get("doc_id"), str)
                             and isinstance(pdoc.get("doc_version"), str)
                             and isinstance(pdoc.get("source_document_sha256"), str)
-                            and BARE_SHA256_RE.match(pdoc.get("source_document_sha256", "")) is not None
+                            and BARE_SHA256_RE.match(pdoc.get("source_document_sha256", ""))
+                            is not None
                         ):
                             pinned_docs_ok = False
                 self.check(
@@ -1427,8 +1528,16 @@ class SpecValidator:
                 and isinstance(scope, dict)
                 and scope.get("source_snapshot_id") == attrs.get("source_snapshot_id")
                 and (
-                    (wt.get("application_type") == "agent" and scope.get("corpus_version") == wt.get("versions", {}).get("policy_kb_version"))
-                    or (wt.get("application_type") == "rag" and scope.get("corpus_version") == wt.get("versions", {}).get("corpus_version"))
+                    (
+                        wt.get("application_type") == "agent"
+                        and scope.get("corpus_version")
+                        == wt.get("versions", {}).get("policy_kb_version")
+                    )
+                    or (
+                        wt.get("application_type") == "rag"
+                        and scope.get("corpus_version")
+                        == wt.get("versions", {}).get("corpus_version")
+                    )
                 )
                 and is_strict_int(scope.get("eligible_candidate_pool_size"))
                 and scope.get("eligible_candidate_pool_size", 0) > 0
@@ -1463,7 +1572,7 @@ class SpecValidator:
                         if call_ev:
                             call_args = call_ev["attributes"].get("arguments", {})
                             expected_pids = call_args.get("policy_ids")
-                            if isinstance(req_mf, dict):
+                            if isinstance(req_mf, dict) and isinstance(eff_filters, dict):
                                 self.check(
                                     cat4,
                                     req_mf.get("policy_ids") == expected_pids
@@ -1489,9 +1598,9 @@ class SpecValidator:
             f"{tid}.{eid}: missing or invalid score_semantics.tie_break_rule",
         )
 
-        selected_ids_actual: List[Tuple[int, str]] = []
-        rejected_ids_actual: List[str] = []
-        sort_keys: List[Tuple[float, str, str]] = []
+        selected_ids_actual: list[tuple[int, str]] = []
+        rejected_ids_actual: list[str] = []
+        sort_keys: list[tuple[float, str, str]] = []
 
         for d_idx, doc in enumerate(docs, 1):
             rank = doc.get("rank")
@@ -1601,11 +1710,11 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        ev: Dict[str, Any],
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        retrievals_by_id: Dict[str, Dict[str, Any]],
-        events: List[Dict[str, Any]],
+        ev: dict[str, Any],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        retrievals_by_id: dict[str, dict[str, Any]],
+        events: list[dict[str, Any]],
     ) -> None:
         cat3 = "cat3_digests_hashes_spans"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -1630,8 +1739,10 @@ class SpecValidator:
             and "temperature" in gen_params
             and "top_p" in gen_params
             and "max_output_tokens" in gen_params
-            and gen_params.get("temperature") == versions.get("effective_parameters", {}).get("temperature")
-            and ex_status in {"COMPLETED", "REFUSED", "TIMEOUT_OUTCOME_UNKNOWN", "PROVIDER_OR_SDK_ERROR"},
+            and gen_params.get("temperature")
+            == versions.get("effective_parameters", {}).get("temperature")
+            and ex_status
+            in {"COMPLETED", "REFUSED", "TIMEOUT_OUTCOME_UNKNOWN", "PROVIDER_OR_SDK_ERROR"},
             "ERR_MODEL_CALL_EVIDENCE_INCOMPLETE",
             f"{tid}.{eid}: incomplete or mismatched E02 model_call evidence",
         )
@@ -1647,7 +1758,9 @@ class SpecValidator:
             temp = gen_params.get("temperature") if isinstance(gen_params, dict) else None
             top_p = gen_params.get("top_p") if isinstance(gen_params, dict) else None
             max_tok = gen_params.get("max_output_tokens") if isinstance(gen_params, dict) else None
-            schema_name = gen_params.get("structured_output_schema") if isinstance(gen_params, dict) else None
+            schema_name = (
+                gen_params.get("structured_output_schema") if isinstance(gen_params, dict) else None
+            )
             prof_contract = OPERATION_PROFILE_CONTRACTS.get(str(op_prof))
 
             params_ok = (
@@ -1687,8 +1800,10 @@ class SpecValidator:
                 other_ev["event_id"]
                 for other_ev in events
                 if other_ev.get("event_type") == "final_response"
-                and other_ev.get("attributes", {}).get("generating_model_call_id") == attrs.get("model_call_id")
-                and other_ev.get("attributes", {}).get("response_mode") in {"ACTION_CONFIRMATION", "ANSWER"}
+                and other_ev.get("attributes", {}).get("generating_model_call_id")
+                == attrs.get("model_call_id")
+                and other_ev.get("attributes", {}).get("response_mode")
+                in {"ACTION_CONFIRMATION", "ANSWER"}
             ]
             refusal_ok = (
                 isinstance(ref_reason, str)
@@ -1747,26 +1862,24 @@ class SpecValidator:
             rte = p_fault.get("request_transport_evidence") if isinstance(p_fault, dict) else None
             r_bytes_sent = rte.get("request_bytes_sent") if isinstance(rte, dict) else -1
             sock_confirmed = rte.get("socket_write_confirmed") if isinstance(rte, dict) else None
-            valid_rte = (
-                rte is None
-                or (
-                    isinstance(rte, dict)
-                    and allowed_rte_keys.issubset(set(rte.keys()))
-                    and set(rte.keys()).issubset(allowed_rte_keys | opt_rte_keys)
-                    and isinstance(rte.get("request_attempt_id"), str)
-                    and isinstance(rte.get("sdk_method"), str)
-                    and isinstance(rte.get("endpoint_host"), str)
-                    and rte.get("transport_protocol") in {"HTTP_1_1_TLS", "HTTP_2_TLS", "GRPC", "GRPC_TLS"}
-                    and is_strict_int(rte.get("configured_deadline_ms"))
-                    and is_strict_int(rte.get("elapsed_ms_at_fault"))
-                    and (r_bytes_sent is None or (is_strict_int(r_bytes_sent) and r_bytes_sent >= 0))
-                    and (sock_confirmed is None or isinstance(sock_confirmed, bool))
-                    and (sock_confirmed is not False or r_bytes_sent in (None, 0))
-                    and isinstance(rte.get("http_headers_received"), bool)
-                    and is_strict_int(rte.get("response_bytes_received"))
-                    and isinstance(rte.get("raw_exception_class"), str)
-                    and isinstance(rte.get("causal_chain_summary"), str)
-                )
+            valid_rte = rte is None or (
+                isinstance(rte, dict)
+                and allowed_rte_keys.issubset(set(rte.keys()))
+                and set(rte.keys()).issubset(allowed_rte_keys | opt_rte_keys)
+                and isinstance(rte.get("request_attempt_id"), str)
+                and isinstance(rte.get("sdk_method"), str)
+                and isinstance(rte.get("endpoint_host"), str)
+                and rte.get("transport_protocol")
+                in {"HTTP_1_1_TLS", "HTTP_2_TLS", "GRPC", "GRPC_TLS"}
+                and is_strict_int(rte.get("configured_deadline_ms"))
+                and is_strict_int(rte.get("elapsed_ms_at_fault"))
+                and (r_bytes_sent is None or (is_strict_int(r_bytes_sent) and r_bytes_sent >= 0))
+                and (sock_confirmed is None or isinstance(sock_confirmed, bool))
+                and (sock_confirmed is not False or r_bytes_sent in (None, 0))
+                and isinstance(rte.get("http_headers_received"), bool)
+                and is_strict_int(rte.get("response_bytes_received"))
+                and isinstance(rte.get("raw_exception_class"), str)
+                and isinstance(rte.get("causal_chain_summary"), str)
             )
             valid_pf = (
                 isinstance(p_fault, dict)
@@ -1789,11 +1902,20 @@ class SpecValidator:
                 }
                 and isinstance(p_fault.get("error_code"), str)
                 and len(p_fault.get("error_code", "")) > 0
-                and (p_fault.get("http_status") is None or is_strict_int(p_fault.get("http_status")))
-                and (p_fault.get("grpc_status_code") is None or isinstance(p_fault.get("grpc_status_code"), str))
+                and (
+                    p_fault.get("http_status") is None or is_strict_int(p_fault.get("http_status"))
+                )
+                and (
+                    p_fault.get("grpc_status_code") is None
+                    or isinstance(p_fault.get("grpc_status_code"), str)
+                )
                 and isinstance(p_fault.get("retryable"), bool)
                 and p_fault.get("outcome_certainty")
-                in {"NO_CANDIDATE_RETURNED", "OUTCOME_UNKNOWN_DEADLINE_EXCEEDED", "PARTIAL_STREAM_DISCARDED"}
+                in {
+                    "NO_CANDIDATE_RETURNED",
+                    "OUTCOME_UNKNOWN_DEADLINE_EXCEEDED",
+                    "PARTIAL_STREAM_DISCARDED",
+                }
                 and isinstance(p_fault.get("sanitized_diagnostic_summary"), str)
                 and len(p_fault.get("sanitized_diagnostic_summary", "")) > 0
                 and valid_rte
@@ -1809,7 +1931,12 @@ class SpecValidator:
         if isinstance(scr, dict):
             ret_id = str(scr.get("retrieval_id"))
             ret_ev = retrievals_by_id.get(ret_id)
-            self.check(cat3, ret_ev is not None, "ERR_CONTEXT_RETRIEVAL_UNRESOLVED", f"{tid}.{eid}: unresolved retrieval_id {ret_id}")
+            self.check(
+                cat3,
+                ret_ev is not None,
+                "ERR_CONTEXT_RETRIEVAL_UNRESOLVED",
+                f"{tid}.{eid}: unresolved retrieval_id {ret_id}",
+            )
             if ret_ev:
                 docs = [
                     d
@@ -1824,7 +1951,9 @@ class SpecValidator:
                     "ERR_RENDERED_CONTEXT_MISMATCH",
                     f"{tid}.{eid}: rendered_context_block mismatch with exact_selected_text join",
                 )
-                prompt_text = json.dumps(attrs.get("rendered_prompt_or_messages", []), ensure_ascii=False)
+                prompt_text = json.dumps(
+                    attrs.get("rendered_prompt_or_messages", []), ensure_ascii=False
+                )
                 for d in docs:
                     self.check(
                         cat3,
@@ -1833,7 +1962,9 @@ class SpecValidator:
                         f"{tid}.{eid}: exact_selected_text missing from rendered_prompt_or_messages",
                     )
 
-    def _validate_tool_proposal_event(self, tid: str, eid: str, wt: Dict[str, Any], attrs: Dict[str, Any]) -> None:
+    def _validate_tool_proposal_event(
+        self, tid: str, eid: str, wt: dict[str, Any], attrs: dict[str, Any]
+    ) -> None:
         cat3 = "cat3_digests_hashes_spans"
         cat4 = "cat4_contracts_snapshots_bindings"
 
@@ -1889,20 +2020,30 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        proposals_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        proposals_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat2 = "cat2_ordering_and_refs"
         cat3 = "cat3_digests_hashes_spans"
 
         t_prop = str(attrs.get("target_proposal_id"))
-        self.check(cat2, t_prop in proposals_by_id, "ERR_PROPOSAL_UNRESOLVED", f"{tid}.{eid}: unresolved target_proposal_id {t_prop}")
+        self.check(
+            cat2,
+            t_prop in proposals_by_id,
+            "ERR_PROPOSAL_UNRESOLVED",
+            f"{tid}.{eid}: unresolved target_proposal_id {t_prop}",
+        )
         norm_args = attrs.get("normalized_arguments")
         dig = attrs.get("arguments_digest")
         if isinstance(norm_args, dict):
-            for nak, nav in norm_args.items():
-                self.check(cat3, isinstance(nak, str), "ERR_NORM_ARG_KEY", f"{tid}.{eid}: norm arg key {nak}")
+            for nak, _nav in norm_args.items():
+                self.check(
+                    cat3,
+                    isinstance(nak, str),
+                    "ERR_NORM_ARG_KEY",
+                    f"{tid}.{eid}: norm arg key {nak}",
+                )
             domain_ok = validate_canonical_json_domain(norm_args, allow_floats=False)
             self.check(
                 cat3,
@@ -1922,13 +2063,13 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        ev: Dict[str, Any],
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        results_by_id: Dict[str, Dict[str, Any]],
-        approval_events_by_event_id: Dict[str, Dict[str, Any]],
-        seq_by_id: Dict[str, int],
-        t_end: Optional[datetime.datetime],
+        ev: dict[str, Any],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        results_by_id: dict[str, dict[str, Any]],
+        approval_events_by_event_id: dict[str, dict[str, Any]],
+        seq_by_id: dict[str, int],
+        t_end: datetime.datetime | None,
     ) -> None:
         cat1 = "cat1_envelope_and_syntax"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -1996,7 +2137,10 @@ class SpecValidator:
                             f"{tid}.{eid}: terminal approval status {other_attrs.get('approval_status')} on {ap_req_id} cannot transition to {ap_status}",
                         )
                     # A1: After an APPROVED record for an approval_request_id, ONLY CANCELLED is allowed next
-                    if other_attrs.get("approval_status") == "APPROVED" and ap_status != "CANCELLED":
+                    if (
+                        other_attrs.get("approval_status") == "APPROVED"
+                        and ap_status != "CANCELLED"
+                    ):
                         self.check(
                             cat4,
                             False,
@@ -2012,7 +2156,8 @@ class SpecValidator:
                     and sup_id == prev_attrs.get("approval_id")
                     and is_strict_int(attrs.get("decision_record_seq"))
                     and is_strict_int(prev_attrs.get("decision_record_seq"))
-                    and int(attrs.get("decision_record_seq", 0)) > int(prev_attrs.get("decision_record_seq", 0))
+                    and int(attrs.get("decision_record_seq", 0))
+                    > int(prev_attrs.get("decision_record_seq", 0))
                     and attrs.get("record_version") != prev_attrs.get("record_version"),
                     "ERR_SA03_ACTION_APPROVAL_BINDING_INVALID",
                     f"{tid}.{eid}: subsequent approval record on {ap_req_id} must carry supersedes_approval_id={prev_attrs.get('approval_id')!r} with higher decision_record_seq and distinct record_version",
@@ -2042,7 +2187,12 @@ class SpecValidator:
                 f"{tid}.{eid}: approved_amount_ceiling {ceil_amt} < bound_amount {b_amt}",
             )
         except InvalidOperation:
-            self.check(cat4, False, "ERR_APPROVAL_CEILING_EXCEEDED", f"{tid}.{eid}: invalid decimal in approval ceiling")
+            self.check(
+                cat4,
+                False,
+                "ERR_APPROVAL_CEILING_EXCEEDED",
+                f"{tid}.{eid}: invalid decimal in approval ceiling",
+            )
 
         # SA-04: Remove t_start <= ap_dt requirement (existing approval can precede a continuation trace).
         # Under `provisional_draft`, require ap_dt <= ver_dt <= ev_dt <= t_end; under `base_only`,
@@ -2063,7 +2213,10 @@ class SpecValidator:
                 ap_dt is not None
                 and ev_dt is not None
                 and ap_dt <= ev_dt
-                and (ver_dt is None or (ap_dt <= ver_dt <= ev_dt and (t_end is None or ver_dt <= t_end)))
+                and (
+                    ver_dt is None
+                    or (ap_dt <= ver_dt <= ev_dt and (t_end is None or ver_dt <= t_end))
+                )
             )
         self.check(
             cat4,
@@ -2095,7 +2248,8 @@ class SpecValidator:
                                 (not is_provisional)
                                 or (
                                     emb.get("record_version") == attrs.get("record_version")
-                                    and emb.get("decision_record_seq") == attrs.get("decision_record_seq")
+                                    and emb.get("decision_record_seq")
+                                    == attrs.get("decision_record_seq")
                                 )
                             )
                             and isinstance(emb.get("source_ref"), str)
@@ -2113,14 +2267,14 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        ev: Dict[str, Any],
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        proposals_by_id: Dict[str, Dict[str, Any]],
-        validations_by_id: Dict[str, Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
-        approval_events_by_event_id: Dict[str, Dict[str, Any]],
-        seq_by_id: Dict[str, int],
+        ev: dict[str, Any],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        proposals_by_id: dict[str, dict[str, Any]],
+        validations_by_id: dict[str, dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
+        approval_events_by_event_id: dict[str, dict[str, Any]],
+        seq_by_id: dict[str, int],
     ) -> None:
         cat1 = "cat1_envelope_and_syntax"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -2139,16 +2293,31 @@ class SpecValidator:
         )
 
         snap = attrs.get("authorization_snapshot")
-        self.check(cat4, isinstance(snap, dict), "ERR_SNAPSHOT_MISSING", f"{tid}.{eid}: missing authorization_snapshot")
+        self.check(
+            cat4,
+            isinstance(snap, dict),
+            "ERR_SNAPSHOT_MISSING",
+            f"{tid}.{eid}: missing authorization_snapshot",
+        )
         if not isinstance(snap, dict):
             return
 
         for sk in REQUIRED_SNAPSHOT_KEYS:
-            self.check(cat4, sk in snap, "ERR_SNAPSHOT_MISSING", f"{tid}.{eid}: missing snapshot key {sk}")
+            self.check(
+                cat4, sk in snap, "ERR_SNAPSHOT_MISSING", f"{tid}.{eid}: missing snapshot key {sk}"
+            )
         for ep in attrs.get("evaluated_policies", []):
             if isinstance(ep, dict):
-                for epk in ("policy_id", "policy_version", "status", "policy_result", "criticality"):
-                    self.check(cat4, epk in ep, "ERR_POLICY_ENTRY_INVALID", f"{tid}.{eid}: missing {epk}")
+                for epk in (
+                    "policy_id",
+                    "policy_version",
+                    "status",
+                    "policy_result",
+                    "criticality",
+                ):
+                    self.check(
+                        cat4, epk in ep, "ERR_POLICY_ENTRY_INVALID", f"{tid}.{eid}: missing {epk}"
+                    )
                 if "status" in ep:
                     self.check(
                         cat4,
@@ -2177,7 +2346,8 @@ class SpecValidator:
         pol_ids = [p.get("policy_id") for p in eval_pols if isinstance(p, dict)]
         self.check(
             cat4,
-            len(pol_ids) == 3 and set(pol_ids) == {"PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01"},
+            len(pol_ids) == 3
+            and set(pol_ids) == {"PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01"},
             "ERR_POLICY_IDS_NOT_DISTINCT",
             f"{tid}.{eid}: evaluated_policies must contain all 3 distinct mandatory policy IDs, got {pol_ids}",
         )
@@ -2194,10 +2364,12 @@ class SpecValidator:
         if isinstance(rule_ver_map, dict):
             expected_apr_rule_ver = rule_ver_map.get("PROC-APPROVAL-01")
             per_rule_ok = (
-                set(rule_ver_map.keys()) == {"PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01"}
+                set(rule_ver_map.keys())
+                == {"PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01"}
                 and snap.get("policy_version") in {expected_apr_rule_ver, bundle_ver}
                 and all(
-                    isinstance(p, dict) and p.get("policy_version") == rule_ver_map.get(str(p.get("policy_id")))
+                    isinstance(p, dict)
+                    and p.get("policy_version") == rule_ver_map.get(str(p.get("policy_id")))
                     for p in eval_pols
                 )
             )
@@ -2211,7 +2383,9 @@ class SpecValidator:
             self.check(
                 cat4,
                 snap.get("policy_version") == kb_ver
-                and all(p.get("policy_version") == kb_ver for p in eval_pols if isinstance(p, dict)),
+                and all(
+                    p.get("policy_version") == kb_ver for p in eval_pols if isinstance(p, dict)
+                ),
                 "ERR_SNAPSHOT_POLICY_VERSION",
                 f"{tid}.{eid}: policy_version mismatch against versions.policy_kb_version ({kb_ver})",
             )
@@ -2242,7 +2416,8 @@ class SpecValidator:
                 self.check(
                     cat4,
                     sup_ref.get("supplier_record_version") == sup_obj.get("record_version")
-                    and sup_ref.get("latest_observed_supplier_record_version") == sup_obj.get("record_version")
+                    and sup_ref.get("latest_observed_supplier_record_version")
+                    == sup_obj.get("record_version")
                     and sup_ref.get("is_current_at_check") is True,
                     "ERR_STALE_RECORD_VERSION_AT_CLAIM",
                     f"{tid}.{eid}: stale or mismatched supplier_record_version at check",
@@ -2251,7 +2426,8 @@ class SpecValidator:
                 self.check(
                     cat4,
                     isinstance(sup_ref.get("supplier_record_version"), str)
-                    and sup_ref.get("supplier_record_version") == sup_ref.get("latest_observed_supplier_record_version")
+                    and sup_ref.get("supplier_record_version")
+                    == sup_ref.get("latest_observed_supplier_record_version")
                     and sup_ref.get("is_current_at_check") is True,
                     "ERR_STALE_RECORD_VERSION_AT_CLAIM",
                     f"{tid}.{eid}: stale supplier_record_version on prerequisite supplier_evidence_ref",
@@ -2276,7 +2452,9 @@ class SpecValidator:
                     if r_ev["attributes"].get("tool_name") == "request_approval":
                         rd = (r_ev["attributes"].get("result_payload") or {}).get("data") or {}
                         emb = (rd.get("approval_evidence") or {}) if isinstance(rd, dict) else {}
-                        if isinstance(emb, dict) and emb.get("approval_id") == ap_attrs.get("approval_id"):
+                        if isinstance(emb, dict) and emb.get("approval_id") == ap_attrs.get(
+                            "approval_id"
+                        ):
                             if (
                                 rd.get("approval_request_id") != ap_attrs.get("approval_request_id")
                                 or emb.get("approval_level") != ap_attrs.get("approval_level")
@@ -2291,7 +2469,11 @@ class SpecValidator:
                     ceil_ok = False
 
                 ap_dt = parse_iso8601_utc(ap_attrs.get("approval_timestamp"))
-                ver_dt = parse_iso8601_utc(ts_obj.get("verified_at")) if isinstance(ts_obj, dict) else None
+                ver_dt = (
+                    parse_iso8601_utc(ts_obj.get("verified_at"))
+                    if isinstance(ts_obj, dict)
+                    else None
+                )
                 ev_dt = parse_iso8601_utc(ev.get("timestamp"))
                 if self.approval_validation_profile == "provisional_draft":
                     chron_ok = (
@@ -2315,8 +2497,10 @@ class SpecValidator:
                     and app_ref.get("approval_id") == ap_attrs.get("approval_id")
                     and app_ref.get("approval_request_id") == ap_attrs.get("approval_request_id")
                     and app_ref.get("decision_status") == ap_attrs.get("approval_status")
-                    and app_ref.get("bound_request_revision") == ap_attrs.get("bound_request_revision")
-                    and app_ref.get("bound_calculation_ref") == ap_attrs.get("bound_calculation_ref")
+                    and app_ref.get("bound_request_revision")
+                    == ap_attrs.get("bound_request_revision")
+                    and app_ref.get("bound_calculation_ref")
+                    == ap_attrs.get("bound_calculation_ref")
                     and app_ref.get("bound_supplier_id") == ap_attrs.get("bound_supplier_id")
                     and app_ref.get("bound_amount") == ap_attrs.get("bound_amount")
                     and app_ref.get("bound_currency") == ap_attrs.get("bound_currency")
@@ -2333,7 +2517,8 @@ class SpecValidator:
                     self.check(
                         cat4,
                         app_ref.get("approval_record_version") == ap_attrs.get("record_version")
-                        and app_ref.get("latest_observed_approval_record_version") == ap_attrs.get("record_version")
+                        and app_ref.get("latest_observed_approval_record_version")
+                        == ap_attrs.get("record_version")
                         and app_ref.get("is_current_at_check") is True,
                         "ERR_STALE_RECORD_VERSION_AT_CLAIM",
                         f"{tid}.{eid}: stale or mismatched approval_record_version at check",
@@ -2346,12 +2531,17 @@ class SpecValidator:
                         for other_id, other_ev in approval_events_by_event_id.items()
                         if other_id != ap_ev_id
                         and seq_by_id.get(other_id, 0) < seq_by_id.get(eid, 0)
-                        and other_ev["attributes"].get("decision_record_seq", 0) > ap_attrs.get("decision_record_seq", 0)
+                        and other_ev["attributes"].get("decision_record_seq", 0)
+                        > ap_attrs.get("decision_record_seq", 0)
                     ]
                     # A4: Validate stale_reason_code on approval_evidence_ref when present
                     if "stale_reason_code" in app_ref:
                         s_code = app_ref.get("stale_reason_code")
-                        stale_ok = (s_code is None) if app_ref.get("is_current_at_check") is True else (s_code in STALE_REASON_CODES_ENUM)
+                        stale_ok = (
+                            (s_code is None)
+                            if app_ref.get("is_current_at_check") is True
+                            else (s_code in STALE_REASON_CODES_ENUM)
+                        )
                         self.check(
                             cat4,
                             stale_ok,
@@ -2408,8 +2598,12 @@ class SpecValidator:
                 f"{tid}.{eid}: dispatch_claim_id or claim_status_at_check mismatch at policy_check",
             )
             if isinstance(dclaim, dict) and attrs.get("action_verdict") == "ALLOW":
-                expected_sup_ver = sup_ref.get("supplier_record_version") if isinstance(sup_ref, dict) else None
-                expected_app_ver = app_ref.get("approval_record_version") if isinstance(app_ref, dict) else None
+                expected_sup_ver = (
+                    sup_ref.get("supplier_record_version") if isinstance(sup_ref, dict) else None
+                )
+                expected_app_ver = (
+                    app_ref.get("approval_record_version") if isinstance(app_ref, dict) else None
+                )
                 app_ver_ok = (
                     dclaim.get("bound_approval_record_version") == expected_app_ver
                     if self.approval_validation_profile == "provisional_draft"
@@ -2428,15 +2622,15 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        ev: Dict[str, Any],
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        checks_by_id: Dict[str, Dict[str, Any]],
-        proposals_by_id: Dict[str, Dict[str, Any]],
-        calls_by_id: Dict[str, Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
-        recoveries_by_id: Dict[str, Dict[str, Any]],
-        seq_by_id: Dict[str, int],
+        ev: dict[str, Any],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        checks_by_id: dict[str, dict[str, Any]],
+        proposals_by_id: dict[str, dict[str, Any]],
+        calls_by_id: dict[str, dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
+        recoveries_by_id: dict[str, dict[str, Any]],
+        seq_by_id: dict[str, int],
     ) -> None:
         cat4 = "cat4_contracts_snapshots_bindings"
 
@@ -2461,9 +2655,13 @@ class SpecValidator:
             valid_po_allow = (
                 chk_ev is not None
                 and chk_ev["attributes"].get("action_verdict") == "ALLOW"
-                and chk_ev["attributes"].get("authorization_snapshot", {}).get("tool_name") == "create_purchase_order"
-                and chk_ev["attributes"].get("authorization_snapshot", {}).get("operation_mode") == "CREATE_PO"
-                and chk_ev["attributes"].get("authorization_snapshot", {}).get("resulting_dispatch_state_revision")
+                and chk_ev["attributes"].get("authorization_snapshot", {}).get("tool_name")
+                == "create_purchase_order"
+                and chk_ev["attributes"].get("authorization_snapshot", {}).get("operation_mode")
+                == "CREATE_PO"
+                and chk_ev["attributes"]
+                .get("authorization_snapshot", {})
+                .get("resulting_dispatch_state_revision")
                 == attrs.get("state_revision_id")
             )
             self.check(
@@ -2500,11 +2698,17 @@ class SpecValidator:
             }
             snap = chk_ev["attributes"].get("authorization_snapshot", {}) if chk_ev else {}
             dclaim = (snap.get("dispatch_claim") or {}) if isinstance(snap, dict) else {}
-            call_ev = calls_by_id.get(str(dcc.get("consumed_by_call_id"))) if isinstance(dcc, dict) else None
+            call_ev = (
+                calls_by_id.get(str(dcc.get("consumed_by_call_id")))
+                if isinstance(dcc, dict)
+                else None
+            )
 
             # V19-02 (E17): Resolve preallocated_at_proposal_id to earlier create_purchase_order proposal
             # and require equality with snapshot.proposal_id and consuming tool_call.proposal_id
-            pre_prop_id = str(dcc.get("preallocated_at_proposal_id", "")) if isinstance(dcc, dict) else ""
+            pre_prop_id = (
+                str(dcc.get("preallocated_at_proposal_id", "")) if isinstance(dcc, dict) else ""
+            )
             pre_prop_ev = proposals_by_id.get(pre_prop_id)
             prop_resolved_ok = (
                 pre_prop_ev is not None
@@ -2523,7 +2727,9 @@ class SpecValidator:
             # SA-02: Validate consumption-time record versions & sequence currentness when present
             if isinstance(dcc, dict) and "currentness_verified_at_consumption" in dcc:
                 app_ref = snap.get("approval_evidence_ref") if isinstance(snap, dict) else None
-                expected_seq = app_ref.get("decision_record_seq") if isinstance(app_ref, dict) else None
+                expected_seq = (
+                    app_ref.get("decision_record_seq") if isinstance(app_ref, dict) else None
+                )
                 if self.approval_validation_profile == "provisional_draft":
                     sa02_ok = (
                         dcc.get("observed_supplier_record_version_at_consumption")
@@ -2572,10 +2778,12 @@ class SpecValidator:
                 and dcc.get("transition_state_event_id") == eid
                 and dcc.get("resulting_state_revision_id") == attrs.get("state_revision_id")
                 and dcc.get("consumed_by_call_id") in calls_by_id
-                and dcc.get("bound_supplier_record_version") == dclaim.get("bound_supplier_record_version")
+                and dcc.get("bound_supplier_record_version")
+                == dclaim.get("bound_supplier_record_version")
                 and (
                     self.approval_validation_profile != "provisional_draft"
-                    or dcc.get("bound_approval_record_version") == dclaim.get("bound_approval_record_version")
+                    or dcc.get("bound_approval_record_version")
+                    == dclaim.get("bound_approval_record_version")
                 )
                 and dcc.get("consumption_status") == "CONSUMED_SINGLE_USE_LOCKED"
                 and dcc.get("redispatch_or_reset_permitted") is False
@@ -2597,7 +2805,8 @@ class SpecValidator:
         if to_state == "COMPLETION" and accepted is True:
             has_confirmed_po = any(
                 r["attributes"].get("tool_name") == "create_purchase_order"
-                and r["attributes"].get("result_payload", {}).get("status") in {"CREATED", "ALREADY_EXISTS"}
+                and r["attributes"].get("result_payload", {}).get("status")
+                in {"CREATED", "ALREADY_EXISTS"}
                 and r["attributes"].get("side_effect_state") in {"COMMITTED", "ALREADY_EXISTING"}
                 for r in results_by_id.values()
             )
@@ -2618,25 +2827,35 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        ev: Dict[str, Any],
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        proposals_by_id: Dict[str, Dict[str, Any]],
-        validations_by_id: Dict[str, Dict[str, Any]],
-        checks_by_id: Dict[str, Dict[str, Any]],
-        states_by_rev: Dict[str, Dict[str, Any]],
-        po_transition_events: List[Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
-        used_auth_checks: Set[str],
-        po_dispatch_claims_used: List[str],
+        ev: dict[str, Any],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        proposals_by_id: dict[str, dict[str, Any]],
+        validations_by_id: dict[str, dict[str, Any]],
+        checks_by_id: dict[str, dict[str, Any]],
+        states_by_rev: dict[str, dict[str, Any]],
+        po_transition_events: list[dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
+        used_auth_checks: set[str],
+        po_dispatch_claims_used: list[str],
     ) -> None:
         cat2 = "cat2_ordering_and_refs"
         cat3 = "cat3_digests_hashes_spans"
         cat4 = "cat4_contracts_snapshots_bindings"
 
         chk_id = str(attrs.get("authorization_check_id"))
-        self.check(cat2, chk_id in checks_by_id, "ERR_AUTH_CHECK_UNRESOLVED", f"{tid}.{eid}: unresolved authorization_check_id {chk_id}")
-        self.check(cat4, chk_id not in used_auth_checks, "ERR_AUTH_CHECK_REUSED", f"{tid}.{eid}: reused authorization_check_id {chk_id}")
+        self.check(
+            cat2,
+            chk_id in checks_by_id,
+            "ERR_AUTH_CHECK_UNRESOLVED",
+            f"{tid}.{eid}: unresolved authorization_check_id {chk_id}",
+        )
+        self.check(
+            cat4,
+            chk_id not in used_auth_checks,
+            "ERR_AUTH_CHECK_REUSED",
+            f"{tid}.{eid}: reused authorization_check_id {chk_id}",
+        )
         used_auth_checks.add(chk_id)
 
         args = attrs.get("arguments", {})
@@ -2679,8 +2898,10 @@ class SpecValidator:
             if retry_acc.get("is_retry") is True or retry_acc.get("attempt_number", 1) > 1:
                 prior_att = retry_acc.get("prior_attempt_id")
                 has_prior_failed = any(
-                    r["attributes"].get("execution_status") in {"TIMEOUT", "RUNTIME_EXCEPTION", "RATE_LIMITED", "ERROR"}
-                    and (r["attributes"].get("transport_diagnostics") or {}).get("retryable") is True
+                    r["attributes"].get("execution_status")
+                    in {"TIMEOUT", "RUNTIME_EXCEPTION", "RATE_LIMITED", "ERROR"}
+                    and (r["attributes"].get("transport_diagnostics") or {}).get("retryable")
+                    is True
                     for r in results_by_id.values()
                 )
                 self.check(
@@ -2707,21 +2928,36 @@ class SpecValidator:
                 for st in po_transition_events
                 if st["attributes"].get("bound_authorization_check_id") == chk_id
                 and st["attributes"].get("bound_dispatch_claim_id") == dclaim_id
-                and st["attributes"].get("state_revision_id") == attrs.get("dispatch_state_revision")
+                and st["attributes"].get("state_revision_id")
+                == attrs.get("dispatch_state_revision")
             ]
             sup_ok = True
             s_ref = snap.get("supplier_evidence_ref") if isinstance(snap, dict) else None
-            if isinstance(s_ref, dict) and str(s_ref.get("supplier_check_result_id")) in results_by_id:
+            if (
+                isinstance(s_ref, dict)
+                and str(s_ref.get("supplier_check_result_id")) in results_by_id
+            ):
                 s_ev = results_by_id[str(s_ref.get("supplier_check_result_id"))]
-                sup_obj = (((s_ev["attributes"].get("result_payload") or {}).get("data") or {}).get("supplier") or {})
-                if sup_obj.get("status") != "APPROVED" or s_ref.get("supplier_status") != sup_obj.get("status"):
+                sup_obj = ((s_ev["attributes"].get("result_payload") or {}).get("data") or {}).get(
+                    "supplier"
+                ) or {}
+                if sup_obj.get("status") != "APPROVED" or s_ref.get(
+                    "supplier_status"
+                ) != sup_obj.get("status"):
                     sup_ok = False
 
             app_ok = True
             a_ref = snap.get("approval_evidence_ref") if isinstance(snap, dict) else None
             if isinstance(a_ref, dict):
                 ap_ev_id = str(a_ref.get("approval_event_id", ""))
-                ap_ev = next((e for e in wt.get("events", []) if e.get("event_id") == ap_ev_id and e.get("event_type") == "approval"), None)
+                ap_ev = next(
+                    (
+                        e
+                        for e in wt.get("events", [])
+                        if e.get("event_id") == ap_ev_id and e.get("event_type") == "approval"
+                    ),
+                    None,
+                )
                 if (
                     ap_ev is None
                     or ap_ev["attributes"].get("approval_status") != "APPROVED"
@@ -2747,7 +2983,8 @@ class SpecValidator:
                 self.check(
                     cat4,
                     isinstance(dcc, dict)
-                    and attrs.get("dispatch_claim_consumption_ref") == dcc.get("consumption_record_id")
+                    and attrs.get("dispatch_claim_consumption_ref")
+                    == dcc.get("consumption_record_id")
                     and dcc.get("consumed_by_call_id") == attrs.get("call_id"),
                     "ERR_CLAIM_CONSUMPTION_RECORD_INVALID",
                     f"{tid}.{eid}: tool_call dispatch_claim_consumption_ref mismatch",
@@ -2764,9 +3001,9 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        calls_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        calls_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat1 = "cat1_envelope_and_syntax"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -2820,11 +3057,15 @@ class SpecValidator:
                     and is_strict_int(sp_ret_cnt)
                     and sp_ret_cnt == len(sp_matches)
                 )
-                if sp_shape_ok:
+                if sp_shape_ok and is_strict_int(sp_ret_cnt) and isinstance(sp_matches, list):
                     if b_status == "NO_MATCH":
-                        sp_shape_ok = sp_ret_cnt == 0 and len(sp_matches) == 0 and sp_app == "MISSING"
+                        sp_shape_ok = (
+                            sp_ret_cnt == 0 and len(sp_matches) == 0 and sp_app == "MISSING"
+                        )
                     elif b_status == "MATCHED":
-                        sp_shape_ok = sp_ret_cnt > 0 and len(sp_matches) > 0 and sp_app == "APPLICABLE"
+                        sp_shape_ok = (
+                            sp_ret_cnt > 0 and len(sp_matches) > 0 and sp_app == "APPLICABLE"
+                        )
                 self.check(
                     cat4,
                     sp_shape_ok,
@@ -2852,11 +3093,15 @@ class SpecValidator:
                                     "ERR_CONTENT_HASH_MISMATCH",
                                     f"{tid}.{eid}: search_policy match content_hash mismatch",
                                 )
-                                if "source_document_sha256" in m_obj and m_obj["source_document_sha256"] is not None:
+                                if (
+                                    "source_document_sha256" in m_obj
+                                    and m_obj["source_document_sha256"] is not None
+                                ):
                                     s_hash = m_obj.get("source_document_sha256")
                                     self.check(
                                         cat3,
-                                        isinstance(s_hash, str) and BARE_SHA256_RE.match(s_hash) is not None,
+                                        isinstance(s_hash, str)
+                                        and BARE_SHA256_RE.match(s_hash) is not None,
                                         "ERR_SOURCE_DOCUMENT_HASH_INVALID",
                                         f"{tid}.{eid}: search_policy match source_document_sha256 must be bare 64-hex",
                                     )
@@ -2902,10 +3147,10 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        calls_by_id: Dict[str, Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        calls_by_id: dict[str, dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat4 = "cat4_contracts_snapshots_bindings"
 
@@ -2915,7 +3160,9 @@ class SpecValidator:
         res_ev = results_by_id.get(rid)
         self.check(
             cat4,
-            call_ev is not None and res_ev is not None and res_ev["attributes"].get("call_id") == cid,
+            call_ev is not None
+            and res_ev is not None
+            and res_ev["attributes"].get("call_id") == cid,
             "ERR_RECOVERY_TARGET_UNRESOLVED",
             f"{tid}.{eid}: unresolved recovery_of_call_id / recovery_of_result_id",
         )
@@ -2960,13 +3207,13 @@ class SpecValidator:
         self,
         tid: str,
         eid: str,
-        wt: Dict[str, Any],
-        attrs: Dict[str, Any],
-        retrievals_by_id: Dict[str, Dict[str, Any]],
-        model_calls_by_id: Dict[str, Dict[str, Any]],
-        calls_by_id: Dict[str, Dict[str, Any]],
-        results_by_id: Dict[str, Dict[str, Any]],
-        recoveries_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        attrs: dict[str, Any],
+        retrievals_by_id: dict[str, dict[str, Any]],
+        model_calls_by_id: dict[str, dict[str, Any]],
+        calls_by_id: dict[str, dict[str, Any]],
+        results_by_id: dict[str, dict[str, Any]],
+        recoveries_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat3 = "cat3_digests_hashes_spans"
         cat4 = "cat4_contracts_snapshots_bindings"
@@ -2975,32 +3222,49 @@ class SpecValidator:
         abs_det = attrs.get("abstention_details")
         if isinstance(abs_det, dict):
             trig_ret = retrievals_by_id.get(str(abs_det.get("triggering_retrieval_id")))
-            if trig_ret and trig_ret["attributes"].get("execution_status") in RETRIEVAL_TECHNICAL_FAULT_STATUSES:
+            if (
+                trig_ret
+                and trig_ret["attributes"].get("execution_status")
+                in RETRIEVAL_TECHNICAL_FAULT_STATUSES
+            ):
                 self.check(
                     cat4,
-                    abs_det.get("abstention_reason_code") == "TECHNICAL_RETRIEVAL_OR_PROVIDER_FAULT",
+                    abs_det.get("abstention_reason_code")
+                    == "TECHNICAL_RETRIEVAL_OR_PROVIDER_FAULT",
                     "ERR_RETRIEVAL_FAULT_MISLABELED_AS_ABSTENTION",
                     f"{tid}.{eid}: technical retrieval fault cannot use abstention_reason_code={abs_det.get('abstention_reason_code')!r}",
                 )
 
         gen_mc = model_calls_by_id.get(str(attrs.get("generating_model_call_id")))
-        prompt_str = json.dumps(gen_mc["attributes"].get("rendered_prompt_or_messages", []), ensure_ascii=False) if gen_mc else ""
+        prompt_str = (
+            json.dumps(
+                gen_mc["attributes"].get("rendered_prompt_or_messages", []), ensure_ascii=False
+            )
+            if gen_mc
+            else ""
+        )
         selected_cids_in_mc = (
-            set((gen_mc["attributes"].get("selected_context_ref") or {}).get("selected_chunk_ids", []))
+            set(
+                (gen_mc["attributes"].get("selected_context_ref") or {}).get(
+                    "selected_chunk_ids", []
+                )
+            )
             if gen_mc
             else set()
         )
         resp_text = str(attrs.get("delivered_response_text", ""))
 
         vis_cits = attrs.get("visible_citations", [])
-        cit_by_id: Dict[str, Dict[str, Any]] = {}
+        cit_by_id: dict[str, dict[str, Any]] = {}
         for cit in vis_cits:
             cid = str(cit.get("citation_id"))
             cit_by_id[cid] = cit
             matched_doc = None
             for ret_ev in retrievals_by_id.values():
                 for d in ret_ev["attributes"].get("retrieved_documents", []):
-                    if d.get("doc_id") == cit.get("cited_doc_id") and d.get("chunk_id") == cit.get("cited_chunk_id"):
+                    if d.get("doc_id") == cit.get("cited_doc_id") and d.get("chunk_id") == cit.get(
+                        "cited_chunk_id"
+                    ):
                         matched_doc = d
                         break
             self.check(
@@ -3038,7 +3302,9 @@ class SpecValidator:
                 expected_snap = None
                 for r_ev in retrievals_by_id.values():
                     for r_d in r_ev["attributes"].get("retrieved_documents", []):
-                        if r_d.get("doc_id") == cit.get("cited_doc_id") and r_d.get("chunk_id") == cit.get("cited_chunk_id"):
+                        if r_d.get("doc_id") == cit.get("cited_doc_id") and r_d.get(
+                            "chunk_id"
+                        ) == cit.get("cited_chunk_id"):
                             expected_snap = r_ev["attributes"].get("source_snapshot_id")
                 snap_ok = (
                     identity_present_and_well_formed
@@ -3065,7 +3331,11 @@ class SpecValidator:
 
         for clm in attrs.get("claim_to_source_spans", []):
             r_span = clm.get("response_char_span", {})
-            if isinstance(r_span, dict) and is_strict_int(r_span.get("start")) and is_strict_int(r_span.get("end")):
+            if (
+                isinstance(r_span, dict)
+                and is_strict_int(r_span.get("start"))
+                and is_strict_int(r_span.get("end"))
+            ):
                 self.check(
                     cat3,
                     resp_text[r_span["start"] : r_span["end"]] == clm.get("claim_text"),
@@ -3073,10 +3343,10 @@ class SpecValidator:
                     f"{tid}.{eid}: claim_text span mismatch",
                 )
             for ses in clm.get("source_evidence_spans", []):
-                ret_ev = retrievals_by_id.get(str(ses.get("retrieval_id")))
+                matched_ret_ev = retrievals_by_id.get(str(ses.get("retrieval_id")))
                 matched_doc = None
-                if ret_ev:
-                    for d in ret_ev["attributes"].get("retrieved_documents", []):
+                if matched_ret_ev:
+                    for d in matched_ret_ev["attributes"].get("retrieved_documents", []):
                         if d.get("chunk_id") == ses.get("chunk_id"):
                             matched_doc = d
                             break
@@ -3094,7 +3364,8 @@ class SpecValidator:
                     )
                     self.check(
                         cat3,
-                        ses.get("in_supplied_prompt_context") == actually_in_prompt and actually_in_prompt is True,
+                        ses.get("in_supplied_prompt_context") == actually_in_prompt
+                        and actually_in_prompt is True,
                         "ERR_CITATION_CONTEXT_FLAG_MISMATCH",
                         f"{tid}.{eid}: in_supplied_prompt_context mismatch or excluded chunk cited",
                     )
@@ -3112,9 +3383,9 @@ class SpecValidator:
     def _validate_budget_telemetry(
         self,
         tid: str,
-        wt: Dict[str, Any],
-        events: List[Dict[str, Any]],
-        po_transition_events: List[Dict[str, Any]],
+        wt: dict[str, Any],
+        events: list[dict[str, Any]],
+        po_transition_events: list[dict[str, Any]],
     ) -> None:
         cat4 = "cat4_contracts_snapshots_bindings"
 
@@ -3188,7 +3459,8 @@ class SpecValidator:
                 and wql.get("trace_prompt_tokens_debited") == obs_prompt_toks
                 and wql.get("trace_completion_tokens_debited") == obs_comp_toks
                 and wql.get("trace_total_tokens_debited") == obs_tot_toks
-                and wql.get("trace_prompt_tokens_debited", 0) + wql.get("trace_completion_tokens_debited", 0)
+                and wql.get("trace_prompt_tokens_debited", 0)
+                + wql.get("trace_completion_tokens_debited", 0)
                 == wql.get("trace_total_tokens_debited", 0)
                 and is_strict_int(wql.get("rate_limit_429_count"))
                 and is_strict_int(wql.get("cooldown_wait_ms_total"))
@@ -3252,26 +3524,31 @@ class SpecValidator:
     def _validate_ground_truth_isolation(
         self,
         tid: str,
-        wt: Dict[str, Any],
-        retrievals_by_id: Dict[str, Dict[str, Any]],
+        wt: dict[str, Any],
+        retrievals_by_id: dict[str, dict[str, Any]],
     ) -> None:
         cat5 = "cat5_isolation_and_report"
 
         projected = project_trace_for_inference(wt)
         for fk in FORBIDDEN_INFERENCE_TOP_KEYS:
-            self.check(cat5, fk not in projected, "ERR_GROUND_TRUTH_LEAK", f"{tid}: forbidden key {fk} in projection")
+            self.check(
+                cat5,
+                fk not in projected,
+                "ERR_GROUND_TRUTH_LEAK",
+                f"{tid}: forbidden key {fk} in projection",
+            )
 
         scen = wt.get("scenario_metadata", {})
         if not isinstance(scen, dict):
             return
 
-        observed_doc_ids: Set[str] = set()
+        observed_doc_ids: set[str] = set()
         for ret_ev in retrievals_by_id.values():
             for d in ret_ev["attributes"].get("retrieved_documents", []):
                 if isinstance(d.get("doc_id"), str):
                     observed_doc_ids.add(d["doc_id"])
 
-        forbidden_tokens: Set[str] = set()
+        forbidden_tokens: set[str] = set()
         for k in ("injection_recipe_id", "injected_root_cause"):
             val = scen.get(k)
             if isinstance(val, str) and len(val) > 0:
@@ -3308,13 +3585,17 @@ class SpecValidator:
                 f"{tid}: ground-truth token {tok!r} leaked into runtime events",
             )
 
-    def _validate_spec_tables_and_report(self, text: str, walkthroughs: List[Dict[str, Any]]) -> None:
+    def _validate_spec_tables_and_report(
+        self, text: str, walkthroughs: list[dict[str, Any]]
+    ) -> None:
         cat3 = "cat3_digests_hashes_spans"
         cat5 = "cat5_isolation_and_report"
 
         # OD-13: Verify deterministic trustops-canonical-json-v1 test vectors
         for vec_obj, expected_ser, expected_dig in CANONICAL_JSON_TEST_VECTORS:
-            ser = canonical_json_bytes(vec_obj, enforce_domain=True, allow_floats=False).decode("utf-8")
+            ser = canonical_json_bytes(vec_obj, enforce_domain=True, allow_floats=False).decode(
+                "utf-8"
+            )
             dig = compute_arguments_digest(vec_obj)
             self.check(
                 cat3,
@@ -3325,10 +3606,14 @@ class SpecValidator:
 
         for i in range(1, 28):
             code = f"E{i:02d}"
-            self.check(cat5, f"**`{code}`" in text, "ERR_E01_E27_MISSING", f"Missing {code} row in §8.1")
+            self.check(
+                cat5, f"**`{code}`" in text, "ERR_E01_E27_MISSING", f"Missing {code} row in §8.1"
+            )
         for i in range(1, 9):
             wcode = f"WG-{i:02d}"
-            self.check(cat5, f"**`{wcode}`**" in text, "ERR_WG_MISSING", f"Missing {wcode} row in §8.2")
+            self.check(
+                cat5, f"**`{wcode}`**" in text, "ERR_WG_MISSING", f"Missing {wcode} row in §8.2"
+            )
 
         self.check(
             cat5,
@@ -3362,7 +3647,8 @@ class SpecValidator:
                 )
             self.check(
                 cat5,
-                f"| **Total Automated Specification & Fixture Assertions** | **{expected_total} assertions** | **PASS ({expected_total}/{expected_total}, 0 errors)** |" in text,
+                f"| **Total Automated Specification & Fixture Assertions** | **{expected_total} assertions** | **PASS ({expected_total}/{expected_total}, 0 errors)** |"
+                in text,
                 "ERR_REPORT_TOTAL_MISMATCH",
                 f"Section 9.1 total assertions mismatch: expected {expected_total}",
             )
@@ -3372,10 +3658,22 @@ class SpecValidator:
 
 
 _REPO_SKIP_DIRS = {
-    ".git", ".venv", "venv", "env", "node_modules", "__pycache__",
-    "build", "dist", ".mypy_cache", ".pytest_cache", ".ruff_cache",
-    "negative_and_variant_probes", ".tox", ".eggs",
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "negative_and_variant_probes",
+    ".tox",
+    ".eggs",
 }
+
 
 def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
     cur = start.resolve()
@@ -3386,7 +3684,13 @@ def _find_repo_root(start: "pathlib.Path") -> "pathlib.Path":
             return candidate
     return start.resolve().parent if start.is_file() else start.resolve()
 
-def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (), avoid_in: tuple = ()) -> "pathlib.Path":
+
+def _find_repo_file(
+    filename: str,
+    start: pathlib.Path,
+    prefer_in: tuple[str, ...] = (),
+    avoid_in: tuple[str, ...] = (),
+) -> pathlib.Path:
     here = start.resolve().parent if start.is_file() else start.resolve()
     direct = here / filename
     if direct.is_file():
@@ -3397,25 +3701,35 @@ def _find_repo_file(filename: str, start: "pathlib.Path", prefer_in: tuple = (),
     repo_root = _find_repo_root(here)
     matches = []
     for root, dirs, files in os.walk(repo_root):
-        dirs[:] = sorted(d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info"))
+        dirs[:] = sorted(
+            d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info")
+        )
         if filename in files:
             matches.append(pathlib.Path(root) / filename)
     if not matches:
         raise FileNotFoundError(f"Could not locate {filename} from {here} or repo root {repo_root}")
-    def _rank(p: "pathlib.Path") -> tuple:
+
+    def _rank(p: pathlib.Path) -> tuple[int, int, int, str]:
         parts = set(p.parts)
         pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
         avoid_score = 1 if any(x in parts for x in avoid_in) else 0
         return (avoid_score, pref_score, len(p.parts), str(p))
+
     matches.sort(key=_rank)
     return matches[0]
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate S1-01 Trace Schema v1.10 Specification")
-    parser.add_argument("spec_path", nargs="?", default=DEFAULT_SPEC_FILENAME, help="Path to updated_schemas_v18.md")
-    parser.add_argument("--json-out", dest="json_out", default=None, help="Optional JSON report output path")
-    parser.add_argument("--no-report-sync", action="store_true", help="Skip §9.1 assertion count table sync check")
+    parser.add_argument(
+        "spec_path", nargs="?", default=DEFAULT_SPEC_FILENAME, help="Path to updated_schemas_v18.md"
+    )
+    parser.add_argument(
+        "--json-out", dest="json_out", default=None, help="Optional JSON report output path"
+    )
+    parser.add_argument(
+        "--no-report-sync", action="store_true", help="Skip §9.1 assertion count table sync check"
+    )
     parser.add_argument(
         "--approval-validation-profile",
         choices=list(APPROVAL_VALIDATION_PROFILES),
@@ -3453,7 +3767,9 @@ def main() -> int:
 
     print(f"Validator Version: {VALIDATOR_VERSION}")
     print(f"Target Specification: {args.spec_path}")
-    print(f"Approval Validation Profile: {args.approval_validation_profile} ({approval_extension_status})")
+    print(
+        f"Approval Validation Profile: {args.approval_validation_profile} ({approval_extension_status})"
+    )
     for k, v in counts.items():
         print(f"  {k}: {v} assertions")
     print(f"TOTAL_ASSERTIONS: {total_assertions}")
@@ -3463,7 +3779,7 @@ def main() -> int:
     print(f"FAILURE_CODES_JSON: {json.dumps(codes)}")
 
     if args.json_out:
-        with open(args.json_out, "w", encoding="utf-8") as f:
+        with open(args.json_out, "w", encoding="utf-8") as jf:
             json.dump(
                 {
                     "validator_version": VALIDATOR_VERSION,
@@ -3477,7 +3793,7 @@ def main() -> int:
                     "failure_codes": codes,
                     "failures": validator.failures,
                 },
-                f,
+                jf,
                 indent=2,
             )
 

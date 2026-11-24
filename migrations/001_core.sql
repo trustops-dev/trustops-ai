@@ -142,8 +142,8 @@ CREATE TABLE IF NOT EXISTS dispatch_claim_ledger (
     observed_supplier_record_version_at_consumption VARCHAR(128) NOT NULL,
     bound_approval_record_version                   VARCHAR(128) NULL,
     observed_approval_record_version_at_consumption VARCHAR(128) NULL,
-    bound_decision_record_seq                       INTEGER      NULL,
-    observed_decision_record_seq_at_consumption     INTEGER      NULL,
+    bound_decision_record_seq                       BIGINT       NULL,
+    observed_decision_record_seq_at_consumption     BIGINT       NULL,
     currentness_verified_at_consumption             BOOLEAN      NOT NULL CHECK (currentness_verified_at_consumption = TRUE),
     -- A4: Explicit stale reason code when a check/consumption is stale (NULL when currentness_verified_at_consumption = TRUE)
     stale_reason_code                               VARCHAR(64)  NULL CHECK (stale_reason_code IS NULL OR stale_reason_code IN (
@@ -195,21 +195,22 @@ CREATE TABLE IF NOT EXISTS approval_records (
 -- Proves currentness is verified against live authoritative supplier_records and approval_records
 -- inside the transaction before inserting into dispatch_claim_ledger, rather than trusting a caller boolean.
 CREATE OR REPLACE FUNCTION fn_consume_dispatch_claim_atomic(
-    p_consumption_id              VARCHAR(128),
-    p_dispatch_claim_id           VARCHAR(128),
-    p_trace_id                    VARCHAR(128),
-    p_root_workflow_id            VARCHAR(128),
-    p_request_revision            VARCHAR(128),
-    p_preallocated_at_proposal_id VARCHAR(128),
-    p_bound_allow_check_id        VARCHAR(128),
-    p_consuming_state_revision_id VARCHAR(128),
-    p_consuming_call_id           VARCHAR(128),
-    p_supplier_id                 VARCHAR(128),
-    p_bound_supplier_version      VARCHAR(128),
-    p_approval_id                 VARCHAR(128),
-    p_bound_approval_version      VARCHAR(128),
-    p_bound_decision_seq          BIGINT,
-    p_consumed_at                 TIMESTAMPTZ
+    p_consumption_record_id         VARCHAR(128),
+    p_dispatch_claim_id             VARCHAR(128),
+    p_root_request_id               VARCHAR(128),
+    p_request_revision              VARCHAR(64),
+    p_trace_id                      VARCHAR(128),
+    p_preallocated_at_proposal_id   VARCHAR(128),
+    p_bound_authorization_check_id  VARCHAR(128),
+    p_transition_state_event_id     VARCHAR(128),
+    p_resulting_state_revision_id   VARCHAR(64),
+    p_consumed_by_call_id           VARCHAR(128),
+    p_supplier_id                   VARCHAR(128),
+    p_bound_supplier_version        VARCHAR(128),
+    p_approval_id                   VARCHAR(128),
+    p_bound_approval_version        VARCHAR(128),
+    p_bound_decision_seq            BIGINT,
+    p_consumed_at                   TIMESTAMPTZ DEFAULT NOW()
 ) RETURNS BOOLEAN
 LANGUAGE plpgsql
 AS $$
@@ -229,7 +230,7 @@ BEGIN
        FOR UPDATE;
 
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION: supplier_id % not found', p_supplier_id;
+        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION (SUPPLIER_RECORD_SUPERSEDED): supplier_id % not found', p_supplier_id;
     END IF;
 
     -- 2. Lock authoritative approval row FOR UPDATE to serialize concurrent revocations/supersessions
@@ -240,38 +241,75 @@ BEGIN
        FOR UPDATE;
 
     IF NOT FOUND THEN
-        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION: approval_id % not found', p_approval_id;
+        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION (APPROVAL_NO_LONGER_APPROVED): approval_id % not found', p_approval_id;
     END IF;
 
     -- 3. Verify live locked state matches the versions/sequence bound at ALLOW policy_check
     IF v_live_sup_ver <> p_bound_supplier_version OR v_live_sup_stat <> 'APPROVED' THEN
-        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION: supplier version/status drifted (% / % vs %)',
+        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION (SUPPLIER_RECORD_SUPERSEDED): supplier version/status drifted (% / % vs %)',
             v_live_sup_ver, v_live_sup_stat, p_bound_supplier_version;
     END IF;
 
     IF v_live_apr_ver <> p_bound_approval_version
        OR v_live_apr_seq <> p_bound_decision_seq
-       OR v_live_apr_stat <> 'APPROVED'
        OR v_live_apr_supby IS NOT NULL THEN
-        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION: approval version/seq/status drifted (% / seq=% / status=% vs % / seq=%)',
-            v_live_apr_ver, v_live_apr_seq, v_live_apr_stat, p_bound_approval_version, p_bound_decision_seq;
+        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION (APPROVAL_RECORD_SUPERSEDED): approval version/seq drifted (% / seq=% / superseded_by=% vs % / seq=%)',
+            v_live_apr_ver, v_live_apr_seq, v_live_apr_supby, p_bound_approval_version, p_bound_decision_seq;
     END IF;
 
-    -- 4. Insert single-use consumption row (UNIQUE constraints on dispatch_claim_id and root_workflow_id prevent double-consumption)
+    IF v_live_apr_stat <> 'APPROVED' THEN
+        RAISE EXCEPTION 'ERR_STALE_RECORD_VERSION_AT_CONSUMPTION (APPROVAL_NO_LONGER_APPROVED): approval status is % (expected APPROVED)',
+            v_live_apr_stat;
+    END IF;
+
+    -- 4. Insert single-use consumption row aligned 1:1 with dispatch_claim_ledger columns & CHECK constraints
+    -- (UNIQUE constraints on dispatch_claim_id, root_request_id, bound_authorization_check_id, and consumed_by_call_id prevent double-consumption)
     INSERT INTO dispatch_claim_ledger (
-        consumption_id, dispatch_claim_id, trace_id, root_workflow_id, request_revision,
-        preallocated_at_proposal_id, bound_allow_check_id, consuming_state_revision_id,
-        consuming_call_id, bound_supplier_record_version, observed_supplier_record_version_at_consumption,
-        bound_approval_record_version, observed_approval_record_version_at_consumption,
-        bound_decision_record_seq, observed_decision_record_seq_at_consumption,
-        currentness_verified_at_consumption, consumption_status, consumed_at, redispatch_permitted
+        consumption_record_id,
+        dispatch_claim_id,
+        root_request_id,
+        request_revision,
+        trace_id,
+        preallocated_at_proposal_id,
+        bound_authorization_check_id,
+        bound_action_verdict,
+        transition_state_event_id,
+        resulting_state_revision_id,
+        consumed_by_call_id,
+        bound_supplier_record_version,
+        observed_supplier_record_version_at_consumption,
+        bound_approval_record_version,
+        observed_approval_record_version_at_consumption,
+        bound_decision_record_seq,
+        observed_decision_record_seq_at_consumption,
+        currentness_verified_at_consumption,
+        stale_reason_code,
+        consumption_status,
+        redispatch_or_reset_permitted,
+        consumed_at
     ) VALUES (
-        p_consumption_id, p_dispatch_claim_id, p_trace_id, p_root_workflow_id, p_request_revision,
-        p_preallocated_at_proposal_id, p_bound_allow_check_id, p_consuming_state_revision_id,
-        p_consuming_call_id, p_bound_supplier_version, v_live_sup_ver,
-        p_bound_approval_version, v_live_apr_ver,
-        p_bound_decision_seq, v_live_apr_seq,
-        TRUE, 'CONSUMED_FOR_SINGLE_PO_CALL', p_consumed_at, FALSE
+        p_consumption_record_id,
+        p_dispatch_claim_id,
+        p_root_request_id,
+        p_request_revision,
+        p_trace_id,
+        p_preallocated_at_proposal_id,
+        p_bound_authorization_check_id,
+        'ALLOW',
+        p_transition_state_event_id,
+        p_resulting_state_revision_id,
+        p_consumed_by_call_id,
+        p_bound_supplier_version,
+        v_live_sup_ver,
+        p_bound_approval_version,
+        v_live_apr_ver,
+        p_bound_decision_seq,
+        v_live_apr_seq,
+        TRUE,
+        NULL,
+        'CONSUMED_SINGLE_USE_LOCKED',
+        FALSE,
+        p_consumed_at
     );
 
     RETURN TRUE;

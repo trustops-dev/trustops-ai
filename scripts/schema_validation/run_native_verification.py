@@ -8,6 +8,7 @@ Saves `native_host_verification_report.json` with Python patch version, exact co
 resolved paths, and PASS/FAIL results for each of the 7 steps.
 No live provider calls or API keys are used.
 """
+
 import datetime
 import json
 import os
@@ -18,10 +19,26 @@ import sys
 import tempfile
 
 _REPO_SKIP_DIRS = {
-    ".git", ".venv", "venv", "env", "node_modules", "__pycache__",
-    "build", "dist", ".mypy_cache", ".pytest_cache", ".ruff_cache",
-    "negative_and_variant_probes", ".tox", ".eggs",
+    ".git",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "__pycache__",
+    "build",
+    "dist",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "negative_and_variant_probes",
+    ".tox",
+    ".eggs",
 }
+
+
+_UTC: datetime.tzinfo = (
+    datetime.UTC if sys.version_info >= (3, 11) else datetime.timezone(datetime.timedelta(0))
+)
 
 
 def find_repo_root(start: pathlib.Path) -> pathlib.Path:
@@ -38,20 +55,22 @@ def find_repo_file(
     filename: str,
     repo_root: pathlib.Path,
     here: pathlib.Path,
-    prefer_in: tuple = (),
-    avoid_in: tuple = (),
+    prefer_in: tuple[str, ...] = (),
+    avoid_in: tuple[str, ...] = (),
 ) -> pathlib.Path:
     if (here / filename).is_file() and not any(x in (here / filename).parts for x in avoid_in):
         return here / filename
     matches = []
     for root, dirs, files in os.walk(repo_root):
-        dirs[:] = sorted(d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info"))
+        dirs[:] = sorted(
+            d for d in dirs if d not in _REPO_SKIP_DIRS and not d.endswith(".egg-info")
+        )
         if filename in files:
             matches.append(pathlib.Path(root) / filename)
     if not matches:
         raise FileNotFoundError(f"Could not locate {filename} under {repo_root}")
 
-    def _rank(p: pathlib.Path) -> tuple:
+    def _rank(p: pathlib.Path) -> tuple[int, int, int, str]:
         parts = set(p.parts)
         pref_score = 0 if (not prefer_in or any(x in parts for x in prefer_in)) else 1
         avoid_score = 1 if any(x in parts for x in avoid_in) else 0
@@ -74,7 +93,9 @@ def main() -> int:
     py_patch = platform.python_version()
 
     spec_path = find_repo_file("updated_schemas_v18.md", repo_root, here)
-    validator_path = find_repo_file("validate_s1_01_schema_v1_11.py", repo_root, here, avoid_in=("trustops_sdk",))
+    validator_path = find_repo_file(
+        "validate_s1_01_schema_v1_11.py", repo_root, here, avoid_in=("trustops_sdk",)
+    )
     regression_path = find_repo_file("run_s1_01_regression_suite.py", repo_root, here)
     ind_probes_path = find_repo_file("independent_probes.py", repo_root, here)
     repro_path = find_repo_file("reproduce_findings.py", repo_root, here)
@@ -159,7 +180,7 @@ def main() -> int:
 
     report = {
         "package_release_id": "v1.18.0",
-        "executed_at_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "executed_at_utc": datetime.datetime.now(_UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "platform": platform.platform(),
         "os_name": os.name,
         "sys_platform": sys.platform,
@@ -175,7 +196,9 @@ def main() -> int:
     out_file.write_text(json.dumps(report, indent=2), encoding="utf-8")
 
     print("\n" + "=" * 72)
-    print(f"OVERALL RESULT: {'ALL 7 SUITES PASSED' if all_ok else 'SOME CHECKS FAILED'} (Python {py_patch})")
+    print(
+        f"OVERALL RESULT: {'ALL 7 SUITES PASSED' if all_ok else 'SOME CHECKS FAILED'} (Python {py_patch})"
+    )
     print(f"Saved report to: {out_file}")
     print("=" * 72)
     return 0 if all_ok else 1

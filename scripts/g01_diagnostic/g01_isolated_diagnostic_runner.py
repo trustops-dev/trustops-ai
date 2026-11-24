@@ -41,6 +41,7 @@ import argparse
 import contextlib
 import datetime
 import getpass
+import importlib
 import json
 import multiprocessing
 import os
@@ -49,19 +50,22 @@ import sqlite3
 import sys
 import threading
 import time
-from typing import Any, Dict, Iterator, List, Optional, Set, Tuple
+from collections.abc import Iterator
+from typing import Any
 
+_posix_fcntl: Any = None
 try:
-    import fcntl as _posix_fcntl  # type: ignore
+    _posix_fcntl = importlib.import_module("fcntl")
 except ImportError:
     _posix_fcntl = None
 
+_win_msvcrt: Any = None
 try:
-    import msvcrt as _win_msvcrt  # type: ignore
+    _win_msvcrt = importlib.import_module("msvcrt")
 except ImportError:
     _win_msvcrt = None
 
-import httpx
+import httpx  # noqa: E402
 
 RUNNER_VERSION = "0.9.0-isolated-g01"
 PACKAGE_RELEASE_ID = "v1.18.0"
@@ -110,11 +114,16 @@ def sanitize_text(text: str) -> str:
     return cleaned[:240]
 
 
+_UTC: datetime.tzinfo = (
+    datetime.UTC if sys.version_info >= (3, 11) else datetime.timezone(datetime.timedelta(0))
+)
+
+
 def utc_now_iso() -> str:
-    return datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    return datetime.datetime.now(_UTC).strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
-def parse_iso8601_utc(ts: Any) -> Optional[datetime.datetime]:
+def parse_iso8601_utc(ts: Any) -> datetime.datetime | None:
     if not isinstance(ts, str) or not ts.strip():
         return None
     raw = ts.strip()
@@ -124,24 +133,24 @@ def parse_iso8601_utc(ts: Any) -> Optional[datetime.datetime]:
         dt = datetime.datetime.fromisoformat(raw)
         if dt.tzinfo is None:
             return None
-        return dt.astimezone(datetime.timezone.utc)
+        return dt.astimezone(_UTC)
     except ValueError:
         return None
 
 
 def validate_admission_evidence(
     expected_model_id: str,
-    expected_project_id: Optional[str],
-    pre_dispatch_observations: Optional[List[Dict[str, Any]]],
+    expected_project_id: str | None,
+    pre_dispatch_observations: list[dict[str, Any]] | None,
     consumer_pause_confirmed: bool,
-    consumer_pause_evidence_ref: Optional[str],
-    consumer_pause_window: Optional[Dict[str, Any]],
+    consumer_pause_evidence_ref: str | None,
+    consumer_pause_window: dict[str, Any] | None,
     dashboard_headroom_status: str,
-    now_utc: Optional[datetime.datetime] = None,
+    now_utc: datetime.datetime | None = None,
     session_ceiling_ms: int = DEFAULT_SESSION_CEILING_MS,
     max_observation_age_seconds: float = MAX_OBSERVATION_AGE_SECONDS,
     max_latest_observation_age_seconds: float = MAX_LATEST_OBSERVATION_AGE_SECONDS,
-) -> Tuple[bool, List[str], Optional[float]]:
+) -> tuple[bool, list[str], float | None]:
     """
     Validates structured admission evidence against all agreed OD-LLM-02 admission conditions:
       - Exact non-empty `expected_project_id` must be explicitly provided (no arbitrary project accepted).
@@ -159,24 +168,28 @@ def validate_admission_evidence(
     human verification of dashboard truth remains mandatory.
     Returns (is_valid, list_of_errors, observation_span_seconds).
     """
-    ref_now = now_utc.astimezone(datetime.timezone.utc) if now_utc is not None else datetime.datetime.now(datetime.timezone.utc)
-    errors: List[str] = []
+    ref_now = now_utc.astimezone(_UTC) if now_utc is not None else datetime.datetime.now(_UTC)
+    errors: list[str] = []
 
     if not isinstance(expected_project_id, str) or not expected_project_id.strip():
-        errors.append("MISSING_REQUIRED_PROJECT_ID: Exact expected project_id (--project-id) must be explicitly provided")
-        norm_expected_proj: Optional[str] = None
+        errors.append(
+            "MISSING_REQUIRED_PROJECT_ID: Exact expected project_id (--project-id) must be explicitly provided"
+        )
+        norm_expected_proj: str | None = None
     else:
         norm_expected_proj = expected_project_id.strip()
 
     if not isinstance(pre_dispatch_observations, list) or len(pre_dispatch_observations) < 2:
-        errors.append("Requires at least 2 structured pre_dispatch_observations records (count-only flags are rejected)")
-        obs_list: List[Dict[str, Any]] = []
+        errors.append(
+            "Requires at least 2 structured pre_dispatch_observations records (count-only flags are rejected)"
+        )
+        obs_list: list[dict[str, Any]] = []
     else:
         obs_list = pre_dispatch_observations
 
-    seen_ids: Set[str] = set()
-    seen_projects: Set[str] = set()
-    parsed_dts: List[datetime.datetime] = []
+    seen_ids: set[str] = set()
+    seen_projects: set[str] = set()
+    parsed_dts: list[datetime.datetime] = []
 
     for idx, obs in enumerate(obs_list):
         if not isinstance(obs, dict):
@@ -184,7 +197,9 @@ def validate_admission_evidence(
             continue
         obs_id = obs.get("observation_id")
         if not isinstance(obs_id, str) or not obs_id.strip():
-            errors.append(f"pre_dispatch_observations[{idx}].observation_id must be a non-empty string")
+            errors.append(
+                f"pre_dispatch_observations[{idx}].observation_id must be a non-empty string"
+            )
         elif obs_id in seen_ids:
             errors.append(f"Duplicate observation_id {obs_id!r}")
         else:
@@ -192,7 +207,9 @@ def validate_admission_evidence(
 
         dt = parse_iso8601_utc(obs.get("observed_at"))
         if dt is None:
-            errors.append(f"pre_dispatch_observations[{idx}].observed_at must be a timezone-aware ISO-8601 timestamp")
+            errors.append(
+                f"pre_dispatch_observations[{idx}].observed_at must be a timezone-aware ISO-8601 timestamp"
+            )
         else:
             if (dt - ref_now).total_seconds() > MAX_FUTURE_CLOCK_SKEW_SECONDS:
                 errors.append(
@@ -229,16 +246,20 @@ def validate_admission_evidence(
 
         req_cnt = obs.get("observed_request_count")
         if not isinstance(req_cnt, int) or isinstance(req_cnt, bool) or req_cnt != 0:
-            errors.append(f"pre_dispatch_observations[{idx}].observed_request_count must be integer 0 (got {req_cnt!r})")
+            errors.append(
+                f"pre_dispatch_observations[{idx}].observed_request_count must be integer 0 (got {req_cnt!r})"
+            )
 
         ev_ref = obs.get("evidence_ref")
         if not isinstance(ev_ref, str) or not ev_ref.strip():
-            errors.append(f"pre_dispatch_observations[{idx}].evidence_ref must be a non-empty capture/evidence reference")
+            errors.append(
+                f"pre_dispatch_observations[{idx}].evidence_ref must be a non-empty capture/evidence reference"
+            )
 
     if len(seen_projects) > 1:
         errors.append(f"Observation records disagree on project_id: {sorted(seen_projects)}")
 
-    span_seconds: Optional[float] = None
+    span_seconds: float | None = None
     if len(parsed_dts) >= 2:
         parsed_dts.sort()
         span_seconds = (parsed_dts[-1] - parsed_dts[0]).total_seconds()
@@ -261,7 +282,9 @@ def validate_admission_evidence(
     else:
         w_start = parse_iso8601_utc(consumer_pause_window.get("start_at"))
         w_end = parse_iso8601_utc(consumer_pause_window.get("end_at"))
-        planned_session_end = ref_now + datetime.timedelta(milliseconds=max(0, int(session_ceiling_ms)))
+        planned_session_end = ref_now + datetime.timedelta(
+            milliseconds=max(0, int(session_ceiling_ms))
+        )
         if w_start is None or w_end is None or w_end <= w_start:
             errors.append("consumer_pause_window must contain valid ISO-8601 start_at < end_at")
         else:
@@ -315,7 +338,7 @@ def bootstrap_existing_smoke_ledger(sqlite_path: str) -> None:
 def _subprocess_http_worker_entry(
     url: str,
     serialized_body: bytes,
-    headers: Dict[str, str],
+    headers: dict[str, str],
     timeout_sec: float,
     session_deadline_epoch: float,
     result_queue: Any,
@@ -326,7 +349,7 @@ def _subprocess_http_worker_entry(
     Because this runs in a separate OS process, parent `proc.terminate()/kill()/join()` guarantees
     immediate local worker and socket shutdown prior to releasing `session.lock`.
     """
-    state: Dict[str, Any] = {
+    state: dict[str, Any] = {
         "http_status": None,
         "headers_received": False,
         "resp_bytes_len": 0,
@@ -346,16 +369,21 @@ def _subprocess_http_worker_entry(
             return
 
         timeout_cfg = httpx.Timeout(
-            timeout_sec, connect=min(10.0, timeout_sec), read=timeout_sec, write=min(10.0, timeout_sec)
+            timeout_sec,
+            connect=min(10.0, timeout_sec),
+            read=timeout_sec,
+            write=min(10.0, timeout_sec),
         )
         with httpx.Client(timeout=timeout_cfg) as client:
             with client.stream("POST", url, content=serialized_body, headers=headers) as response:
                 state["http_status"] = response.status_code
                 state["headers_received"] = True
-                raw_chunks: List[bytes] = []
+                raw_chunks: list[bytes] = []
                 for chunk in response.iter_bytes():
                     if time.time() >= session_deadline_epoch:
-                        raise httpx.ReadTimeout("Absolute session ceiling exceeded during body stream read")
+                        raise httpx.ReadTimeout(
+                            "Absolute session ceiling exceeded during body stream read"
+                        )
                     raw_chunks.append(chunk)
                     state["resp_bytes_len"] += len(chunk)
                 state["raw_body"] = b"".join(raw_chunks)
@@ -376,11 +404,13 @@ class CrossPlatformFileLock:
     on `session.lock` in the SQLite smoke-ledger state directory.
     """
 
-    def __init__(self, lock_path: str, timeout_sec: float = 5.0, force_backend: Optional[str] = None) -> None:
+    def __init__(
+        self, lock_path: str, timeout_sec: float = 5.0, force_backend: str | None = None
+    ) -> None:
         self.lock_path = os.path.abspath(lock_path)
         self.timeout_sec = timeout_sec
         self.force_backend = force_backend
-        self.fd: Optional[int] = None
+        self.fd: int | None = None
         self.active_backend: str = "NONE"
 
     def acquire(self) -> str:
@@ -422,7 +452,7 @@ class CrossPlatformFileLock:
                     return self.active_backend
                 else:
                     raise RuntimeError(f"Unsupported lock backend: {backend}")
-            except (OSError, IOError, RuntimeError) as exc:
+            except (OSError, RuntimeError) as exc:
                 if time.monotonic() >= deadline:
                     os.close(fd)
                     raise RuntimeError(
@@ -462,22 +492,22 @@ class DurableDiagnosticLedger:
     def __init__(
         self,
         ledger_path: str,
-        sqlite_smoke_ledger_path: Optional[str] = None,
+        sqlite_smoke_ledger_path: str | None = None,
         run_id: str = "run_g01_isolated_2026_11_18",
         model_id: str = DEFAULT_MODEL_ID,
-        project_id: Optional[str] = None,
+        project_id: str | None = None,
         session_ceiling_ms: int = DEFAULT_SESSION_CEILING_MS,
-        now_utc: Optional[datetime.datetime] = None,
+        now_utc: datetime.datetime | None = None,
         lock_timeout_sec: float = 5.0,
-        force_lock_backend: Optional[str] = None,
+        force_lock_backend: str | None = None,
         require_existing_ledger: bool = True,
         allow_bootstrap_new_ledger: bool = False,
-        admission_record: Optional[Dict[str, Any]] = None,
+        admission_record: dict[str, Any] | None = None,
         pre_dispatch_observations_count: int = 0,
-        pre_dispatch_observations: Optional[List[Dict[str, Any]]] = None,
+        pre_dispatch_observations: list[dict[str, Any]] | None = None,
         consumer_pause_confirmed: bool = False,
-        consumer_pause_evidence_ref: Optional[str] = None,
-        consumer_pause_window: Optional[Dict[str, Any]] = None,
+        consumer_pause_evidence_ref: str | None = None,
+        consumer_pause_window: dict[str, Any] | None = None,
         dashboard_headroom_status: str = "UNKNOWN_UNCONFIRMED",
     ) -> None:
         self.ledger_path = os.path.abspath(ledger_path)
@@ -500,16 +530,22 @@ class DurableDiagnosticLedger:
 
         self.session_ceiling_ms = int(session_ceiling_ms)
         self.now_utc = now_utc
-        self._admission_record_project_id: Optional[str] = None
+        self._admission_record_project_id: str | None = None
         # Merge structured admission_record if supplied (NEVER overwrite missing expected project_id!)
         if isinstance(admission_record, dict):
             if admission_record.get("project_id") is not None:
                 self._admission_record_project_id = str(admission_record["project_id"])
-            if pre_dispatch_observations is None and "pre_dispatch_observations" in admission_record:
+            if (
+                pre_dispatch_observations is None
+                and "pre_dispatch_observations" in admission_record
+            ):
                 pre_dispatch_observations = admission_record.get("pre_dispatch_observations")
             if not consumer_pause_confirmed and "consumer_pause_confirmed" in admission_record:
                 consumer_pause_confirmed = bool(admission_record.get("consumer_pause_confirmed"))
-            if consumer_pause_evidence_ref is None and "consumer_pause_evidence_ref" in admission_record:
+            if (
+                consumer_pause_evidence_ref is None
+                and "consumer_pause_evidence_ref" in admission_record
+            ):
                 consumer_pause_evidence_ref = admission_record.get("consumer_pause_evidence_ref")
             if consumer_pause_window is None and "consumer_pause_window" in admission_record:
                 consumer_pause_window = admission_record.get("consumer_pause_window")
@@ -517,9 +553,11 @@ class DurableDiagnosticLedger:
                 dashboard_headroom_status == "UNKNOWN_UNCONFIRMED"
                 and "dashboard_headroom_status" in admission_record
             ):
-                dashboard_headroom_status = str(admission_record.get("dashboard_headroom_status") or "UNKNOWN_UNCONFIRMED")
+                dashboard_headroom_status = str(
+                    admission_record.get("dashboard_headroom_status") or "UNKNOWN_UNCONFIRMED"
+                )
 
-        self.pre_dispatch_observations: List[Dict[str, Any]] = (
+        self.pre_dispatch_observations: list[dict[str, Any]] = (
             [dict(o) for o in pre_dispatch_observations if isinstance(o, dict)]
             if isinstance(pre_dispatch_observations, list)
             else []
@@ -529,7 +567,9 @@ class DurableDiagnosticLedger:
         self.pre_dispatch_observations_count = len(self.pre_dispatch_observations)
         self.consumer_pause_confirmed = bool(consumer_pause_confirmed)
         self.consumer_pause_evidence_ref = consumer_pause_evidence_ref
-        self.consumer_pause_window = dict(consumer_pause_window) if isinstance(consumer_pause_window, dict) else None
+        self.consumer_pause_window = (
+            dict(consumer_pause_window) if isinstance(consumer_pause_window, dict) else None
+        )
         self.dashboard_headroom_status = (
             str(dashboard_headroom_status) if dashboard_headroom_status else "UNKNOWN_UNCONFIRMED"
         )
@@ -558,14 +598,14 @@ class DurableDiagnosticLedger:
             self.admission_valid = False
 
         self.last_lock_backend_used: str = "NONE"
-        self.initialization_error: Optional[str] = None
-        self._held_session_lock: Optional[CrossPlatformFileLock] = None
-        self._deferred_lock_reaper_thread: Optional[threading.Thread] = None
+        self.initialization_error: str | None = None
+        self._held_session_lock: CrossPlatformFileLock | None = None
+        self._deferred_lock_reaper_thread: threading.Thread | None = None
         self.session_reservation_acquired: bool = False
         self.session_reservation_terminated: bool = False
 
         os.makedirs(os.path.dirname(self.ledger_path) or ".", exist_ok=True)
-        self.state: Dict[str, Any] = {}
+        self.state: dict[str, Any] = {}
 
         if not os.path.exists(self.sqlite_smoke_ledger_path) and (
             self.require_existing_ledger and not self.allow_bootstrap_new_ledger
@@ -585,13 +625,17 @@ class DurableDiagnosticLedger:
             self.initialization_error = f"{type(exc).__name__}: {exc}"
             self.state = self._build_fallback_error_state()
 
-    def _build_admission_preconditions_block(self, ledger_refreshed: bool, four_debit_ok: bool) -> Dict[str, Any]:
+    def _build_admission_preconditions_block(
+        self, ledger_refreshed: bool, four_debit_ok: bool
+    ) -> dict[str, Any]:
         return {
             "pre_dispatch_observations_count": self.pre_dispatch_observations_count,
             "pre_dispatch_observations_count_requested": self.pre_dispatch_observations_count_requested,
             "pre_dispatch_observations_evidence": self.pre_dispatch_observations,
             "observation_spacing_seconds": (
-                int(self.observation_span_seconds) if self.observation_span_seconds is not None else None
+                int(self.observation_span_seconds)
+                if self.observation_span_seconds is not None
+                else None
             ),
             "min_observation_spacing_seconds_required": int(MIN_OBSERVATION_SPACING_SECONDS),
             "consumer_pause_confirmed": self.consumer_pause_confirmed,
@@ -607,7 +651,7 @@ class DurableDiagnosticLedger:
             "admission_validation_errors": list(self.admission_validation_errors),
         }
 
-    def _build_fallback_error_state(self) -> Dict[str, Any]:
+    def _build_fallback_error_state(self) -> dict[str, Any]:
         return {
             "ledger_schema_version": "od-llm-02-v0.9-isolated",
             "sqlite_smoke_ledger_path": os.path.basename(self.sqlite_smoke_ledger_path),
@@ -655,7 +699,9 @@ class DurableDiagnosticLedger:
             "entries": [],
         }
 
-    def defer_session_lock_release_until_worker_exits(self, worker_thread: threading.Thread) -> bool:
+    def defer_session_lock_release_until_worker_exits(
+        self, worker_thread: threading.Thread
+    ) -> bool:
         """
         RR-06 & RR-03: If an uncancellable in-process mock worker thread is still alive after a
         timeout, transfer ownership of the held `session.lock` to a daemon reaper thread that keeps
@@ -687,7 +733,9 @@ class DurableDiagnosticLedger:
             yield self._held_session_lock
             return
         lk = CrossPlatformFileLock(
-            self.session_lock_path, timeout_sec=self.lock_timeout_sec, force_backend=self.force_lock_backend
+            self.session_lock_path,
+            timeout_sec=self.lock_timeout_sec,
+            force_backend=self.force_lock_backend,
         )
         lk.acquire()
         self._held_session_lock = lk
@@ -706,7 +754,9 @@ class DurableDiagnosticLedger:
             yield self._held_session_lock
             return
         lk = CrossPlatformFileLock(
-            self.session_lock_path, timeout_sec=self.lock_timeout_sec, force_backend=self.force_lock_backend
+            self.session_lock_path,
+            timeout_sec=self.lock_timeout_sec,
+            force_backend=self.force_lock_backend,
         )
         lk.acquire()
         try:
@@ -734,7 +784,12 @@ class DurableDiagnosticLedger:
                 "CREATE TABLE attempts (run TEXT, operation TEXT, dispatched REAL, completed REAL, PRIMARY KEY(run, operation))"
             )
             return "existing_smoke_v1"
-        if "id" in runs_cols and "started" in runs_cols and "run" in att_cols and "operation" in att_cols:
+        if (
+            "id" in runs_cols
+            and "started" in runs_cols
+            and "run" in att_cols
+            and "operation" in att_cols
+        ):
             return "existing_smoke_v1"
         if "run_id" in runs_cols and "attempt_id" in att_cols:
             return "extended_v04"
@@ -750,31 +805,43 @@ class DurableDiagnosticLedger:
                 )
             bootstrap_existing_smoke_ledger(self.sqlite_smoke_ledger_path)
         elif os.path.getsize(self.sqlite_smoke_ledger_path) == 0:
-            raise RuntimeError("FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: SQLite smoke ledger file is 0 bytes")
+            raise RuntimeError(
+                "FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: SQLite smoke ledger file is 0 bytes"
+            )
 
-        loaded_json: Dict[str, Any] = {}
+        loaded_json: dict[str, Any] = {}
         if os.path.exists(self.ledger_path):
             if os.path.getsize(self.ledger_path) == 0:
-                raise RuntimeError("FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: JSON ledger file is 0 bytes (corrupt)")
+                raise RuntimeError(
+                    "FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: JSON ledger file is 0 bytes (corrupt)"
+                )
             try:
-                with open(self.ledger_path, "r", encoding="utf-8") as f:
+                with open(self.ledger_path, encoding="utf-8") as f:
                     loaded_json = json.load(f)
             except Exception as j_exc:
                 raise RuntimeError(
                     f"FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: Malformed JSON ledger at {os.path.basename(self.ledger_path)}: {j_exc}"
                 ) from j_exc
-            if not isinstance(loaded_json, dict) or not isinstance(loaded_json.get("entries", []), list):
-                raise RuntimeError("FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: JSON ledger root/entries invalid type")
+            if not isinstance(loaded_json, dict) or not isinstance(
+                loaded_json.get("entries", []), list
+            ):
+                raise RuntimeError(
+                    "FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: JSON ledger root/entries invalid type"
+                )
             for k_cnt in ("c01_attempts_spent", "g01_attempts_spent", "embedding_attempts_spent"):
                 v_cnt = loaded_json.get(k_cnt, 0)
                 if not isinstance(v_cnt, int) or isinstance(v_cnt, bool) or v_cnt < 0:
-                    raise RuntimeError(f"FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: Invalid counter {k_cnt}={v_cnt!r}")
+                    raise RuntimeError(
+                        f"FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: Invalid counter {k_cnt}={v_cnt!r}"
+                    )
 
         now_epoch = time.time()
         window_cutoff = now_epoch - ROLLING_24H_WINDOW_SECONDS
 
         try:
-            conn = sqlite3.connect(self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None)
+            conn = sqlite3.connect(
+                self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None
+            )
         except Exception as s_exc:
             raise RuntimeError(
                 f"FAIL_CLOSED_LEDGER_CORRUPT_OR_UNAVAILABLE: Cannot open SQLite smoke ledger: {s_exc}"
@@ -788,17 +855,19 @@ class DurableDiagnosticLedger:
             historical_attempts_count = 0
             rolling_24h_prior_attempts_count = 0
             current_session_attempts_count = 0
-            prior_rolling_24h_runs: List[str] = []
-            active_competing_runs: List[str] = []
-            unfinished_attempts: List[str] = []
-            current_diag_c01_keys: Set[str] = set()
-            current_diag_g01_keys: Set[str] = set()
-            current_diag_emb_keys: Set[str] = set()
-            merged_entries_by_key: Dict[str, Dict[str, Any]] = {}
+            prior_rolling_24h_runs: list[str] = []
+            active_competing_runs: list[str] = []
+            unfinished_attempts: list[str] = []
+            current_diag_c01_keys: set[str] = set()
+            current_diag_g01_keys: set[str] = set()
+            current_diag_emb_keys: set[str] = set()
+            merged_entries_by_key: dict[str, dict[str, Any]] = {}
 
             if flavor == "existing_smoke_v1":
-                run_rows = conn.execute("SELECT id, started FROM runs ORDER BY started ASC").fetchall()
-                run_started_map: Dict[str, float] = {}
+                run_rows = conn.execute(
+                    "SELECT id, started FROM runs ORDER BY started ASC"
+                ).fetchall()
+                run_started_map: dict[str, float] = {}
                 for r_id, r_started in run_rows:
                     r_str = str(r_id)
                     r_ts = float(r_started or 0.0)
@@ -814,7 +883,7 @@ class DurableDiagnosticLedger:
                 att_rows = conn.execute(
                     "SELECT run, operation, dispatched, completed FROM attempts ORDER BY COALESCE(dispatched, 0) ASC, run ASC, operation ASC"
                 ).fetchall()
-                runs_with_attempts: Set[str] = set()
+                runs_with_attempts: set[str] = set()
                 for a_run, a_op, a_disp, a_comp in att_rows:
                     r_str = str(a_run)
                     op_str = str(a_op)
@@ -823,7 +892,11 @@ class DurableDiagnosticLedger:
                     ref_ts = (
                         float(a_disp)
                         if a_disp is not None
-                        else (float(a_comp) if a_comp is not None else run_started_map.get(r_str, now_epoch))
+                        else (
+                            float(a_comp)
+                            if a_comp is not None
+                            else run_started_map.get(r_str, now_epoch)
+                        )
                     )
                     is_within_24h = ref_ts >= window_cutoff
                     if not is_within_24h and a_comp is not None:
@@ -854,7 +927,9 @@ class DurableDiagnosticLedger:
                         "run_id": r_str,
                         "probe_id": bucket if bucket in {"C01", "G01"} else op_str,
                         "operation": op_str,
-                        "state": "COMPLETED" if a_comp is not None else ("DISPATCHED" if a_disp is not None else "RESERVED"),
+                        "state": "COMPLETED"
+                        if a_comp is not None
+                        else ("DISPATCHED" if a_disp is not None else "RESERVED"),
                         "dispatched_epoch": float(a_disp) if a_disp is not None else None,
                         "completed_epoch": float(a_comp) if a_comp is not None else None,
                         "within_rolling_24h": is_within_24h,
@@ -877,7 +952,11 @@ class DurableDiagnosticLedger:
                         )
                     r_str = str(j_ent.get("run_id") or self.run_id)
                     p_str = str(j_ent.get("probe_id") or j_ent.get("operation") or "C01")
-                    key = f"{r_str}:{p_str}" if ":" not in str(j_ent["request_attempt_id"]) else str(j_ent["request_attempt_id"])
+                    key = (
+                        f"{r_str}:{p_str}"
+                        if ":" not in str(j_ent["request_attempt_id"])
+                        else str(j_ent["request_attempt_id"])
+                    )
                     bucket = self._classify_operation_bucket(p_str)
                     if j_ent.get("within_rolling_24h", True) is not False:
                         if bucket == "C01":
@@ -890,9 +969,14 @@ class DurableDiagnosticLedger:
                         merged_entries_by_key[key] = j_ent
 
             else:
-                run_rows = conn.execute("SELECT run_id, status, active_reservation_count FROM runs").fetchall()
+                run_rows = conn.execute(
+                    "SELECT run_id, status, active_reservation_count FROM runs"
+                ).fetchall()
                 for r_id, r_stat, r_res in run_rows:
-                    if str(r_stat or "").upper() in {"RUNNING", "IN_FLIGHT", "RESERVED"} or int(r_res or 0) > 0:
+                    if (
+                        str(r_stat or "").upper() in {"RUNNING", "IN_FLIGHT", "RESERVED"}
+                        or int(r_res or 0) > 0
+                    ):
                         if not (allow_active_self and str(r_id) == self.run_id):
                             active_competing_runs.append(str(r_id))
                             prior_rolling_24h_runs.append(str(r_id))
@@ -908,7 +992,11 @@ class DurableDiagnosticLedger:
                         current_diag_g01_keys.add(key)
                     elif bucket == "EMBEDDING":
                         current_diag_emb_keys.add(key)
-                    if str(st_v or "").upper() in {"RESERVED", "DISPATCHED", "IN_FLIGHT", "UNFINISHED"} or comp_at is None:
+                    if (
+                        str(st_v or "").upper()
+                        in {"RESERVED", "DISPATCHED", "IN_FLIGHT", "UNFINISHED"}
+                        or comp_at is None
+                    ):
                         if not (allow_active_self and str(r_id) == self.run_id):
                             unfinished_attempts.append(str(att_id))
                     merged_entries_by_key[key] = {
@@ -923,9 +1011,15 @@ class DurableDiagnosticLedger:
                     else:
                         rolling_24h_prior_attempts_count += 1
 
-            merged_c01 = max(int(loaded_json.get("c01_attempts_spent", 0)), len(current_diag_c01_keys))
-            merged_g01 = max(int(loaded_json.get("g01_attempts_spent", 0)), len(current_diag_g01_keys))
-            merged_emb = max(int(loaded_json.get("embedding_attempts_spent", 0)), len(current_diag_emb_keys))
+            merged_c01 = max(
+                int(loaded_json.get("c01_attempts_spent", 0)), len(current_diag_c01_keys)
+            )
+            merged_g01 = max(
+                int(loaded_json.get("g01_attempts_spent", 0)), len(current_diag_g01_keys)
+            )
+            merged_emb = max(
+                int(loaded_json.get("embedding_attempts_spent", 0)), len(current_diag_emb_keys)
+            )
             in_flight_id = loaded_json.get("in_flight_request_id")
             if in_flight_id is not None and not allow_active_self:
                 unfinished_attempts.append(str(in_flight_id))
@@ -944,10 +1038,14 @@ class DurableDiagnosticLedger:
         finally:
             conn.close()
 
-        remaining_24h_before_res = max(0, ROLLING_24H_DEBIT_ALLOWANCE - rolling_24h_prior_attempts_count)
+        remaining_24h_before_res = max(
+            0, ROLLING_24H_DEBIT_ALLOWANCE - rolling_24h_prior_attempts_count
+        )
         four_debit_ok = remaining_24h_before_res >= FOUR_DEBIT_RESERVATION_REQUIRED
         run_cap_ok = len(prior_rolling_24h_runs) < ROLLING_24H_RUN_RESERVATION_CAP
-        admission_res_ok = four_debit_ok and run_cap_ok and not unfinished_attempts and not active_competing_runs
+        admission_res_ok = (
+            four_debit_ok and run_cap_ok and not unfinished_attempts and not active_competing_runs
+        )
 
         actual_dispatched_in_run = sum(
             1
@@ -985,7 +1083,12 @@ class DurableDiagnosticLedger:
                     max(0, 2 - actual_dispatched_in_run) if self.session_reservation_acquired else 0
                 ),
                 "uncertainty_margin_debits_held": (
-                    2 if (self.session_reservation_acquired and not self.session_reservation_terminated) else 0
+                    2
+                    if (
+                        self.session_reservation_acquired
+                        and not self.session_reservation_terminated
+                    )
+                    else 0
                 ),
                 "rolling_24h_budget_ceiling_debits": ROLLING_24H_DEBIT_ALLOWANCE,
                 "rolling_24h_prior_attempts_count": rolling_24h_prior_attempts_count,
@@ -1025,11 +1128,16 @@ class DurableDiagnosticLedger:
 
         if not self.admission_valid:
             raise RuntimeError(
-                "FAIL_CLOSED_ADMISSION_EVIDENCE_INVALID: " + "; ".join(self.admission_validation_errors)
+                "FAIL_CLOSED_ADMISSION_EVIDENCE_INVALID: "
+                + "; ".join(self.admission_validation_errors)
             )
         # Re-verify strict pause-window start_at <= dispatch time (zero future-start tolerance)
         if isinstance(self.consumer_pause_window, dict):
-            _disp_now = self.now_utc.astimezone(datetime.timezone.utc) if self.now_utc is not None else datetime.datetime.now(datetime.timezone.utc)
+            _disp_now = (
+                self.now_utc.astimezone(_UTC)
+                if self.now_utc is not None
+                else datetime.datetime.now(_UTC)
+            )
             _w_start = parse_iso8601_utc(self.consumer_pause_window.get("start_at"))
             if _w_start is None or _w_start > _disp_now:
                 raise RuntimeError(
@@ -1063,7 +1171,9 @@ class DurableDiagnosticLedger:
 
             now_epoch = time.time()
             flavor = self.state.get("sqlite_schema_flavor", "existing_smoke_v1")
-            conn = sqlite3.connect(self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None)
+            conn = sqlite3.connect(
+                self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None
+            )
             try:
                 conn.execute("BEGIN IMMEDIATE")
                 if flavor == "existing_smoke_v1":
@@ -1120,20 +1230,28 @@ class DurableDiagnosticLedger:
 
             if probe_id == "C01":
                 if self.state["c01_attempts_spent"] >= self.state["c01_ceiling"]:
-                    raise RuntimeError("LEDGER_CEILING_EXCEEDED: C01 limit (1) already spent in durable smoke ledger")
+                    raise RuntimeError(
+                        "LEDGER_CEILING_EXCEEDED: C01 limit (1) already spent in durable smoke ledger"
+                    )
                 self.state["c01_attempts_spent"] += 1
             elif probe_id == "G01":
                 if self.state["g01_attempts_spent"] >= self.state["g01_ceiling"]:
-                    raise RuntimeError("LEDGER_CEILING_EXCEEDED: G01 limit (1) already spent in durable smoke ledger")
+                    raise RuntimeError(
+                        "LEDGER_CEILING_EXCEEDED: G01 limit (1) already spent in durable smoke ledger"
+                    )
                 self.state["g01_attempts_spent"] += 1
             else:
-                raise RuntimeError(f"FORBIDDEN_PROBE_ID: {probe_id} is prohibited in isolated G01 diagnostic mode")
+                raise RuntimeError(
+                    f"FORBIDDEN_PROBE_ID: {probe_id} is prohibited in isolated G01 diagnostic mode"
+                )
 
             now_epoch = time.time()
             self.state["in_flight_request_id"] = request_attempt_id
             flavor = self.state.get("sqlite_schema_flavor", "existing_smoke_v1")
 
-            conn = sqlite3.connect(self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None)
+            conn = sqlite3.connect(
+                self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None
+            )
             try:
                 conn.execute("BEGIN IMMEDIATE")
                 if flavor == "existing_smoke_v1":
@@ -1149,7 +1267,14 @@ class DurableDiagnosticLedger:
                     conn.execute(
                         "INSERT INTO attempts (attempt_id, run_id, probe_id, operation_kind, state, reserved_at, dispatched_at, completed_at, outcome_status, diagnostic_stage, request_payload_bytes, socket_write_confirmed) "
                         "VALUES (?, ?, ?, ?, 'DISPATCHED', ?, ?, NULL, NULL, 'IN_FLIGHT', 0, 0)",
-                        (request_attempt_id, self.run_id, probe_id, operation_kind, utc_now_iso(), utc_now_iso()),
+                        (
+                            request_attempt_id,
+                            self.run_id,
+                            probe_id,
+                            operation_kind,
+                            utc_now_iso(),
+                            utc_now_iso(),
+                        ),
                     )
                 conn.execute("COMMIT")
             except Exception as exc:
@@ -1186,7 +1311,9 @@ class DurableDiagnosticLedger:
             fd_res["rolling_24h_attempts_including_current_session"] = (
                 fd_res["rolling_24h_prior_attempts_count"] + dispatched_cnt
             )
-            self.state["rolling_24h_attempts_count"] = fd_res["rolling_24h_attempts_including_current_session"]
+            self.state["rolling_24h_attempts_count"] = fd_res[
+                "rolling_24h_attempts_including_current_session"
+            ]
             self._flush_json_locked()
 
     def release_slot(
@@ -1203,7 +1330,9 @@ class DurableDiagnosticLedger:
             now_iso = utc_now_iso()
             flavor = self.state.get("sqlite_schema_flavor", "existing_smoke_v1")
 
-            conn = sqlite3.connect(self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None)
+            conn = sqlite3.connect(
+                self.sqlite_smoke_ledger_path, timeout=self.lock_timeout_sec, isolation_level=None
+            )
             try:
                 conn.execute("BEGIN IMMEDIATE")
                 if flavor == "existing_smoke_v1":
@@ -1215,7 +1344,13 @@ class DurableDiagnosticLedger:
                 else:
                     conn.execute(
                         "UPDATE attempts SET state = ?, completed_at = ?, outcome_status = ?, diagnostic_stage = ? WHERE attempt_id = ?",
-                        (outcome_status, now_iso if mark_completed_in_db else None, outcome_status, diagnostic_stage, request_attempt_id),
+                        (
+                            outcome_status,
+                            now_iso if mark_completed_in_db else None,
+                            outcome_status,
+                            diagnostic_stage,
+                            request_attempt_id,
+                        ),
                     )
                 conn.execute("COMMIT")
             except Exception:
@@ -1245,26 +1380,26 @@ class IsolatedG01DiagnosticRunner:
         api_key: str,
         ledger_path: str,
         model_id: str = DEFAULT_MODEL_ID,
-        project_id: Optional[str] = None,
+        project_id: str | None = None,
         endpoint_host: str = "generativelanguage.googleapis.com",
         timeout_ms: int = DEFAULT_TIMEOUT_MS,
         spacing_ms: int = DEFAULT_SPACING_MS,
         session_ceiling_ms: int = DEFAULT_SESSION_CEILING_MS,
-        transport: Optional[httpx.BaseTransport] = None,
-        sqlite_smoke_ledger_path: Optional[str] = None,
+        transport: httpx.BaseTransport | None = None,
+        sqlite_smoke_ledger_path: str | None = None,
         run_id: str = "run_g01_isolated_2026_11_18",
         lock_timeout_sec: float = 5.0,
-        force_lock_backend: Optional[str] = None,
+        force_lock_backend: str | None = None,
         require_existing_ledger: bool = True,
         allow_bootstrap_new_ledger: bool = False,
-        admission_record: Optional[Dict[str, Any]] = None,
+        admission_record: dict[str, Any] | None = None,
         pre_dispatch_observations_count: int = 0,
-        pre_dispatch_observations: Optional[List[Dict[str, Any]]] = None,
+        pre_dispatch_observations: list[dict[str, Any]] | None = None,
         consumer_pause_confirmed: bool = False,
-        consumer_pause_evidence_ref: Optional[str] = None,
-        consumer_pause_window: Optional[Dict[str, Any]] = None,
+        consumer_pause_evidence_ref: str | None = None,
+        consumer_pause_window: dict[str, Any] | None = None,
         dashboard_headroom_status: str = "UNKNOWN_UNCONFIRMED",
-        use_subprocess_worker: Optional[bool] = None,
+        use_subprocess_worker: bool | None = None,
         _simulate_subprocess_block_seconds: float = 0.0,
     ) -> None:
         self.api_key = api_key
@@ -1277,13 +1412,17 @@ class IsolatedG01DiagnosticRunner:
         self.transport = transport
         self.run_id = run_id
         # Default to terminable subprocess worker for live execution (`transport is None`)
-        self.use_subprocess_worker = (transport is None) if use_subprocess_worker is None else bool(use_subprocess_worker)
+        self.use_subprocess_worker = (
+            (transport is None) if use_subprocess_worker is None else bool(use_subprocess_worker)
+        )
         self._simulate_subprocess_block_seconds = float(_simulate_subprocess_block_seconds)
 
         resolved_sqlite_path = (
             os.path.abspath(sqlite_smoke_ledger_path)
             if sqlite_smoke_ledger_path
-            else os.path.join(os.path.dirname(os.path.abspath(ledger_path)) or ".", DEFAULT_SQLITE_SMOKE_LEDGER)
+            else os.path.join(
+                os.path.dirname(os.path.abspath(ledger_path)) or ".", DEFAULT_SQLITE_SMOKE_LEDGER
+            )
         )
 
         self.ledger = DurableDiagnosticLedger(
@@ -1310,10 +1449,10 @@ class IsolatedG01DiagnosticRunner:
         self,
         url: str,
         serialized_body: bytes,
-        headers: Dict[str, str],
+        headers: dict[str, str],
         timeout_sec: float,
         session_deadline_mono: float,
-    ) -> Tuple[Optional[int], bool, int, bytes, Optional[BaseException], bool, bool]:
+    ) -> tuple[int | None, bool, int, bytes, BaseException | None, bool, bool]:
         """
         Executes the HTTP request in a terminable child OS process (`spawn` context for Windows & Linux).
         On timeout, terminates/kills and joins the child process BEFORE returning so local worker
@@ -1364,14 +1503,18 @@ class IsolatedG01DiagnosticRunner:
         try:
             res = q.get_nowait()
         except Exception:
-            res = {"exc_type": "RuntimeError", "exc_module": "builtins", "exc_msg": "Worker exited without result"}
+            res = {
+                "exc_type": "RuntimeError",
+                "exc_module": "builtins",
+                "exc_msg": "Worker exited without result",
+            }
         finally:
             try:
                 q.close()
             except Exception:
                 pass
 
-        exc_obj: Optional[BaseException] = None
+        exc_obj: BaseException | None = None
         if res.get("exc_type"):
             etype = res["exc_type"]
             emsg = res.get("exc_msg") or etype
@@ -1404,10 +1547,10 @@ class IsolatedG01DiagnosticRunner:
         self,
         url: str,
         serialized_body: bytes,
-        headers: Dict[str, str],
+        headers: dict[str, str],
         timeout_sec: float,
         session_deadline_mono: float,
-    ) -> Tuple[Optional[int], bool, int, bytes, Optional[BaseException], bool, bool]:
+    ) -> tuple[int | None, bool, int, bytes, BaseException | None, bool, bool]:
         """
         Executes an in-process transport (e.g., `httpx.MockTransport`). On timeout:
           1. Signals `abandoned_event`, closes `httpx.Client` and `self.transport` (unblocking cancellable transports).
@@ -1417,9 +1560,12 @@ class IsolatedG01DiagnosticRunner:
         Returns (http_status, headers_received, resp_bytes_len, raw_body, exc, local_worker_shutdown_verified, lock_deferred_to_reaper).
         """
         timeout_cfg = httpx.Timeout(
-            timeout_sec, connect=min(10.0, timeout_sec), read=timeout_sec, write=min(10.0, timeout_sec)
+            timeout_sec,
+            connect=min(10.0, timeout_sec),
+            read=timeout_sec,
+            write=min(10.0, timeout_sec),
         )
-        worker_state: Dict[str, Any] = {
+        worker_state: dict[str, Any] = {
             "http_status": None,
             "headers_received": False,
             "resp_bytes_len": 0,
@@ -1434,15 +1580,19 @@ class IsolatedG01DiagnosticRunner:
             client = httpx.Client(timeout=timeout_cfg, transport=self.transport)
             worker_state["client"] = client
             try:
-                with client.stream("POST", url, content=serialized_body, headers=headers) as response:
+                with client.stream(
+                    "POST", url, content=serialized_body, headers=headers
+                ) as response:
                     if abandoned_event.is_set():
                         return
                     worker_state["http_status"] = response.status_code
                     worker_state["headers_received"] = True
-                    raw_chunks: List[bytes] = []
+                    raw_chunks: list[bytes] = []
                     for chunk in response.iter_bytes():
                         if abandoned_event.is_set() or time.monotonic() >= session_deadline_mono:
-                            raise httpx.ReadTimeout("Absolute session ceiling exceeded during body stream read")
+                            raise httpx.ReadTimeout(
+                                "Absolute session ceiling exceeded during body stream read"
+                            )
                         raw_chunks.append(chunk)
                         worker_state["resp_bytes_len"] += len(chunk)
                     worker_state["raw_body"] = b"".join(raw_chunks)
@@ -1477,7 +1627,9 @@ class IsolatedG01DiagnosticRunner:
             local_shutdown_verified = not worker_thread.is_alive()
             if not local_shutdown_verified:
                 # CRITICAL: Never release session.lock while worker_thread is still active!
-                lock_deferred = self.ledger.defer_session_lock_release_until_worker_exits(worker_thread)
+                lock_deferred = self.ledger.defer_session_lock_release_until_worker_exits(
+                    worker_thread
+                )
             return (
                 worker_state["http_status"],
                 bool(worker_state["headers_received"]),
@@ -1506,9 +1658,9 @@ class IsolatedG01DiagnosticRunner:
         probe_id: str,
         operation_kind: str,
         url_path: str,
-        payload: Dict[str, Any],
+        payload: dict[str, Any],
         session_deadline_mono: float,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         attempt_id = f"att_{probe_id.lower()}_01"
         started_at = utc_now_iso()
         t0 = time.monotonic()
@@ -1516,13 +1668,19 @@ class IsolatedG01DiagnosticRunner:
 
         serialized_body = b""
         try:
-            serialized_body = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+            serialized_body = json.dumps(payload, separators=(",", ":"), ensure_ascii=False).encode(
+                "utf-8"
+            )
             remaining_session_ms = int((session_deadline_mono - time.monotonic()) * 1000)
             if remaining_session_ms <= 0:
                 raise RuntimeError(
                     f"SESSION_CEILING_DEADLINE_EXCEEDED: Absolute {self.session_ceiling_ms}ms session ceiling expired before {probe_id}"
                 )
-            if not self.api_key or not isinstance(self.api_key, str) or len(self.api_key.strip()) == 0:
+            if (
+                not self.api_key
+                or not isinstance(self.api_key, str)
+                or len(self.api_key.strip()) == 0
+            ):
                 raise ValueError("MISSING_API_KEY_PRE_SEND")
             self.ledger.acquire_slot(probe_id, attempt_id, operation_kind)
         except Exception as exc:
@@ -1588,7 +1746,9 @@ class IsolatedG01DiagnosticRunner:
                 worker_exc,
                 local_shutdown_verified,
                 lock_deferred,
-            ) = self._run_transport_subprocess(url, serialized_body, headers, timeout_sec, session_deadline_mono)
+            ) = self._run_transport_subprocess(
+                url, serialized_body, headers, timeout_sec, session_deadline_mono
+            )
         else:
             (
                 http_status,
@@ -1598,7 +1758,9 @@ class IsolatedG01DiagnosticRunner:
                 worker_exc,
                 local_shutdown_verified,
                 lock_deferred,
-            ) = self._run_transport_in_process(url, serialized_body, headers, timeout_sec, session_deadline_mono)
+            ) = self._run_transport_in_process(
+                url, serialized_body, headers, timeout_sec, session_deadline_mono
+            )
 
         try:
             if worker_exc is not None:
@@ -1608,7 +1770,11 @@ class IsolatedG01DiagnosticRunner:
 
             if http_status != 200:
                 self.ledger.release_slot(
-                    probe_id, attempt_id, "PROVIDER_OR_SDK_ERROR", "HTTP_STATUS_OR_HEADER_WAIT", mark_completed_in_db=True
+                    probe_id,
+                    attempt_id,
+                    "PROVIDER_OR_SDK_ERROR",
+                    "HTTP_STATUS_OR_HEADER_WAIT",
+                    mark_completed_in_db=True,
                 )
                 return {
                     "probe_id": probe_id,
@@ -1750,13 +1916,17 @@ class IsolatedG01DiagnosticRunner:
                 "probe_id": probe_id,
                 "started_at": started_at,
                 "completed_at": utc_now_iso(),
-                "execution_status": "TIMEOUT_OUTCOME_UNKNOWN" if is_conn_to else "PROVIDER_OR_SDK_ERROR",
+                "execution_status": "TIMEOUT_OUTCOME_UNKNOWN"
+                if is_conn_to
+                else "PROVIDER_OR_SDK_ERROR",
                 "provider_fault_details": {
                     "fault_stage": "TRANSPORT_DISPATCH",
                     "diagnostic_substage": "TRANSPORT_CONNECT_OR_TLS_WRITE",
                     "provider": "gemini",
                     "error_category": "TIMEOUT" if is_conn_to else "SDK_CLIENT_EXCEPTION",
-                    "error_code": "CONNECT_TIMEOUT_PRE_WRITE" if is_conn_to else "TRANSPORT_CONNECT_FAILED_PRE_WRITE",
+                    "error_code": "CONNECT_TIMEOUT_PRE_WRITE"
+                    if is_conn_to
+                    else "TRANSPORT_CONNECT_FAILED_PRE_WRITE",
                     "http_status": None,
                     "grpc_status_code": None,
                     "retryable": False,
@@ -1844,7 +2014,11 @@ class IsolatedG01DiagnosticRunner:
             substage = (
                 "TRANSPORT_CONNECT_OR_TLS_WRITE"
                 if is_write_to
-                else ("RESPONSE_STREAM_OR_BODY_PARSE" if headers_received else "HTTP_STATUS_OR_HEADER_WAIT")
+                else (
+                    "RESPONSE_STREAM_OR_BODY_PARSE"
+                    if headers_received
+                    else "HTTP_STATUS_OR_HEADER_WAIT"
+                )
             )
             # Only call release_slot if lock was NOT deferred (if deferred, lock is held by reaper;
             # update in-memory JSON state without reacquiring session.lock, leaving SQLite completed = NULL!)
@@ -1895,20 +2069,28 @@ class IsolatedG01DiagnosticRunner:
                 "completed_at": utc_now_iso(),
                 "execution_status": "TIMEOUT_OUTCOME_UNKNOWN",
                 "provider_fault_details": {
-                    "fault_stage": "RESPONSE_STREAM_OR_PARSE" if headers_received else "TRANSPORT_DISPATCH",
+                    "fault_stage": "RESPONSE_STREAM_OR_PARSE"
+                    if headers_received
+                    else "TRANSPORT_DISPATCH",
                     "diagnostic_substage": substage,
                     "provider": "gemini",
                     "error_category": "TIMEOUT",
                     "error_code": (
                         "STREAM_READ_TIMEOUT_AFTER_HTTP_HEADERS"
                         if headers_received
-                        else ("WRITE_TIMEOUT_NO_HTTP_STATUS" if is_write_to else "CLIENT_DEADLINE_EXCEEDED_NO_HTTP_STATUS")
+                        else (
+                            "WRITE_TIMEOUT_NO_HTTP_STATUS"
+                            if is_write_to
+                            else "CLIENT_DEADLINE_EXCEEDED_NO_HTTP_STATUS"
+                        )
                     ),
                     "http_status": http_status,
                     "grpc_status_code": None,
                     "retryable": False,
                     "outcome_certainty": (
-                        "PARTIAL_STREAM_DISCARDED" if headers_received else "OUTCOME_UNKNOWN_DEADLINE_EXCEEDED"
+                        "PARTIAL_STREAM_DISCARDED"
+                        if headers_received
+                        else "OUTCOME_UNKNOWN_DEADLINE_EXCEEDED"
                     ),
                     "sanitized_diagnostic_summary": summary_msg,
                     "request_transport_evidence": {
@@ -1937,8 +2119,14 @@ class IsolatedG01DiagnosticRunner:
 
         except Exception as trans_exc:
             elapsed_ms = int((time.monotonic() - t0) * 1000)
-            substage = "RESPONSE_STREAM_OR_BODY_PARSE" if headers_received else "HTTP_STATUS_OR_HEADER_WAIT"
-            fault_stage = "RESPONSE_STREAM_OR_PARSE" if headers_received else "SDK_ADAPTER_DESERIALIZATION"
+            substage = (
+                "RESPONSE_STREAM_OR_BODY_PARSE"
+                if headers_received
+                else "HTTP_STATUS_OR_HEADER_WAIT"
+            )
+            fault_stage = (
+                "RESPONSE_STREAM_OR_PARSE" if headers_received else "SDK_ADAPTER_DESERIALIZATION"
+            )
             err_cat = "STREAM_INTERRUPTED" if headers_received else "SDK_CLIENT_EXCEPTION"
             err_code = (
                 "STREAM_INTERRUPTED_AFTER_HEADERS"
@@ -2017,10 +2205,10 @@ class IsolatedG01DiagnosticRunner:
 
     def _build_session_report(
         self,
-        c01_res: Dict[str, Any],
-        g01_res: Optional[Dict[str, Any]],
+        c01_res: dict[str, Any],
+        g01_res: dict[str, Any] | None,
         stopped_reason: str,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         return {
             "diagnostic_plan_version": "od-llm02-v0.9-2026-11-18",
             "package_release_id": PACKAGE_RELEASE_ID,
@@ -2053,7 +2241,7 @@ class IsolatedG01DiagnosticRunner:
             "ledger_summary": self.ledger.state,
         }
 
-    def run_isolated_diagnostic(self, sleep_fn: Any = time.sleep) -> Dict[str, Any]:
+    def run_isolated_diagnostic(self, sleep_fn: Any = time.sleep) -> dict[str, Any]:
         session_start_mono = time.monotonic()
         session_deadline_mono = session_start_mono + (self.session_ceiling_ms / 1000.0)
 
@@ -2061,11 +2249,7 @@ class IsolatedG01DiagnosticRunner:
             "contents": [
                 {
                     "role": "user",
-                    "parts": [
-                        {
-                            "text": G01_SYNTHETIC_PROMPT_TEXT
-                        }
-                    ],
+                    "parts": [{"text": G01_SYNTHETIC_PROMPT_TEXT}],
                 }
             ]
         }
@@ -2106,11 +2290,15 @@ class IsolatedG01DiagnosticRunner:
                     sleep_target_s = self.spacing_ms / 1000.0
                     if remaining_before_sleep_s <= sleep_target_s:
                         sleep_fn(max(0.0, remaining_before_sleep_s))
-                        return self._build_session_report(c01_res, None, "STOPPED_ON_SESSION_DEADLINE_EXCEEDED")
+                        return self._build_session_report(
+                            c01_res, None, "STOPPED_ON_SESSION_DEADLINE_EXCEEDED"
+                        )
                     sleep_fn(sleep_target_s)
 
                 if time.monotonic() >= session_deadline_mono:
-                    return self._build_session_report(c01_res, None, "STOPPED_ON_SESSION_DEADLINE_EXCEEDED")
+                    return self._build_session_report(
+                        c01_res, None, "STOPPED_ON_SESSION_DEADLINE_EXCEEDED"
+                    )
 
                 g01_res = self._execute_single_http_post(
                     probe_id="G01",
@@ -2165,8 +2353,16 @@ def main() -> int:
         default=DEFAULT_SQLITE_SMOKE_LEDGER,
         help="Path to authoritative existing SQLite smoke ledger (runs/attempts schema; must exist)",
     )
-    parser.add_argument("--model", default=DEFAULT_MODEL_ID, help="Target Gemini model ID (default: gemini-3.8-flash)")
-    parser.add_argument("--project-id", default=None, help="Exact expected GCP/Gemini project ID (REQUIRED for admission; omitting fails closed)")
+    parser.add_argument(
+        "--model",
+        default=DEFAULT_MODEL_ID,
+        help="Target Gemini model ID (default: gemini-3.8-flash)",
+    )
+    parser.add_argument(
+        "--project-id",
+        default=None,
+        help="Exact expected GCP/Gemini project ID (REQUIRED for admission; omitting fails closed)",
+    )
     parser.add_argument(
         "--admission-record",
         default=None,
@@ -2198,14 +2394,16 @@ def main() -> int:
     args = parser.parse_args()
 
     validate_output_path_not_protected(args.output)
-    admission_record: Optional[Dict[str, Any]] = None
+    admission_record: dict[str, Any] | None = None
     if args.admission_record:
-        with open(args.admission_record, "r", encoding="utf-8") as af:
+        with open(args.admission_record, encoding="utf-8") as af:
             admission_record = json.load(af)
 
     api_key = os.environ.get("GEMINI_API_KEY", "")
     if not api_key and args.prompt_key:
-        api_key = getpass.getpass("Enter GEMINI_API_KEY (hidden, not saved to shell history): ").strip()
+        api_key = getpass.getpass(
+            "Enter GEMINI_API_KEY (hidden, not saved to shell history): "
+        ).strip()
 
     runner = IsolatedG01DiagnosticRunner(
         api_key=api_key,
@@ -2224,7 +2422,9 @@ def main() -> int:
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
-    print(f"Isolated G01 Diagnostic Runner Version: {RUNNER_VERSION} (Package {PACKAGE_RELEASE_ID})")
+    print(
+        f"Isolated G01 Diagnostic Runner Version: {RUNNER_VERSION} (Package {PACKAGE_RELEASE_ID})"
+    )
     print(f"Transport Client: {report['transport_client']} ({report['verification_scope']})")
     print(f"Target Model ID: {args.model}")
     print(f"Stopped Reason: {report['stopped_reason']}")
