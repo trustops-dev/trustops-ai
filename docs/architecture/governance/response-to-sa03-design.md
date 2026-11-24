@@ -8,6 +8,7 @@
 | **Answers** | Mohab's message of 2026-11-24, which waits for governance's decision on `OD-04` / `SA-03`, and his closeout in PR #32 at `d43af58c51f5cafa96b577e354e019c21e4aa67b` |
 | **Reviewed** | `week_2.md` (`41be9a32…d5c4`, sections 3.1, 3.2, 11 and 18), `updated_schemas_v18.md` (`6ad921e6…1d28`, the same hash as Mohab's manifest) and `validate_s1_01_schema_v1_11.py` (`403197a4…2e65`, the approval checks from `_validate_approval_event` to the dispatch-claim consumption check), all as downloaded from that commit |
 | **What was run** | Nothing. This is a read-only comparison of documents and source. The validator and its 105 regression cases were **not** executed by governance, so the figures in Mohab's report are his |
+| **Later addendum** | [§5](#5-verification-of-the-applied-amendments-pr-32-at-e2dcf62): governance's verification, on 2026-11-24, that Mohab applied A1 to A5, and the resulting ratification. Sections 1 to 4 are unchanged and remain the record of the review at `4a3b503` |
 | **Governance revision** | 0.6 with the 23 to 24 November addenda ([governance-contract.md](governance-contract.md) §5.3, [policy-truth-tables.md](policy-truth-tables.md) at baseline B2) |
 
 Status words: **ACCEPT**, **AMEND** (a small required correction, given in §2) and **OPEN** (waiting on a named owner or a later gate).
@@ -53,3 +54,50 @@ Mohab and governance agree to batch these into one post-review update, together 
 - Nothing ran. The validator and its regression suite were read, not executed, and no probe was run.
 - It does not ratify the approval fields jointly. It states governance's side, with conditions.
 - The design is a specification of evidence. It authorizes no approval endpoint, no replay of a write and no change to a decision already recorded.
+
+---
+
+## 5. Verification of the applied amendments (PR #32 at `e2dcf62`)
+
+| | |
+|---|---|
+| **Date** | 2026-11-24 |
+| **Answers** | Mohab's message of 2026-11-24, which says that A1 to A5, `GD-35`, `GD-36` and `GD-23` are applied in the v1.18 package of PR #32 |
+| **Verified at** | PR #32 head `e2dcf6297fc6bbde703cc3bd057c36d446aa6968`; the batch is commit `70a663e`, followed by `ce54fc4` (lint and type configuration) and `e2dcf62` (a CI path) |
+| **Read** | `updated_schemas_v18.md` (`f2784b5b…e9fd`), `week_2.md` §19 (`b47415fe…6827`), `validate_s1_01_schema_v1_11.py` (`b2dd0ee5…c149`), `trustops_sdk.py` (`9b4ba06c…75e3`), `001_core.sql` (`a161530e…14f7`) and `run_s1_01_regression_suite.py` (`8fb65723…5cce`). The sizes and hash prefixes match the list in Mohab's message |
+| **What was run** | Nothing. The validator and its regression suite were read, not executed, so the counts in Mohab's message (113 regression cases, 2,788 assertions) are his |
+
+### 5.1 The five amendments
+
+| # | Amendment | Result | Evidence in the code |
+|---|---|---|---|
+| A1 | After `APPROVED`, only a revocation may follow | **Applied** | The validator rejects a `PENDING`, `DENIED` or second `APPROVED` record after an `APPROVED` one, and the terminal rule still holds (`ERR_SA03_ACTION_APPROVAL_BINDING_INVALID`, `ERR_APPROVAL_TERMINAL_STATUS_VIOLATION`) |
+| A2 | The supersession link on every later record | **Applied** | A later record must carry the `supersedes_approval_id` of the record immediately before it, with a higher `decision_record_seq` and a different `record_version` |
+| A3 | `superseded_by_approval_id` is derived and never stored | **Applied** | The validator rejects a non-null value in any approval event; the SDK always emits null; the SQL constraint `chk_approval_event_superseded_by_null` enforces it, and the column on the registry table is reserved for the read model |
+| A4 | A stale reason beside the code, and the `base_only` limit | **Applied, with a follow-up** | The five codes exist (`STALE_REASON_CODES_ENUM`) and are validated on the approval evidence reference and the consumption record (`ERR_STALE_REASON_CODE_INVALID`); the SQL column exists. The limit of `base_only` to the S1-03 base evidence is stated in the validator help and in §19 |
+| A5 | The order signal written down | **Applied** | "Before the proposal" is the approval event's trace `sequence_number` below the proposal's, with the highest `decision_record_seq`; wall-clock time never decides (`ERR_APPROVAL_ORDER_INVALID`, and `derive_approval_before_proposal_order` in the SDK) |
+
+### 5.2 The agreed items
+
+| Item | Result |
+|---|---|
+| `GD-35`: `EXPIRED` | **Applied.** The status enum has five values and the validator rejects `EXPIRED` (`ERR_APPROVAL_STATUS_INVALID`). One leftover mention remains (F1) |
+| `GD-36`: the no-effect outcome | **Applied.** The enum has eight values and includes `AUTHORIZED_DISPATCH_RESOLVED_NO_SIDE_EFFECT`, the name governance asked for. It covers both routes. A realized wrong `PASS` stays `AUTHORIZED_AND_COMMITTED` |
+| `GD-23`: the scope mapping | **Applied.** `BOUNDARY_TEST` is `ISOLATED_CONTRACT_PROBE` and `FULL_APPLICATION` is `FULL_END_TO_END`, documented in the schema and in §19 |
+
+### 5.3 Follow-ups for Mohab's next revision (none blocking)
+
+- **F1.** `updated_schemas_v18.md` line 459 still lists `"EXPIRED"` among the allowed approval statuses, which contradicts the note at line 476. The two historical rows in `week_2.md` §3 that list the six-value enum should be marked as superseded by §19.
+- **F2.** A first record for an approval request that carries a non-null `supersedes_approval_id` is not rejected, because the chain check runs only when an earlier record exists. The first record should carry null.
+- **F3.** `stale_reason_code` is validated only when the field is present, so a stale check that omits it passes. It should be required, from the enum, whenever `is_current_at_check` or `currentness_verified_at_consumption` is false.
+
+### 5.4 Ratification
+
+The condition of §3 is met: A1 to A5 are applied. **Governance's side of `OD-04` / `SA-03` is ratified**, with F1 to F3 left for Mohab's next revision. The joint sign-off with Nour and Ahmed, and the release of `RC-07`, remain theirs. `PR #32` at `e2dcf62` is the reference commit unless Mohab tags another.
+
+### 5.5 What this addendum does not claim
+
+- It does not accept PR #32, approve a merge, or accept anything for another owner.
+- Nothing ran against a runtime. The validator, the SDK and the regression suite were read, not executed.
+- It does not ratify the approval fields jointly, and it does not release `RC-07`.
+- The follow-up commits `ce54fc4` and `e2dcf62` change lint and CI configuration. They were noticed but not reviewed here.
