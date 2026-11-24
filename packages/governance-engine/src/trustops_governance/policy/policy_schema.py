@@ -55,6 +55,11 @@ class PolicySetInfo:
     accepted_at: str | None
     acceptance_evidence: str | None
 
+    @property
+    def bundle_version(self) -> str:
+        """The executable rule bundle that runs: the set id and its version."""
+        return f"{self.id}-{self.version}"
+
 
 @dataclass(frozen=True)
 class ApprovalRule:
@@ -68,8 +73,9 @@ class ApprovalRule:
 
 @dataclass(frozen=True)
 class ApprovalPolicy:
-    """PROC-APPROVAL-01 configuration."""
+    """PROC-APPROVAL-01 configuration. ``version`` is the per-rule version recorded in a check."""
 
+    version: str
     rules: tuple[ApprovalRule, ...]
     amount_pattern: str
 
@@ -78,6 +84,7 @@ class ApprovalPolicy:
 class ToolStagePolicy:
     """PROC-TOOL-STAGE-01 configuration: one tool allowlist for every stage."""
 
+    version: str
     stage_allowlist: Mapping[PolicyStage, frozenset[str]]
 
 
@@ -85,6 +92,7 @@ class ToolStagePolicy:
 class SupplierPolicy:
     """PROC-SUPPLIER-01 configuration: the one status that makes a supplier eligible."""
 
+    version: str
     eligible_status: str
 
 

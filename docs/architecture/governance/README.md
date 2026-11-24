@@ -9,7 +9,7 @@ This folder holds the contracts for `packages/governance-engine`: the policy eng
 | Document | What it holds |
 |---|---|
 | [decision-flow.md](decision-flow.md) | The three verdict layers (pre-tool `ALLOW`/`BLOCK`, automated `PASS`/`REVIEW`/`BLOCK`, human `ACCEPT`/`REVIEW`/`BLOCK`), the boundary map from Figures 2–5, decision precedence, invariants and failure behavior |
-| [governance-contract.md](governance-contract.md) | Policy evidence, the traceability register, the pre-tool interface, the approval boundary, the decision-engine interface, review, audit, roles and overrides, the decision log (`GD-01`–`GD-36`) and the responses to the handoff checklist and the dashboard questions |
+| [governance-contract.md](governance-contract.md) | Policy evidence, the traceability register, the pre-tool interface, the approval boundary, the decision-engine interface, review, audit, roles and overrides, the decision log (`GD-01`–`GD-37`) and the responses to the handoff checklist and the dashboard questions |
 | [policy-truth-tables.md](policy-truth-tables.md) | Case tables for `PROC-APPROVAL-01`, `PROC-TOOL-STAGE-01` and `PROC-SUPPLIER-01`, the aggregation rules, combined and conflicting cases, the SC-03 fixture pair and the decision-precedence conflict cases |
 | [evidence-consistency-and-recovery.md](evidence-consistency-and-recovery.md) | Governance's side of the Trace Schema Draft v1.5 review items 1 and 2: checking authorization snapshots against their source evidence, recovery identity, outcome combinations, the consistency finding codes and a disposition table |
 | [response-to-owner-packet-0.14.md](response-to-owner-packet-0.14.md) | Governance's ACCEPT/AMEND response to Nour's owner packet 0.14 (commit `479cab0`): OD-02, OD-03, OD-04, OD-05-MAP, OD-06, OD-09, OD-12 children and OD-16, with reviewed file hashes, exact wording, supporting cases and the split between governance-local and joint decisions. The dispositions were sent by email and Nour recorded them on 9 November (`docs/architecture/reference-applications/reviews/mohamed-479cab0-od03-response.md`, PR #27 branch `docs/nour-week1-review-014` at commit `04789d7`); this file is the written response delivered with the follow-up |
@@ -152,6 +152,23 @@ What B2 settles and what it leaves open:
 - `STALE_REVISION` is reported like an approval bound to another revision. `EXPIRED` and any unrecognised status are unresolved evidence. Mohab's trace schema v1.18 lists both statuses and says both force `FAIL`. Governance proposes that `EXPIRED` is never produced, so the difference is open with Mohab and is for him to drop or accept.
 - B2 is still a baseline for implementation only. It is not the freeze of the application contracts, not OD-14 policy-release acceptance and not runtime activation.
 
+## Implementation baseline B3
+
+Decision [GD-37](governance-contract.md#8-decisions). B3 follows the control rule of B1 and B2. The remaining two mandatory policies are implemented, so the check can return a verdict. B3 adds row SU-09 and the notes on the order of evaluation of the tool-stage and supplier policies and on what a check returns, and it puts the per-rule policy versions into the test configuration. The sample responses are regenerated from the engine, so they now carry the versions, the bundle version and the observed evidence. B1 and B2 above remain the earlier records. The content hash is the authority; the commit that adds this section is where B3 was first recorded.
+
+| Artifact | Path | Changed since B2 | SHA-256 |
+|---|---|---|---|
+| Policy truth tables | `docs/architecture/governance/policy-truth-tables.md` | yes: SU-09, the order of evaluation of the tool-stage and supplier policies, what a check returns | `93ff9c8f7de007d78424bcf5f67154ff16b857b510b578feabb7272126e697f3` |
+| Synthetic policy configuration v0.1 | `docs/architecture/governance/policy-configuration/procurement-policy-set-v0.1.yaml` | no | `0a585b08464e65ccb803e76238c0222a8a36d69df62c6ab75b3455f63a0f3678` |
+| Test matrices | `tests/fixtures/governance/policy-matrices.json` | yes: the per-policy versions in the test configuration, SU-04.d, SU-09.a and SU-09.b (87 policy cases) | `fdef0632bae1f9d750064cab2f3396433995f8256a7eac1c7ebb73ba36cc52fd` |
+| Sample request and response pairs | `tests/fixtures/governance/policy-check-samples.json` | yes: responses regenerated from the engine, with `policy_version`, `policy_bundle_version` and `observed_evidence` | `847e7c13b075a713d05045c6e025978002edab48e9f4f9e1d21e84064af69d44` |
+
+What B3 settles and what it leaves open:
+
+- The configuration file itself is unchanged: it already carries the policy set id and version and a `version` for each policy. The test configuration follows the same shape.
+- The version names that Mohab uses in his trace schema fixtures (`rule_apr_v0.2` and similar) are examples. The check reports the values of the configuration.
+- B3 is still a baseline for implementation only. It is not the freeze of the application contracts, not OD-14 policy-release acceptance and not runtime activation.
+
 ## Revision history
 
 | Revision | Date | Change |
@@ -160,6 +177,7 @@ What B2 settles and what it leaves open:
 | 0.2 | 2026-10-18 | Decision flow and contract register merged to `dev` in PR #14, reconciled with the reference-application contracts |
 | 0.3 | 2026-10-21 | Policy truth tables, decision log with statuses, canonical-values proposal, approval validity, roles and overrides, review packet, responses to the wrap-up and to the dashboard questions |
 | 0.6 | 2026-11-12 | Naming aligned to Trace Schema Draft v1.9 (`GD-31`); contract §4.1 to §4.8 rewritten; claim identity made root-scoped; approval-record supersession, terminal rule and chronology proposals (`GD-32`); policy stage versus policy-check result for the dashboard; RAG policy evidence aligned with Ahmed's evaluator contract; reproducible 31-case check and its result; reply to Nour's follow-up; `SA-01` to `SA-09` |
+| 0.6 addendum 12 | 2026-11-24 | Roadmap Week 4. Baseline B3 under the control rule of `GD-37`: the tool-stage and supplier policies and the full check are implemented; the truth tables gain row SU-09 and the notes on the order of evaluation and on what a check returns; the matrices gain per-policy versions and 3 cases; the sample responses are regenerated from the engine with versions, bundle version and observed evidence. New section "Implementation baseline B3" with the new content hashes. No change to the configuration |
 | 0.6 addendum 11 | 2026-11-24 | Mohab's reply to the boundary questions and to the three v1.18 items. New [response-to-sa03-design.md](response-to-sa03-design.md): governance's review of his approval-record design, ACCEPT with five amendments, conditional ratification. Contract decision log: `GD-23` placement settled and the scope mapping recorded, `GD-32` disposition, `GD-35` acknowledgement, new `GD-36` for the `enforcement_outcome` mapping. Recording only: no change to a truth-table row, the configuration, the matrices or the samples, so baseline B2 is unchanged |
 | 0.6 addendum 10 | 2026-11-23 | Baseline B2 under the control rule of `GD-35`: truth-table rows AP-20 (status `STALE_REVISION`), AP-21 (`EXPIRED` or an unrecognised status) and AP-22 (a bound amount that cannot be read), a precision clause in AP-11, and notes on statuses, the bound amount and the order of evaluation in [policy-truth-tables.md](policy-truth-tables.md). 11 new matrix cases. New section "Implementation baseline B2" with the new content hashes. No change to the configuration or the samples |
 | 0.6 addendum 9 | 2026-11-23 | Nour's review of the Week 3 revision asked for a versioned implementation baseline with decision-log control. New decision `GD-34` in the governance contract and a new section "Implementation baseline B1" here, naming the truth tables, the configuration, the matrices and the samples by commit and content hash. Wording and recording only: no change to a truth-table row, the contract's rules, the configuration or the check result |

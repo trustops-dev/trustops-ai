@@ -8,6 +8,8 @@ agreed with the platform owner.
 from dataclasses import dataclass
 from enum import StrEnum
 
+CREATE_PURCHASE_ORDER = "create_purchase_order"
+
 
 class ApprovalStatus(StrEnum):
     """The statuses an approval record can carry, as the trace schema lists them (SA-05)."""
@@ -28,6 +30,26 @@ class DecisionOrder(StrEnum):
     FUTURE_DATED = "FUTURE_DATED"
     UNORDERABLE = "UNORDERABLE"
     CONFLICTING = "CONFLICTING"
+
+
+class SupplierLookup(StrEnum):
+    """How the supplier lookup ended."""
+
+    FOUND = "FOUND"
+    NOT_FOUND = "NOT_FOUND"
+    ERROR = "ERROR"
+
+
+@dataclass(frozen=True)
+class SupplierEvidence:
+    """Governance's supplier snapshot for the proposal, as resolved from the lookup result.
+
+    ``lookup_outcome`` and ``status`` stay text so that an unrecognised value can be refused.
+    """
+
+    lookup_outcome: str
+    supplier_id: str | None
+    status: str | None
 
 
 @dataclass(frozen=True)

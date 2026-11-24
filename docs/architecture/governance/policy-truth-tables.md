@@ -97,6 +97,7 @@ Notes:
 
 - **Exact match, no normalization.** `Create_Purchase_Order` is not `create_purchase_order`. Names come from runtime code, not model text, so there is nothing to normalize and nothing to bypass by casing.
 - **The stage check is coarse on purpose.** The application keeps the finer agent-state rules (for example `search_policy` only in `REQUEST_CAPTURED`). A coarse stage allowance never permits skipping a prerequisite [N].
+- **Order of evaluation.** The first fault found is the one reported: (1) the configuration is usable, and it names an allowlist for every stage, so a missing allowlist is TS-09 whichever stage is checked; (2) the stage is exactly a canonical stage (TS-08); (3) the tool is in the allowlist of that stage (TS-01 to TS-07). The policy applies to every proposed tool, so it has no scope check.
 - **TS-04 is deliberately strict.** Only the purchase-order proposal is allowed in `APPROVED`, as in the state contract [N]. If the team wants other tools there, it is a configuration change, not a code change.
 - **TS-05 covers authorization reuse.** A second proposal while in `PO_CREATION` cannot borrow the first `ALLOW` (`INV-9`).
 
@@ -116,12 +117,14 @@ Evaluated when `t = create_purchase_order`. For any other tool the result is `NO
 | SU-06 | Snapshot supplier id differs from the proposal's | `FAIL` | `SUPPLIER_ID_MISMATCH` |
 | SU-07 | No snapshot, lookup outcome `ERROR`, or status null | `ERROR` | `SUPPLIER_EVIDENCE_MISSING` |
 | SU-08 | `t ≠ create_purchase_order` | `NOT_APPLICABLE` | `TOOL_OUT_OF_SCOPE` |
+| SU-09 | Lookup outcome is not `FOUND`, `NOT_FOUND` or `ERROR` (an unrecognised value) | `ERROR` | `EVIDENCE_UNRESOLVED` |
 
 Notes:
 
 - **Only the literal `APPROVED` passes.** Other drafts spell the non-approved status differently (`NOT_APPROVED`, `UNAPPROVED`, `SUSPENDED`); the policy needs no list of them, because every non-null value other than `APPROVED` is SU-04.
 - **A snapshot from a different request revision** is a check-level `CONTEXT_MISMATCH` (§5, AG-06), not a supplier result.
 - **Missing evidence is not a verdict on the supplier.** SU-07 is `ERROR`; the supplier is not declared unapproved.
+- **Order of evaluation.** The first fault found is the one reported: (1) the tool is `create_purchase_order`, otherwise SU-08; (2) the configuration is usable; (3) the lookup: no snapshot or a lookup that ended in `ERROR` is SU-07, `NOT_FOUND` is SU-05, and an unrecognised lookup outcome is SU-09; (4) a found supplier has a status, otherwise SU-07; (5) the snapshot is for the proposed supplier (SU-06); (6) the status (SU-01 to SU-04). An empty status string is a non-null status other than the configured one, so it is SU-04.
 
 ---
 
@@ -146,6 +149,8 @@ The overall verdict is computed from the per-policy results of the applicable po
 | AG-12 | A referenced evidence record is unresolved, ambiguous or duplicated | `BLOCK` | `FAIL_CLOSED_ON_POLICY_ERROR` (the affected policy is `ERROR`) |
 
 The `ALLOW` result also carries the binding described in the contract §4.2.
+
+**What a check returns.** Every policy result carries the per-rule `policy_version` from the configuration (none when the configuration could not be read) and the values the policy observed. The check carries the active `policy_bundle_version`, which is the policy set's id and version, and the `check_mode` `ONLINE_PRE_TOOL`. All three policies are always evaluated and recorded, in the fixed order approval, tool stage, supplier. If the policy set cannot be read, the check fails closed on the version path of AG-05 and records no bundle version. The findings about the check itself (AG-05, AG-06, AG-07, AG-10 and AG-12) are optional inputs of the check; an input that leaves them out raises none, and the platform adapter that resolves the evidence supplies them.
 
 ### 5.1 Combined and conflicting cases
 

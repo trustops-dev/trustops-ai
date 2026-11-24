@@ -3,18 +3,19 @@
 ``tests/fixtures/governance/policy-matrices.json`` is the unit-test form of sections 2 to 5.1 of
 ``docs/architecture/governance/policy-truth-tables.md``: the three policy truth tables
 (``PROC-APPROVAL-01``, ``PROC-TOOL-STAGE-01``, ``PROC-SUPPLIER-01``), the aggregation into the
-pre-tool verdict and the combined and conflicting cases. It is written before the engine exists.
+pre-tool verdict and the combined and conflicting cases. It was written before the engine.
 
 Two groups of tests live here.
 
-* Matrix checks run today. They keep the fixture and the spec from drifting apart: every spec row
-  is covered or explicitly deferred, every expected result and reason code equals the spec's own
-  cell, and the symbolic inputs mean what they say.
-* Engine checks run the same matrices through the engine. They are skipped, with the reason shown
-  in the pytest summary, until ``ENGINE_MODULE`` exists. The module must expose three functions,
-  each taking and returning plain dictionaries: ``evaluate_policy``, ``aggregate`` and ``check``
-  (see ``PolicyEngine``). The module path and these signatures are a proposal for the Sprint 2
-  engine, not a frozen contract. If the real API differs, adapt it here, not in the matrices.
+* Matrix checks keep the fixture and the spec from drifting apart: every spec row is covered or
+  explicitly deferred, every expected result and reason code equals the spec's own cell, and the
+  symbolic inputs mean what they say.
+* Engine checks run the same matrices, and the sample responses, through the engine. The module
+  ``ENGINE_MODULE`` exposes three functions, each taking and returning plain dictionaries:
+  ``evaluate_policy``, ``aggregate`` and ``check`` (see ``PolicyEngine``). If a policy or the
+  module is missing, its checks are skipped with the reason shown in the pytest summary. The
+  signatures are provisional until agreed with the platform owner. If the real API differs, adapt
+  it here, not in the matrices.
 
 Scope: spec sections 6 (SC-03 scenarios), 7 (Layer 2 decisions) and 8 (currentness and the OD04
 cases) are not policy unit cases and are not covered. Nothing here is runtime validation.
@@ -45,6 +46,7 @@ VERDICT_BASES = {"ALL_APPLICABLE_PASSED", "MANDATORY_POLICY_FAILED", "FAIL_CLOSE
 POLICY_IDS = ("PROC-APPROVAL-01", "PROC-TOOL-STAGE-01", "PROC-SUPPLIER-01")
 SPEC_PREFIX = {"PROC-APPROVAL-01": "AP", "PROC-TOOL-STAGE-01": "TS", "PROC-SUPPLIER-01": "SU"}
 CONFIGURATION_KEYS = ("configuration_present", "configuration_edits")
+PROVENANCE_KEYS = ("policy_version", "observed_evidence")
 
 SPEC_ROW = re.compile(r"^\|\s*((?:AP|TS|SU|AG|CB)-\d+)\s*\|(.*)\|\s*$")
 TICKED = re.compile(r"`([^`]+)`")
@@ -311,8 +313,8 @@ def sample_policy(policy_id: str, outcome: Json) -> Json:
     }
 
 
-def sample_response(expected: Json) -> Json:
-    """The response a matrix case expects, in the contract's output names."""
+def sample_verdict_view(expected: Json) -> Json:
+    """What a matrix case expects of a response: the results and the verdict, no provenance."""
     return {
         "check_mode": "ONLINE_PRE_TOOL",
         "evaluated_policies": [
@@ -324,6 +326,37 @@ def sample_response(expected: Json) -> Json:
     }
 
 
+def without_provenance(response: Json) -> Json:
+    """A sample response without the versions and the observed evidence."""
+    policies = [
+        {key: value for key, value in policy.items() if key not in PROVENANCE_KEYS}
+        for policy in response["evaluated_policies"]
+    ]
+    kept = {key: value for key, value in response.items() if key != "policy_bundle_version"}
+    return {**kept, "evaluated_policies": policies}
+
+
+def sample_response_from_engine(outcome: Json) -> Json:
+    """The engine's check in the contract's output names: what the route adapter would send."""
+    return {
+        "check_mode": outcome["check_mode"],
+        "policy_bundle_version": outcome["policy_bundle_version"],
+        "evaluated_policies": [
+            {
+                "policy_id": policy_id,
+                "policy_version": outcome["policy_results"][policy_id]["policy_version"],
+                "policy_result": outcome["policy_results"][policy_id]["result"],
+                "criticality": "critical",
+                "reason_code": outcome["policy_results"][policy_id]["reason_code"],
+                "observed_evidence": outcome["policy_results"][policy_id]["observed_evidence"],
+            }
+            for policy_id in POLICY_IDS
+        ],
+        "action_verdict": outcome["verdict"],
+        "verdict_basis": outcome["verdict_basis"],
+    }
+
+
 def test_sample_ids_are_unique() -> None:
     assert len(ids(SAMPLES)) == len(set(ids(SAMPLES)))
 
@@ -332,7 +365,7 @@ def test_sample_ids_are_unique() -> None:
 def test_sample_agrees_with_its_matrix_case(sample: Json) -> None:
     case = next(case for case in COMBINED_CASES if case["id"] == sample["case"])
     assert sample["request"] == sample_request(build_input(case))
-    assert sample["response"] == sample_response(case["expected"])
+    assert without_provenance(sample["response"]) == sample_verdict_view(case["expected"])
 
 
 @pytest.mark.parametrize("sample", SAMPLES, ids=ids(SAMPLES))
@@ -345,7 +378,7 @@ def test_samples_include_both_a_success_and_a_failure() -> None:
     assert {sample["kind"] for sample in SAMPLES} == {"success", "failure"}
 
 
-# --- engine checks: skipped until the engine exists ---------------------------------------
+# --- engine checks: skipped only when the engine or a policy is missing -------------------
 
 
 class PolicyEngine(Protocol):
@@ -422,3 +455,14 @@ def test_engine_combined_matrix(case: Json) -> None:
         assert outcome["policy_results"][policy_id]["reason_code"] == expected_policy["reason_code"]
     assert outcome["verdict"] == expected["verdict"]
     assert outcome["verdict_basis"] == expected["verdict_basis"]
+
+
+@pytest.mark.parametrize("sample", SAMPLES, ids=ids(SAMPLES))
+def test_engine_sample_response_is_what_the_engine_returns(sample: Json) -> None:
+    """Every sample response, with its versions and evidence, is the real engine's output."""
+    case = next(case for case in COMBINED_CASES if case["id"] == sample["case"])
+    check_input = build_input(case)
+    outcome = engine_supporting(POLICY_IDS).check(
+        engine_input(check_input), build_configuration(check_input)
+    )
+    assert sample["response"] == sample_response_from_engine(outcome)

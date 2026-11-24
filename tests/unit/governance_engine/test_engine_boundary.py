@@ -91,17 +91,28 @@ def removed(base: dict[str, Any], path: str) -> dict[str, Any]:
 # --- evaluate_policy ---------------------------------------------------------------------
 
 
-def test_the_engine_supports_only_the_approval_policy_so_far() -> None:
-    assert engine.SUPPORTED_POLICIES == frozenset({POLICY_APPROVAL})
+def test_the_engine_supports_exactly_the_three_mandatory_policies() -> None:
+    assert engine.SUPPORTED_POLICIES == frozenset(
+        {POLICY_APPROVAL, POLICY_TOOL_STAGE, POLICY_SUPPLIER}
+    )
 
 
 def test_evaluate_policy_returns_plain_json_values(configuration: dict[str, Any]) -> None:
     outcome = engine.evaluate_policy(POLICY_APPROVAL, check_input(), configuration)
     assert outcome == {
         "policy_id": POLICY_APPROVAL,
+        "policy_version": "test-approval-v1",
         "result": "PASS",
         "reason_code": "APPROVAL_VALID",
         "basis": None,
+        "observed_evidence": {
+            "tool": "create_purchase_order",
+            "total_amount": "1000.01",
+            "currency": "USD",
+            "configured_threshold": "1000.00",
+            "approval_status": "APPROVED",
+            "decision_order": "BEFORE_PROPOSAL",
+        },
     }
     assert json.loads(json.dumps(outcome)) == outcome
 
@@ -136,8 +147,8 @@ def test_evaluate_policy_ignores_keys_the_policy_does_not_read(
     assert outcome["result"] == "PASS"
 
 
-@pytest.mark.parametrize("policy_id", [POLICY_TOOL_STAGE, POLICY_SUPPLIER, "PROC-OTHER-01", ""])
-def test_a_policy_without_an_implementation_is_refused_not_passed(
+@pytest.mark.parametrize("policy_id", ["PROC-OTHER-01", "proc-approval-01", ""])
+def test_a_policy_that_is_not_mandatory_is_refused_not_passed(
     policy_id: str, configuration: dict[str, Any]
 ) -> None:
     with pytest.raises(engine.UnsupportedPolicyError):
@@ -288,14 +299,5 @@ def test_every_result_name_is_readable() -> None:
         assert results[POLICY_SUPPLIER] is result
 
 
-# --- check -------------------------------------------------------------------------------
-
-
-def test_check_is_refused_until_every_mandatory_policy_exists(
-    configuration: dict[str, Any],
-) -> None:
-    with pytest.raises(NotImplementedError) as refused:
-        engine.check(check_input(), configuration)
-    assert POLICY_TOOL_STAGE in str(refused.value)
-    assert POLICY_SUPPLIER in str(refused.value)
-    assert POLICY_APPROVAL not in str(refused.value)
+# The full check, the stage and supplier inputs and the findings are tested in
+# test_pre_tool_check.py and test_tool_stage_and_supplier_boundary.py.

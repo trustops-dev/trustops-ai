@@ -63,6 +63,7 @@ Loader = Callable[[Any], object]
 def approval_block() -> dict[str, Any]:
     """Every block has at least two keys, so removing one key never empties the block."""
     return {
+        "version": "test-approval-v1",
         "criticality": "critical",
         "comparator": "GT",
         "currency_rules": [
@@ -83,6 +84,7 @@ def approval_block() -> dict[str, Any]:
 
 def tool_stage_block() -> dict[str, Any]:
     return {
+        "version": "test-tool-stage-v1",
         "match": "EXACT_CASE_SENSITIVE",
         "stage_allowlist": {
             "PRE_APPROVAL": ["search_policy", "get_supplier", "request_approval"],
@@ -94,7 +96,7 @@ def tool_stage_block() -> dict[str, Any]:
 
 
 def supplier_block() -> dict[str, Any]:
-    return {"criticality": "critical", "eligible_status": "APPROVED"}
+    return {"version": "test-supplier-v1", "criticality": "critical", "eligible_status": "APPROVED"}
 
 
 def valid_configuration() -> dict[str, Any]:
@@ -488,6 +490,77 @@ def test_supplier_policy_loads_the_eligible_status_exactly() -> None:
 def test_supplier_policy_refuses_an_unusable_eligible_status(value: object) -> None:
     configuration = edited(f"{SUPPLIER}.eligible_status", value)
     assert_refused(load_supplier_policy, configuration, INVALID, f"{SUPPLIER}.eligible_status")
+
+
+# --- the per-policy version ---------------------------------------------------------------
+
+VERSIONED_POLICIES = [
+    pytest.param(load_approval_policy, POLICY_APPROVAL, "test-approval-v1", id="approval"),
+    pytest.param(load_tool_stage_policy, POLICY_TOOL_STAGE, "test-tool-stage-v1", id="tool-stage"),
+    pytest.param(load_supplier_policy, POLICY_SUPPLIER, "test-supplier-v1", id="supplier"),
+]
+
+
+@pytest.mark.parametrize(("loader", "policy_id", "version"), VERSIONED_POLICIES)
+def test_every_policy_loads_its_version_exactly(
+    loader: Loader, policy_id: str, version: str
+) -> None:
+    loaded: Any = loader(valid_configuration())
+    assert loaded.version == version
+    renamed: Any = loader(edited(f"policies.{policy_id}.version", "Any-Version_1.0"))
+    assert renamed.version == "Any-Version_1.0"
+
+
+@pytest.mark.parametrize(
+    "value",
+    [REMOVE, None, "", "  ", 5, True],
+    ids=["absent", "null", "empty", "blank", "number", "boolean"],
+)
+@pytest.mark.parametrize(("loader", "policy_id", "version"), VERSIONED_POLICIES)
+def test_every_policy_refuses_an_unusable_version(
+    loader: Loader, policy_id: str, version: str, value: object
+) -> None:
+    configuration = edited(f"policies.{policy_id}.version", value)
+    assert_refused(loader, configuration, INVALID, f"policies.{policy_id}.version")
+
+
+@pytest.mark.parametrize(
+    ("loader", "path", "value", "error_path"),
+    [
+        pytest.param(
+            load_approval_policy,
+            f"{APPROVAL}.comparator",
+            "GTE",
+            f"{APPROVAL}.comparator",
+            id="approval",
+        ),
+        pytest.param(
+            load_tool_stage_policy,
+            f"{TOOL_STAGE}.stage_allowlist.SHIPPED",
+            ["x"],
+            f"{TOOL_STAGE}.stage_allowlist",
+            id="tool-stage",
+        ),
+        pytest.param(
+            load_supplier_policy,
+            f"{SUPPLIER}.eligible_status",
+            REMOVE,
+            f"{SUPPLIER}.eligible_status",
+            id="supplier",
+        ),
+    ],
+)
+def test_a_structural_fault_is_reported_before_a_missing_version(
+    loader: Loader, path: str, value: object, error_path: str
+) -> None:
+    configuration = edited(path, value)
+    for policy_id in (POLICY_APPROVAL, POLICY_TOOL_STAGE, POLICY_SUPPLIER):
+        apply_edit(configuration, f"policies.{policy_id}.version", REMOVE)
+    assert_refused(loader, configuration, INVALID, error_path)
+
+
+def test_the_bundle_version_is_the_policy_set_id_and_version() -> None:
+    assert load_policy_set_info(valid_configuration()).bundle_version == "test-policy-set-test"
 
 
 # --- the policy set and its runtime gate --------------------------------------------------
