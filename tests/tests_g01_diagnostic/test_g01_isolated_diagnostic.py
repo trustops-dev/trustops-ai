@@ -851,11 +851,16 @@ class TestIsolatedG01DiagnosticRunner(unittest.TestCase):
     def test_22_rr06_preemptive_wall_clock_deadline_interrupts_blocking_transport_at_20ms_ceiling(
         self,
     ) -> None:
-        calls = []
+        calls: list[str] = []
+        started = threading.Event()
+        release = threading.Event()
+        finished = threading.Event()
 
         def delayed_handler(req: httpx.Request) -> httpx.Response:
             calls.append(req.url.path)
-            time.sleep(0.12)
+            started.set()
+            release.wait(2.0)
+            finished.set()
             return httpx.Response(200, json={"totalTokens": 42})
 
         runner = g01_mod.IsolatedG01DiagnosticRunner(
@@ -869,17 +874,26 @@ class TestIsolatedG01DiagnosticRunner(unittest.TestCase):
             transport=httpx.MockTransport(delayed_handler),
             **ATTESTED_KWARGS,
         )
-        t0 = time.monotonic()
-        res = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
-        elapsed_ms = int((time.monotonic() - t0) * 1000)
+        try:
+            t0 = time.monotonic()
+            res = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
+            elapsed_ms = int((time.monotonic() - t0) * 1000)
+            finished_before_release = finished.is_set()
 
-        self.assertEqual(len(calls), 1)
-        self.assertLess(elapsed_ms, 80)
-        self.assertEqual(res["stopped_reason"], "STOPPED_ON_C01_FAILURE")
-        self.assertEqual(res["c01_result"]["execution_status"], "TIMEOUT_OUTCOME_UNKNOWN")
-        # Wait for deferred reaper so TemporaryDirectory cleanup works cleanly on Windows too
-        if runner.ledger._deferred_lock_reaper_thread is not None:
-            runner.ledger._deferred_lock_reaper_thread.join(timeout=1.0)
+            self.assertTrue(started.is_set())
+            self.assertFalse(
+                finished_before_release,
+                "Caller must return preemptively before the blocked transport completes",
+            )
+            self.assertEqual(len(calls), 1)
+            self.assertLess(elapsed_ms, 1000)
+            self.assertEqual(res["stopped_reason"], "STOPPED_ON_C01_FAILURE")
+            self.assertEqual(res["c01_result"]["execution_status"], "TIMEOUT_OUTCOME_UNKNOWN")
+        finally:
+            release.set()
+            finished.wait(2.0)
+            if runner.ledger._deferred_lock_reaper_thread is not None:
+                runner.ledger._deferred_lock_reaper_thread.join(timeout=2.0)
 
     def test_23_v14_admission_count_only_and_empty_observations_rejected(self) -> None:
         # Exact reproduction of Nour's additional_probes.py `admission_count_only_no_evidence`
@@ -1026,33 +1040,39 @@ class TestIsolatedG01DiagnosticRunner(unittest.TestCase):
             transport=httpx.MockTransport(blocking_handler),
             **ATTESTED_KWARGS,
         )
-        t0 = time.monotonic()
-        res = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
-        elapsed_ms = (time.monotonic() - t0) * 1000
-        self.assertTrue(started.is_set())
-        self.assertLess(elapsed_ms, 80)
-        self.assertEqual(res["stopped_reason"], "STOPPED_ON_C01_FAILURE")
-
-        # Attempt to acquire session.lock while worker is still active -> MUST FAIL!
-        acquired_while_active = False
-        lk_probe = g01_mod.CrossPlatformFileLock(
-            os.path.join(self.tmp_dir.name, "session.lock"), timeout_sec=0.03
-        )
         try:
-            lk_probe.acquire()
-            acquired_while_active = True
-            lk_probe.release()
-        except RuntimeError:
-            acquired_while_active = False
-        self.assertFalse(
-            acquired_while_active, "session.lock must NOT be reacquired while worker is active!"
-        )
+            t0 = time.monotonic()
+            res = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
+            elapsed_ms = (time.monotonic() - t0) * 1000
+            self.assertTrue(started.is_set())
+            self.assertFalse(
+                finished.is_set(),
+                "Caller must return preemptively while the blocked transport worker is still active",
+            )
+            self.assertLess(elapsed_ms, 1000)
+            self.assertEqual(res["stopped_reason"], "STOPPED_ON_C01_FAILURE")
 
-        # Unblock worker -> reaper joins worker and releases session.lock cleanly
-        release.set()
-        finished.wait(1.0)
-        if runner.ledger._deferred_lock_reaper_thread is not None:
-            runner.ledger._deferred_lock_reaper_thread.join(timeout=1.0)
+            # Attempt to acquire session.lock while worker is still active -> MUST FAIL!
+            acquired_while_active = False
+            lk_probe = g01_mod.CrossPlatformFileLock(
+                os.path.join(self.tmp_dir.name, "session.lock"), timeout_sec=0.03
+            )
+            try:
+                lk_probe.acquire()
+                acquired_while_active = True
+                lk_probe.release()
+            except RuntimeError:
+                acquired_while_active = False
+            self.assertFalse(
+                acquired_while_active,
+                "session.lock must NOT be reacquired while worker is active!",
+            )
+        finally:
+            # Always unblock worker and join reaper even if an assertion fails above
+            release.set()
+            finished.wait(2.0)
+            if runner.ledger._deferred_lock_reaper_thread is not None:
+                runner.ledger._deferred_lock_reaper_thread.join(timeout=2.0)
         lk_after = g01_mod.CrossPlatformFileLock(
             os.path.join(self.tmp_dir.name, "session.lock"), timeout_sec=0.2
         )

@@ -171,13 +171,18 @@ def run_case(
             transport=httpx.MockTransport(handler),
             spacing_ms=kwargs.pop("spacing_ms", 0),
         )
+        on_cleanup: Callable[[], None] | None = kwargs.pop("on_cleanup", None)
         opts.update(kwargs)
         t0 = time.monotonic()
         runner = g.IsolatedG01DiagnosticRunner(**opts)
-        rep = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
-        elapsed_ms = int((time.monotonic() - t0) * 1000)
-        if runner.ledger._deferred_lock_reaper_thread is not None:
-            runner.ledger._deferred_lock_reaper_thread.join(timeout=1.0)
+        try:
+            rep = runner.run_isolated_diagnostic(sleep_fn=lambda _: None)
+            elapsed_ms = int((time.monotonic() - t0) * 1000)
+        finally:
+            if on_cleanup is not None:
+                on_cleanup()
+            if runner.ledger._deferred_lock_reaper_thread is not None:
+                runner.ledger._deferred_lock_reaper_thread.join(timeout=2.0)
         return name, calls, rep, elapsed_ms, db.exists()
 
 
@@ -282,15 +287,30 @@ for db_name in ["missing.sqlite3", "ordinary.sqlite3"]:
     )
 
 
-# Q05: Blocking transport (120ms sleep) under 20ms ceiling must abort preemptively near 20ms
+# Q05: Blocking transport (2s Event wait) under 20ms ceiling must abort preemptively before worker exits
+q05_started = threading.Event()
+q05_release = threading.Event()
+q05_finished = threading.Event()
+q05_finished_before_cleanup: dict[str, bool] = {"value": False}
+
+
 def delayed(req: httpx.Request) -> httpx.Response:
-    time.sleep(0.12)
+    q05_started.set()
+    q05_release.wait(2.0)
+    q05_finished.set()
     return ok_transport(req)
+
+
+def q05_cleanup() -> None:
+    q05_finished_before_cleanup["value"] = q05_finished.is_set()
+    q05_release.set()
+    q05_finished.wait(2.0)
 
 
 _name, calls, rep, elapsed_ms, _exists = run_case(
     "Q05_blocking_transport_20ms_session_ceiling",
     transport_fn=delayed,
+    on_cleanup=q05_cleanup,
     session_ceiling_ms=20,
     timeout_ms=20,
     require_existing_ledger=True,
@@ -300,10 +320,16 @@ out.append(
     dict(
         probe="Q05_blocking_transport_20ms_session_ceiling",
         defect_reproduced=(
-            elapsed_ms >= 80 or rep["c01_result"]["execution_status"] != "TIMEOUT_OUTCOME_UNKNOWN"
+            not q05_started.is_set()
+            or q05_finished_before_cleanup["value"]
+            or elapsed_ms >= 1000
+            or rep["c01_result"]["execution_status"] != "TIMEOUT_OUTCOME_UNKNOWN"
         ),
         mock_requests=len(calls),
         elapsed_ms=elapsed_ms,
+        preempted_before_worker_exit=(
+            q05_started.is_set() and not q05_finished_before_cleanup["value"]
+        ),
         stopped_reason=rep["stopped_reason"],
         c01_status=rep["c01_result"]["execution_status"],
     )
