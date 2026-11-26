@@ -408,3 +408,68 @@ def test_mock_terminal_approval_cannot_be_reused_as_approved_across_runs(
     second = Workflow(tools).run(request, idempotency_key="key-second")
     assert second.reason == "APPROVAL_TERMINAL"
     assert tools.dispatch_count == 0
+
+
+def test_approved_proposal_passes_gate_before_one_mock_dispatch() -> None:
+    request, tools = fixtures()
+    observed = Mock(wraps=tools)
+    sink = RecordingSink()
+    result = Workflow(observed, sink).run(request, idempotency_key="w3-approved")
+    assert (result.state, result.status) == (State.COMPLETION, "SUCCEEDED")
+    assert [
+        call[0]
+        for call in observed.method_calls
+        if call[0] in {"check_purchase_order", "create_purchase_order"}
+    ] == ["check_purchase_order", "create_purchase_order"]
+    assert tools.dispatch_count == 1
+    proof = [
+        e
+        for e in sink.events
+        if e.kind in {"tool_proposal", "policy_check", "final_response"}
+        or (e.kind == "tool_result" and e.details.get("tool") == "create_purchase_order")
+    ]
+    assert [e.kind for e in proof] == [
+        "tool_proposal",
+        "policy_check",
+        "tool_result",
+        "final_response",
+    ]
+    _, check, effect, response = proof
+    assert (check.details["check_mode"], check.details["verdict"]) == (
+        "STUB_CONTRACT_TEST",
+        "ALLOW",
+    )
+    assert check.details["check_ref"] == effect.details["check_ref"]
+    assert effect.details["side_effect_state"] == "COMMITTED"
+    assert response.details["po_id"] == effect.details["po_id"] == result.po_id
+
+
+def test_missing_approval_at_stub_gate_blocks_proposal_before_write() -> None:
+    # The normal workflow observes an approval. Simulate losing its evidence
+    # at the gate boundary while leaving both the stub and dispatch logic intact.
+    request, tools = fixtures()
+    observed = Mock(wraps=tools)
+    observed.check_purchase_order.side_effect = (
+        lambda req, policy, supplier, calculation, approval: tools.check_purchase_order(
+            req, policy, supplier, calculation, None
+        )
+    )
+    sink = RecordingSink()
+    result = Workflow(observed, sink).run(request, idempotency_key="w3-missing-approval")
+    assert (result.status, result.reason, result.po_id) == (
+        "BLOCKED",
+        "POLICY_CHECK_NOT_ALLOWED",
+        None,
+    )
+    observed.check_purchase_order.assert_called_once()
+    observed.create_purchase_order.assert_not_called()
+    assert tools.dispatch_count == 0
+    assert [e.kind for e in sink.events[-3:]] == ["tool_proposal", "policy_check", "halt"]
+    proposal, check, _ = sink.events[-3:]
+    assert proposal.details["tool"] == "create_purchase_order"
+    assert (check.details["check_mode"], check.details["verdict"]) == (
+        "STUB_CONTRACT_TEST",
+        "BLOCK",
+    )
+    assert check.details["approval_version"] is None
+    assert all(e.kind != "final_response" for e in sink.events)
