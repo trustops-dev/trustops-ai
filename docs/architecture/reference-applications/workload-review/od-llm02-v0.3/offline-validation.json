@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "check_count": 23,
+  "checks": [
+    "baseline retained",
+    "candidate explicit",
+    "no live activation",
+    "no routing or fallback",
+    "zero paid allowance",
+    "embedding unchanged",
+    "candidate_smoke_day arithmetic",
+    "candidate_smoke_day fits if exclusive unused quota",
+    "candidate_smoke_day embedding cap",
+    "candidate_regression_day arithmetic",
+    "candidate_regression_day fits if exclusive unused quota",
+    "candidate_regression_day embedding cap",
+    "candidate_development_day arithmetic",
+    "candidate_development_day fits if exclusive unused quota",
+    "candidate_development_day embedding cap",
+    "unknown occupied quota blocks",
+    "exact boundary accepted",
+    "over boundary rejected",
+    "negative counts rejected",
+    "same workload fails baseline quota",
+    "regression fixtures distinct",
+    "regression repeats explicit",
+    "results not fabricated"
+  ],
+  "profiles": [
+    {
+      "profile": "candidate_smoke_day",
+      "generation_attempts": 5,
+      "preflights": 3,
+      "reserved_total": 10
+    },
+    {
+      "profile": "candidate_regression_day",
+      "generation_attempts": 168,
+      "preflights": 108,
+      "reserved_total": 296
+    },
+    {
+      "profile": "candidate_development_day",
+      "generation_attempts": 160,
+      "preflights": 100,
+      "reserved_total": 280
+    }
+  ],
+  "runtime_calls": 0
+}

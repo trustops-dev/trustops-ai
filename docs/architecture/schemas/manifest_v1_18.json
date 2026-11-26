@@ -1,0 +1,100 @@
+{
+  "package_name": "TrustOps_v1.18_Complete_Package.zip",
+  "release_version": "v1.18.0",
+  "schema_version": "1.18.0-draft",
+  "manifest_file": "manifest_v1_18.json",
+  "total_archive_files": 15,
+  "tracked_file_count": 14,
+  "approval_validation_profiles": [
+    "provisional_draft",
+    "base_only"
+  ],
+  "default_approval_extension_status": "PROVISIONAL_DRAFT_ENFORCEMENT_PENDING_JOINT_SIGN_OFF",
+  "g01_live_execution_status": "HOLD (billing disabled, USD 0 paid-use authorization)",
+  "files": [
+    {
+      "filename": "001_core.sql",
+      "bytes": 23977,
+      "sha256": "fafb1b3c9a8b96d38e610958107c8a2cc612e0f8fd744a7b3c4347b42ef21688",
+      "role": "PostgreSQL Core Migration (Draft Week 2 Interface)"
+    },
+    {
+      "filename": "g01_isolated_diagnostic_runner.py",
+      "bytes": 111352,
+      "sha256": "160982a0637a220af6f97becbdaa3acbe5d56ccd9045f7ed5dc98c84e593fe72",
+      "role": "Isolated G01 Diagnostic Runner (OD-LLM-02 v0.9)"
+    },
+    {
+      "filename": "independent_probes.py",
+      "bytes": 5366,
+      "sha256": "5546473b8417767355593eaddb5f1b1be97a65c78b4547770dd20be7099aafc6",
+      "role": "Bundled 6-Case Independent Probe Runner"
+    },
+    {
+      "filename": "probe_remaining_controls.py",
+      "bytes": 16955,
+      "sha256": "4c7235a6265e0039a8da25293496eb28bb19f4455648232d703c37bf556ef721",
+      "role": "Portable 14-Probe Remaining Controls Runner (Zero fcntl)"
+    },
+    {
+      "filename": "reproduce_findings.py",
+      "bytes": 12798,
+      "sha256": "91ef03458b361de9403403e4aac2ad1be6c541945328718824db8157f6d7bbad",
+      "role": "Nour's 10-Probe R12-01..08 Reproduction Runner"
+    },
+    {
+      "filename": "run_native_verification.py",
+      "bytes": 7035,
+      "sha256": "9c70364198d63f0145f272ea505694d149f89b4fd7c74a241cf1cafb73e5af0d",
+      "role": "Cross-Platform Native Verification Runner"
+    },
+    {
+      "filename": "run_s1_01_regression_suite.py",
+      "bytes": 108172,
+      "sha256": "8fb657235c09b78f09bcbd0a28aa3fbd5d3e465974599fb518d6ed745bb15cce",
+      "role": "Self-Contained 104-Case Regression Runner"
+    },
+    {
+      "filename": "run_windows_g01_verification.bat",
+      "bytes": 487,
+      "sha256": "5d2d51f927428f1605f02e7330ed2f86a37171fb65e11326beec752d8e212a0a",
+      "role": "Double-Clickable Windows Native Verification Launcher"
+    },
+    {
+      "filename": "s1_01_validation_report.json",
+      "bytes": 52171,
+      "sha256": "48dbfee5e656132a7a72e343dce5af8bb027b43df80ebbadb71b557a00e0a6de",
+      "role": "Machine-Readable Validation & Suite Report"
+    },
+    {
+      "filename": "test_g01_isolated_diagnostic.py",
+      "bytes": 51529,
+      "sha256": "aac912aed81beb78cf052b83a0f3d13591f37c65cab378c83fa0830a97b9679d",
+      "role": "Offline Cross-Platform G01 Test Suite (33 Tests)"
+    },
+    {
+      "filename": "trustops_sdk.py",
+      "bytes": 29610,
+      "sha256": "70fe082f4ed16adaa61808301bbffb7bf4506c2058fd9b71900537c6e066992e",
+      "role": "Python SDK & Idempotent Claim Gate Prototype (Draft)"
+    },
+    {
+      "filename": "updated_schemas_v18.md",
+      "bytes": 421172,
+      "sha256": "f2784b5b7dbf23c6d9d54111ab37d51c98af3042b12c443039ded43f3532e9fd",
+      "role": "Core Trace Schema Specification"
+    },
+    {
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "bytes": 157491,
+      "sha256": "b2dd0ee525fc508471be77a4e8fcfbae9e6b7542417f2e82e6058cc27ad9c149",
+      "role": "Standalone Specification & Contract Validator"
+    },
+    {
+      "filename": "week_2.md",
+      "bytes": 115247,
+      "sha256": "5690ba5c666d8902d940e787eee606bcb7028033bb97711b1095f178569291c5",
+      "role": "Consolidated Week 2 Closeout & Review Report"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-09",
+  "result": "PASS_OWNER_DOCUMENT_CONSISTENCY_ONLY",
+  "report_sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+  "plan_updates_sha256": "5af1d891132436a39b566337fb753aaff0c97975c5f8c50544ba38536b4586dc",
+  "plan_full_sha256": "cca78edca35d450b743412a0985936a70478307ebe9426fdfc7b73ae216fbefb",
+  "reviewed_handoff_commit": "479cab0",
+  "editor_baseline": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+  "report_distinctions": 9,
+  "report_tests": "137 claimed, seven test files",
+  "plan_tests": "134/134 claimed",
+  "report_traces": 13,
+  "plan_fixtures": 11,
+  "test_delta": "UNRECONCILED; exact added test names and logs absent",
+  "fixture_counting_unit": "UNRECONCILED; plan fixtures vs report traces not assumed equivalent",
+  "malak_branch": "NOT_SUPPLIED; no named branch found in remote-head listing",
+  "dashboard_code_tested_here": false,
+  "independent_s1_07": "OPEN",
+  "canonical_field_decisions": "OPEN",
+  "plan_amendment_approval": "NOT_ESTABLISHED",
+  "checks": [
+    "exact report copy",
+    "nine owner-report rows",
+    "both plan snapshots retain 134/134 and 11 fixtures",
+    "review record maps nine distinctions and open gates"
+  ],
+  "static_owner_checks": {
+    "manual": 931,
+    "corpus": 353
+  },
+  "integration_validation": {
+    "date": "2026-11-11",
+    "source_copy_exact_zip_bytes": "PASS",
+    "source_copy_sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+    "nine_source_distinctions": "PASS",
+    "dashboard_tests_rerun": false,
+    "fresh_document_checks": "docs/architecture/reference-applications/validation/plan-approval-routing-refresh.json#integration_validation"
+  }
+}

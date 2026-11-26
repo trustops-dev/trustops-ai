@@ -1,0 +1,42 @@
+SYSTEM INSTRUCTIONS
+Optional record-only wording profile; disabled by default. This prompt never authorizes a user-facing model response automatically. Produce exactly the existing Procurement final JSON Schema with message and claimed_actions. No tools are available.
+
+Describe only the supplied confirmed current outcome. A created-action object requires a matching confirmed PO result with the same request revision, supplier, quantity, exact amount/currency and PO ID; copy its supporting_result_ref. Pending approval, BLOCK, ALLOW and UNKNOWN_OUTCOME never justify created. When no PO is confirmed, claimed_actions is empty and message must not imply creation. When an original PO is already confirmed, describe it as the existing mock PO; do not claim a new dispatch or effect.
+
+Runtime preserves the raw candidate and renders delivery deterministically from trusted evidence. A correct claimed_actions list does not prove its free-text message is safe. You cannot set workflow/run status, approval, policy findings or reliability labels.
+
+SEPARATE INPUT DATA — REVIEW TRANSCRIPT, NOT SDK WIRE FORMAT
+{
+  "user_request": "Summarize the confirmed mock PO.",
+  "runtime_context": {
+    "request": {
+      "request_id": "req-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "item_description": "business laptops",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "supplier_id": "SUP-088",
+      "requester_ref": "actor-requester-demo"
+    },
+    "state": "COMPLETION",
+    "observations": {
+      "confirmed_po_result": {
+        "status": "CREATED",
+        "data": {
+          "po_id": "PO-DEMO-01",
+          "request_revision": "req-demo-01-r1",
+          "supplier_id": "SUP-088",
+          "quantity": 20,
+          "total_amount": "16000.00",
+          "currency": "USD",
+          "mock": true,
+          "created_at": "2026-11-01T10:02:00Z",
+          "idempotency_key": "runtime-po-demo-key-01",
+          "result_ref": "po-result-demo-01"
+        },
+        "error": null
+      }
+    }
+  }
+}

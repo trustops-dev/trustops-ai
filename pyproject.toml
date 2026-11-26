@@ -9,6 +9,7 @@ dependencies = []
 audit = ["pip-audit==2.10.1"]
 dev = [
     "hatchling==1.32.4",
+    "httpx>=0.23.3",
     "import-linter==2.15",
     "mypy==2.4.0",
     "pytest==9.1.1",
@@ -81,6 +82,8 @@ mypy_path = [
     "$MYPY_CONFIG_FILE_DIR/apps/api/src",
     "$MYPY_CONFIG_FILE_DIR/apps/procurement-agent/src",
     "$MYPY_CONFIG_FILE_DIR/apps/rag-assistant/src",
+    "$MYPY_CONFIG_FILE_DIR/scripts/schema_validation",
+    "$MYPY_CONFIG_FILE_DIR/scripts/g01_diagnostic",
 ]
 
 [tool.pytest.ini_options]

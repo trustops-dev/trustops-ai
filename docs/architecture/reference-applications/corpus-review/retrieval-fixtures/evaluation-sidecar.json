@@ -1,0 +1,132 @@
+{
+  "artifact_kind": "EVALUATION_ONLY_DO_NOT_LOAD_FOR_INFERENCE",
+  "version": "retrieval-fixtures-v0.1",
+  "review_cases_sha256": "24eda330125b55ea5372c16fe234399b9aaba59611cbb55cf0def791ee2567dd",
+  "cases": [
+    {
+      "query_id": "q-001",
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "No. Under the proposed synthetic rule, urgency does not waive the required approval.",
+      "required_support_phrases": [
+        "Urgency does not waive approval or supplier checks."
+      ],
+      "relevant_document_ids": [
+        "doc-001"
+      ],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-002",
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "The emergency exception removes the notice requirement; it does not establish leave approval.",
+      "required_support_phrases": [
+        "Unplanned emergency leave is exempt",
+        "does not establish approval of the leave"
+      ],
+      "relevant_document_ids": [
+        "doc-003"
+      ],
+      "irrelevant_document_ids": [
+        "doc-005"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-003",
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "No. The exception requires incident-commander authorization and a recorded incident reference.",
+      "required_support_phrases": [
+        "only when the incident commander has authorized the exception",
+        "An urgent label by itself is not authorization."
+      ],
+      "relevant_document_ids": [
+        "doc-004"
+      ],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-004",
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "Use the internal service portal with asset tag and fault description; the ticket does not authorize a replacement purchase.",
+      "required_support_phrases": [
+        "internal service portal",
+        "does not authorize buying a replacement device"
+      ],
+      "relevant_document_ids": [
+        "doc-005"
+      ],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-005",
+      "expected_outcome": "NO_RELEVANT_EVIDENCE",
+      "expected_response_summary": "Abstain: the returned passages do not support the requested device-support process.",
+      "required_support_phrases": [],
+      "relevant_document_ids": [
+        "doc-005"
+      ],
+      "irrelevant_document_ids": [
+        "doc-006",
+        "doc-008"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-006",
+      "expected_outcome": "CONFLICTING_EVIDENCE",
+      "expected_response_summary": "Abstain: the applicable passages say ten and fifteen calendar days, with no verified precedence.",
+      "required_support_phrases": [],
+      "relevant_document_ids": [
+        "doc-006",
+        "doc-007"
+      ],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": [
+        "doc-006",
+        "doc-007"
+      ]
+    },
+    {
+      "query_id": "q-007",
+      "expected_outcome": "NO_RELEVANT_EVIDENCE",
+      "expected_response_summary": "Abstain: the corpus review has no parking-permit entitlement evidence.",
+      "required_support_phrases": [],
+      "relevant_document_ids": [],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": []
+    },
+    {
+      "query_id": "q-008",
+      "expected_outcome": "INCOMPLETE_SUPPORT",
+      "expected_response_summary": "Reject the truncated selection and abstain; do not infer the emergency rule from the planned-leave sentence alone.",
+      "required_support_phrases": [],
+      "relevant_document_ids": [
+        "doc-003"
+      ],
+      "irrelevant_document_ids": [
+        "doc-008"
+      ],
+      "conflicting_document_ids": [],
+      "intentionally_invalid_selection": {
+        "document_id": "doc-003",
+        "start": 0,
+        "end": 118,
+        "text": "In this synthetic HR example, planned leave requests should be submitted five working days before the first leave day.",
+        "reason": "Condition without exception/approval caveat; must not be published as a valid policy chunk"
+      }
+    }
+  ]
+}

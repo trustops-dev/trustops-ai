@@ -1,0 +1,38 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "request_approval",
+  "output": {
+    "request_id": "req-demo-01",
+    "justification": "Twenty business laptops for the onboarding team; requested total USD 16000.00.",
+    "approval_request_id": "approval-request-demo-01"
+  },
+  "later_authored_observation": {
+    "status": "APPROVED",
+    "data": {
+      "approval_request_id": "approval-request-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "calculation_ref": "calc-demo-01",
+      "decision_status": "APPROVED",
+      "approval_evidence": {
+        "approval_id": "APR-DEMO-01",
+        "approval_request_id": "approval-request-demo-01",
+        "request_revision": "req-demo-01-r1",
+        "supplier_id": "SUP-088",
+        "amount": "16000.00",
+        "currency": "USD",
+        "approval_level": "manager",
+        "approving_actor_ref": "actor-manager-demo",
+        "decision_timestamp": "2026-11-01T10:01:00Z",
+        "policy_version": "demo-policy-v1-NOT-RATIFIED",
+        "source_ref": "authoritative-approval-demo-v1"
+      },
+      "decision_ref": "decision-demo-01",
+      "reason": "Synthetic manager decision recorded."
+    },
+    "error": null
+  },
+  "runtime_delivery": {
+    "message": "The synthetic approval record is confirmed for the unchanged request. A PO proposal still requires a fresh bound policy check. No PO has been created.",
+    "claimed_actions": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "P01",
+  "title": "Prepare a requisition candidate",
+  "objective": "Extract an explicit one-item purchase intent; runtime later assigns identities.",
+  "templates": [
+    "procurement/request_extraction.md"
+  ],
+  "compliance": "This is an extracted candidate, not an ERP requisition, approval or purchase. Runtime validates it, then assigns request_id, revision and authenticated requester_ref. No create_requisition endpoint or tool exists.",
+  "gate": null
+}

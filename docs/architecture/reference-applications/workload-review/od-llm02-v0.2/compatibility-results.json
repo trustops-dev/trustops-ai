@@ -1,0 +1,52 @@
+{
+  "status": "PARTIAL_STOPPED_ON_G01",
+  "prepared_on": "2026-11-07",
+  "provider_requests_sent": null,
+  "blockers": [
+    "G01 TIMEOUT_OUTCOME_UNKNOWN in first session; provider receipt/output unknown.",
+    "G01 PROVIDER_OR_SDK_ERROR with http_status null in second session; root cause not classified.",
+    "C01 counted only six prompt tokens per session; complete request envelope and embeddings were not counted.",
+    "G02/G03/E01/E02 not executed; free-tier headroom, model generation capability and application compatibility remain unverified."
+  ],
+  "tests": [
+    {
+      "id": "G01",
+      "status": "FAILED_IN_BOTH_ATTEMPTED_SESSIONS",
+      "attempts": 2,
+      "result": [
+        "TIMEOUT_OUTCOME_UNKNOWN",
+        "PROVIDER_OR_SDK_ERROR; http_status null"
+      ]
+    },
+    {
+      "id": "G02",
+      "status": "NOT_RUN_AFTER_G01",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "G03",
+      "status": "NOT_RUN_AFTER_G01",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "E01",
+      "status": "NOT_RUN_AFTER_G01",
+      "attempts": 0,
+      "result": null
+    },
+    {
+      "id": "E02",
+      "status": "NOT_RUN_AFTER_G01",
+      "attempts": 0,
+      "result": null
+    }
+  ],
+  "updated_on": "2026-11-09",
+  "offline_tests": "25/25 PASS per operator-supplied Windows terminal screenshot; not rerun by this documentation update",
+  "live_evidence_ref": "bounded-live-results-2026-11-09.json",
+  "previous_preparation_status": "NOT_RUN as of 2026-11-07",
+  "local_operation_records": 4,
+  "provider_receipt_confirmation": "C01 responses observed twice; G01 remote receipt unconfirmed in both sanitized reports"
+}
