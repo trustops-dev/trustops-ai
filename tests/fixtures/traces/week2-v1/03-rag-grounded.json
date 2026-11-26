@@ -1,0 +1,408 @@
+{
+  "trace_id": "tr_w2_03_r1",
+  "schema_version": "1.10.0-draft",
+  "application_id": "enterprise-rag",
+  "application_type": "rag",
+  "ingestion_mode": "MANUAL_FIXTURE",
+  "is_partial_walkthrough": false,
+  "fixture_provenance": {
+    "fixture_id": "w2_03-rag-grounded_v1",
+    "authored_by": "TrustOps reference applications (Nour owner packet)",
+    "purpose": "Synthetic manual canonical counterpart of 03-rag-grounded.json, owner packet 14c4262, scoped to application 56adf26 and schema package c645cfc. Ordered timestamps and budget states are illustrative. No real tool, policy engine, or provider dispatch."
+  },
+  "environment": "test",
+  "started_at": "2026-10-18T11:30:00.000Z",
+  "completed_at": "2026-10-18T11:30:01.420Z",
+  "total_latency_ms": null,
+  "execution_status": "COMPLETED",
+  "last_app_state": null,
+  "last_rag_stage": "FINAL_RESPONSE",
+  "versions": {
+    "provider": "gemini",
+    "configured_model_id": "gemini-3.8-flash",
+    "application_version": "git:56adf262de7e2506fda035d6119ef98bcb610e3c",
+    "prompt_version": "rag-paper-prompt-v1",
+    "model_version": "manual-model-output-v1",
+    "retriever_version": "paper-retrieval-list-v1",
+    "corpus_version": "paper-corpus-v1",
+    "index_version": null,
+    "embedding_model_version": null,
+    "policy_kb_version": "paper-corpus-v1",
+    "policy_bundle_version": null,
+    "tool_schema_version": null,
+    "sdk_version": "manual-serializer-v1",
+    "effective_config_ref": "cfg_w2_rag_manual_v1",
+    "config_digest": "sha256:ffa4aa76c79deacae60b3629cacb3b87874f1245f3c548ad9638ebddf982770c",
+    "effective_parameters": {
+      "temperature": 0.1,
+      "retriever_top_k": 1,
+      "relevance_cutoff": null,
+      "max_selected_chunks_in_fixture": 1
+    },
+    "returned_model_version": null
+  },
+  "metadata_availability": {
+    "token_usage": {
+      "status": "NOT_APPLICABLE_IN_MANUAL_FIXTURE",
+      "reason": "Hand-authored fixture; no measurement."
+    },
+    "latency_ms": {
+      "status": "NOT_APPLICABLE_IN_MANUAL_FIXTURE",
+      "reason": "Hand-authored fixture; no measurement."
+    },
+    "retriever_scores": {
+      "status": "NOT_APPLICABLE_IN_MANUAL_FIXTURE",
+      "reason": "Hand-authored fixture; no measurement."
+    }
+  },
+  "request": {
+    "request_id": "query-paper-01",
+    "request_revision": "rev_001",
+    "user_query": "Where should employees submit laptop requests?",
+    "synthetic_data": true,
+    "structured_input": null,
+    "session_metadata": {
+      "actor_id": "usr_emp_42",
+      "actor_role": "Engineer"
+    },
+    "normalization_provenance": {
+      "normalizer_version": "req_norm_v1.0",
+      "normalization_status": "VALID_QUERY_NORMALIZED",
+      "raw_to_normalized_field_links": [
+        {
+          "field_name": "effective_query",
+          "raw_substring": "Where should employees submit laptop requests?",
+          "raw_char_span": {
+            "start": 0,
+            "end": 46
+          },
+          "normalized_value": "Where should employees submit laptop requests?",
+          "derivation_mode": "EXTRACTED_FROM_QUERY_SPAN"
+        }
+      ],
+      "validation_findings": []
+    }
+  },
+  "scenario_metadata": {
+    "scenario_id": "w2_rag_03",
+    "scenario_family": "it_request_channel",
+    "question_template_id": "paper-it-01",
+    "split_group_key": "it_request_channel::paper-it-01",
+    "is_seeded_failure": false,
+    "injection_recipe_id": null,
+    "expected_relevant_doc_ids": [
+      "DOC-PAPER-IT"
+    ],
+    "injected_failure_class": "NORMAL",
+    "injected_root_cause": null,
+    "expected_critical_policy_result": null,
+    "security_subset_metadata": {
+      "is_security_subset": false,
+      "security_category": null,
+      "security_case_role": null,
+      "attack_or_control_indicator": "NOT_SECURITY_SCENARIO"
+    },
+    "is_security_subset": false,
+    "security_category": null,
+    "security_case_role": null,
+    "execution_scope": "FULL_END_TO_END"
+  },
+  "events": [
+    {
+      "event_id": "e1",
+      "parent_event_id": null,
+      "sequence_number": 1,
+      "event_type": "retrieval",
+      "timestamp": "2026-10-18T11:30:00.310Z",
+      "latency_ms": null,
+      "attributes": {
+        "retrieval_id": "retrieval-paper-01",
+        "query_text": "Where should employees submit laptop requests?",
+        "effective_query": "Where should employees submit laptop requests?",
+        "retriever_type": "manual_fixture_list",
+        "source_snapshot_id": "snapshot-paper-it-v1",
+        "top_k_requested": 1,
+        "score_semantics": {
+          "metric_type": "COSINE_SIMILARITY",
+          "score_direction": "HIGHER_IS_MORE_RELEVANT",
+          "score_availability": "AVAILABLE",
+          "tie_break_rule": "score DESC, doc_id ASC, chunk_id ASC"
+        },
+        "evidence_sufficiency": {
+          "sufficiency_status": "SUFFICIENT_EVIDENCE",
+          "configured_score_cutoff": null,
+          "required_query_facets": [
+            "laptop request submission channel"
+          ],
+          "supported_facets": [
+            "laptop request submission channel"
+          ],
+          "missing_or_unsupported_facets": [],
+          "unresolved_conflicts": [],
+          "selected_document_count": 1,
+          "sufficiency_rationale": "The selected passage explicitly names the IT service desk.",
+          "selector_id": "manual_facet_selector",
+          "selector_version": "paper-qualitative-rubric-v1",
+          "selected_chunk_ids": [
+            "CH-PAPER-IT"
+          ],
+          "rejected_chunk_ids": []
+        },
+        "retrieved_documents": [
+          {
+            "doc_id": "DOC-PAPER-IT",
+            "doc_version": "paper-source-v1",
+            "chunk_id": "CH-PAPER-IT",
+            "source_locator": {
+              "uri": "DOC-PAPER-IT#paragraph-1",
+              "section_heading": "Laptop requests",
+              "page_or_line_range": "paragraph 1"
+            },
+            "rank": 1,
+            "score": 0.91,
+            "content_snippet": "Employees submit laptop requests through the IT service desk.",
+            "content_hash": "sha256:1a95569e1c4a84604fd77f4b84411b6eadc8345f4cd5ae58df78ee9fa699e070",
+            "included_in_prompt": true,
+            "selection_or_exclusion_reason": "Directly states the laptop request submission channel.",
+            "prompt_context_order": 1,
+            "exact_selected_text": "Employees submit laptop requests through the IT service desk.",
+            "source_metadata": {
+              "title": "Synthetic IT request guide",
+              "domain": "synthetic-enterprise",
+              "effective_date": null,
+              "is_poisoned_test_doc": false
+            },
+            "canonical_chunk_slice": "Employees submit laptop requests through the IT service desk.",
+            "canonical_chunk_char_span": {
+              "start": 0,
+              "end": 61
+            },
+            "formatting_prefix_applied": "",
+            "source_id": "src-DOC-PAPER-IT"
+          }
+        ],
+        "returned_count": 1,
+        "filter_provenance": {
+          "filter_resolution_status": "EXPLICIT_NO_FILTER_ALL_ELIGIBLE",
+          "requested_model_filters": null,
+          "effective_trusted_filters": {
+            "corpus_partition": "paper-it",
+            "doc_status": "ACTIVE",
+            "corpus_version": "paper-corpus-v1",
+            "metadata_predicates": {}
+          },
+          "authorized_corpus_scope": {
+            "corpus_id": "paper-it",
+            "corpus_version": "paper-corpus-v1",
+            "source_snapshot_id": "snapshot-paper-it-v1",
+            "eligible_candidate_pool_size": 1
+          },
+          "eligibility_decision": {
+            "status": "ELIGIBLE_SCOPE_VERIFIED",
+            "ineligible_candidates_excluded_count": 0,
+            "decision_basis": "One eligible synthetic IT guide."
+          },
+          "retrieval_config_ref": "paper-retrieval-list-v1"
+        },
+        "execution_status": "COMPLETED",
+        "retrieval_fault_details": null
+      }
+    },
+    {
+      "event_id": "e2",
+      "parent_event_id": "e1",
+      "sequence_number": 2,
+      "event_type": "model_call",
+      "timestamp": "2026-10-18T11:30:01.350Z",
+      "latency_ms": null,
+      "attributes": {
+        "model_call_id": "mc_w2_rag_01",
+        "step_purpose": "rag_answer_generation",
+        "provider": "gemini",
+        "model_id": "gemini-3.8-flash",
+        "prompt_template_id": "rag-paper-prompt-v1",
+        "selected_context_ref": {
+          "retrieval_id": "retrieval-paper-01",
+          "selected_chunk_ids": [
+            "CH-PAPER-IT"
+          ],
+          "context_formatting_rule": "VERBATIM_CONCAT",
+          "rendered_context_block": "Employees submit laptop requests through the IT service desk."
+        },
+        "rendered_prompt_or_messages": [
+          {
+            "role": "system",
+            "content": "Answer only from the supplied source. Cite every material enterprise claim; abstain without support."
+          },
+          {
+            "role": "user",
+            "content": "Where should employees submit laptop requests?\nSource [1] DOC-PAPER-IT: Employees submit laptop requests through the IT service desk."
+          }
+        ],
+        "output_text": "Submit laptop requests through the IT service desk. [1]",
+        "proposed_tool_calls": null,
+        "token_usage": null,
+        "returned_model_version": null,
+        "effective_config_ref": "cfg_w2_rag_manual_v1",
+        "operation_profile_id": "rag_grounded_answer_v1",
+        "generation_parameters": {
+          "temperature": 0.1,
+          "top_p": 1.0,
+          "max_output_tokens": 1024,
+          "structured_output_schema": "RagGroundedAnswer_v1"
+        },
+        "execution_status": "COMPLETED",
+        "refusal_reason": null,
+        "provider_fault_details": null
+      }
+    },
+    {
+      "event_id": "e3",
+      "parent_event_id": "e2",
+      "sequence_number": 3,
+      "event_type": "final_response",
+      "timestamp": "2026-10-18T11:30:01.420Z",
+      "latency_ms": null,
+      "attributes": {
+        "generating_model_call_id": "mc_w2_rag_01",
+        "raw_model_candidate_text": "Submit laptop requests through the IT service desk. [1]",
+        "delivered_response_text": "Submit laptop requests through the IT service desk. [1]",
+        "response_text": "Submit laptop requests through the IT service desk. [1]",
+        "runtime_modification_status": "UNMODIFIED",
+        "runtime_correction_or_suppression_reason": null,
+        "response_mode": "ANSWER",
+        "is_abstention": false,
+        "abstention_details": null,
+        "visible_citations": [
+          {
+            "citation_id": "cit_rag_01",
+            "visible_citation_label": "[1]",
+            "cited_doc_id": "DOC-PAPER-IT",
+            "cited_doc_version": "paper-source-v1",
+            "cited_chunk_id": "CH-PAPER-IT",
+            "present_in_selected_context": true,
+            "cited_source_id": "src-DOC-PAPER-IT",
+            "cited_content_hash": "sha256:1a95569e1c4a84604fd77f4b84411b6eadc8345f4cd5ae58df78ee9fa699e070",
+            "cited_snapshot_id": "snapshot-paper-it-v1"
+          }
+        ],
+        "claim_to_source_spans": [
+          {
+            "claim_id": "claim-paper-01",
+            "claim_text": "Submit laptop requests through the IT service desk.",
+            "response_char_span": {
+              "start": 0,
+              "end": 51
+            },
+            "linked_citation_ids": [
+              "cit_rag_01"
+            ],
+            "source_evidence_spans": [
+              {
+                "retrieval_id": "retrieval-paper-01",
+                "doc_id": "DOC-PAPER-IT",
+                "chunk_id": "CH-PAPER-IT",
+                "in_supplied_prompt_context": true,
+                "source_quote": "Employees submit laptop requests through the IT service desk.",
+                "source_char_span": {
+                  "start": 0,
+                  "end": 61
+                },
+                "source_text_basis": "CONTENT_SNIPPET"
+              }
+            ]
+          }
+        ],
+        "claimed_actions": []
+      }
+    }
+  ],
+  "execution_budget_telemetry": {
+    "budget_profile_id": "execution-budget-v1-proposed",
+    "budget_profile_status": "PROPOSED_NOT_RATIFIED",
+    "root_workflow_id": "query-paper-01",
+    "execution_segment_id": "seg_9210_01",
+    "budget_snapshot_ref": "bsnap_9210_final",
+    "budget_ledger_version": "ledger_v0.1_proposed",
+    "fencing_token": 1,
+    "lease_owner_id": "worker_seg_9210_01",
+    "lease_status": "RELEASED_ORDERLY",
+    "counters": {
+      "logical_generation_operations": {
+        "configured_ceiling": 1,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 1,
+        "spent_count": 1,
+        "reserved_count": 0,
+        "remaining_count": 0
+      },
+      "generation_attempt_debits": {
+        "configured_ceiling": 2,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 1,
+        "spent_count": 1,
+        "reserved_count": 0,
+        "remaining_count": 1
+      },
+      "token_preflights": {
+        "configured_ceiling": 1,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 0,
+        "spent_count": 0,
+        "reserved_count": 0,
+        "remaining_count": 1
+      },
+      "logical_embedding_operations": {
+        "configured_ceiling": 1,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 0,
+        "spent_count": 0,
+        "reserved_count": 0,
+        "remaining_count": 1
+      },
+      "embedding_attempt_debits": {
+        "configured_ceiling": 2,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 0,
+        "spent_count": 0,
+        "reserved_count": 0,
+        "remaining_count": 2
+      },
+      "sql_searches": {
+        "configured_ceiling": 1,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 0,
+        "spent_count": 0,
+        "reserved_count": 0,
+        "remaining_count": 1
+      },
+      "tool_proposals": {
+        "configured_ceiling": 0,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 0,
+        "spent_count": 0,
+        "reserved_count": 0,
+        "remaining_count": 0
+      },
+      "segment_starts": {
+        "configured_ceiling": 1,
+        "prior_prerequisite_spent_count": 0,
+        "slice_observed_spent_count": 1,
+        "spent_count": 1,
+        "reserved_count": 0,
+        "remaining_count": 0
+      }
+    },
+    "active_time_pool_ms": {
+      "configured_ceiling_ms": 120000,
+      "segment_ceiling_ms": 120000,
+      "spent_ms": 1420,
+      "reserved_segment_lease_ms": 0,
+      "remaining_ms": 118580
+    },
+    "cleanup_observation_window_ms": 2000,
+    "exhaustion_error": null,
+    "checkpoints": [],
+    "dispatch_claim_ledger": []
+  }
+}
