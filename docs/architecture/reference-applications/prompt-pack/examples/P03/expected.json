@@ -1,0 +1,42 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "search_policy",
+  "output": {
+    "query": "business laptop purchasing approval and supplier eligibility",
+    "request_id": "req-demo-01",
+    "top_k": 1
+  },
+  "later_authored_observation": {
+    "status": "MATCHED",
+    "data": {
+      "query": "business laptop purchasing approval and supplier eligibility",
+      "requested_top_k": 1,
+      "returned_count": 1,
+      "matches": [
+        {
+          "policy_id": "PROC-APPROVAL-01",
+          "document_id": "DOC-DEMO-PROC",
+          "source_id": "src-demo-proc",
+          "source_version": "demo-policy-v1-NOT-RATIFIED",
+          "chunk_id": "CH-DEMO-PROC-01",
+          "text": "Purchases exceeding USD 5000.00 require manager approval. Purchase orders must use an approved supplier.",
+          "content_hash": "6de15b98be5991e8a443fe38362c279f5329de36df168fc2b3a9b80d3d06e2b0",
+          "locator": "DOC-DEMO-PROC#p1",
+          "rank": 1,
+          "score": 0.0,
+          "score_kind": "illustrative_mock_lookup_distance",
+          "higher_is_better": false,
+          "metadata": {
+            "title": "Synthetic purchasing policy",
+            "domain": "procurement-demo"
+          }
+        }
+      ],
+      "policy_set_version": "demo-policy-v1-NOT-RATIFIED",
+      "retriever_version": "demo-fixed-lookup-v1",
+      "applicability": "APPLICABLE"
+    },
+    "error": null
+  },
+  "runtime_delivery": null
+}

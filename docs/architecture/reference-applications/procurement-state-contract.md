@@ -1,5 +1,38 @@
 # Procurement Agent behavior and state contract
 
+**OD-04 draft response — 2026-11-06:** [Nour application-side position 0.1](approval-validity/od04-v0.1/README.md) proposes scoped ACCEPT/AMEND dispositions, affected transitions and paper examples. Approval validity remains OPEN pending Mohamed/Mohab agreement; this pointer does not ratify the proposed amendments or change the behavior contract below.
+
+**OD-04 application follow-up — 2026-11-09:** [Position 0.2](approval-validity/od04-v0.2.md) adopts Mohamed's terminal DENIED/CANCELLED and source record-sequence ordering, and requires current approval and supplier record versions to be verified at the PO dispatch claim. V06's atomic/fenced mechanism and canonical field mapping remain joint decisions. A timestamp alone is not the authorization-order test; no new workflow state is introduced.
+
+**2026-11-02 review supplement:** [Consolidated manual boundary cases](manual-boundary-cases.md) add the denied-approval walkthrough and symbolic below/equal/above T review cases. Existing contract semantics and pending approvals remain unchanged.
+
+**Sprint 1 Contract Baseline / Freeze Candidate — revision 0.7, 2026-11-02. NOT FROZEN.** Approval-observation semantics are confirmed by Mohamed and Mohab as reported by the user on 2026-11-02; see [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation). Other specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Week 2 review of every state
+
+The full state records below retain entry/exit conditions, allowed/forbidden transitions, tools, evidence, policy interaction and failure cases. No behavior rewrite is needed. Each row below was checked against Mohab's actual draft §4.1, Mohamed's §2/§4 and the proposal's conceptual workflow.
+
+| Fine state | Entry → permitted successful exit | Tool / coarse stage | Actual draft fit |
+|---|---|---|---|
+| REQUEST_CAPTURED | Valid normalized revision → applicable policy evidence → POLICY_CHECKED | search_policy / PRE_APPROVAL | Name present; requirement must be unknown before calculation, but draft requires boolean |
+| POLICY_CHECKED | Policy accepted → approved supplier → SUPPLIER_CHECKED | get_supplier / PRE_APPROVAL | Name present; directory/version and raw normalized status need retention |
+| SUPPLIER_CHECKED | Approved supplier → known requirement → APPROVAL_CALCULATED | calculate_approval_level / PRE_APPROVAL | Name present; D3/GD-01 permission pending |
+| APPROVAL_CALCULATED | Known false → APPROVED with NOT_REQUIRED; known true + submitted request → APPROVAL_PENDING | request_approval when true / PRE_APPROVAL | Name present; next pending state and no-approval basis missing |
+| APPROVAL_PENDING | Submitted request → wait; valid bound approval → APPROVED; deny/cancel → halt | request_approval observation / PRE_APPROVAL | Fine state absent; PRE_APPROVAL is not a lossless substitute |
+| APPROVED | Supplier/calculation/authorization valid → matching ALLOW → PO_CREATION | PO proposal / APPROVED | Name present; exact revision/argument/policy binding missing |
+| PO_CREATION | Bound transition and single dispatch → confirmed result → COMPLETION; unknown → RECOVERY_PENDING | PO dispatch / PO_CREATION | Fine state absent; PO_CREATED cannot represent an in-flight action |
+| COMPLETION | Matching confirmed PO → final truthful response | No tools / COMPLETED | Draft COMPLETED can express coarse stage but fine-state mapping needs ratification |
+
+All unlisted forward transitions are forbidden; same-state read retry/approval wait is allowed only under the detailed records. BLOCK, FAILED, CANCELLED and RECOVERY_PENDING preserve the last valid fine state. Never replace that evidence with the draft's HALTED_POLICY_BLOCK as though it were a valid business state. Canonical representation is an owner correction, not a framework incompatibility.
+
+### Bypass and recovery review
+
+The [bypass paper fixture](fixtures/02-procurement-bypass.json) reaches APPROVAL_PENDING with known `approval_required=true`, `approval_received=false` and PRE_APPROVAL, then injects a PO proposal. A pre-tool policy check returns BLOCK, followed by runtime suppression. There is **no PO tool call or tool-body result**. Raw false-success candidate and delivered truthful notice are retained separately. The manually seeded candidate is not attributed to Gemini. Expected workflow violation and secondary unsupported completion belong only to the independent review annotation, not a computed classifier result.
+
+Governance is consulted for an otherwise parseable early PO proposal so the required approval-bypass evidence exists. Other application rejections can stop earlier (e.g. malformed arguments); record `agent_guard` and policy `NOT_REQUESTED`, never fabricate a policy verdict. Both routes suppress execution.
+
+An ambiguous timeout after dispatch is UNKNOWN_OUTCOME, not proof of no PO. `ALREADY_EXISTS` confirms an original effect while this replay creates no new effect. Canonical fields must separate original effect existence, this dispatch's effect, and unknown observation. Malak TRD-45 and Ahmed's timeout examples need the same correction. The existing read-only recovery/no-redispatch contract remains in force.
+
 Basis: Proposal N.1/R/Y.1, Sprint S1-01 and Figures 2/3. State semantics below are DECISIONs pending joint review. Tools execute while the source state is active, then a successful result permits the next state. For example, `search_policy` runs in REQUEST_CAPTURED; POLICY_CHECKED means usable policy evidence was obtained. No state transition is granted merely because a model proposed it.
 
 ## State versus workflow stage
@@ -111,10 +144,12 @@ All states may halt on validation, tool or policy errors. Model-generated early 
 | Exit | Trusted approval evidence binds request revision, amount/currency, supplier and level; or workflow halts |
 | Allowed transitions | APPROVED after validation; self while pending; halt on denial/cancellation/stale evidence |
 | Prohibited transitions | PO_CREATION/COMPLETION, approval granted by LLM/user assertion alone |
-| Allowed tools | Idempotent `request_approval` replay to observe the same synthetic approval record; no new sixth tool |
+| Allowed tools | Trusted read-only observation of the existing approval request through `request_approval` in runtime-selected `OBSERVE_APPROVAL` mode; no new sixth tool |
 | Trace evidence | Pending status; observation/resumption cause; approval actor/time/source/binding; invalid observations retained |
 | Policy evidence | Approval service/fixture result satisfying PROC-APPROVAL-01 |
 | Failure modes | Forged, stale, wrong-request approval; premature PO proposal; indefinite wait; denial |
+
+**Confirmed observation semantics (OD-APP-OBS-01):** Observation reads the existing `approval_request_id` bound to the unchanged request revision and original trusted context. It must not retry the initial `CREATE_APPROVAL_REQUEST` submission, create or update an approval request, issue a replacement identity/key, or grant approval. An absent or mismatched record stops observation; it never falls back to submission. The runtime selects the read-only mode and records observation separately from submission. PENDING ends the observation as waiting; DENIED/CANCELLED halt progression; APPROVED permits progression only after trusted evidence and binding validation. Read retries concern transient observation failures only and remain subject to the proposed budget and interface implementation checks. Approval validity, expiry/revocation and broader continuation acceptance remain separate open decisions.
 
 ### APPROVED
 
@@ -170,7 +205,7 @@ All states may halt on validation, tool or policy errors. Model-generated early 
 2. Supplier, policy, approval and request revisions must agree. Editing amount, currency, items or supplier invalidates prior derived evidence and starts a new request revision from REQUEST_CAPTURED, with linkage to the prior attempt; history is retained.
 3. Model output cannot set approval/supplier status, state, check verdict, idempotency key or tool result. The runtime injects trusted context separately from model arguments.
 4. Missing, malformed or timed-out policy verdict means **no dispatch** and a technical check error, not a fabricated policy FAIL or ALLOW. Downstream handling remains Mohamed/Ahmed's responsibility.
-5. Retry limits and time budgets are configurable, versioned and OPEN; never an unbounded model/tool loop. Read retries retain distinct invocation IDs. Side-effect retries must reuse identity and reconcile known state first. For a PO with UNKNOWN_OUTCOME, the read-only recovery rule below prohibits redispatch; a retry policy is not granted by this general invariant.
+5. Proposed retry limits, lifetime counters and parent deadlines are now specified in the [execution-budget ADR](../../adr/application-execution-budgets.md); owner acceptance remains OPEN. Never use an unbounded model/tool loop. Read retries retain distinct invocation IDs. Side-effect retries must reuse identity and reconcile known state first. For a PO with UNKNOWN_OUTCOME, the read-only recovery rule below prohibits redispatch; a retry policy is not granted by this general invariant.
 6. Pending approval ends the current interaction honestly as waiting. A later trusted decision resumes from the same immutable revision with a linked continuation; Mohab defines whether that uses one trace or related traces. No promise of durable checkpointing in Week 1.
 7. Preserve a raw model completion claim independently even when an application formatter returns a corrected user-visible response. Record which text was generated, which was shown and why; do not erase diagnostic evidence or claim an unseen false response was delivered.
 
@@ -180,6 +215,15 @@ The pre-tool check evaluates the immutable APPROVED snapshot: proposal identity,
 request revision, arguments/digest, supplier and approval evidence, policy version,
 and source state revision. ALLOW authorizes that proposal's single
 `APPROVED -> PO_CREATION` transition and initial dispatch together.
+
+For the OD-04 application position, the claim must also verify the currently
+authoritative supplier record version and, when approval is required, approval
+record version against the versions bound to this check. DENIED/CANCELLED are
+terminal for the existing approval-request identity. Source record sequence,
+not wall-clock order, determines whether a decision preceded the proposal or
+claim. The cross-service currentness and atomic/fencing mechanism is pending
+Mohamed/Mohab agreement; failure to establish it means no dispatch. See
+[response 0.2](approval-validity/od04-v0.2.md).
 
 The runtime must atomically verify that the current snapshot still matches the
 checked snapshot, record the authorized transition and claim the dispatch once.
@@ -203,8 +247,8 @@ idempotency key, dispatch record and authorization references.
 Recovery starts only through a trusted runtime continuation associated with that
 record. It performs a bounded, read-only lookup of the original mock ledger under
 the same key; it cannot call the creating tool again or create a replacement PO.
-It is an internal runtime operation, not another model-visible tool. The specific
-continuation interface, budget and schema mapping still require owner review.
+It is an internal runtime operation, not another model-visible tool. The proposed bounded read-only allowance is in the execution-budget ADR; the specific
+continuation interface and shared schema mapping still require owner review.
 
 | Ledger observation | Required state/outcome |
 |---|---|

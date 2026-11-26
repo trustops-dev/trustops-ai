@@ -1,0 +1,171 @@
+{
+  "date": "2026-11-18",
+  "scope": "RECORD_OF_COMPLETED_OFFLINE_ARCHIVE_REVIEW_NOT_RUNTIME_ACCEPTANCE",
+  "owner_packet_base": "dc92da8836e04ecc2a1165cd5afdf2f7c146e3be",
+  "archive": {
+    "filename": "TrustOps_v1.13_Complete_Package.zip",
+    "sha256": "c7f327fec3a0274f293403984c1ee9c336e66719d3fc06c8b24aca4bc77289a6",
+    "size_bytes": 226613
+  },
+  "declared_release": "v1.12.0-rev2",
+  "declared_archive": "TrustOps_v1.12_Complete_Package.zip",
+  "supplied_archive": "TrustOps_v1.13_Complete_Package.zip",
+  "source_kind": "USER_SUPPLIED_ARCHIVE",
+  "implementation_commit": null,
+  "manifest_files": [
+    {
+      "filename": "updated_schemas_v12.md",
+      "sha256": "37fd86711d5dda0644c500e22946b5acba6469ab8c1e85a74354d481f69c3fd4",
+      "size_bytes": 412557,
+      "manifest_match": true
+    },
+    {
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "sha256": "2386322abb03206eb6f1795c369123be8c00da4895f5a9f48c410d2eeae463ed",
+      "size_bytes": 146446,
+      "manifest_match": true
+    },
+    {
+      "filename": "run_s1_01_regression_suite.py",
+      "sha256": "09e709877d4ca365e6d6b25393b696d7464005d09358297e9ffc448e8aa0b366",
+      "size_bytes": 90304,
+      "manifest_match": true
+    },
+    {
+      "filename": "independent_probes.py",
+      "sha256": "1b57e9a92a0afce1e5ecf74a74e61f725856efaf7474c943fa6a6a78336ed52f",
+      "size_bytes": 3430,
+      "manifest_match": true
+    },
+    {
+      "filename": "reproduce_findings.py",
+      "sha256": "eeda4cac2155a8db001b3c8832b3d457b3cb62c9ddcc6ec9547124eaeefbd84a",
+      "size_bytes": 6499,
+      "manifest_match": true
+    },
+    {
+      "filename": "probe_remaining_controls.py",
+      "sha256": "51b7b01f0e5065439708c72f0b81d91f5bd838af9fb4d66ce052989732e63fb9",
+      "size_bytes": 7759,
+      "manifest_match": true
+    },
+    {
+      "filename": "s1_01_validation_report.json",
+      "sha256": "bcea06cc3a3e651e02c9c989d7edd4579514969e0e4b71e574b844216720e69a",
+      "size_bytes": 46760,
+      "manifest_match": true
+    },
+    {
+      "filename": "g01_isolated_diagnostic_runner.py",
+      "sha256": "f48b47c3bf70314837101729dd7b15ec9f48b20bf992dc26539afccfb3d6eceb",
+      "size_bytes": 88928,
+      "manifest_match": true
+    },
+    {
+      "filename": "test_g01_isolated_diagnostic.py",
+      "sha256": "f5b3443d451aa21f0a9ccc547861758df70a32050d84fea9db3a753542708c47",
+      "size_bytes": 35135,
+      "manifest_match": true
+    },
+    {
+      "filename": "001_core.sql",
+      "sha256": "872741fc0968a7dce98b5128020dd4d8e1b1dad8e9a00c8267c6ae99c38f7984",
+      "size_bytes": 22221,
+      "manifest_match": true
+    },
+    {
+      "filename": "trustops_sdk.py",
+      "sha256": "77eb56260c2a4133ffd2bb78985f78eeccc19bd5b1ea2284a25cd56f424e3a9c",
+      "size_bytes": 23639,
+      "manifest_match": true
+    },
+    {
+      "filename": "week_2.md",
+      "sha256": "b83c6c911fa8225784778900de71c4ed3b71e3ebae58f50a44e95124af18039a",
+      "size_bytes": 95293,
+      "manifest_match": true
+    }
+  ],
+  "prior_review_results": {
+    "schema_cases": "101/101",
+    "baseline_assertions": 2788,
+    "diagnostic_tests": "22/22",
+    "independent_probes": "6/6_EXPECTED_REJECTIONS",
+    "original_defect_probes": "10/10",
+    "bundled_remaining_controls": "7/7",
+    "sdk_self_test": "PASS_LOCAL_PROTOTYPE",
+    "environment": "LINUX_WINDOWS_LOCK_SIMULATED",
+    "native_windows": "NOT_RUN"
+  },
+  "additional_probe_results": [
+    {
+      "probe": "admission_count_only_no_evidence",
+      "requests": 2,
+      "stop": "COMPLETED_ISOLATED_C01_AND_G01",
+      "admission": {
+        "pre_dispatch_observations_count": 2,
+        "pre_dispatch_observations_evidence": [],
+        "consumer_pause_confirmed": true,
+        "consumer_pause_evidence_ref": null,
+        "dashboard_headroom_status": "UNKNOWN_UNCONFIRMED",
+        "ledger_refreshed": true,
+        "four_debit_admission_reconciled": true,
+        "admission_attested": true
+      }
+    },
+    {
+      "probe": "worker_survives_timeout",
+      "elapsed_ms": 20.0,
+      "transport_started": true,
+      "worker_still_blocked_after_return": true,
+      "session_lock_reacquired_while_worker_active": true,
+      "stop": "STOPPED_ON_C01_FAILURE"
+    }
+  ],
+  "evidence_file_sha256": {
+    "trustops_sdk.py.log": "d7a5216d9087d976d26172d90b0490180985ed9dccf0dede6ef201577bdf4aea",
+    "test_g01_isolated_diagnostic.py.log": "0e95975f79978d18d0a04cdb718474b3b6f06aa6b74a33c1d44a6fb3a31d0a3f",
+    "archive-identity.json": "1a0e52215173cdcef02840cbe7964d85b787b7b2d17da83e8f9ebaa72561542f",
+    "reproduce_findings.py.log": "65a5eb58664df5eb550b16c5530a2c0c59e279c4d41159a65f103204f7801432",
+    "probe_remaining_controls.py.log": "26d7fa65d006bdfd05528448a31d46c08ec3430692cd505989bb997197077b0e",
+    "REVIEW.md": "96a27a7ad7f67f29a44cac58db77fc8f7dedff45f28044656580b2416ba4e1a4",
+    "suite.json": "bcea06cc3a3e651e02c9c989d7edd4579514969e0e4b71e574b844216720e69a",
+    "independent_probes.py.log": "845ee606b35675533e70a9461337d4161b49ddca5f6a698fb65c34dc8860f44f",
+    "additional_probes.py": "da50a19ee29edca84e1883180928f32b5eb541c3e3727aa80293e5211f76617f",
+    "run_s1_01_regression_suite.py.log": "af84c9c50d5343f35cf164594a17c462df882d3655c8f76e25a6ab4d8ec9dfbb",
+    "additional-results.json": "e54a1d491b5ef65f0eef2118671b5f8fcbc8ebcc5ddc1a4525685b9e66f0654d",
+    "manifest-check.json": "bcdd9bb3b0dd187f36bcc99b5ebb9c9754cd30932fc188a19e13b856a6e60bcc"
+  },
+  "dispositions": {
+    "RR-01": "PARTIAL_RELEASE_IDENTITY_AND_PUBLICATION_OPEN",
+    "RR-02": "PARTIAL_EVIDENCE_ADMISSION_OPEN",
+    "RR-03": "TESTED_LOCK_AND_CAP_IMPROVED_LIFETIME_DEPENDS_ON_RR06",
+    "RR-04": "TARGETED_BOUNDARY_FIXED_SHARED_MARGIN_AND_EXTERNAL_HEADROOM_OPEN",
+    "RR-05": "FIXED_REPRODUCED_SCOPE",
+    "RR-06": "OPEN_WORKER_CONTINUES_AFTER_TIMEOUT",
+    "WINDOWS_PROBES": "OPEN_UNCONDITIONAL_FCNTL_IMPORT"
+  },
+  "overall": "AMEND",
+  "g01": "HOLD",
+  "provider_requests_sent": 0,
+  "paid_use_authorized_usd": 0,
+  "historical_november_9_outcomes": "UNCHANGED_UNRESOLVED",
+  "joint_schema_acceptance": false,
+  "week2_complete": false,
+  "review_sent_to_mohab": "NOT_CONFIRMED",
+  "additional_probe_note": "Mock handler lifetime and lock reacquisition demonstrated; no second live request or provider execution was tested.",
+  "fresh_documentation_integration": {
+    "date": "2026-11-18",
+    "python": "3.12.14",
+    "environment": "Windows; exact Git file bytes in temporary snapshot",
+    "manual_fixture_link_checks": 1038,
+    "corpus_boundary_checks": 426,
+    "manifest_entries_verified": 252,
+    "external_archive_suites_rerun": false,
+    "publication": "PUSH_VERIFIED_a3e6985f18b3b0d82aab8dffc7dbeeeeba41372a",
+    "commands": [
+      "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py <snapshot> --output <outside-repository>/manual.json",
+      "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py <snapshot> --output <outside-repository>/corpus.json"
+    ]
+  }
+}

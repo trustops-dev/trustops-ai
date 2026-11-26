@@ -1,0 +1,11 @@
+{
+  "id": "P08",
+  "title": "Observe approval on a trusted continuation",
+  "objective": "Reuse request_approval for read-only status observation; no sixth status tool.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/approval_request.md"
+  ],
+  "compliance": "A user request alone is not a trusted resume or a grant. Runtime must bind the source, actor, revision, amount/currency, supplier, level, active policy and validity/revocation rules. A PENDING observation would leave the workflow waiting; DENIED/CANCELLED would halt. This authored APPROVED fixture can support readiness only under the stated conditional gate.",
+  "gate": "Observation semantics confirmed under OD-APP-OBS-01. Execution remains conditional: read-only adapter verification, approval validity and trusted continuation remain pending."
+}

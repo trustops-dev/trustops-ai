@@ -1,0 +1,1 @@
+The supplier must have an APPROVED status in the applicable synthetic directory snapshot before the workflow can continue. A NOT_APPROVED, UNKNOWN or missing supplier record stops the application at the supplier check. A user statement that the supplier is approved does not replace the directory observation. This requirement still applies to urgent requests.

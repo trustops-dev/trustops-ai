@@ -1,0 +1,268 @@
+{
+  "artifact_kind": "OFFLINE_AUTHORED_RETRIEVAL_INPUT",
+  "version": "retrieval-fixtures-v0.1",
+  "source_manifest_sha256": "c83a2cae8315806e9b81ae561c478b3b08329632fdee64fe89cfde924004a7c2",
+  "cases": [
+    {
+      "query_id": "q-001",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does an urgent request above T bypass purchasing approval?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-001",
+          "source_id": "src-001",
+          "source_version": "review-r1",
+          "chunk_id": "doc-001@review-r1:0:583",
+          "chunk_text": "For this synthetic purchasing-policy review, A is the exact requested total, T is the configured approval threshold and C is the policy currency. Under the proposed rule, a request with A > T requires approval for the exact request revision, supplier, amount and currency before a purchase order may be created. When A <= T, this rule does not require approval, but an approved supplier and the permitted workflow remain mandatory. Urgency does not waive approval or supplier checks. If T, C or the applicable policy version is unresolved, do not infer that approval is unnecessary.\n",
+          "content_hash": "5e1a0e46a4df89a8e655d98e559ee814f6e59046848821f7016eb5125add0d3f",
+          "document_char_span": {
+            "start": 0,
+            "end": 583
+          },
+          "title": "Purchasing approval conditions",
+          "domain": "procurement",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-001@review-r1:0:583"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-002",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave require five working days of notice, and is it automatically approved?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-003",
+          "source_id": "src-003",
+          "source_version": "review-r1",
+          "chunk_id": "doc-003@review-r1:0:332",
+          "chunk_text": "In this synthetic HR example, planned leave requests should be submitted five working days before the first leave day. Unplanned emergency leave is exempt from the five-day notice requirement; notify the manager as soon as practicable. The exception changes the notice requirement only and does not establish approval of the leave.\n",
+          "content_hash": "a0ddf7a477906b28bd28172850effc10d9f4eb49d04f5767d2cdb8374bcd6139",
+          "document_char_span": {
+            "start": 0,
+            "end": 332
+          },
+          "title": "Leave request guidance",
+          "domain": "hr",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-003@review-r1:0:332"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-003",
+      "snapshot_id": "corpus-review-s01",
+      "question": "May an urgent repair run outside the maintenance window just because it is urgent?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-004",
+          "source_id": "src-004",
+          "source_version": "review-r1",
+          "chunk_id": "doc-004@review-r1:0:367",
+          "chunk_text": "In this synthetic operations policy, routine service maintenance requires an approved maintenance window. An urgent incident repair may occur outside that window only when the incident commander has authorized the exception and the incident reference is recorded. An urgent label by itself is not authorization. Record the change and its outcome in the incident log.\n",
+          "content_hash": "8feaf07a2f35e93979eff6e68cbc590aa6583884c3ec163f40d50101a6bedc5c",
+          "document_char_span": {
+            "start": 0,
+            "end": 367
+          },
+          "title": "Internal service maintenance",
+          "domain": "ops",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-004@review-r1:0:367"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-004",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support, and does the ticket authorize a replacement purchase?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-005",
+          "source_id": "src-005",
+          "source_version": "review-r1",
+          "chunk_id": "doc-005@review-r1:0:300",
+          "chunk_text": "For this synthetic service-desk FAQ, submit a laptop support request through the internal service portal and include the device asset tag and a description of the fault. The support ticket does not authorize buying a replacement device; replacement purchases follow the purchasing approval workflow.\n",
+          "content_hash": "c344443a4e1b819df01354913250b00965bdbd126b83e2b0b74063cbe0f9c384",
+          "document_char_span": {
+            "start": 0,
+            "end": 300
+          },
+          "title": "Laptop support FAQ",
+          "domain": "faq",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-005@review-r1:0:300"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-005",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-006",
+          "source_id": "src-006",
+          "source_version": "review-r1",
+          "chunk_id": "doc-006@review-r1:0:214",
+          "chunk_text": "For the synthetic employee travel-expense process, submit itemized receipts within ten calendar days after returning from a business trip. This requirement applies to all employees covered by this example process.\n",
+          "content_hash": "8ef5e2134a0ac1d9688f056a2581d416abae3372476597b056c35defaeb84dd7",
+          "document_char_span": {
+            "start": 0,
+            "end": 214
+          },
+          "title": "Travel expense handbook",
+          "domain": "hr",
+          "visibility": "mvp_shared",
+          "rank": 1
+        },
+        {
+          "document_id": "doc-008",
+          "source_id": "src-008",
+          "source_version": "review-r1",
+          "chunk_id": "doc-008@review-r1:0:266",
+          "chunk_text": "For this synthetic office-access FAQ, submit visitor details through the visitor-registration form before arrival. The host receives the visitor at reception. This document does not describe employee device support, purchasing approval or travel-expense submission.\n",
+          "content_hash": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
+          "document_char_span": {
+            "start": 0,
+            "end": 266
+          },
+          "title": "Visitor access FAQ",
+          "domain": "faq",
+          "visibility": "mvp_shared",
+          "rank": 2
+        }
+      ],
+      "selected_chunk_ids": [],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-006",
+      "snapshot_id": "corpus-review-s02",
+      "question": "What is the deadline for submitting receipts after a business trip?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-006",
+          "source_id": "src-006",
+          "source_version": "review-r1",
+          "chunk_id": "doc-006@review-r1:0:214",
+          "chunk_text": "For the synthetic employee travel-expense process, submit itemized receipts within ten calendar days after returning from a business trip. This requirement applies to all employees covered by this example process.\n",
+          "content_hash": "8ef5e2134a0ac1d9688f056a2581d416abae3372476597b056c35defaeb84dd7",
+          "document_char_span": {
+            "start": 0,
+            "end": 214
+          },
+          "title": "Travel expense handbook",
+          "domain": "hr",
+          "visibility": "mvp_shared",
+          "rank": 1
+        },
+        {
+          "document_id": "doc-007",
+          "source_id": "src-007",
+          "source_version": "review-r1",
+          "chunk_id": "doc-007@review-r1:0:218",
+          "chunk_text": "For the synthetic employee travel-expense process, submit itemized receipts within fifteen calendar days after returning from a business trip. This requirement applies to all employees covered by this example process.\n",
+          "content_hash": "18c8307a3fb42afe5e6cef04987ffae9c6d2465fdf99769eb9651bef5e1d6a2a",
+          "document_char_span": {
+            "start": 0,
+            "end": 218
+          },
+          "title": "Travel expense guidance bulletin",
+          "domain": "hr",
+          "visibility": "mvp_shared",
+          "rank": 2
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-006@review-r1:0:214",
+        "doc-007@review-r1:0:218"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-007",
+      "snapshot_id": "corpus-review-s01",
+      "question": "How many parking permits may an employee request?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-008",
+          "source_id": "src-008",
+          "source_version": "review-r1",
+          "chunk_id": "doc-008@review-r1:0:266",
+          "chunk_text": "For this synthetic office-access FAQ, submit visitor details through the visitor-registration form before arrival. The host receives the visitor at reception. This document does not describe employee device support, purchasing approval or travel-expense submission.\n",
+          "content_hash": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
+          "document_char_span": {
+            "start": 0,
+            "end": 266
+          },
+          "title": "Visitor access FAQ",
+          "domain": "faq",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    },
+    {
+      "query_id": "q-008",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave need five working days of notice?",
+      "trusted_scope": "mvp_shared",
+      "returned": [
+        {
+          "document_id": "doc-003",
+          "source_id": "src-003",
+          "source_version": "review-r1",
+          "chunk_id": "doc-003@review-r1:0:332",
+          "chunk_text": "In this synthetic HR example, planned leave requests should be submitted five working days before the first leave day. Unplanned emergency leave is exempt from the five-day notice requirement; notify the manager as soon as practicable. The exception changes the notice requirement only and does not establish approval of the leave.\n",
+          "content_hash": "a0ddf7a477906b28bd28172850effc10d9f4eb49d04f5767d2cdb8374bcd6139",
+          "document_char_span": {
+            "start": 0,
+            "end": 332
+          },
+          "title": "Leave request guidance",
+          "domain": "hr",
+          "visibility": "mvp_shared",
+          "rank": 1
+        }
+      ],
+      "selected_chunk_ids": [
+        "doc-003@review-r1:0:332"
+      ],
+      "score": null,
+      "score_status": "AUTHORED_ORDER_NOT_MEASURED"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "R07",
+  "title": "Reject a fabricated source binding",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "The observation below is an intentionally invalid authored candidate, not a tool result or live model output. Runtime preserves it, rejects its unmatched source, and delivers abstention without another generation/repair call.",
+  "gate": null
+}

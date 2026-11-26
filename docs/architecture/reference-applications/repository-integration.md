@@ -1,5 +1,21 @@
 # Week 1 repository integration record
 
+**Documentation PR preparation — 2026-11-05:** target `dev`, verified at `72e7975384d5e8b32d1e0e68ff4742cce96fa336`; `main` verified at `3ef7da1f190cd5a22efdcd6798af59199924bac3`. Proposed branch: `docs/nour-week1-owner-review`. This review contains accumulated owner documents, authored examples, offline helpers and reports. GitHub publication is pending authenticated access; no PR approval, contract freeze or runtime readiness is implied. Earlier preparation notes below retain their original scope and date.
+
+**Owner-side Week 1 closeout revision 0.7 — 2026-11-02. Drafting and local review complete for this handoff; shared acceptance remains PENDING.**
+
+This local closeout updates owner-controlled tracking documents and adds a schema-review addendum, review packet, exact-file manifest and static validation record. It preserves prior edits, teammate-owned files and application source. The working base remains the recorded local HEAD; remote refs were not refreshed in this task. No push, PR, merge or teammate message was performed. The manifest hashes identify working-tree bytes, not a new committed or deployed revision.
+
+**Sprint 1 Contract Baseline / Freeze Candidate — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Week 2 repository verification and delivery
+
+On 2026-11-01 direct Git reads verified `main` at `3ef7da1f190cd5a22efdcd6798af59199924bac3` (PR #12 integration) and `dev` at `72e7975384d5e8b32d1e0e68ff4742cce96fa336` (PR #24). The web page was unavailable; these identities come from fetched Git objects, not a search snippet. Later team drafts are on `dev`, so this documentation change is prepared on `docs/week2-s1-01-contract-alignment` from the exact dev commit, consistent with CONTRIBUTING's task→dev→main workflow.
+
+Revision 0.6 edits the existing twelve reference-application Markdown files and the existing combined ADR. Four JSON paper fixtures plus one fixture review README live alongside the contract in `docs/architecture/reference-applications/fixtures/`; they are documentation assets, not schemas, runtime fixtures or production code. No teammate-owned specification, production module, test, dependency, CI configuration or protected branch is changed. No new remote PR or merge is claimed.
+
+The delivery includes exact changed files, a patch against the pinned dev commit, hashes, application instructions and reproducible static review-check results. Apply only after verifying the base; do not apply this dev-based patch directly onto older main. Historical OD-01 import/merge closure below remains CLOSED and does not imply specialist contract sign-off.
+
 Date: 2026-10-15. Source: supplied `TrustOps_AI_Week1_Contracts` Markdown folder,
 S1-01 revision 0.5 with the subsequent authorization/recovery clarifications.
 Status updated 2026-10-16: import reviewed and merged into `dev`, then promoted

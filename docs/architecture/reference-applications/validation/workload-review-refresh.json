@@ -1,0 +1,799 @@
+{
+  "date": "2026-11-06",
+  "result": "PASS_OFFLINE_WORKLOAD_DOCUMENTATION_ONLY",
+  "scope": "Workload/access candidate arithmetic, provenance, affected documentation checks and manifest; no account/API execution.",
+  "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+  "manual_review": {
+    "status": "PASS",
+    "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+    "canonical_schema": "BLOCKED",
+    "runtime": "NOT_RUN",
+    "team_approvals": "PENDING",
+    "git_checks": "NOT_REQUESTED",
+    "fixture_event_counts": {
+      "01-procurement-success.json": 37,
+      "02-procurement-bypass.json": 32,
+      "03-rag-grounded.json": 6,
+      "04-rag-insufficient.json": 4
+    },
+    "check_count": 870,
+    "execution_environment": {
+      "python": "3.12.14",
+      "helper_sha256": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2"
+    }
+  },
+  "corpus_boundary_review": {
+    "result": "PASS",
+    "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+    "checks": 316,
+    "source_documents": 8,
+    "snapshots": 2,
+    "corpus_review_cases": 8,
+    "boundary_cases": 10,
+    "not_run": [
+      "chunk token counts",
+      "embedding API",
+      "pgvector/FAISS",
+      "runtime workflow",
+      "canonical trace validator",
+      "semantic evaluator",
+      "shared acceptance"
+    ],
+    "execution_environment": {
+      "python": "3.12.14",
+      "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+    }
+  },
+  "arithmetic_validation": {
+    "result": "PASS_OFFLINE_WORKLOAD_CHECKS",
+    "check_count": 13,
+    "checks": [
+      {
+        "check": "Independent weekly generation total: 5 x (60 + 6 + 20 + 2)",
+        "result": "PASS"
+      },
+      {
+        "check": "Independent input estimate: 330 x 4000 + 110 x 8000",
+        "result": "PASS"
+      },
+      {
+        "check": "Output includes thinking once: 440 x 2000",
+        "result": "PASS"
+      },
+      {
+        "check": "Embedding inputs: 110 x 128 + 71 x 1024",
+        "result": "PASS"
+      },
+      {
+        "check": "Preflight and embedding requests counted separately",
+        "result": "PASS"
+      },
+      {
+        "check": "Decimal subtotal matches independent hand calculation",
+        "result": "PASS"
+      },
+      {
+        "check": "Conditional cap subtotal matches independent calculation",
+        "result": "PASS"
+      },
+      {
+        "check": "Non-integral retry reserve rounded upward",
+        "result": "PASS"
+      },
+      {
+        "check": "Zero workload does not create phantom requests/cost",
+        "result": "PASS"
+      },
+      {
+        "check": "Reject invalid estimate/rate: procurement.input_tokens_per_attempt_estimate",
+        "result": "PASS"
+      },
+      {
+        "check": "Reject invalid estimate/rate: rates.generation_input_per_million_usd",
+        "result": "PASS"
+      },
+      {
+        "check": "No invented API owner",
+        "result": "PASS"
+      },
+      {
+        "check": "Packaged arithmetic matches formatted final helper run",
+        "result": "PASS"
+      }
+    ],
+    "runtime_executed": false,
+    "account_access_or_cost_confirmed": false,
+    "calculator_sha256": "5fcc5db4e398e9136206b502015054bbe6d548dc1c0aef4a8273268c0a3c84b3"
+  },
+  "preservation_checks": [
+    {
+      "check": "Unchanged proposed ADR: docs/adr/reference-application-orchestration-and-llm.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Unchanged proposed ADR: docs/adr/application-execution-budgets.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/approval-validity/od04-v0.1/cases.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/approval-validity/od04-v0.1/response.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/approval-validity/od04-v0.1/validation-results.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-001.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-002.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-003.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-004.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-005.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-006.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-007.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/documents/doc-008.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/review-cases.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/corpus-review/source-manifest.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/fixtures/01-procurement-success.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/fixtures/02-procurement-bypass.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/fixtures/03-rag-grounded.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/fixtures/04-rag-insufficient.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/fixtures/README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/candidate-config.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/policy-text.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/truth-table.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/validation-results.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P01/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P01/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P01/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P01/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P02/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P02/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P02/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P02/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P03/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P03/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P03/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P03/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P04/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P04/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P04/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P04/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P05/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P05/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P05/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P05/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P06/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P06/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P06/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P06/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P07/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P07/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P07/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P07/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P08/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P08/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P08/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P08/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P09/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P09/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P09/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P09/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P10/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P10/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P10/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P10/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P11/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P11/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P11/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P11/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P12/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P12/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P12/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/P12/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R01/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R01/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R01/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R01/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R02/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R02/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R02/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R02/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R03/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R03/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R03/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R03/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R04/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R04/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R04/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R04/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R05/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R05/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R05/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R05/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R06/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R06/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R06/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R06/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R07/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R07/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R07/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R07/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R08/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R08/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R08/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R08/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R09/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R09/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R09/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R09/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R10/expected.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R10/input.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R10/rendered-prompt.txt",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/examples/R10/review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/prompt-manifest.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/generation-configuration-reference.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/generation-profiles-reference.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/procurement-extraction.schema.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/procurement-final.schema.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/procurement-tool-arguments.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/schemas/rag-candidate.schema.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_calculation.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_request.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/final_candidate.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/po_proposal.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/policy_search.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/request_extraction.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/supplier_review.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/procurement/system.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/templates/rag/assistant_system.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/prompt-pack/validation-report.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/reviews/alaa-479cab0-review.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/reviews/alaa-479cab0-review.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.1-review.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.2-review-observations.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.2-review.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.5-evidence-mapping.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.5-review-observations.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.5-review.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.6-evidence-mapping.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.6-evidence-mapping.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Preserved evidence: docs/architecture/reference-applications/schema-v1.6-review-observations.json",
+      "result": "PASS"
+    }
+  ],
+  "ruff": {
+    "version": "0.17.0",
+    "lint": "PASS",
+    "format": "PASS",
+    "scope": "New calculator and modified manual-helper allowlist only"
+  },
+  "commands": [
+    "python -S docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py --output ../workload-estimate.json",
+    "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output ../workload-manual.json",
+    "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output ../workload-corpus.json"
+  ],
+  "arithmetic_review_reproduction": "Check the four scenario/case rows against the tables and formulas in the workload README. Recorded additional review checks cover independent hand totals, zero workload, retry rounding and rejection of a negative input estimate / NaN rate. No provider or financial-account validation is implied.",
+  "input_hashes": {
+    "docs/architecture/reference-applications/schema-v1.2-review.md": "771adb10c52b5baa1c6602bb0dc53044a15e756821f51655536ac902b3dbafec",
+    "docs/architecture/reference-applications/prompt-pack.md": "23a6728824fcc2ee0c32e2ce1d5aacd7092e65b98437bad226311d9b0e65db91",
+    "docs/architecture/reference-applications/overview.md": "3461931847e5b90e20519eecb87cc8671bdfd895d4076f452eb43782130dc266",
+    "docs/architecture/reference-applications/procurement-tool-contracts.md": "34ea7f43b5bd61714070f05521b8afcad74a4403ca646933c32bd673e64050b7",
+    "docs/architecture/reference-applications/failure-planning-matrix.md": "bb07ac7cb96ca5d1e9ead3c7496e689bbf029d84fc42843b38039dc3324a0ae9",
+    "docs/architecture/reference-applications/rag-contract.md": "8d9d0fa056a419943a8a3cbdd28fd7885fbdcca0e925352fbf3dfd6c4c827797",
+    "docs/architecture/reference-applications/week1-owner-closeout.md": "b0f45335d7059705aa84390b3caea54f406dee52897cfed63b0d199650a56806",
+    "docs/architecture/reference-applications/manual-boundary-cases.md": "1f41e80e1399207cfd53db76284f61de579fe153a5aeee8f92cc325c5575b886",
+    "docs/architecture/reference-applications/schema-v1.1-review.md": "6d217952eedb68e8938d9fc0149d79ea70052763ed365fc72765f1a52bec774c",
+    "docs/architecture/reference-applications/open-decisions.md": "2fc0152f4501d133aabb17231245497edb72c73f714c74f53609dfc708a12ac3",
+    "docs/architecture/reference-applications/README.md": "d9ea934edf4653f6502f71e9fb3b9e3f2db7818555070f9f47f8f938819c98a6",
+    "docs/architecture/reference-applications/schema-v1.5-review.md": "3ed1dda4fc834c7f7a95e691b8725410b713db83dfb81a3d8cf72ff7d0349755",
+    "docs/architecture/reference-applications/publication-handoff.md": "91a3e202692e14872e0f47c94cb2b52617eb7de68c04adaf02c16543c5a18b3a",
+    "docs/architecture/reference-applications/procurement-state-contract.md": "11eb76b60d35d10fffbc79396d76a6f77848822c8c74e87ce6763d7400d13ad3",
+    "docs/architecture/reference-applications/acceptance.md": "cca2ef772f8ca1f62f991e1008ddd2d7aeb25ad6200b5e9250b5fe6dc5bfdaba",
+    "docs/architecture/reference-applications/repository-integration.md": "6a34b41af6c38f376883d5822b768b6902bc4d4db287a0cafaa42f9a6ab64658",
+    "docs/architecture/reference-applications/trace-evidence-contract.md": "6b79c3796f5940a2bcd3eea353232220b6e844224f61368109af318fe8ce2761",
+    "docs/architecture/reference-applications/audit.md": "ddf5b1e8ced0151afe9687a715b2edaf63cb6d9f57ab0b774d6a2dbcbedda1ae",
+    "docs/architecture/reference-applications/schema-v1.6-evidence-mapping.md": "3f9420afe3b40451fa1100c442982f0cc44cdcce59af339a1b491f2f697c7b5b",
+    "docs/architecture/reference-applications/handoffs.md": "06d802b36e1eedc829543f78172b82ee4056c7abe2b4d04879281e0bcb872d76",
+    "docs/architecture/reference-applications/fixtures/README.md": "ecfb41f86760a3f1d9a19401cdac7d6d55a438167e8f87b27a857e376ab0380b",
+    "docs/architecture/reference-applications/validation/verify_v16_mapping.py": "cb10ef51e65fb94d5768a2fc171463c09dace5530acf5248b254fcad57b54f83",
+    "docs/architecture/reference-applications/validation/verify_manual_fixtures.py": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2",
+    "docs/architecture/reference-applications/validation/README.md": "1b46fcb20d231e9bead6ec01c017682f83707e6ce2effd586f81a06d890ab36d",
+    "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1",
+    "docs/architecture/reference-applications/corpus-review/README.md": "bf94a99bb79a0cb649698927ce66937c8742c9c69237d9d1782009409c588885",
+    "docs/architecture/reference-applications/reviews/alaa-479cab0-review.md": "30a5cdd1f739617e332a9b41483c2aeb0248b6f5acaaee7dfba4608f5ce7a798",
+    "docs/architecture/reference-applications/prompt-pack/README.md": "dbc833f92a2867d10e334f634aaa14d64b7f93c0b369bf3dd93cd9152fe34ef3",
+    "docs/architecture/reference-applications/prompt-pack/validate_prompt_pack.py": "341233cf99a6c7493985a21f4781c6f2eb2266bf2274541bf9e5d001c6a22379",
+    "docs/architecture/reference-applications/approval-validity/od04-v0.1/verify_review.py": "4a82f9cbd9b44641cdb73fc50eb7e4ba3b66f3d3c50681650a492cae81038ff8",
+    "docs/architecture/reference-applications/approval-validity/od04-v0.1/README.md": "08a547253efbb09c96d0925e8a928f68c2dd02e11c144645913971c9f473f5e1",
+    "docs/architecture/reference-applications/policy-candidate/od03-v0.1/policy-text.txt": "9132b79e4f3c68f9b6de858eeeb7994cf37b67e220bd1bc849fa3d9f12b4b578",
+    "docs/architecture/reference-applications/policy-candidate/od03-v0.1/README.md": "90892700a0aa38f532326d9f8dd8ad3a63effd5efdcab8bddb9bfc4b5da009f2",
+    "docs/architecture/reference-applications/policy-candidate/od03-v0.1/verify_candidate.py": "86d07091496b333172922bc68d2be8e808066a1c3acfa94647ef2231ba6e0de5",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-004.txt": "8feaf07a2f35e93979eff6e68cbc590aa6583884c3ec163f40d50101a6bedc5c",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-003.txt": "a0ddf7a477906b28bd28172850effc10d9f4eb49d04f5767d2cdb8374bcd6139",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-002.txt": "9e0b3f630b9c89bf76968f1506b1b9cd54369130f012dc397cb563702881a33e",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-006.txt": "8ef5e2134a0ac1d9688f056a2581d416abae3372476597b056c35defaeb84dd7",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-001.txt": "5e1a0e46a4df89a8e655d98e559ee814f6e59046848821f7016eb5125add0d3f",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-007.txt": "18c8307a3fb42afe5e6cef04987ffae9c6d2465fdf99769eb9651bef5e1d6a2a",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-008.txt": "12a201e15b81ed26bb64acdddb554171af6a0095c5842c6aa230bcc58968a18c",
+    "docs/architecture/reference-applications/corpus-review/documents/doc-005.txt": "c344443a4e1b819df01354913250b00965bdbd126b83e2b0b74063cbe0f9c384",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py": "5fcc5db4e398e9136206b502015054bbe6d548dc1c0aef4a8273268c0a3c84b3",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/references.json": "4f684d130994c66871fb8fa691bf407f17791c1b843b9c5f38968049f95edd71",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/README.md": "2639e35a21f223d397e8620f145a5a670cf3db103612ae6174748feffe39226a",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculation-results.json": "56fd6f44cbe6e927d3eb71e06bc60358903631b78e2b3d97fac70c989228db43",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/access-owner-record.json": "2445bd706124db5464e39d5fceb68bbadc6f33a2f7576750d8074044dcbe0218",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/workload-candidate.json": "dca06b1d4e2e344f22607654dd8893160f0c95d0cfd5dc87fefe3c1d848d4195",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/__pycache__/calculate_workload.cpython-312.pyc": "3128212a0f5ed39f4f98637a884b736c92f5b8f752151f5a2b3d87298f8ff403",
+    "docs/architecture/reference-applications/prompt-pack/examples/R09/rendered-prompt.txt": "b80e085290bf6559cf9c254a2b6fc78ab12045e53a5e4c7bb48a103bada2d4ad",
+    "docs/architecture/reference-applications/prompt-pack/examples/P09/rendered-prompt.txt": "f55f1dd4c2ad66e1d0cdadee886fd982fe99eb9b75d157a8a7f7882025612a22",
+    "docs/architecture/reference-applications/prompt-pack/examples/P06/rendered-prompt.txt": "b6b958a60b96416a3d85cefa160486c6a046e8e8126487e9051488efd3971c33",
+    "docs/architecture/reference-applications/prompt-pack/examples/P05/rendered-prompt.txt": "e911e5af68ca265a31ae59392535b984e5bcb3df8e5235a4af025f87695f20e0",
+    "docs/architecture/reference-applications/prompt-pack/examples/P08/rendered-prompt.txt": "439bf39676257a1334602577f033cb500a9b4f58ad9eb9ecc12508bcf9538bd6",
+    "docs/architecture/reference-applications/prompt-pack/examples/R07/rendered-prompt.txt": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+    "docs/architecture/reference-applications/prompt-pack/examples/P10/rendered-prompt.txt": "8da28716ca06df89da18c368aacc2bdd3b88860f21a8b981c2c4ced977e96b43",
+    "docs/architecture/reference-applications/prompt-pack/examples/R05/rendered-prompt.txt": "5fd7ecb7574cbf9276328a1b9fda749f49229ad05b1de5700748ba98e9744a0d",
+    "docs/architecture/reference-applications/prompt-pack/examples/P07/rendered-prompt.txt": "380e5fd16aed4de5aeef641e58fc353a2df963d20e0dc02b7770c3f129df0dae",
+    "docs/architecture/reference-applications/prompt-pack/examples/R04/rendered-prompt.txt": "b6ad29a048716dc68dc6c208056a0b4997bcfca377c1f49ef878890854cc8001",
+    "docs/architecture/reference-applications/prompt-pack/examples/R01/rendered-prompt.txt": "bbb9be9e695a3156bc935d57017777ca507987bb551ad1dcc60b16eba52b4c92",
+    "docs/architecture/reference-applications/prompt-pack/examples/R06/rendered-prompt.txt": "98fbb96d4d72de57b539035107aa4fe64103bb81fe58aa6798a7c698e67ee395",
+    "docs/architecture/reference-applications/prompt-pack/examples/P12/rendered-prompt.txt": "b260caadca26af51f2adf2c03007c2a6ab881f2c11b00df9a6d063ccd2d61d62",
+    "docs/architecture/reference-applications/prompt-pack/examples/P03/rendered-prompt.txt": "66bc0c161353783b6491ae7983958412d02360288837dc41781a7d02b5f2ba97",
+    "docs/architecture/reference-applications/prompt-pack/examples/P02/rendered-prompt.txt": "d3151e1514638635a5ff58d224b24260dd135e66cc09bc57a8e519188c75c1b6",
+    "docs/architecture/reference-applications/prompt-pack/examples/R10/rendered-prompt.txt": "55b49c31f62ad9f91b99af91b50366ba2ffd6aa2194f13be643816cd67b87d31",
+    "docs/architecture/reference-applications/prompt-pack/examples/P04/rendered-prompt.txt": "448467682be1820d711530e4be5b1aac9339a0bdcd50fccaf0ca6d368bf1233d",
+    "docs/architecture/reference-applications/prompt-pack/examples/P11/rendered-prompt.txt": "10364de6f3aaf21c7bfa5f524f43df8dd50f2374c56c2e1102f83cdb0f3b9bee",
+    "docs/architecture/reference-applications/prompt-pack/examples/R03/rendered-prompt.txt": "ed1682621e373fedbe58d9cdd8315cee763a518a5f88e4b242670ed89fcbcaf0",
+    "docs/architecture/reference-applications/prompt-pack/examples/R08/rendered-prompt.txt": "6cf80b753101b596e63abe9eecd1bd0446e1ddc5c60711c5262a26de65c297bb",
+    "docs/architecture/reference-applications/prompt-pack/examples/R02/rendered-prompt.txt": "72876081a07e289c1fdbe4989f42bc322dc097f047a2c8a8fa797bd7b50f63ec",
+    "docs/architecture/reference-applications/prompt-pack/examples/P01/rendered-prompt.txt": "ac3d27d2f9ff030cf8874dde1cced23b37122dc57a69de878700b1dd13497989",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/request_extraction.md": "39cc2d3568a29f89603ac6f374d0daaac0edee52c9aec9fc07d49059eb3214cf",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/supplier_review.md": "beb6df45464f3b926a42b227d4f1017450a43736d0062d5dca77e9eb70694a66",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_request.md": "a0d5e0e441d6ecc40dd54a942a392eb759df21b5d1e47f57254da55b8ebca158",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/approval_calculation.md": "20b8d3f52599c420b3b1000b713f3ab86a173ab6ca70c4cfcd9d7c92a0072641",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/po_proposal.md": "cfb45748cf198614c0c44bf03b4a7f1a28f067ac1b76faf980f783d1df6858ba",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/final_candidate.md": "b1091f70506fd644651f836f0acd3b9531491016ddd58602917f0ca757c25203",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/policy_search.md": "e31997abfc87c13a399d2de602b6dc54e0842887d0bfb839de8c2ecb8f3ce559",
+    "docs/architecture/reference-applications/prompt-pack/templates/procurement/system.md": "c37546b68421c5b3c3a447b63b24ed41e56b8f14cb7a422e3382d57127550416",
+    "docs/architecture/reference-applications/prompt-pack/templates/rag/assistant_system.md": "46b78f160de82c07362256a4485b0f2a1c8524fa7819ca18f30b297c5d10f362"
+  },
+  "limits": [
+    "Estimates and listed public prices only; no actual account quotas or costs confirmed.",
+    "API owner/admin and project details still unknown; Nour must obtain them.",
+    "Extra embedding-admission HTTP overhead and preflight fee applicability unresolved.",
+    "Alaa candidate support does not approve numeric workloads, spend or runtime limits.",
+    "Existing canonical schema findings, joint decisions and runtime gates remain open."
+  ]
+}

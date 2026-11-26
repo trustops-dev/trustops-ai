@@ -1,0 +1,11 @@
+{
+  "id": "P06",
+  "title": "Propose the approval calculation",
+  "objective": "Delegate the requirement to the governance-owned calculation.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/approval_calculation.md"
+  ],
+  "compliance": "USD 5000.00 and manager are explicitly illustrative fixture values inherited from the paper example, never configured business defaults. The model does not perform the comparison. If D3 is unaccepted in real configuration, runtime suppresses this step before I/O.",
+  "gate": "CONDITIONAL: D3/GD-01 calculation permission plus normal policy/budget admission; not granted by this pack."
+}

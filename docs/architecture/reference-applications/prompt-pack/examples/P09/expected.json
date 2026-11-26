@@ -1,0 +1,39 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "create_purchase_order",
+  "output": {
+    "request_id": "req-demo-01",
+    "supplier_id": "SUP-088",
+    "item_description": "business laptops",
+    "quantity": 20,
+    "total_amount": "16000.00",
+    "currency": "USD"
+  },
+  "later_authored_observation": {
+    "status": "CREATED",
+    "data": {
+      "po_id": "PO-DEMO-01",
+      "request_revision": "req-demo-01-r1",
+      "supplier_id": "SUP-088",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "mock": true,
+      "created_at": "2026-11-01T10:02:00Z",
+      "idempotency_key": "runtime-po-demo-key-01",
+      "result_ref": "po-result-demo-01"
+    },
+    "error": null
+  },
+  "runtime_delivery": {
+    "message": "Mock PO PO-DEMO-01 is confirmed for this request: 20 business laptops, total USD 16000.00.",
+    "claimed_actions": [
+      {
+        "action_type": "create_purchase_order",
+        "claimed_status": "created",
+        "po_id": "PO-DEMO-01",
+        "supporting_result_ref": "po-result-demo-01"
+      }
+    ]
+  }
+}

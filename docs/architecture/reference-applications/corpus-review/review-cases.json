@@ -1,0 +1,204 @@
+{
+  "artifact_kind": "REVIEW_ONLY_EXPECTATIONS_NOT_INFERENCE_INPUT",
+  "annotation_status": "PROPOSED_AWAITING_AHMED_ALAA_REVIEW",
+  "metric_unit": "Document-level review labels here only; executable evaluation unit remains joint decision",
+  "inference_rule": "Do not load this file, expected answers, relevance/conflict labels or snapshot purpose into prompts or classifier features. Runtime input is only question, trusted scope and selected source text/metadata.",
+  "cases": [
+    {
+      "query_id": "q-001",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does an urgent request above T bypass purchasing approval?",
+      "authored_returned_documents": [
+        "doc-001"
+      ],
+      "authored_selected_documents": [
+        "doc-001"
+      ],
+      "review_only_relevant_documents": [
+        "doc-001"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "No. Under the proposed synthetic rule, urgency does not waive the required approval.",
+      "required_support_phrases": [
+        "Urgency does not waive approval or supplier checks."
+      ],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-002",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave require five working days of notice, and is it automatically approved?",
+      "authored_returned_documents": [
+        "doc-003"
+      ],
+      "authored_selected_documents": [
+        "doc-003"
+      ],
+      "review_only_relevant_documents": [
+        "doc-003"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-005"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "The emergency exception removes the notice requirement; it does not establish leave approval.",
+      "required_support_phrases": [
+        "Unplanned emergency leave is exempt",
+        "does not establish approval of the leave"
+      ],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-003",
+      "snapshot_id": "corpus-review-s01",
+      "question": "May an urgent repair run outside the maintenance window just because it is urgent?",
+      "authored_returned_documents": [
+        "doc-004"
+      ],
+      "authored_selected_documents": [
+        "doc-004"
+      ],
+      "review_only_relevant_documents": [
+        "doc-004"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "No. The exception requires incident-commander authorization and a recorded incident reference.",
+      "required_support_phrases": [
+        "only when the incident commander has authorized the exception",
+        "An urgent label by itself is not authorization."
+      ],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-004",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support, and does the ticket authorize a replacement purchase?",
+      "authored_returned_documents": [
+        "doc-005"
+      ],
+      "authored_selected_documents": [
+        "doc-005"
+      ],
+      "review_only_relevant_documents": [
+        "doc-005"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "ANSWER",
+      "expected_response_summary": "Use the internal service portal with asset tag and fault description; the ticket does not authorize a replacement purchase.",
+      "required_support_phrases": [
+        "internal service portal",
+        "does not authorize buying a replacement device"
+      ],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-005",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support?",
+      "authored_returned_documents": [
+        "doc-006",
+        "doc-008"
+      ],
+      "authored_selected_documents": [],
+      "review_only_relevant_documents": [
+        "doc-005"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-006",
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "NO_RELEVANT_EVIDENCE",
+      "expected_response_summary": "Abstain: the returned passages do not support the requested device-support process.",
+      "required_support_phrases": [],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-006",
+      "snapshot_id": "corpus-review-s02",
+      "question": "What is the deadline for submitting receipts after a business trip?",
+      "authored_returned_documents": [
+        "doc-006",
+        "doc-007"
+      ],
+      "authored_selected_documents": [
+        "doc-006",
+        "doc-007"
+      ],
+      "review_only_relevant_documents": [
+        "doc-006",
+        "doc-007"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [
+        "doc-006",
+        "doc-007"
+      ],
+      "expected_outcome": "CONFLICTING_EVIDENCE",
+      "expected_response_summary": "Abstain: the applicable passages say ten and fifteen calendar days, with no verified precedence.",
+      "required_support_phrases": [],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-007",
+      "snapshot_id": "corpus-review-s01",
+      "question": "How many parking permits may an employee request?",
+      "authored_returned_documents": [
+        "doc-008"
+      ],
+      "authored_selected_documents": [],
+      "review_only_relevant_documents": [],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "NO_RELEVANT_EVIDENCE",
+      "expected_response_summary": "Abstain: the corpus review has no parking-permit entitlement evidence.",
+      "required_support_phrases": [],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result"
+    },
+    {
+      "query_id": "q-008",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave need five working days of notice?",
+      "authored_returned_documents": [
+        "doc-003"
+      ],
+      "authored_selected_documents": [
+        "doc-003"
+      ],
+      "review_only_relevant_documents": [
+        "doc-003"
+      ],
+      "review_only_irrelevant_documents": [
+        "doc-008"
+      ],
+      "review_only_conflicting_documents": [],
+      "expected_outcome": "INCOMPLETE_SUPPORT",
+      "expected_response_summary": "Reject the truncated selection and abstain; do not infer the emergency rule from the planned-leave sentence alone.",
+      "required_support_phrases": [],
+      "ranking_and_score": "Not measured; returned order is authored, not a retrieval-quality result",
+      "intentionally_invalid_selection": {
+        "document_id": "doc-003",
+        "start": 0,
+        "end": 118,
+        "text": "In this synthetic HR example, planned leave requests should be submitted five working days before the first leave day.",
+        "reason": "Condition without exception/approval caveat; must not be published as a valid policy chunk"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "P03",
+  "title": "Retrieve applicable purchasing policy",
+  "objective": "Prepare a policy lookup proposal before supplier or approval steps.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/policy_search.md"
+  ],
+  "compliance": "top_k=1 is a fixture input, not a production default or Enterprise RAG k. The fixed mock score is illustrative, never confidence. A hypothetical valid policy check/dispatch is required before this authored result could be observed.",
+  "gate": null
+}
