@@ -51,7 +51,7 @@ Evaluated when `t = create_purchase_order`. For any other tool the result is `NO
 | AP-08 | `a > T`, `APPROVED`, bound amount, currency, supplier or level differs from the proposal | `FAIL` | `APPROVAL_BINDING_MISMATCH` |
 | AP-09 | `a > T`, `APPROVED`, decided after the proposal event | `FAIL` | `APPROVAL_AFTER_PROPOSAL` |
 | AP-10 | `a > T`, `APPROVED`, bound correctly, decided before the proposal, validity rule holds | `PASS` | `APPROVAL_VALID` |
-| AP-11 | `a` missing, not a decimal, or not positive | `ERROR` | `AMOUNT_INVALID` |
+| AP-11 | `a` missing, not a decimal, not positive, or carrying more fraction digits than the rule allows | `ERROR` | `AMOUNT_INVALID` |
 | AP-12 | `c` not in `C`, or no threshold configured in `c` | `ERROR` | `CURRENCY_UNSUPPORTED` |
 | AP-13 | No approval rule can be found: the configuration, the approval policy block or its currency rules are absent or empty | `ERROR` | `POLICY_CONFIG_MISSING` |
 | AP-14 | `t ≠ create_purchase_order` | `NOT_APPLICABLE` | `TOOL_OUT_OF_SCOPE` |
@@ -60,6 +60,9 @@ Evaluated when `t = create_purchase_order`. For any other tool the result is `NO
 | AP-17 | The configuration is present but unusable: the comparator is absent or not `GT`, or a currency rule is present with its threshold or approval level missing | `ERROR` | `POLICY_CONFIG_INVALID` |
 | AP-18 | The approval-validity block is missing from the configuration (contract §5.3 V01) | `ERROR` | `POLICY_CONFIG_MISSING` |
 | AP-19 | `a > T`, `APPROVED`, but the approver reference does not resolve to an approver whose level satisfies the required level | `FAIL` | `APPROVER_NOT_ELIGIBLE` |
+| AP-20 | `a > T`, record `STALE_REVISION` | `FAIL` | `APPROVAL_STALE_REVISION` |
+| AP-21 | `a > T`, record `EXPIRED`, or any status that is not recognised | `ERROR` | `EVIDENCE_UNRESOLVED` |
+| AP-22 | `a > T`, `APPROVED`, but the bound amount cannot be read as a plain positive decimal within the configured pattern and precision | `ERROR` | `EVIDENCE_UNRESOLVED` |
 
 Notes:
 
@@ -67,6 +70,9 @@ Notes:
 - **Approval status is authoritative.** It is read from governance's approval record, not from a status string in the request.
 - **Proposal versus request mismatch.** If the amount, currency or supplier in the proposal's arguments differs from the immutable request snapshot, that is not a policy case. It is a check-level `CONTEXT_MISMATCH` (§5, case AG-06), which fails closed.
 - **Validity rule.** AP-10 requires the validity rule in the policy set (contract §5.3): valid while the bound request revision is current and the record has not become `DENIED` or `CANCELLED`; no time-based expiry in the MVP.
+- **Statuses (AP-20, AP-21).** The approval record carries one of `PENDING`, `APPROVED`, `DENIED`, `CANCELLED`, `STALE_REVISION` and `EXPIRED` (trace schema, `SA-05`). `STALE_REVISION` is reported as AP-07 reports a record bound to another revision. The MVP has no time-based expiry (contract §5.3), so a record that claims to be `EXPIRED`, like any status that is not recognised, is inconsistent evidence: it is `ERROR`, never a pass and never a violation.
+- **The bound amount (AP-22).** The approved amount is read as strictly as the proposal amount: plain digits, the configured pattern, positive, finite and within the rule's fraction digits. A value such as `+1000.01`, `1000.010`, `01000.01`, `1.00001E3`, a padded value, `1_000.01` or non-ASCII digits is unresolved evidence, because the amount that was approved is unknown. It is not reported as a mismatch. Amounts equal in value, such as `1000.1` and `1000.10`, match.
+- **Order of evaluation.** The first fault found is the one reported, and later checks do not run: (1) the tool is in scope; (2) the configuration is usable; (3) the amount is readable (AP-11); (4) the currency has a rule (AP-12); (5) the amount fits the rule's precision (AP-11); (6) the amount exceeds `T`, otherwise AP-01 or AP-02 and no evidence is read. Then the record: (7) it exists (AP-03); (8) its status (AP-04 to AP-06, AP-20, AP-21). For an `APPROVED` record: (9) event and record agree (AP-15); (10) decision order (AP-09, AP-16); (11) request revision (AP-07); (12) the bound amount is readable (AP-22); (13) amount, currency, supplier and level match (AP-08); (14) the approver is eligible (AP-19). Every policy result of a check is still recorded separately; the order applies inside this one policy.
 - **Missing versus invalid configuration (AP-13, AP-17, AP-18).** A block that is absent or empty is missing. A block or field that is present but unusable is invalid. So an absent rule list is AP-13, a rule with a null threshold is AP-17, and an absent validity block is AP-18. When more than one fault is present, the comparator is judged first, then the currency rules, then the validity block.
 
 ---

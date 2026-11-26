@@ -1,7 +1,7 @@
 {
   "source": {
     "spec": "docs/architecture/governance/policy-truth-tables.md",
-    "spec_revision": "governance 0.6 addendum 7",
+    "spec_revision": "governance 0.6 addendum 10 (implementation baseline B2, GD-35)",
     "status": "DRAFT matrices. Test-fixture values only. Not a policy release, not a configuration acceptance, not runtime validation.",
     "covers": "Section 2 (AP), 3 (TS), 4 (SU), 5 (AG) and 5.1 (CB) of the spec.",
     "not_covered": [
@@ -373,6 +373,72 @@
       "description": "APPROVED, but the approver's level does not satisfy the required level",
       "input_overrides": { "approval": { "approver_level_satisfies_required": false } },
       "expected": { "result": "FAIL", "reason_code": "APPROVER_NOT_ELIGIBLE" }
+    },
+    {
+      "id": "AP-20", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "record status STALE_REVISION is reported as an approval bound to another revision",
+      "input_overrides": { "approval": { "status": "STALE_REVISION" } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_STALE_REVISION" }
+    },
+    {
+      "id": "AP-21.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "record status EXPIRED: the MVP has no expiry, so the evidence is inconsistent",
+      "input_overrides": { "approval": { "status": "EXPIRED" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-21.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a status that is not in the status set",
+      "input_overrides": { "approval": { "status": "REVOKED" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-21.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "status APPROVED in lowercase; statuses match exactly",
+      "input_overrides": { "approval": { "status": "approved" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount carries a plus sign",
+      "input_overrides": { "approval": { "bound": { "total_amount": "+1000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount is padded with whitespace",
+      "input_overrides": { "approval": { "bound": { "total_amount": " 1000.01 " } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses an exponent",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1.00001E3" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.d", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount has a leading zero",
+      "input_overrides": { "approval": { "bound": { "total_amount": "01000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.e", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount has more fraction digits than the rule allows",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1000.010" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.f", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses an underscore separator",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1_000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.g", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses full-width digits",
+      "input_overrides": { "approval": { "bound": { "total_amount": "１０００.０１" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
     },
     {
       "id": "TS-01.a", "policy": "PROC-TOOL-STAGE-01",

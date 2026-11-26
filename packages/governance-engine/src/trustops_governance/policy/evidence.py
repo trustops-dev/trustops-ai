@@ -10,10 +10,14 @@ from enum import StrEnum
 
 
 class ApprovalStatus(StrEnum):
+    """The statuses an approval record can carry, as the trace schema lists them (SA-05)."""
+
     PENDING = "PENDING"
     APPROVED = "APPROVED"
     DENIED = "DENIED"
     CANCELLED = "CANCELLED"
+    STALE_REVISION = "STALE_REVISION"
+    EXPIRED = "EXPIRED"
 
 
 class DecisionOrder(StrEnum):
