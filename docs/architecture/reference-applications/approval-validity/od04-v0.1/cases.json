@@ -1,0 +1,702 @@
+{
+  "artifact_kind": "PAPER_REVIEW_EXPECTATIONS_NOT_CANONICAL_TRACES",
+  "version": "0.1",
+  "decision_id": "OD-04",
+  "illustrative_identifiers": true,
+  "amounts": "A, T, C are symbolic; no OD-03 acceptance inferred",
+  "proposed_design_only": true,
+  "cases": [
+    {
+      "case_id": "OD04-C01",
+      "title": "Unchanged request remains pending",
+      "clauses": [
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Existing matching approval request is still PENDING.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "WAIT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C02",
+      "title": "Unchanged approved request",
+      "clauses": [
+        "V01",
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Explicit accepted no-expiry rule, current APPROVED record, exact binding, authorized synthetic actor, active request and all continuation prerequisites; no previous creation claim.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "PREPARE_FRESH_PROPOSAL_AND_CHECK",
+        "may_prepare_new_po_proposal_after_validation": true,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [
+        "APPROVED decision",
+        "trusted observation and binding validation",
+        "APPROVED transition",
+        "new PO proposal",
+        "fresh bound policy check",
+        "later agreed atomic dispatch boundary"
+      ],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C03",
+      "title": "Old approval remains valid under explicit no-expiry rule",
+      "clauses": [
+        "V01",
+        "V02"
+      ],
+      "review_condition": "Same conditions as C02; record is old but authoritative and current; age alone supplies no expiry.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "PREPARE_FRESH_PROPOSAL_AND_CHECK",
+        "may_prepare_new_po_proposal_after_validation": true,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C04",
+      "title": "Validity configuration absent",
+      "clauses": [
+        "V01",
+        "V02"
+      ],
+      "review_condition": "Status text says APPROVED but accepted validity rule/no-expiry setting is absent.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C05",
+      "title": "Amount revised",
+      "clauses": [
+        "V03",
+        "V07"
+      ],
+      "review_condition": "Amount changes from revision rev-1 to rev-2. Old approval and calculation bind rev-1. New revision starts only under existing root/claim guards.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "REQUEST_CAPTURED",
+        "review_action": "START_NEW_REVISION_WITH_ROOT_GUARDS",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C06",
+      "title": "Supplier item quantity or currency revised",
+      "clauses": [
+        "V03"
+      ],
+      "review_condition": "Each listed material change creates rev-2 and invalidates rev-1 derived evidence; no root allowance reset.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "REQUEST_CAPTURED",
+        "review_action": "START_NEW_REVISION_WITH_ROOT_GUARDS",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C07",
+      "title": "New revision with identical amount",
+      "clauses": [
+        "V03"
+      ],
+      "review_condition": "rev-2 has the same amount as rev-1; identity differs and old approval is not reusable.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "REQUEST_CAPTURED",
+        "review_action": "START_NEW_REVISION_WITH_ROOT_GUARDS",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C08",
+      "title": "Business request cancelled before late approval",
+      "clauses": [
+        "V04",
+        "V05"
+      ],
+      "review_condition": "Business request is no longer active; later APPROVED observation cannot resume it.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C09",
+      "title": "Denied current request",
+      "clauses": [
+        "V04"
+      ],
+      "review_condition": "Authoritative decision is DENIED; no automatic reopen, reapproval or replacement request.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C10",
+      "title": "Cancelled approval request",
+      "clauses": [
+        "V04"
+      ],
+      "review_condition": "Authoritative decision is CANCELLED; retain original approval-request identity and history.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C11",
+      "title": "Revocation before PO proposal",
+      "clauses": [
+        "V04",
+        "V06"
+      ],
+      "review_condition": "Linked authoritative CANCELLED record supersedes the earlier grant before proposal.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C12",
+      "title": "Revocation after ALLOW but before dispatch boundary",
+      "clauses": [
+        "V04",
+        "V06"
+      ],
+      "review_condition": "A newer linked cancellation wins the agreed serialized ordering before dispatch; stale ALLOW cannot be consumed.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "SUPPRESS_STALE_DISPATCH",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [
+        "APPROVED record v1",
+        "proposal",
+        "ALLOW bound to v1",
+        "CANCELLED record v2",
+        "stale dispatch suppressed"
+      ],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C13",
+      "title": "Revocation after uncertain dispatch",
+      "clauses": [
+        "V06",
+        "V08"
+      ],
+      "review_condition": "Original PO invocation was dispatched; result is UNKNOWN. Later revocation changes no historical outcome.",
+      "state_before": "PO_CREATION",
+      "expected": {
+        "state_after": "PO_CREATION",
+        "review_action": "READ_ONLY_RECOVERY_PENDING",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C14",
+      "title": "Approval after earlier blocked proposal",
+      "clauses": [
+        "V02",
+        "V05",
+        "V07"
+      ],
+      "review_condition": "Earlier proposal remains BLOCKED. New decision precedes a new proposal; all current bindings, root guards and continuation conditions must hold.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "PREPARE_FRESH_PROPOSAL_AND_CHECK",
+        "may_prepare_new_po_proposal_after_validation": true,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [
+        "old PO proposal",
+        "BLOCK and suppression",
+        "APPROVED decision",
+        "trusted validated continuation",
+        "new PO proposal",
+        "fresh policy check"
+      ],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C15",
+      "title": "Approval after an already dispatched unauthorized action",
+      "clauses": [
+        "V05",
+        "V08"
+      ],
+      "review_condition": "Late decision cannot retroactively certify the original dispatch. Preserve its known or UNKNOWN effect; route authorization inconsistency for owner evaluation.",
+      "state_before": "PO_CREATION",
+      "expected": {
+        "state_after": "PO_CREATION",
+        "review_action": "PRESERVE_EFFECT_AND_REPORT_INCONSISTENCY",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C16",
+      "title": "Model or user claims approval",
+      "clauses": [
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Claim contains an approval ID or role but no resolvable trusted record; no grant inferred.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C17",
+      "title": "Record absent or wrong identity",
+      "clauses": [
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Read-only observation returns no matching record; never fall back to initial submission.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C18",
+      "title": "Approval observation technically fails",
+      "clauses": [
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Service unavailable or malformed observation. No valid grant; only separately accepted bounded read retries may occur; never write retry.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "STOP_OBSERVATION_WITHOUT_AUTHORIZATION",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C19",
+      "title": "Future or unorderable decision",
+      "clauses": [
+        "V02",
+        "V05"
+      ],
+      "review_condition": "Decision is future-dated, contradicts source order, or cannot be established before this PO proposal. Timestamp equality alone proves no order.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C20",
+      "title": "Continuation loses durable binding or budget state",
+      "clauses": [
+        "V07"
+      ],
+      "review_condition": "Restart cannot restore trusted identity, counters, original key or claim/outcome evidence; no new write allowance.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C21",
+      "title": "Duplicate continuation after an existing dispatch claim",
+      "clauses": [
+        "V06",
+        "V07",
+        "V08"
+      ],
+      "review_condition": "Same root already has a claimed/dispatched PO with unknown result. Duplicate callback/trace cannot create again.",
+      "state_before": "PO_CREATION",
+      "expected": {
+        "state_after": "PO_CREATION",
+        "review_action": "READ_ONLY_RECOVERY_PENDING",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C22",
+      "title": "Supplier or policy becomes invalid after approval",
+      "clauses": [
+        "V02",
+        "V06"
+      ],
+      "review_condition": "Before dispatch supplier eligibility/calculation/policy version changes. Halt; reestablish evidence only via a permitted path, no invented backward transition.",
+      "state_before": "APPROVED",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C23",
+      "title": "Authoritative calculation says approval not required",
+      "clauses": [
+        "V02",
+        "V07"
+      ],
+      "review_condition": "Accepted calculation yields approval_required=false; retain NOT_REQUIRED and no approval evidence. Other state/supplier/policy guards remain mandatory.",
+      "state_before": "APPROVAL_CALCULATED",
+      "expected": {
+        "state_after": "APPROVED",
+        "review_action": "RETAIN_NOT_REQUIRED_BASIS",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C24",
+      "title": "Conflicting approval-source records",
+      "clauses": [
+        "V02",
+        "V04"
+      ],
+      "review_condition": "Multiple apparently matching records conflict and authoritative ordering/currentness cannot be resolved. Do not choose whichever permits execution.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C25",
+      "title": "Grant has wrong binding level or actor authority",
+      "clauses": [
+        "V02"
+      ],
+      "review_condition": "Any request/revision/supplier/amount/currency/level/policy binding differs or the actor authority is unsupported; a cap/role string alone is insufficient.",
+      "state_before": "APPROVAL_PENDING",
+      "expected": {
+        "state_after": "APPROVAL_PENDING",
+        "review_action": "HALT",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C26",
+      "title": "Revocation after confirmed completion",
+      "clauses": [
+        "V08"
+      ],
+      "review_condition": "Original matching PO result is confirmed and the application completed. Later cancellation of approval does not cancel the PO or erase completion.",
+      "state_before": "COMPLETION",
+      "expected": {
+        "state_after": "COMPLETION",
+        "review_action": "PRESERVE_COMPLETION_APPEND_REVOCATION",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    },
+    {
+      "case_id": "OD04-C27",
+      "title": "Revised request while old PO outcome is unknown",
+      "clauses": [
+        "V03",
+        "V07",
+        "V08"
+      ],
+      "review_condition": "A proposed new revision cannot bypass an unresolved creation for the same business root. Reconcile old invocation read-only before deciding any new work.",
+      "state_before": "PO_CREATION",
+      "expected": {
+        "state_after": "PO_CREATION",
+        "review_action": "READ_ONLY_RECOVERY_PENDING",
+        "may_prepare_new_po_proposal_after_validation": false,
+        "direct_dispatch_authorized_by_this_example": false,
+        "preserve_history": true,
+        "reset_root_budget_or_claim": false
+      },
+      "authoritative_order_example": [],
+      "evidence_required": {
+        "trusted_approval_source": "Existing authoritative approval-request record or explicit observation failure, as applicable",
+        "request_identity": "Current immutable request revision and original business root",
+        "continuation": "Trusted runtime origin and parent/continuation linkage when resuming",
+        "dispatch": "Existing invocation/claim/outcome if any; absence must be established, not assumed from missing trace data"
+      }
+    }
+  ]
+}

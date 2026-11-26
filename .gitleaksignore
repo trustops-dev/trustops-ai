@@ -1,3 +1,9 @@
+# Verified false positive: SHA-256 of the public access-owner-record.json document.
+# Scope is limited to this historical commit, path, rule and line.
 c8503cb8075c68105bf66155849b45b411e5b731:docs/architecture/reference-applications/validation/workload-review-refresh.json:generic-api-key:757
+
+# Verified synthetic API-key fixture used to test header sanitization and redaction.
 01cc6641dc1663e43f6c1b4dceb75188fed08ea3:tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py:generic-api-key:298
+
+# Verified mock idempotency key for the missing-approval gate test; not a credential.
 865c9f746fe4fc40f3389c59e12f8dfdb5d83b45:tests/unit/reference_applications/test_procurement_boundaries.py:generic-api-key:458

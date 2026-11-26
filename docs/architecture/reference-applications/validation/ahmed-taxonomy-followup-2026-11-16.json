@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-16",
+  "scope": "OFFLINE_DOCUMENT_RECONCILIATION",
+  "reviewed_pr28": "ce12629659bed86c0e1316c473626e0c835a8882",
+  "reviewed_pr29": "ebdefc194d397804dca8238caf64842cb367ecaf",
+  "taxonomy_precedence": "MATCHES_REVIEWED_TAXONOMY_FILE",
+  "evaluator_runtime": "NOT_RUN",
+  "joint_mapping": "OPEN",
+  "plan_decisions": "PENDING",
+  "fresh_windows_validation": {
+    "date": "2026-11-16",
+    "python": "3.12.14",
+    "uv": "0.13.0",
+    "validation_input": "Exact staged Git bytes in a temporary snapshot",
+    "commands": [
+      {
+        "command": "python -S docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output <outside-repository>/manual.json",
+        "result": "PASS",
+        "checks": 1020
+      },
+      {
+        "command": "python -S docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output <outside-repository>/corpus.json",
+        "result": "PASS",
+        "checks": 411
+      },
+      {
+        "command": "uv run --locked --all-packages pytest -q",
+        "result": "PASS",
+        "tests": 35
+      },
+      {
+        "command": "uv run --locked ruff check .",
+        "result": "PASS"
+      },
+      {
+        "command": "uv run --locked ruff format --check .",
+        "result": "PASS",
+        "files": 116
+      },
+      {
+        "command": "uv run --locked mypy",
+        "result": "PASS",
+        "source_files": 12
+      }
+    ],
+    "initial_main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+    "initial_pr27": "99c803f808ecd011bf0081954ff4a752fa780346",
+    "initial_pr29": "ebdefc194d397804dca8238caf64842cb367ecaf",
+    "rag_followup_published": "c9aa20cb2432660eb9984e0ad0744f11f65a7845",
+    "scope": "Local synthetic and document consistency; joint decisions remain open"
+  }
+}

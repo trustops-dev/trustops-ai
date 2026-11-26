@@ -1,0 +1,11 @@
+{
+  "id": "P09",
+  "title": "Propose a PO requiring explicit runtime authorization",
+  "objective": "Keep model intent separate from the later ALLOW, dispatch and effect.",
+  "templates": [
+    "procurement/system.md",
+    "procurement/po_proposal.md"
+  ],
+  "compliance": "At proposal time, no dispatch or creation is established. The authored CREATED observation shown here is a separate hypothetical later result, possible only after the runtime obtains current bound ALLOW and atomically claims APPROVED -> PO_CREATION plus the initial dispatch. Then it validates the result before COMPLETION. Runtime key and approval references never appear in these six arguments.",
+  "gate": "CONDITIONAL: all preceding accepted contracts, valid approval or NOT_REQUIRED, current independent ALLOW, budget admission and one atomic local dispatch claim."
+}

@@ -1,8 +1,126 @@
 # Cross-team handoff checklist
 
-Prepared for review; **not sent, acknowledged or signed**. This task does not contact teammates. S1-01 requires written acceptance from Ahmed, Mohab, Mohamed and Alaa. Malak receives application/UX evidence and performs the S1-07 independent closeout.
+**Mohamed's published follow-up — received 2026-11-18:** [Exact-revision record](reviews/mohamed-07fd922-pr29-response-2026-11-18.md) confirms scoped S1-01 GIVEN wording in PR #28 at `5064a2e`. His PR #29 correction review at PR #28 `07fd922` is **ACCEPT for an isolated synthetic scaffold, with AMEND items** at application `9735513`. Nour's subsequent corrections are published on PR #29 at `163b32f813efb4e1e616f3bcfede9f73dcf6c7ad` and await Mohamed's re-review. Frontend audit remains red on picomatch `GHSA-fc5q-39xc-vjpf` with no published patch. Joint/runtime and G01 gates remain open. The `fb27a20` sign-off observations below describe the earlier revision.
+
+**Mohab supplied v1.13 archive reviewed 2026-11-18 — AMEND; G01 HOLD.** [Review and remaining findings](reviews/mohab-v1.13-review-2026-11-18.md) record 12/12 matching manifest entries, 101/101 schema cases (2,788 assertions), 22/22 diagnostic tests and passing bundled probes. Additional mocked probes reproduce count-only admission without evidence and a worker that survives timeout after session-lock release. Native Windows reproduction, release identity and pushed implementation revision remain open. RR-05 and the targeted RR-04 boundary are fixed for their tested scope. This is offline draft evidence; OD-05, OD-LLM-01/02, joint/runtime acceptance and Week 2 completion remain open. Earlier schema snapshots below remain historical; no new E01–E27 row mapping is inferred.
+
+**Mohamed S1-01 sign-off received 2026-11-18 — GIVEN, scoped and conditional.** [Dated response and verified revision](reviews/mohamed-fb27a20-signoff-2026-11-18.md) record acceptance of four policy-evidence principles against application commit `479cab0`, with seven conditions pinned to governance PR #28 `fb27a20`. The README at that revision still says NOT GIVEN; synchronization is pending. Five supplied hashes match; the fresh checker passes 31/31. Five hosted checks pass and frontend dependency audit fails; its advisory is unidentified. Joint acceptance, policy release/OD-14, runtime validation and the six plan decisions remain open. G01 stays HOLD and paid-use authorization stays USD 0. Earlier dated records below remain historical evidence.
+
+**Mohamed's OD-03 pairing reply — received 2026-11-16:** [Exact reviewed revision and scoped disposition](reviews/mohamed-policy-pairing-2026-11-16.md) accept the two synthetic policy texts and no retrievable `PROC-TOOL-STAGE-01` source; they amend the proposed `policy_set_version` alias to the corpus release (`policy_kb_version`), distinct from executable `policy_bundle_version`. The [corrected proposed membership](corpus-review/proposed-policy-kb-v0.1.json) retains the same two source files; its changed exact-file SHA-256 is in the [pairing draft](corpus-review/policy-bundle-pairing-v0.1.md). Mohab confirms producer/trace/index mappings and source versioning; Alaa/Ahmed review lineage/fixtures. Ingestion and runtime stay OPEN. The email date/message reference were not supplied.
+
+**Ahmed taxonomy and PR #29 replies — received 2026-11-16:** [Taxonomy reconciliation](reviews/ahmed-taxonomy-followup-2026-11-16.md) resolves Ahmed's evaluator interpretation of Tier 3 versus Tier 4 and recognizes Mohamed's sent PR #28 response. The PR #29 review at `ebdefc1` accepts local RAG structure with identity correlation, contradictory/consistent selected-source fixtures, and raw provider-message sanitization amendments. Nour's PR #29 follow-up is published at `c9aa20cb2432660eb9984e0ad0744f11f65a7845`; local synthetic validation is recorded on that branch. Mohab/Ahmed confirm canonical retrieval/citation/snapshot mapping and runtime adapter sanitization; Ahmed/Mohamed reconcile SC-03 injected RCA; Alaa maps dataset/gates; Nour's OD-08/GD-26 plan decisions remain pending. Older “precedence unresolved” wording below describes the earlier response.
+
+**Alaa's four follow-ups — recorded 2026-11-16, partial/conditional:** [Scoped decision and admission matrix](reviews/alaa-four-followups-2026-11-16.md) records OD-13 design acceptance with retention/redaction open, dataset/security naming pending Nour/Ahmed, root accounting accepted with numbers proposed, and her four-debit G01 reservation amendment. Messages 2 and 4 repeat the same admission conditions. The historical “unnamed plan approver” observation is superseded by Nour's recorded team-lead authority, but his six row-level decisions remain pending. Alaa's v1.10 review does not accept Mohab's separately supplied v1.11 retrieval-fault fields. The current G01 implementation and admission evidence remain held; no live request or full specialist acceptance is inferred. Original email dates and message IDs were not supplied.
+
+**Ahmed scoped evaluator response — recorded 2026-11-15:** [ACCEPT/AMEND record and source](reviews/ahmed-9e6affa-evaluator-response.md) cover SC-03A/B, OD-09/GD-26, four effect outcomes, non-timeout UNKNOWN, RAG citation/support/abstention, security projection and OD-08 technical sequencing. Ahmed proposes direct retrieval-fault fields; Mohab must accept/amend the canonical event/validator/fixtures. OD-09/GD-26 remains open for Tier 3 versus Tier 4 precedence, EC-11, Alaa gate mapping and Nour's row-level plan decision. Email sent date was not supplied; this is not full evaluator or runtime sign-off.
+
+**G01 diagnostic handoff — SENT, user-confirmed 2026-11-15; AWAITING RESPONSE:** Nour reports sending the project-use pause message and separate requests to Mohab (tested single-G01 runner and sanitized classification) and Alaa (reservation/margin and admission evidence). [Sent-message and admission record](workload-review/od-llm02-v0.2/g01-handoff-admission-2026-11-15.md) distinguishes reported sending from delivery, acknowledgement, exclusive-use confirmation and reviewer acceptance. No message IDs or exact sending times were supplied. The dashboard snapshots and Windows read-only ledger report do not establish remaining quota. No third live call or model promotion is recorded.
+
+**Current G01 response status:** Alaa's admission response is **RECEIVED / AMEND**, requiring a four-debit reservation and fresh two-observation, consumer-pause and ledger evidence. Mohab supplied a v1.11 draft runner, but its Windows portability, shared historical ledger, 60-second/31-second timing and transport-evidence semantics are unresolved. The older “AWAITING RESPONSE” paragraph above preserves the original sent-message record; it does not describe the current reply status. [Current findings](reviews/alaa-four-followups-2026-11-16.md#g01-admission-amendment-from-messages-2-and-4). Live admission remains HOLD.
+
+**Final governance response reviewed 2026-11-14.** [Exact-revision review and artifact hashes](reviews/mohamed-7c26168-governance-response.md) record PR #28 at `7c26168ea47a611d233202e21f0c0b9f7a5cb3c8`. Mohamed accepts OD-03 synthetic values (USD only, `5000.00`, strict `>`, `manager`, decimal strings, no FX), with row 6 amended to `procurement-policy-set-v0.1.yaml`, version `synthetic-procurement-policy-set-v0.1`. The supplied checker reproduced 31/31 committed candidate cases locally. His OD-04 and OD-12 dispositions, SA-01–SA-09, stage/verdict clarification and SC-03A/SC-03B distinction are recorded with remaining owners. Mohab transport/digest and mechanism dispositions, corpus pairing, runtime verification and full cross-team acceptance remain open.
+
+**Plan ownership corrected — 2026-11-14:** [Six decision groups](plan-approval-routing.md) route OD-02/06/08/16, GD-26/OD-09 and Malak's proposed UI schedule through their technical reviewers, then to Nour as team lead for explicit row-level decisions on the internal plan. No separate approver is part of the team's process. Neither specialist replies nor the proposed 70-task HTML plan is a plan decision.
+
+**Malak's scoped UI response — reported 2026-11-07, recorded 2026-11-09:** [Nine fixture-based distinctions and reconciliation](reviews/malak-479cab0-ui-response.md) are received as owner verification against handoff `479cab0`: 137 tests reported, 13 traces, browser inspection. Her UI work was uncommitted; no branch or independent rerun was supplied. Both attached plan snapshots report 134 tests and 11 fixtures, with no exact test/fixture count bridge. TRD-45's tri-state presentation is acknowledged; Mohamed’s stage/verdict distinction is supplied at `7c26168`; canonical field names, cancelled/failed-invocation fixture evidence, live API and S1-07 remain open.
+
+**Provider evidence routed — 2026-11-09:** [Two bounded sanitized sessions](workload-review/od-llm02-v0.2/bounded-live-results-2026-11-09.json) reached C01 PASS and stopped at G01 with separate timeout/unknown and provider-or-SDK errors. Windows offline tests were 25/25 per operator-supplied terminal evidence. Mohab reviews transport/error classification and full-envelope count/admission; Alaa reviews free-tier quota/headroom and workload admission; Nour retains failed-attempt accounting and coordinates any separately admitted diagnostic. No G01/G02/G03/E01/E02 live PASS or model promotion is recorded. USD 0 paid-use authorization stays in force.
+
+**Current mapping — 2026-11-09:** [Draft v1.8 E01–E27 assessment](schema-v1.8-evidence-mapping.md) and [exact field witnesses](schema-v1.8-evidence-mapping.json) cover all 27 requirements: **11 OK, 9 CHANGE REQUIRED, 7 OPEN**. The [fresh rerun and package observations](schema-v1.8-review-observations.json) record 2,306 assertions and 52/52 cases against actual files; email/bundled-report identities disagree. OD-05 stays blocking pending corrected hashes, row fixes and scoped review. [v1.6 mapping](schema-v1.6-evidence-mapping.md) is historical; no runtime or joint sign-off is inferred.
+
+**Credential and runner update — 2026-11-08.** Replacement `TrustOpsAI-dev` and old-key absence were observed on 2026-11-07; local storage is Nour’s confirmation. Live authentication is not verified. The [bounded compatibility runner](../../../tools/provider_compatibility/README.md) implements isolated synthetic probes with offline SDK tests. Full-envelope token admission, live results and application acceptance remain open. Nour runs the local probes and returns sanitized results; Mohab reviews interface/admission integration; Alaa reviews quota/workload evidence. No model promotion or shared approval is implied.
+
+**Workload candidates — 2026-11-07 snapshot.** The [free-only 0.2 baseline](workload-review/od-llm02-v0.2/README.md) and [Flash Lite 0.3 alternative](workload-review/od-llm02-v0.3/README.md) supersede the earlier USD 10 allocation proposal with a USD 0 paid-spend requirement. Ownership is user-reported and free-tier quotas are screenshot-observed as recorded in the supplied update; capture times, remaining quota and runtime compatibility remain unverified. Flash remains the current proposed primary. Lite promotion requires scoped application/interface/workload review and executed evidence. Alaa’s prior response remains partial/conditional against its original revision. Credential replacement is observed and local storage is user-confirmed. Quota headroom, API execution, OD-03 integration, OD-04 acceptance and the existing schema gates remain pending. The later scoped OD-03 disposition is recorded below.
+
+**Alaa response recorded — 2026-11-06:** [Scoped review of commit 479cab0](reviews/alaa-479cab0-review.md) received from user-supplied email text. Overall status: **PARTIAL / CONDITIONAL**. Candidate/principle acceptance and remaining conditions are recorded separately; no full specialist sign-off or joint freeze. The email date and message reference were not supplied.
+
+**OD-03 current disposition — 2026-11-14.** Mohamed accepts synthetic review rows 1–5 and supplies the amended row-6 YAML/version at PR #28 commit `7c26168`. The independent rerun agrees on all 31 cases. Mohab transport/digest and Nour corpus pairing/integration remain open. [Final revision record](reviews/mohamed-7c26168-governance-response.md). The [earlier email record](reviews/mohamed-479cab0-od03-response.md) is historical.
+
+**OD-04 current disposition — 2026-11-14.** [Mohamed’s final scoped response](reviews/mohamed-7c26168-governance-response.md) accepts V01/V02/V03/V07/V08 and amended V04/V05 wording, with V06 mechanism amended. [Application position 0.2](approval-validity/od04-v0.2.md) records the outstanding SA-02 consumption-time currentness/atomicity, SA-03 terminal representation, SA-04 chronology and continuation topology decisions with Mohab/Nour.
+
+
+**2026-11-02 confirmation received:** Mohamed and Mohab confirmed the approval-observation distinction, as reported by the user. [OD-APP-OBS-01](open-decisions.md#approval-observation-confirmation) records trusted read-only observation of the existing approval request, distinct from retrying its initial submission. This closes that wording/interface-meaning item; full schema/governance sign-offs and implementation verification remain pending.
+
+**2026-11-02 corpus/boundary completion:** RAG revision 0.9 adds the [synthetic corpus specification](corpus-review/README.md); [ten manual boundary cases](manual-boundary-cases.md) include denied approval and symbolic below/equal/above T. These complete the remaining owner drafting items, not shared acceptance or runtime tests. See [current closeout](week1-owner-closeout.md).
+
+**Decision/handoff consolidation — 2026-11-05.** Owner drafting history is preserved below; current questions and routing are in the targeted review table. No new acceptance or sent message is recorded.
+
+The current handoff is [week1-owner-closeout.md](week1-owner-closeout.md); use [week1-review-manifest.json](week1-review-manifest.json) to identify each actual file revision/hash. Do not request acceptance of every document as revision 0.6: the bundle contains independently versioned documents. The owner requests below remain valid; their old revision references are historical. Older messages below retain their historical status; the G01 messages above are user-confirmed sent, not sent by this editing task. Scoped observation confirmation is recorded above; complete specialist acceptance has not been recorded.
+
+**Historical freeze-candidate label — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+**Historical v1.6 supplied review — 2026-11-05:** [v1.6 schema / governance 0.4 joint review](https://chatgpt.com/library?file_id=libfile_f4d5624725148191a8a7bac3df276434&account_id=personal), R16-01–09. Preserve verified prior fixes. The [v1.5 review](schema-v1.5-review.md) is historical; its E01–E27 mapping is retained unchanged for historical comparison; the v1.6 mapping is retained separately. The current v1.8 assessment appears above; suite reproduction does not imply acceptance.
+
+## Week 2 cross-team review and sign-off matrix
+
+Current routing distinguishes received scoped responses from final sign-off: Ahmed’s reply to `9e6affa` and Alaa’s reply to `479cab0` are recorded above; full specialist and cross-team acceptance remain pending. Earlier revision 0.6 checklists below are historical requests, not signatures. Existing imports and author checks do not establish acceptance.
+
+| Reviewer | Review area | Status | Issues | Resolution / evidence required |
+|---|---|---|---|---|
+| Mohab | Trace/schema fit | PENDING — CHANGES REQUIRED | R16-01–06 and R16-09 corrections; R16-07/08 joint alignment | Correct files and return exact hashes, focused regression evidence and dispositions for reassessment; retain prior fixes. Nour has completed the v1.8 E01–E27 reassessment; Mohab must correct exact package identities and the 9 CHANGE REQUIRED rows, with 7 OPEN rows routed to named reviewers |
+| Ahmed | Failure/evaluator fit | SCOPED RESPONSE RECEIVED — ACCEPT/AMEND; JOINT CLOSURE OPEN | [Ahmed review of `9e6affa`](reviews/ahmed-9e6affa-evaluator-response.md) accepts SC-03A/B, four outcomes including non-timeout UNKNOWN, citation/semantic support distinction and qualitative RAG abstention; amends direct retrieval-fault event representation; conditional OD-08 technical sequence | Resolve taxonomy Tier 3 workflow versus Tier 4 policy precedence and EC-11 re-derived FAIL case with Mohamed; obtain Mohab canonical retrieval-fault and SA-09 mapping, Alaa dataset/gate interpretation and Nour plan disposition. No full schema/runtime acceptance. |
+| Mohamed | Governance fit | S1-01 SIGN-OFF GIVEN — SCOPED, CONDITIONAL | [Four accepted principles, seven conditions and verified fb27a20](reviews/mohamed-fb27a20-signoff-2026-11-18.md) against application `479cab0`; 31/31 offline rerun | Commit sign-off synchronization; resolve remaining shared mappings/integration and frontend audit. No policy-release or runtime acceptance. |
+| Alaa | Versioning fit | RESPONSE RECEIVED — PARTIAL / CONDITIONAL | [ALA-01–11](reviews/alaa-479cab0-review.md): accepted lineage/candidate/grouping scope; hashing/projection/access/numeric-budget/joint-mapping conditions remain | Return explicit conventions with Mohab; review Nour’s access/workload evidence and dependent Ahmed/Mohamed mappings. No unconditional sign-off or frozen index inferred |
+| Malak | UI evidence fit / S1-07 | RESPONSE RECEIVED — FIXTURE-BASED, CONDITIONAL | [Nine distinctions](reviews/malak-479cab0-ui-response.md) reported on uncommitted UI; TRD-22/23 display/mapping evidence, canonical fields, 137 versus 134 tests, 13 traces versus 11 plan fixtures remain open | Return branch/commit, test logs and fixture index; coordinate Mohab/Mohamed mapping; independently close S1-07 after required sign-offs |
+
+## Targeted review routing
+
+The [pending-decision table](open-decisions.md#pending-decisions-and-exact-requests) holds the complete proposal, responsible reviewer, exact question and closure evidence for each ID below. Use those questions verbatim or send a scoped subset; the detailed checklists later in this file are supporting acceptance criteria, not extra unassigned decisions. Previously sent requests and received replies are recorded in their respective review records; remaining questions are scoped follow-ups, not new full-packet requests.
+
+| Recipient / coordinator | Decision IDs to answer | Exact requested response and evidence | Nour's next action |
+|---|---|---|---|
+| Mohab | OD-05, OD-05-MAP, OD-12-CLAIM/RETRY/OUTCOME/BUDGET; technical parts of OD-04/10/13/LLM-01/RAG-01 | Return canonical corrections and exact files/tests; specifically accept/amend Ahmed's proposed direct RAG retrieval-fault status/details, technical error versus healthy zero-hit, SA-09 outcome storage, supplier-boundary and claim/currentness mappings. | Reconcile positive/negative producer fixtures and exact hashes with [Ahmed's scoped response](reviews/ahmed-9e6affa-evaluator-response.md), then obtain Ahmed/Alaa consumer dispositions. Do not label a proposed retrieval-fault field as already canonical. |
+| Mohamed | OD-02/04/06/09/16, OD-05-MAP, OD-12 children | Final governance dispositions and supplied OD-03 YAML/checker reviewed at `7c26168`; local independent result 31/31 PASS | Coordinate SA-01–SA-09 with Mohab, SA-09 also with Ahmed/Alaa; retain plan and runtime gates. [Final record](reviews/mohamed-7c26168-governance-response.md) |
+| Ahmed | OD-09, interpretation portions of OD-12-OUTCOME, OD-13 and OD-05; sufficiency/metric-unit parts of OD-10 | Scoped response received: see [review and exact source](reviews/ahmed-9e6affa-evaluator-response.md). Accepted distinct SC-03 scopes, purchasing outcomes and qualitative RAG rubric; proposed direct retrieval-fault fields. | Reconcile policy/workflow precedence and EC-11 evidence with Mohamed; Mohab decides retrieval-fault schema/fixture representation, Alaa maps dataset/gate, Nour records internal plan decision. Do not request the whole review again. |
+| Alaa | OD-13, OD-LLM-01/02, OD-RAG-01; dataset order in OD-08; workload in OD-12-BUDGET; gate interpretation in OD-09 | Response received: retain accepted candidate/grouping principles; finalize explicit hash/missingness/projection conventions with Mohab, review supplied workload/access evidence, and complete dependent GD-26 mapping. See ALA-01–11; empirical thresholds stay deferred. | Supply API-project owner/access and quota/workload evidence; coordinate Mohab’s conventions/projection correction and Ahmed/Mohamed outcome mapping. Record closure evidence per ALA item; do not request the whole review again. |
+| Malak | OD-14 UX acknowledgement; presentation consequences of OD-05-MAP/12-OUTCOME | Owner report received for all nine fixture-based distinctions; [scoped record](reviews/malak-479cab0-ui-response.md) identifies TRD-45 amendment, Mohamed’s confirmed TRD-22/23 distinction and pending canonical/display evidence. Return a committed branch, exact 137-test evidence, and reconcile plan's 134 tests and fixture counts. | Compare exact revision and fixture index when supplied, route field/stage questions to Mohab/Mohamed, then request independent S1-07 only after specialist conditions close. |
+| Nour — team lead and internal plan decision owner | OD-02/06/08/16, GD-26/OD-09 and 12-task UI amendment | [Decision packet](plan-approval-routing.md) specifies proposed scope/date/dependency changes and required specialist evidence. Team-lead ownership was directly confirmed 2026-11-14; no row has been accepted by that fact alone. | Collect scoped evidence and record separate dated ACCEPT/AMEND/DECLINE per row against exact plan revision, tasks, capacity and gates. No plan change active. |
+| Nour — own preparation | OD-03 integration, OD-04/12 application fit and handoff | Supplied YAML/checker and the [proposed policy-KB pairing](corpus-review/policy-bundle-pairing-v0.1.md) each pass 31/31 against their respective text; symbolic snapshots remain historical | Obtain Mohamed text, Mohab transport/digest, and Alaa/Ahmed lineage/fixture review of the exact candidate before ingestion; review SA dispositions and implement agreed atomic/currentness/continuation later. [Final governance record](reviews/mohamed-7c26168-governance-response.md) |
+
+For final acceptance, each of Mohab, Ahmed, Mohamed and Alaa answers OD-14 for their scope. Malak's acknowledgement and later independent closeout are separate. No recipient is asked to approve an entire bundle merely because one semantic distinction was confirmed.
+
+### Scoped response format
+
+```text
+Reviewer:
+Date:
+Reviewed files/revisions/hashes:
+Decision IDs:
+Response for each ID: ACCEPT / AMEND / DECLINE
+Replacement wording or values if AMEND:
+Evidence / fixture / test references:
+Conditions still open and responsible person:
+Scope: design / offline fixture verification / runtime verification
+```
+
+Nour records the response once in the owning decision row, links its evidence and updates the sign-off record only for the accepted scope. A runtime check cannot be marked executed from a paper fixture or validator result.
+
+### Concrete response to Malak's 37 Nour-owned rows
+
+| Field group | Application evidence / response | Remaining fit |
+|---|---|---|
+| APP-01/02/03; TRX-04 | Application identity/behavior/config refs, run state separate from reliability decision | WG-01/06; application completion never implies reliability PASS |
+| TRD-01/02/10/11/12/13/14 | Run/request/model/provenance details, manual/replay/live mode, known versus absent metadata | WG-06/08; no fictitious provider response or measurement |
+| TRD-22/23 | E09/E10: accepted/attempted fine transitions and separate coarse stage | WG-01; preserve pending/in-flight state and mapping version |
+| TRD-30/31 | E03/E11: policy lookup and raw/normalized supplier snapshot | WG-03/05; exact source versions |
+| TRD-40/41/44/45/46/47 | E15–20/E25: proposals, raw/parsed args, stop layer, calls/results, recovery | WG-02/04/08; TRD-45 tri-state effect and original-vs-recovered presentation now owner-reported on fixtures; canonical field mapping pending |
+| TRD-50/51 | E21/E25: candidate/delivered response, exact supporting result, pending/error | WG-04/08; raw false claim remains visible even when corrected before delivery |
+| RAG-01/02/04/05/06/07/08 | E04–07: query/config, retrieval outcome, returned docs, score semantics, selection/sufficiency | WG-05/06; empty success ≠ retrieval error; no inferred metric zero |
+| RAG-11/12/13/14/16/18/19 | E22–25: answer/claims/citations/structural checks, abstention, snapshot, outcome | WG-05/08; structural citation validity ≠ semantic support |
+
+This accounts for all 37 rows assigned to Nour in the owner packet. Mohamed continues to own approval/policy truth; Alaa version conventions; Ahmed evaluator scores. Mohab derives graph/API projections. No frontend design or implementation is added.
+
+### Alaa configuration freeze checklist
+
+Before implementation: agree provider/model and effective parameters/API/SDK surface, prompt/tool versions, retrieval/embedding/store/corpus/index settings, policy/approval rules, mock/continuation/idempotency budgets and their immutable references. Before dataset generation: freeze code revision, application/config/source hashes, corpus/index membership, scenario family/template/recipe versions, seed/mode, independent labels/qrels and group-split assignment; keep controls and variants in one group. Returned provider versions are recorded only if available; a stable alias is not proof of an immutable backend. API secrets are never lineage. Actual runtime compatibility, quota and workload tests remain separate future gates.
+
+The preserved owner checklists below remain detailed acceptance requests. Use the current manifest and its SHA-256 in every new response; the original revision 0.6 references identify the earlier request only.
+
+Historical preparation status for the checklists below: they were prepared before outreach. Current publication and Alaa’s scoped response are recorded above; no full specialist signature is inferred. S1-01 requires written acceptance from Ahmed, Mohab, Mohamed and Alaa. Malak receives application/UX evidence and performs the S1-07 independent closeout.
 
 ## Mohab — S1-02: canonical trace and interfaces
+
+Confirmed semantic item: OD-APP-OBS-01. Remaining related work is canonical submission/observation evidence and adapter verification that observation cannot invoke the creating path; the semantics do not need to be requested again.
 
 Provide: [E01–E27](trace-evidence-contract.md), tool proposal/check/dispatch separation, state-stage map, per-call/request versions, pending continuation semantics and four manual walkthrough scripts.
 
@@ -10,6 +128,8 @@ Additional provider handoff: record Google Gemini API and its exact frozen model
 
 Require back:
 
+- [ ] Disposition and closure evidence for R16-01–09 against the exact v1.6 joint-review inputs; preserve verified fixes and distinguish expected failing application traces from inconsistent claims of verified success.
+- [ ] Corrected specification, validator, runner and fixtures with exact byte hashes and self-contained commands; explain optional regression cases and make reported mutations/counts match the code.
 - [ ] Every evidence row mapped to a canonical schema field/event in `packages/contracts`, including parent/order/evidence references.
 - [ ] Distinct proposed, blocked/not-executed, executed/failed, unknown-outcome and successful actions.
 - [ ] Canonical treatment of missing/null/not applicable/redacted/unavailable values; payload size and immutable source-snapshot resolution.
@@ -38,6 +158,8 @@ Nour does not implement the evaluator, classifier, security scorer or RCA rankin
 
 ## Mohamed — S1-04: policy interaction and approval authority
 
+Confirmed semantic item: OD-APP-OBS-01. Approval validity, authoritative decision evidence, broader continuation rules and submission-replay policy retain their separate review scope.
+
 Provide: [state contract](procurement-state-contract.md), five tool contracts, trusted context vs model arguments, request revision binding, pre-check timing, no-dispatch conditions and supplier/approval evidence.
 
 Require back:
@@ -49,7 +171,7 @@ Require back:
 - [ ] Binding of ALLOW to proposal/state/arguments and check-to-dispatch mutation handling.
 - [ ] S2/S3 integration-date reconciliation D4 and procurement-only applicability D5.
 - [ ] Identify the S3-03 supplier-breach fixture for SC-03, approve isolated boundary-test scope and confirm that the real policy engine suppresses PO dispatch without bypassing application guards.
-- [ ] Written policy-evidence sign-off.
+- [x] Written policy-evidence sign-off received: [Mohamed, 2026-11-18](reviews/mohamed-fb27a20-signoff-2026-11-18.md), GIVEN for four scoped principles subject to seven conditions; repository synchronization and joint/runtime acceptance remain pending.
 
 Purchasing approvals, post-run reliability decisions and human trace reviews remain distinct concepts. No governance implementation is provided here.
 
@@ -90,14 +212,28 @@ No eighth screen, dashboard implementation or fabricated run screenshots are sup
 
 | Reviewer | Required review | Status | Contract revision | Decision/date/evidence |
 |---|---|---|---|---|
-| Mohab | Schema fit | PENDING | 0.5 for review | Not received |
-| Ahmed | Taxonomy/evaluation fit | PENDING | 0.5 for review | Not received |
-| Mohamed | Policy evidence fit | PENDING | 0.5 for review | Not received |
-| Alaa | Versioning fit | PENDING | 0.5 for review | Not received |
-| Malak | UX acknowledgement / later S1-07 | PENDING | 0.5 for review | Not received |
+| Mohab | Schema fit | V1.13 ARCHIVE REVIEWED — AMEND; JOINT SIGN-OFF PENDING | [Supplied archive review](reviews/mohab-v1.13-review-2026-11-18.md) | 2026-11-18; admission, worker lifetime, Windows probes and release/publication remain open; focused review does not replace E01–E27 mapping |
+| Ahmed | Taxonomy/evaluation fit | SCOPED ACCEPT/AMEND RECEIVED; JOINT SIGN-OFF PENDING | [Review of `9e6affa`](reviews/ahmed-9e6affa-evaluator-response.md) | Email date unavailable; OD-09/GD-26, direct retrieval-fault amendment, dataset mapping and runtime evidence open |
+| Mohamed | Policy evidence fit | GIVEN — SCOPED, CONDITIONAL; REPOSITORY SYNC PENDING | Application `479cab0`; governance `fb27a20` | [Dated sign-off, 2026-11-18](reviews/mohamed-fb27a20-signoff-2026-11-18.md); seven conditions retained, no runtime/OD-14 acceptance |
+| Alaa | Versioning fit | PENDING | Current manifest + reviewer scope | Not received |
+| Malak | UX acknowledgement / later S1-07 | RECEIVED — CONDITIONAL, FIXTURE-BASED | [Scoped report](reviews/malak-479cab0-ui-response.md); no UI branch/commit | Nine distinctions reported; canonical fields, TRD-22/23 display/mapping, test/fixture reconciliation and independent S1-07 open |
 
 Each acceptance must name exact document/config revision, accepted items, unresolved conditions, reviewer and date. Silence is not sign-off. Record changes once in the relevant contract and link the revision from this checklist.
 
 ## OD-08 schedule review — plan owner
 
-Provide the [three specifications and schedule proposal](failure-planning-matrix.md). Request agreement to the explicit S4-06 scope extension, separate Week 7 recipe dependencies from Week 8 classifier/RCA dependencies, and preserve the existing Week 4 and Sprint 3 gates. Identify S3-03 fixture handoff and confirm capacity/dataset sequencing. No new Jira task ID, deadline acceptance or plan edit has been assumed. Status: PENDING review.
+Review the [three specifications and schedule proposal](failure-planning-matrix.md) within the [six-group decision packet](plan-approval-routing.md). Nour, as team lead, records his decision on the explicit S4-06 scope extension after reviewing Week 7 recipe dependencies, Week 8 classifier/RCA dependencies, preserved Week 4/Sprint 3 gates, S3-03 fixture handoff and capacity/dataset sequencing. He separately decides the proposed 12-task UI amendment after Malak supplies a branch and reconciles test/fixture counts. No new Jira task ID, deadline acceptance or plan edit has been assumed. Status: PENDING TECHNICAL EVIDENCE AND TEAM-LEAD DECISIONS.
+
+## v1.8 mapping handoff — 2026-11-09
+
+The [current 27-row mapping](schema-v1.8-evidence-mapping.md) distinguishes verified static fixes (2,306 assertions, 52/52 cases) from 9 CHANGE REQUIRED and 7 OPEN requirements. Mohab: reconcile email/report SHA-256 and assertion count to exact bytes; address E02–E04, E06–E08, E14, E17 and E25, and return corrected positive/negative examples. Mohamed + Mohab: source record-sequence ordering, approval/supplier version currentness at claim, and separate immutable consumption record. Ahmed/Alaa: metric/selection and inference/provenance conventions. Nour: reassess corrected exact revision. The supplied suite and this mapping do not constitute schema acceptance.
+
+## v1.6 mapping handoff — 2026-11-06
+
+Nour has completed the current row assessment. Mohab should use [the detailed mapping](schema-v1.6-evidence-mapping.md) and exact input hashes to correct E09, E13, E14, E17, E18, E20, E21, E25 and E27. Return corrected schema, validator, runner, fixtures and targeted positive/negative results. The nine OPEN rows name the responsible reviewers and exact questions; do not treat them as confirmed defects. Mohamed reviews approval/policy semantics and R16-07/08 with Mohab; Ahmed reviews evidence/failure meaning; Alaa reviews configuration/projection lineage. Nour reassesses the returned revision. OD-03 has a later scoped synthetic-value acceptance and representation amendment, with YAML and independent check supplied at `7c26168` and shared integration still open; OD-04's application response remains separately unaccepted. OD-APP-OBS-01 semantics remain closed.
+
+## Workload/access follow-up to Alaa — prepared, not sent
+
+**Workload proposal prepared — 2026-11-06:** [API ownership and workload candidate 0.1](workload-review/od-llm02-v0.1/README.md) supplies execution/call/token/retry/concurrency estimates and public-price token subtotals. Actual API project/access/billing owner, account quotas and applicable charges remain unconfirmed. ALA-05/ALA-08 and OD-LLM-02/OD-12-BUDGET stay open; no live execution is authorized.
+
+Nour has prepared the estimate and explicit unknown-owner/access record. Next, obtain the actual owner/admin and project/tier/quota evidence, then ask Alaa to ACCEPT/AMEND the assumptions and allocation. Mohab confirms preflight/usage/embedding-admission and storage/accounting interfaces; Mohamed retains purchasing-boundary review. Candidate preparation is complete; account identification and execution readiness are not. Do not reopen Alaa’s accepted design principles or mark his conditions closed from this estimate.

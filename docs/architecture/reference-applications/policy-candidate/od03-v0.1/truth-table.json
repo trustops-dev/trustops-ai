@@ -1,0 +1,407 @@
+{
+  "document_kind": "OFFLINE_CONDITIONAL_EXPECTATIONS",
+  "candidate_version": "0.1",
+  "not_a_tool_response_or_authorization": true,
+  "assumption": "Arithmetic expectations apply only to this proposed configuration in offline review; runtime_enabled remains false.",
+  "cases": [
+    {
+      "case_id": "OD03-C01",
+      "label": "One cent below threshold",
+      "input": {
+        "total_amount": "4999.99",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "4999.99"
+      }
+    },
+    {
+      "case_id": "OD03-C02",
+      "label": "Exactly at threshold",
+      "input": {
+        "total_amount": "5000.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      }
+    },
+    {
+      "case_id": "OD03-C03",
+      "label": "One cent above threshold",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": true,
+        "approval_level": "manager",
+        "normalized_total": "5000.01"
+      }
+    },
+    {
+      "case_id": "OD03-C04",
+      "label": "Existing illustrative high amount",
+      "input": {
+        "total_amount": "16000.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": true,
+        "approval_level": "manager",
+        "normalized_total": "16000.00"
+      }
+    },
+    {
+      "case_id": "OD03-C05",
+      "label": "Smallest positive quantum",
+      "input": {
+        "total_amount": "0.01",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "0.01"
+      }
+    },
+    {
+      "case_id": "OD03-C06",
+      "label": "Exact integer text",
+      "input": {
+        "total_amount": "5000",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      }
+    },
+    {
+      "case_id": "OD03-C07",
+      "label": "One fractional digit",
+      "input": {
+        "total_amount": "5000.0",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "CALCULATED",
+        "approval_required": false,
+        "approval_level": null,
+        "normalized_total": "5000.00"
+      }
+    },
+    {
+      "case_id": "OD03-C08",
+      "label": "Overscale below boundary",
+      "input": {
+        "total_amount": "4999.999",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C09",
+      "label": "Overscale above boundary",
+      "input": {
+        "total_amount": "5000.001",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C10",
+      "label": "Trailing zero still overscale",
+      "input": {
+        "total_amount": "5000.000",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C11",
+      "label": "Binary-float JSON number",
+      "input": {
+        "total_amount": 5000.01,
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C12",
+      "label": "Integer JSON number",
+      "input": {
+        "total_amount": 5000,
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C13",
+      "label": "Boolean",
+      "input": {
+        "total_amount": true,
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C14",
+      "label": "Null",
+      "input": {
+        "total_amount": null,
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C15",
+      "label": "Zero",
+      "input": {
+        "total_amount": "0.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C16",
+      "label": "Negative",
+      "input": {
+        "total_amount": "-1.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C17",
+      "label": "Exponent",
+      "input": {
+        "total_amount": "5e3",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C18",
+      "label": "Whitespace",
+      "input": {
+        "total_amount": " 5000.00 ",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C19",
+      "label": "Thousands separator",
+      "input": {
+        "total_amount": "5,000.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C20",
+      "label": "Leading plus",
+      "input": {
+        "total_amount": "+5000.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C21",
+      "label": "Leading zeros",
+      "input": {
+        "total_amount": "05000.00",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C22",
+      "label": "Non-finite text",
+      "input": {
+        "total_amount": "NaN",
+        "currency": "USD"
+      },
+      "expected": {
+        "review_outcome": "REJECT_BEFORE_CALCULATION",
+        "reason": "INVALID_AMOUNT"
+      }
+    },
+    {
+      "case_id": "OD03-C23",
+      "label": "Unsupported currency",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "EGP"
+      },
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "UNSUPPORTED_CURRENCY"
+      }
+    },
+    {
+      "case_id": "OD03-C24",
+      "label": "No implicit currency casing",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "usd"
+      },
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "UNSUPPORTED_CURRENCY"
+      }
+    },
+    {
+      "case_id": "OD03-C25",
+      "label": "Absent configuration",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "configuration_present": false,
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "MISSING_CONFIGURATION"
+      }
+    },
+    {
+      "case_id": "OD03-C26",
+      "label": "Retrieved policy disagrees",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "policy_text_matches": false,
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "TEXT_CONFIG_CONFLICT"
+      }
+    },
+    {
+      "case_id": "OD03-C27",
+      "label": "Policy version mismatch",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "policy_version_matches": false,
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "POLICY_VERSION_MISMATCH"
+      }
+    },
+    {
+      "case_id": "OD03-C28",
+      "label": "Tool amount differs from trusted request",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "trusted_request_matches": false,
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "REQUEST_CONTEXT_MISMATCH"
+      }
+    },
+    {
+      "case_id": "OD03-C29",
+      "label": "Missing threshold",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "config_mutation": {
+        "threshold": null
+      },
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "INVALID_CONFIGURATION"
+      }
+    },
+    {
+      "case_id": "OD03-C30",
+      "label": "Missing approval level",
+      "input": {
+        "total_amount": "5000.01",
+        "currency": "USD"
+      },
+      "config_mutation": {
+        "approval_level": null
+      },
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "INVALID_CONFIGURATION"
+      }
+    },
+    {
+      "case_id": "OD03-C31",
+      "label": "Accidental inclusive comparator",
+      "input": {
+        "total_amount": "5000.00",
+        "currency": "USD"
+      },
+      "config_mutation": {
+        "comparator": "GTE"
+      },
+      "expected": {
+        "review_outcome": "UNRESOLVED",
+        "reason": "INVALID_CONFIGURATION"
+      }
+    }
+  ]
+}

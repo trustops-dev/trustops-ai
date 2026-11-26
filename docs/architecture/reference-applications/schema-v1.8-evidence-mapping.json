@@ -1,0 +1,568 @@
+{
+  "mapping_revision": "1.0",
+  "date": "2026-11-09",
+  "reviewed_repository_branch_head": "f8201554b59f49f1b011ca31db2b2696ac80dc9f",
+  "latest_main_read_only_git": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+  "schema_version": "Draft v1.8 external archive; not verified pushed canonical schema",
+  "source_file": "updated_schemas_v8.md",
+  "source_sha256": "2ed02536183bfa6e967cc3cedd7a798b4d9165987936d8dc64e76390b6fee57a",
+  "validator_file": "validate_s1_01_schema_v1_8.py",
+  "validator_sha256": "7640819601d5022ba5c9fe0b5c6186891f88f8d073d560e1b741d656e03ca8a3",
+  "runner_file": "run_s1_01_regression_suite.py",
+  "runner_sha256": "11c5237fc9730251cb9a1a02bdd0a39e85939d9d1268d8c28ee4c3d7dfae48fc",
+  "supplied_report_sha256": "698a25a56c25a411b5d7e3128867ef5cc971ce415e58fa5c1d14c168ab5df7d8",
+  "fresh_report_sha256": "61a57d5b626d645289f404e51e978b3f1e3f00754a253bb1515c1e7ce56bbe1f",
+  "fresh_report_summary": {
+    "total_cases": 52,
+    "positive_cases": 8,
+    "negative_cases": 44,
+    "isolated_negative_cases": 41,
+    "compound_negative_cases": 3,
+    "cases_passed": 52,
+    "cases_failed": 0,
+    "baseline_assertions_checked": 2306,
+    "all_cases_passed": true
+  },
+  "email_source": "user-supplied Pasted markdown.md (message date not supplied)",
+  "email_supplied_assertions": 2264,
+  "actual_assertions": 2306,
+  "package_identity": "MISMATCH_EMAIL_AND_BUNDLED_REPORT_HASHES_AND_ASSERTION_COUNT",
+  "status_definitions": {
+    "OK": "Scoped field/event representation and cited static probes; no semantic, runtime, or full-schema sign-off.",
+    "CHANGE REQUIRED": "Specific missing field/event/semantic invariant or disagreement with current owner contract.",
+    "OPEN": "Concretely represented in part but exact joint interpretation or interface remains undecided."
+  },
+  "status_counts": {
+    "OK": 11,
+    "CHANGE REQUIRED": 9,
+    "OPEN": 7
+  },
+  "requirements_changed": false,
+  "canonical_schema_changed": false,
+  "full_schema_acceptance": "OPEN_PENDING_CORRECTED_PACKAGE_IDENTITY_AND_SPECIALIST_ACCEPTANCE",
+  "rows": [
+    {
+      "id": "E01",
+      "application_step": "User request, both",
+      "minimum_evidence": "Raw request, normalized fields/query, revision, application identity, synthetic-data marker",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": null,
+        "path": "request.request_revision"
+      },
+      "v1_8_source": "\u00a73.1; WT1\u20134",
+      "assessment": "Envelope retains request identity, revision, raw input, normalized container and synthetic marker. Normalization linkage is E08.",
+      "reviewers": [
+        "Nour",
+        "Mohab"
+      ]
+    },
+    {
+      "id": "E02",
+      "application_step": "Model call, both",
+      "minimum_evidence": "Prompt/template version, actual rendered input/context reference, selected provider, configured model identifier, returned model identifier/version when available, model/configuration version, generation parameters, model response/refusal/error, latency and token/usage metadata when available",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e29",
+        "path": "attributes.rendered_prompt_or_messages"
+      },
+      "v1_8_source": "\u00a73.2/\u00a74.6; WT1 e29",
+      "assessment": "Rendered input/output and token usage are present, but the model_call shape lacks a complete refusal/provider-error and per-call requested-versus-observed configuration mapping. Mohab/Alaa must map these explicitly.",
+      "reviewers": [
+        "Mohab",
+        "Alaa",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E03",
+      "application_step": "Procurement policy retrieval",
+      "minimum_evidence": "Raw/effective query, filters/k, policy set and retriever versions",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e7",
+        "path": "attributes.result_payload.data.policy_set_version"
+      },
+      "v1_8_source": "\u00a74.2.1/\u00a74.5; WT1 e2\u2013e7",
+      "assessment": "Policy-search call/result and versions exist. No explicit raw-to-effective query mapping or complete applied filter/applicability snapshot is present; policy_ids is not a full filter record.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed"
+      ]
+    },
+    {
+      "id": "E04",
+      "application_step": "RAG retrieval",
+      "minimum_evidence": "Query, effective query, k, filters, corpus/index/embedding/retriever configuration",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e1",
+        "path": "attributes.effective_query"
+      },
+      "v1_8_source": "\u00a74.5\u20134.6; WT4 e1; POS-13",
+      "assessment": "Effective query, k and corpus/index/retriever/embedding lineage exist; effective tenant/ACL/applied filters are absent. Empty successful retrieval now passes POS-13. Embedding configuration and store remain separately conditional.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed",
+        "Alaa"
+      ]
+    },
+    {
+      "id": "E05",
+      "application_step": "Retrieved documents",
+      "minimum_evidence": "Full ordered returned list; document/source/chunk IDs, versions, text/snapshot, hashes and locators",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e1",
+        "path": "attributes.retrieved_documents[0].doc_version"
+      },
+      "v1_8_source": "\u00a74.5; WT4 e1",
+      "assessment": "Ordered document/chunk/version/source/hash text and selected slices are represented; no runtime retention or semantic relevance claim.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E06",
+      "application_step": "Retrieval scores/ranks",
+      "minimum_evidence": "Raw finite score, metric kind/direction, returned rank, tie rule, returned count",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e1",
+        "path": "attributes.score_semantics.metric_type"
+      },
+      "v1_8_source": "\u00a74.5; WT4 e1",
+      "assessment": "Rank/score and metric direction/availability exist; tie rule, finite/null score convention and RAG returned-count rule are not bound to a versioned retriever configuration.",
+      "reviewers": [
+        "Ahmed",
+        "Alaa",
+        "Mohab",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E07",
+      "application_step": "Evidence selection",
+      "minimum_evidence": "Selected IDs/order/text spans, rejected IDs/reasons, sufficiency outcome, unresolved facets/conflicts, selection version",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e1",
+        "path": "attributes.retrieved_documents[0].exact_selected_text"
+      },
+      "v1_8_source": "\u00a74.5; WT4 e1",
+      "assessment": "Selected text/order and exclusion reason, facets and conflicts exist; no resolved selector-version identity for the selection procedure.",
+      "reviewers": [
+        "Nour",
+        "Ahmed",
+        "Mohab",
+        "Alaa"
+      ]
+    },
+    {
+      "id": "E08",
+      "application_step": "Request normalization",
+      "minimum_evidence": "Raw-to-normalized field links, validation details, amount/currency/request revision",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e31",
+        "path": "attributes.normalized_arguments"
+      },
+      "v1_8_source": "\u00a73.1/\u00a74.2.2; WT1 e30\u2013e31",
+      "assessment": "Root request, raw proposed arguments and normalized tool arguments are present; source-to-normalized field links and clarification record for the original request are not demonstrated.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed"
+      ]
+    },
+    {
+      "id": "E09",
+      "application_step": "Agent state transition",
+      "minimum_evidence": "Previous/new state, reason, input/result references, transition attempted vs accepted, state revision",
+      "status": "OK",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e33",
+        "path": "attributes.bound_dispatch_claim_id"
+      },
+      "v1_8_source": "\u00a74.1; WT1 e33; NEG-35",
+      "assessment": "State revision and attempted/accepted transitions are represented; NEG-35 prevents COMPLETED with unresolved recovery. Approval validity ordering is assessed separately under E14/E17.",
+      "reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed",
+        "Malak"
+      ]
+    },
+    {
+      "id": "E10",
+      "application_step": "Workflow stage",
+      "minimum_evidence": "Coarse stage at proposal/check/dispatch, state-to-stage mapping version",
+      "status": "OPEN",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e32",
+        "path": "attributes.authorization_snapshot.checked_policy_stage"
+      },
+      "v1_8_source": "\u00a74.1/\u00a74.4; WT1 e32",
+      "assessment": "Coarse stage fields exist. Mohamed/Mohab have not confirmed state-to-stage mapping version, calculation permission and Policy gate UI meaning.",
+      "reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E11",
+      "application_step": "Supplier check",
+      "minimum_evidence": "Requested/returned ID, status, source/directory/record version, lookup outcome",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e13",
+        "path": "attributes.result_payload.data.supplier.record_version"
+      },
+      "v1_8_source": "\u00a74.2.1; WT1 e12\u2013e13",
+      "assessment": "Supplier requested/returned identity, status, source and record version are represented; this does not establish claim-time currentness.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E12",
+      "application_step": "Approval calculation",
+      "minimum_evidence": "Amount/currency, configured rule basis, threshold/comparator/version, requirement/level or unresolved reason",
+      "status": "OPEN",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e19",
+        "path": "attributes.result_payload.data.basis.comparator"
+      },
+      "v1_8_source": "\u00a74.2.1; WT1 e18\u2013e19",
+      "assessment": "Amount, currency, comparator, threshold and policy basis are represented. Mohamed accepted OD-03 synthetic rows 1\u20135, amended configuration identity; actual YAML and transport/digest review are outstanding.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E13",
+      "application_step": "Approval submission",
+      "minimum_evidence": "Request and approval-request IDs, calculation ref, required level, idempotency identity",
+      "status": "OPEN",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e24",
+        "path": "attributes.trusted_runtime_context.domain_context.operation_mode"
+      },
+      "v1_8_source": "\u00a74.2.1/\u00a77; WT1 e24\u2013e25; POS-17, NEG-38",
+      "assessment": "CREATE_APPROVAL_REQUEST and read-only OBSERVE_APPROVAL modes, calculation, request and idempotency binding are represented. Adapter/initial submission and retry authority remain a joint decision; POS-17 and NEG-38 are scoped fixture checks.",
+      "reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E14",
+      "application_step": "Approval observation",
+      "minimum_evidence": "Required/received flags, status, approval ID, actor/time/source, request/supplier/amount/currency/level/version binding",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e27",
+        "path": "attributes.bound_request_revision"
+      },
+      "v1_8_source": "\u00a74.4.3; WT1 e27; NEG-27\u201333",
+      "assessment": "Approval binding and source status exist, and NEG-27\u201333 reject several mismatches. Draft uses timestamp chronology; Mohamed requires authoritative record-sequence ordering and current approval/supplier record versions at dispatch claim. No v1.8 joint mechanism is confirmed.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E15",
+      "application_step": "Tool proposal",
+      "minimum_evidence": "Exact proposed tool, tool catalog/schema version, model call ref, proposal identity",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e30",
+        "path": "attributes.raw_proposed_tool_name"
+      },
+      "v1_8_source": "\u00a74.2.2; WT1 e29\u2013e30",
+      "assessment": "Proposal identity, exact proposed tool name, model parent, catalog/schema and risk flag are represented independently of execution.",
+      "reviewers": [
+        "Nour",
+        "Mohab",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E16",
+      "application_step": "Tool arguments",
+      "minimum_evidence": "Raw serialized arguments, parsed values, trusted runtime context separately, validation outcome/field errors",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e31",
+        "path": "attributes.arguments_digest"
+      },
+      "v1_8_source": "\u00a74.2.2; WT1 e30\u2013e31",
+      "assessment": "Raw serialized and normalized arguments, digest, validation status/errors and trusted runtime context are separate.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E17",
+      "application_step": "Pre-execution policy request",
+      "minimum_evidence": "Proposal/tool, argument digest, request/state revision, stage, supplier/approval/calculation evidence refs, policy version",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e32",
+        "path": "attributes.authorization_snapshot.dispatch_claim"
+      },
+      "v1_8_source": "\u00a74.4.1/\u00a74.4.3; WT1 e32\u2013e34",
+      "assessment": "Snapshot/check/claim identity and ALLOW are present. The separate immutable claim-consumption record Mohamed requested and both approval/supplier version currentness at claim are not demonstrated; no runtime atomicity established.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E18",
+      "application_step": "Pre-execution policy result",
+      "minimum_evidence": "ALLOW/BLOCK, per-policy findings/reasons/version, referenced inputs; explicit timeout/error/missing result",
+      "status": "OPEN",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e32",
+        "path": "attributes.evaluated_policies"
+      },
+      "v1_8_source": "\u00a74.4.2; WT1 e32; NEG-31/42",
+      "assessment": "Per-policy result and ALLOW/BLOCK fields exist, but Mohamed has not accepted the exact policy-stage/value translation and authoritative error/missing-result mapping; static NEG-31/42 do not decide policy semantics.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E19",
+      "application_step": "Dispatch suppression",
+      "minimum_evidence": "NOT_EXECUTED, execution_started=false, blocking/check-error reference, reason",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT2",
+        "event_id": "e7",
+        "path": "attributes.tool_dispatched"
+      },
+      "v1_8_source": "\u00a74.2.2; WT2 e7",
+      "assessment": "Suppression links the proposal/check and records execution_started=false, tool_dispatched=false and NONE.",
+      "reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed",
+        "Malak"
+      ]
+    },
+    {
+      "id": "E20",
+      "application_step": "Tool invocation/result",
+      "minimum_evidence": "Invocation identity, proposal/check refs, start/end, mock marker, idempotency key, outcome/result/error, PO ID only if confirmed",
+      "status": "OPEN",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT3",
+        "event_id": "e7",
+        "path": "attributes.side_effect_state"
+      },
+      "v1_8_source": "\u00a74.3/\u00a77; WT3 e6\u2013e9; POS-15\u201317, NEG-34\u201338",
+      "assessment": "Actual call/result, original claim identity, UNKNOWN and read-only recovery are represented; POS-15/16 and NEG-34\u201338 close identified static probes. Write replay/recovery authority and idempotent adapter behavior remain joint review.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Mohamed",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E21",
+      "application_step": "Final response, Procurement",
+      "minimum_evidence": "Exact raw generated text and delivered text, which was shown, final app outcome/state, supporting successful action references or reason for no action",
+      "status": "OK",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT1",
+        "event_id": "e38",
+        "path": "attributes.claimed_actions"
+      },
+      "v1_8_source": "\u00a74.5; WT1 e37\u2013e38; NEG-35",
+      "assessment": "Raw candidate and delivered response, modification reason, final state and supporting action references are represented; NEG-35 rejects unresolved COMPLETED. Runtime truth is not inferred from model-written claims.",
+      "reviewers": [
+        "Mohab",
+        "Ahmed",
+        "Nour",
+        "Malak"
+      ]
+    },
+    {
+      "id": "E22",
+      "application_step": "Grounded answer, RAG",
+      "minimum_evidence": "Candidate and final text, exact generation context, claim IDs/text/answer spans",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e3",
+        "path": "attributes.claim_to_source_spans"
+      },
+      "v1_8_source": "\u00a74.5; WT4 e2\u2013e3",
+      "assessment": "Generating model call and exact selected prompt context link to candidate/delivered answer and claim spans; structural citation checks are distinct from semantic entailment.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E23",
+      "application_step": "Citations",
+      "minimum_evidence": "Claim\u2192retrieved source/chunk/version/span\u2192visible marker; validation findings; selected-context membership",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e3",
+        "path": "attributes.visible_citations"
+      },
+      "v1_8_source": "\u00a74.5; WT4 e1\u2013e3; NEG-20/21",
+      "assessment": "Claim-to-visible-citation and source doc/chunk/version/span identity are represented; NEG-20/21 enforce version and in-prompt-slice checks. Ahmed/Nour still review actual event producer and semantic support.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E24",
+      "application_step": "Abstention",
+      "minimum_evidence": "Reason, missing facets/conflicts, available/selected evidence, last stage, delivery text",
+      "status": "OK",
+      "prior_v1_6_status": "OK",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": "e3",
+        "path": "attributes.abstention_details"
+      },
+      "v1_8_source": "\u00a74.5; POS-13",
+      "assessment": "Abstention fields, insufficiency facets and last stage exist; POS-13 validates empty successful retrieval and abstention. WT4 is a failure example, not grounded success.",
+      "reviewers": [
+        "Mohab",
+        "Nour",
+        "Ahmed"
+      ]
+    },
+    {
+      "id": "E25",
+      "application_step": "Technical failure/cancel/pending",
+      "minimum_evidence": "Stage, known/unknown outcome, error category, retry/replay/continuation references",
+      "status": "CHANGE REQUIRED",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT3",
+        "event_id": "e8",
+        "path": "attributes.reconciliation_status"
+      },
+      "v1_8_source": "\u00a73.1/\u00a74.3/\u00a74.7; WT3 e7\u2013e10",
+      "assessment": "Unknown effect, pending/recovered paths and budget evidence exist; provider-fault details (stage/provider/code/retryable), cancel/partial semantics and approval-source sequence versus timestamps need explicit canonical mapping.",
+      "reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour",
+        "Ahmed",
+        "Alaa"
+      ]
+    },
+    {
+      "id": "E26",
+      "application_step": "Run/version provenance",
+      "minimum_evidence": "Provider, exact configured model identifier and available version, application, prompt, model/config, retriever, corpus/index, tools, policy, scenario/config references",
+      "status": "OPEN",
+      "prior_v1_6_status": "OPEN",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": null,
+        "path": "versions.effective_config_ref"
+      },
+      "v1_8_source": "\u00a74.6; WT1\u20134",
+      "assessment": "Requested versions and availability containers exist; immutable resolution, requested versus observed metadata, exact missing/null/unavailable/redacted semantics and digest canonicalization remain Alaa/Mohab joint decisions.",
+      "reviewers": [
+        "Alaa",
+        "Mohab",
+        "Nour"
+      ]
+    },
+    {
+      "id": "E27",
+      "application_step": "Controlled scenario association",
+      "minimum_evidence": "Opaque scenario/version/run reference; independent label/cause/recipe records kept outside runtime inference input",
+      "status": "OPEN",
+      "prior_v1_6_status": "CHANGE REQUIRED",
+      "walkthrough_field_witness": {
+        "walkthrough": "WT4",
+        "event_id": null,
+        "path": "scenario_metadata"
+      },
+      "v1_8_source": "\u00a74.6.4; NEG-39",
+      "assessment": "Runtime/evaluation separation is stated and NEG-39 rejects injected root cause while legitimate retrieved IDs remain. Actual inference projection implementation and Ahmed/Alaa field reconciliation (security category, attack/control, subset) remain open.",
+      "reviewers": [
+        "Mohab",
+        "Alaa",
+        "Ahmed",
+        "Nour"
+      ]
+    }
+  ]
+}

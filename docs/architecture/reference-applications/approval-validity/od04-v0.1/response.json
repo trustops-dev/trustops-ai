@@ -1,0 +1,136 @@
+{
+  "artifact_kind": "APPLICATION_SIDE_REVIEW_RESPONSE_DRAFT",
+  "version": "0.1",
+  "decision_id": "OD-04",
+  "related_governance_decision": "GD-04",
+  "prepared_for": "Nour El-Rouby",
+  "prepared_on": "2026-11-06",
+  "overall_draft_disposition": "AMEND",
+  "submission_status": "NOT_SENT",
+  "joint_acceptance": "PENDING",
+  "runtime_implemented": false,
+  "signed_acceptances": [],
+  "clauses": [
+    {
+      "id": "V01",
+      "draft_disposition": "ACCEPT",
+      "position": "Explicit no time expiry only in accepted configuration",
+      "required_reviewers": [
+        "Mohamed",
+        "Nour"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V02",
+      "draft_disposition": "ACCEPT",
+      "position": "Current authoritative record and exact request/evidence binding",
+      "required_reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V03",
+      "draft_disposition": "ACCEPT",
+      "position": "Revisions invalidate old derived evidence without resetting the root",
+      "required_reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V04",
+      "draft_disposition": "AMEND",
+      "position": "Terminal denial/cancellation and linked revocation; no automatic reopening",
+      "required_reviewers": [
+        "Mohamed",
+        "Mohab"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V05",
+      "draft_disposition": "AMEND",
+      "position": "Approval before this proposal; late approval cannot repair prior blocked or dispatched action",
+      "required_reviewers": [
+        "Mohamed",
+        "Mohab",
+        "Nour"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V06",
+      "draft_disposition": "AMEND",
+      "position": "Agreed currentness/order binding at atomic dispatch boundary",
+      "required_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V07",
+      "draft_disposition": "ACCEPT",
+      "position": "Trusted same-revision continuation; preserve budgets/claims and read-only observation",
+      "required_reviewers": [
+        "Mohab",
+        "Mohamed",
+        "Nour"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    },
+    {
+      "id": "V08",
+      "draft_disposition": "ACCEPT",
+      "position": "Preserve dispatched effects and immutable history; recovery stays read-only",
+      "required_reviewers": [
+        "Nour",
+        "Mohab",
+        "Mohamed"
+      ],
+      "acceptance": "PENDING_JOINT_REVIEW"
+    }
+  ],
+  "confirmed_semantics_preserved": "OD-APP-OBS-01",
+  "open_related_gates": [
+    "OD-02",
+    "OD-03",
+    "OD-05",
+    "OD-12",
+    "OD-14"
+  ],
+  "comparison_inputs": [
+    {
+      "filename": "procurement-state-contract.md",
+      "sha256": "a2bde86d92b5c9d1df643abe825d04129b325e308ba38148463e4bc2ac40ace5",
+      "scope": "Read-only comparison; governance DECIDED is not cross-team acceptance"
+    },
+    {
+      "filename": "procurement-tool-contracts.md",
+      "sha256": "7caefccc50e52b40071425599f1726d2c90ba7fe21ee401d6fab67c5411c29a6",
+      "scope": "Read-only comparison; governance DECIDED is not cross-team acceptance"
+    },
+    {
+      "filename": "governance-contract.md",
+      "sha256": "ab9dbda52c5ff642d70a50cd95c91e6a2e0bc027c340bb718cc89dc9ffeb5ee9",
+      "scope": "Read-only comparison; governance DECIDED is not cross-team acceptance"
+    },
+    {
+      "filename": "policy-truth-tables.md",
+      "sha256": "6d611cc763b405a4d26accda9257545176bc9ddfc50050c82fb5078d2aa66548",
+      "scope": "Read-only comparison; governance DECIDED is not cross-team acceptance"
+    }
+  ],
+  "comparison_baseline": {
+    "packet_id": "nour-week1-owner-review-2026-11-05-od03-candidate-0.1",
+    "manifest_sha256": "accf52e3d5a279bf38c9a61b5719950b3b0022c5a2a6a7637d1ca51230a96faf",
+    "scope": "Exact pre-OD04 owner snapshot plus supplied governance 0.4; comparison hashes are for files before this response added its draft pointers."
+  }
+}

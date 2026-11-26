@@ -1,0 +1,54 @@
+{
+  "user_request": "Ask for the required manager approval.",
+  "runtime_context": {
+    "request": {
+      "request_id": "req-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "item_description": "business laptops",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "supplier_id": "SUP-088",
+      "requester_ref": "actor-requester-demo"
+    },
+    "state": "APPROVAL_CALCULATED",
+    "observations": {
+      "supplier": {
+        "status": "FOUND",
+        "data": {
+          "requested_supplier_id": "SUP-088",
+          "supplier": {
+            "supplier_id": "SUP-088",
+            "display_name": "Cedar Office Supplies",
+            "status": "APPROVED",
+            "record_version": "supplier-demo-v1",
+            "source_ref": "supplier-directory-demo/SUP-088",
+            "observed_at": "2026-11-01T10:00:00Z"
+          },
+          "directory_version": "directory-demo-v1"
+        },
+        "error": null
+      },
+      "calculation": {
+        "status": "CALCULATED",
+        "data": {
+          "calculation_ref": "calc-demo-01",
+          "request_revision": "req-demo-01-r1",
+          "approval_required": true,
+          "approval_level": "manager",
+          "policy_id": "PROC-APPROVAL-01",
+          "policy_version": "demo-policy-v1-NOT-RATIFIED",
+          "basis": {
+            "amount": "16000.00",
+            "currency": "USD",
+            "threshold": "5000.00",
+            "threshold_currency": "USD",
+            "comparator": ">",
+            "rule_ref": "demo-policy-v1-NOT-RATIFIED#PROC-APPROVAL-01"
+          }
+        },
+        "error": null
+      }
+    }
+  }
+}

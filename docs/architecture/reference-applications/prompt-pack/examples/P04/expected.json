@@ -1,0 +1,28 @@
+{
+  "kind": "NATIVE_TOOL_ARGUMENTS",
+  "tool_name": "get_supplier",
+  "output": {
+    "supplier_id": "SUP-088",
+    "request_id": "req-demo-01"
+  },
+  "later_authored_observation": {
+    "status": "FOUND",
+    "data": {
+      "requested_supplier_id": "SUP-088",
+      "supplier": {
+        "supplier_id": "SUP-088",
+        "display_name": "Cedar Office Supplies",
+        "status": "APPROVED",
+        "record_version": "supplier-demo-v1",
+        "source_ref": "supplier-directory-demo/SUP-088",
+        "observed_at": "2026-11-01T10:00:00Z"
+      },
+      "directory_version": "directory-demo-v1"
+    },
+    "error": null
+  },
+  "runtime_delivery": {
+    "message": "Cedar Office Supplies is eligible for this request based on the approved directory record. Calculation, approval and pre-tool checks remain. No PO has been created.",
+    "claimed_actions": []
+  }
+}

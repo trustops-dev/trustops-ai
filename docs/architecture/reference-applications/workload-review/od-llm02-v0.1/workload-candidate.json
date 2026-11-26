@@ -1,0 +1,104 @@
+{
+  "version": "0.1",
+  "status": "PROPOSED_WORKLOAD_CANDIDATE_NOT_AUTHORIZED",
+  "prepared_on": "2026-11-06",
+  "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+  "owner": "Nour — application workload preparation; actual API project/access owner unconfirmed",
+  "live_execution_enabled": false,
+  "measurement_status": "NO_LIVE_MEASUREMENTS",
+  "generation_model": "gemini-3.8-flash",
+  "embedding_model": "gemini-embedding-001",
+  "embedding_dimensions": 768,
+  "retry_reserve_percent": 10,
+  "retry_reserve_meaning": "Planning allowance, not measured failure rate; round up separately per operation category per day. Actual retries require eligible failures and remaining per-root limits.",
+  "scenarios": [
+    {
+      "id": "smoke",
+      "days": 1,
+      "procurement_roots_per_day": 2,
+      "rag_queries_per_day": 5,
+      "index_builds": 1
+    },
+    {
+      "id": "development_week",
+      "days": 5,
+      "procurement_roots_per_day": 10,
+      "rag_queries_per_day": 20,
+      "index_builds": 1
+    }
+  ],
+  "procurement": {
+    "logical_generation_calls_per_root_estimate": 6,
+    "call_basis": "One extraction + one proposal for each of the five declared tools; optional final phrasing disabled. Early stops may use fewer; any extra reasoning stays within inherited root caps.",
+    "input_tokens_per_attempt_estimate": 4000,
+    "billable_output_tokens_per_attempt_estimate": 2000,
+    "logical_generation_cap": 8,
+    "generation_attempt_cap": 12,
+    "generation_attempts_per_operation_cap": 2,
+    "token_preflight_cap": 8,
+    "input_tokens_per_attempt_cap": 16384,
+    "largest_profile_output_tokens_cap": 8192,
+    "embedding_operations": 0,
+    "tool_attempt_cap": 12,
+    "pretool_check_attempt_cap": 12,
+    "foreground_segment_seconds": 300,
+    "root_active_seconds": 600
+  },
+  "rag": {
+    "logical_generation_calls_per_query_estimate": 1,
+    "call_basis": "Assume all queries generate for conservative planning; evidence-based pre-generation abstention uses zero generation/preflight calls.",
+    "input_tokens_per_attempt_estimate": 8000,
+    "billable_output_tokens_per_attempt_estimate": 2000,
+    "logical_generation_cap": 1,
+    "generation_attempt_cap": 2,
+    "token_preflight_cap": 1,
+    "input_tokens_per_attempt_cap": 32768,
+    "largest_profile_output_tokens_cap": 8192,
+    "query_embedding_operations": 1,
+    "query_embedding_attempt_cap": 2,
+    "query_embedding_native_tokens_estimate": 128,
+    "query_embedding_native_tokens_cap": 2048,
+    "root_active_seconds": 120
+  },
+  "index_build": {
+    "prepared_chunk_items_planning_ceiling": 64,
+    "native_embedding_tokens_per_item_estimate": 1024,
+    "native_embedding_tokens_per_item_cap": 2048,
+    "attempts_per_item_proposed_cap": 2,
+    "items_per_http_request": 1,
+    "batch_api_enabled": false,
+    "cache_enabled": false,
+    "corpus_source_documents_present": 8,
+    "actual_prepared_chunk_count": null,
+    "note": "64 is an illustrative pilot capacity, not an observed chunk count. Use actual prepared items and native counts after chunking; chunker tokens are not provider tokens. Index-build limits are a separate proposal, not inherited query limits."
+  },
+  "concurrency": {
+    "provider_attempts_in_flight_per_root": 1,
+    "provider_attempts_in_flight_across_nour_pilot": 1,
+    "requested_all_provider_http_attempts_per_rolling_minute": 2,
+    "requested_project_quota_share_percent": 50,
+    "status": "PROPOSED_NOT_IMPLEMENTED; reduce to actual confirmed model/project headroom; unknown quota means not admitted."
+  },
+  "proposed_development_week_planning_allocation_usd": "10.00",
+  "allocation_status": "REQUEST_FOR_REVIEW_NOT_SPEND_AUTHORIZATION_OR_ENFORCED_LIMIT",
+  "rates": {
+    "currency": "USD",
+    "basis": "Public standard paid text token rates, checked 2026-11-06; account applicability not verified.",
+    "generation_input_per_million_usd": "0.75",
+    "generation_output_including_thinking_per_million_usd": "3.75",
+    "generation_rate_effective_until": "2026-12-31",
+    "generation_input_from_2027_01_01_usd": "1.50",
+    "generation_output_from_2027_01_01_usd": "7.50",
+    "embedding_input_per_million_usd": "0.15",
+    "embedding_future_price": "No future price guarantee inferred; reverify before execution.",
+    "free_tier_or_credits_assumed": false
+  },
+  "unpriced_or_unmodeled_items": [
+    "Token preflight pricing/quota classification requires confirmation; counted as HTTP attempts, no invented token charge.",
+    "Native embedding-input validation method remains unresolved; any additional provider validation calls must be added before workload approval.",
+    "Malformed embedding response rebuilds, additional index builds, extra embedding-native validation calls and later scenario batches are outside modeled volumes.",
+    "Taxes, infrastructure/database/storage/network costs and account-specific adjustments are excluded.",
+    "No managed tools, explicit context caching, batch API or optional final-phrasing workload is enabled."
+  ],
+  "billing_accounting_rule": "Estimated billable output includes visible output plus any separately billed thinking, counted once. Validate exact endpoint usage-field inclusion before deriving totals. Unknown response usage is unknown, not zero. Every planned retry is conservatively charged a full estimated request; this is not an assertion about actual failed-request billing."
+}

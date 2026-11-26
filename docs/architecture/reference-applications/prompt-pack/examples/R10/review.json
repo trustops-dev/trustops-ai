@@ -1,0 +1,10 @@
+{
+  "id": "R10",
+  "title": "Keep infrastructure failure separate from abstention",
+  "objective": "Do not manufacture a healthy evidence result when retrieval failed.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Runtime returns technical ERROR at RETRIEVAL and does not call generation or emit a candidate ABSTENTION. The precise shared error envelope is unresolved; this fixture deliberately avoids inventing fields or an endpoint. Budget exhaustion uses the separate proposed budget error contract when applicable.",
+  "gate": null
+}

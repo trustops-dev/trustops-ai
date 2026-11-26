@@ -1,0 +1,49 @@
+{
+  "record_version": "0.1",
+  "observed_at_utc": "2026-11-15T07:21:34Z",
+  "source": "Authenticated Google AI Studio Rate Limit UI; read-only observation",
+  "project_id": "gen-lang-client-0848818912",
+  "project_label": "Default Gemini Project",
+  "tier": "Free tier",
+  "billing_ui_action": "Set up billing",
+  "paid_use_authorized_usd": 0,
+  "displayed_limits": [
+    {
+      "display_name": "Gemini 3.8 Flash",
+      "candidate_api_id": "gemini-3.8-flash",
+      "rpm_limit": 5,
+      "input_tpm_limit": 250000,
+      "rpd_limit": 20,
+      "last_28_days_peak_display": {
+        "rpm": "1 / 5",
+        "input_tpm": "6 / 250K",
+        "rpd": "2 / 20"
+      },
+      "last_1_day_usage_display": "- / 5 RPM; - / 250K TPM; - / 20 RPD (no reported activity in this view)"
+    },
+    {
+      "display_name": "Gemini Embedding 1",
+      "candidate_api_id": "gemini-embedding-001",
+      "rpm_limit": 100,
+      "input_tpm_limit": 30000,
+      "rpd_limit": 1000,
+      "last_28_days_peak_display": {
+        "rpm": "0 / 100",
+        "input_tpm": "0 / 30K",
+        "rpd": "0 / 1K"
+      },
+      "last_1_day_usage_display": "Not separately observed for this model"
+    }
+  ],
+  "ui_caveat": "Usage data may take up to 15 minutes to update; the table displays peak usage over the selected interval, not a live remaining quota counter.",
+  "remaining_generation_requests": null,
+  "remaining_embedding_requests": null,
+  "other_project_consumers_and_reservations": "UNCONFIRMED",
+  "quota_window_reset": "UNCONFIRMED",
+  "headroom_status": "NOT_ESTABLISHED_FOR_NEW_DISPATCH",
+  "admission_decision": "HOLD; do not attest to runner's 10 generation / 4 embedding minimum from this UI view alone",
+  "provider_requests_sent_for_this_observation": 0,
+  "screenshot_retained": false,
+  "credential_values_recorded": false,
+  "scope": "Account/UI observation; no generation or embedding capability verified"
+}
