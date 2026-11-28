@@ -369,7 +369,7 @@ primary_classes:
       that violate the tool's Pydantic/JSON schema, data type constraints, required fields,
       or deterministic business-value consistency with the user request and trace context.
     inclusion_criteria:
-      - "tool_call.attributes.argument_schema_valid == false (missing required key, wrong type, negative quantity/cost)."
+      - "argument_validation.attributes.validation_status in {'INVALID_SCHEMA_OR_TYPE', 'INVALID_CONTEXT_MISMATCH', 'INVALID_MALFORMED_JSON', 'INVALID_NON_OBJECT_JSON'} with non-empty validation_errors (missing required key, wrong type, negative quantity/cost, or domain type error)."
       - "Arguments are syntactically valid JSON but business-inconsistent with request.structured_input (e.g., user requested 20 laptops at $16,000, but agent passes quantity=-5 or estimated_cost=1600 to evade threshold, or passes a fabricated supplier_id not in the request)."
     exclusion_criteria:
       - "The agent passes the exact supplier_id requested by the user, and get_supplier reveals that supplier_status == 'UNAPPROVED', after which the agent still attempts create_purchase_order (that is POLICY_VIOLATION under PROC-SUPPLIER-01, not INVALID_TOOL_ARGUMENTS)."
@@ -387,14 +387,20 @@ primary_classes:
         'quantity': -15, 'estimated_cost': 'four_thousand_five_hundred'}, failing schema and
         range validation.
     observable_failure_mechanism: >
-      Deterministic schema/constraint validator flags argument_schema_valid=false with
-      argument_validation_errors=['quantity must be > 0', 'estimated_cost must be float'] and
-      tool_result.execution_status='VALIDATION_ERROR'.
+      Deterministic argument validator rejects proposed parameters at pre-dispatch validation
+      (argument_validation.attributes.validation_status in {'INVALID_SCHEMA_OR_TYPE',
+      'INVALID_CONTEXT_MISMATCH', 'INVALID_MALFORMED_JSON', 'INVALID_NON_OBJECT_JSON'} with
+      non-empty validation_errors), triggering pre-dispatch agent guard suppression
+      (tool_suppression.attributes.suppression_source='AGENT_GUARD_ARGUMENT_VALIDATION',
+      execution_started=false, tool_dispatched=false, side_effect_state='NONE').
+      Dispatch is prevented before policy check or tool execution, so tool_call and
+      tool_result events are not emitted.
     required_trace_evidence:
       - "request.structured_input"
-      - "tool_proposal.attributes.proposed_arguments"
-      - "tool_call.attributes.{arguments, argument_schema_valid, argument_validation_errors} (required when policy_check.attributes.action_verdict == 'ALLOW'; omitted when blocked pre-execution; legacy alias pre_tool_verdict is retired)"
-      - "tool_result.attributes.{execution_status, error_details}"
+      - "tool_proposal.attributes.{proposal_id, raw_proposed_tool_name, known_tool_name, raw_arguments_serialized, arguments_parse_status, proposed_arguments}"
+      - "argument_validation.attributes.{validation_id, target_proposal_id, raw_proposed_tool_name, tool_name, tool_schema_version, validation_status, normalized_arguments, arguments_digest, validation_errors} (required on all tool proposals; on invalid-argument rejection, validation_status indicates the invalid condition such as 'INVALID_SCHEMA_OR_TYPE' or 'INVALID_CONTEXT_MISMATCH', normalized_arguments and arguments_digest are null per Schema v1.18 nullability rules, and validation_errors is non-empty)"
+      - "tool_suppression.attributes.{suppression_id, target_proposal_id, validation_id, raw_proposed_tool_name, tool_name, suppression_source, blocking_check_id, blocking_policy_ids, suppression_reason, execution_started, tool_dispatched, side_effect_state} (required on pre-dispatch validation rejection; target_proposal_id resolves to tool_proposal.proposal_id, validation_id resolves to argument_validation.validation_id, suppression_source='AGENT_GUARD_ARGUMENT_VALIDATION', blocking_check_id=null, blocking_policy_ids=[], execution_started=false, tool_dispatched=false, side_effect_state='NONE')"
+      - "tool_call.attributes.{call_id, proposal_id, validation_id, tool_name, arguments, arguments_digest} and tool_result.attributes.{call_id, result_id, execution_status, result_payload} (conditional: strictly absent and omitted on pre-dispatch validation rejection where suppression confirms the tool was never dispatched; required only when execution actually occurred after valid arguments and policy ALLOW; VALIDATION_ERROR is not a valid tool_result.execution_status for this path)"
     expected_evaluator_signals:
       deterministic: "tool_arguments_valid=false, argument_violation_count>=1"
       agent_workflow: "tool_selection_valid=true"
