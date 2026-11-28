@@ -1,0 +1,120 @@
+{
+  "package_release_id": "v1.16.0",
+  "archive_filename": "TrustOps_v1.16_Complete_Package.zip",
+  "dedicated_platform_schema_branch": "feat/mohab-schema-v1.16-closeout",
+  "pr_commit_sha": "PENDING_LOCAL_GIT_PUSH_BY_MOHAB",
+  "canonical_specification_filename": "updated_schemas_v16.md",
+  "baseline_assertions": 2788,
+  "regression_cases_passed": "103/103",
+  "independent_probes_rejected": "6/6",
+  "reproduce_findings_probes_passed": "10/10",
+  "probe_remaining_controls_passed": "14/14",
+  "g01_mocked_tests_passed": "33/33",
+  "g01_live_hold_status": "ON_HOLD_BILLING_DISABLED_USD_0_PAID_USE",
+  "remaining_review_gates": [
+    "Native Windows host run via run_windows_g01_verification.bat -> native_host_verification_report.json",
+    "Dedicated platform/schema PR push to feat/mohab-schema-v1.16-closeout with exact commit SHA",
+    "Scoped owner review (Nour, Mohamed, Ahmed, Alaa)",
+    "G01 live execution remains ON HOLD (billing disabled, USD 0 paid-use authorization)"
+  ],
+  "files": [
+    {
+      "role": "Core Trace Schema Specification",
+      "filename": "updated_schemas_v16.md",
+      "component_version": "1.16.0-draft",
+      "bytes": 414144,
+      "sha256": "0f6784dc014123c92f043dc9567f5c72ef5f4faa984a797235082f48b079470d"
+    },
+    {
+      "role": "Standalone Specification & Contract Validator",
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "component_version": "1.11.0 (v1.16)",
+      "bytes": 146446,
+      "sha256": "b406f4b35949205cd90dbf19df0a333a1836a13d1cbd2f922b7c88d802a23d5b"
+    },
+    {
+      "role": "Self-Contained 103-Case Regression Runner",
+      "filename": "run_s1_01_regression_suite.py",
+      "component_version": "1.11.0 (v1.16)",
+      "bytes": 95088,
+      "sha256": "137678b90176c140ea527bc1478ba3cca1ba7815df0773975d672fd9df6d80e2"
+    },
+    {
+      "role": "Bundled 6-Case Independent Probe Runner",
+      "filename": "independent_probes.py",
+      "component_version": "1.16.0",
+      "bytes": 3430,
+      "sha256": "e9c6493271be37b16d3ea17dd53cc1990e8bae93aa21342e8d29882f414804e3"
+    },
+    {
+      "role": "Nour's 10-Probe R12-01..08 Reproduction Runner",
+      "filename": "reproduce_findings.py",
+      "component_version": "1.16.0",
+      "bytes": 7954,
+      "sha256": "09e37a8aa8ec2357e6dca35d72707e55b5d9e2d2a73426ee1d95078a8c08f6b1"
+    },
+    {
+      "role": "Portable 14-Probe Remaining Controls Runner (Zero fcntl)",
+      "filename": "probe_remaining_controls.py",
+      "component_version": "1.16.0",
+      "bytes": 15057,
+      "sha256": "3aae188f390c0aac7e0606bccc70df8f2f1b3696bce5e6c6fdad04262de78a39"
+    },
+    {
+      "role": "Machine-Readable Validation & Suite Report",
+      "filename": "s1_01_validation_report.json",
+      "component_version": "1.16.0",
+      "bytes": 47535,
+      "sha256": "c3eea42b58494d82d6e7992be33878e25288d801ef0d873abbe9565682072afd"
+    },
+    {
+      "role": "Isolated G01 Diagnostic Runner (OD-LLM-02 v0.9)",
+      "filename": "g01_isolated_diagnostic_runner.py",
+      "component_version": "0.9.0-isolated-g01",
+      "bytes": 111337,
+      "sha256": "7c63fc7bbdfb28e510f10f7139e2133197d2178507f4517a243695f661ba4083"
+    },
+    {
+      "role": "Offline Cross-Platform G01 Test Suite (33 Tests)",
+      "filename": "test_g01_isolated_diagnostic.py",
+      "component_version": "0.9.0-isolated-g01",
+      "bytes": 49656,
+      "sha256": "71ac080638e4aa6702320f2fb8c6ab5619eb9bf4eefbf6667e59bcdd5288db17"
+    },
+    {
+      "role": "Cross-Platform Native Verification Runner",
+      "filename": "run_native_verification.py",
+      "component_version": "1.16.0",
+      "bytes": 3317,
+      "sha256": "8f89c9f77d1e6c8405b165f5efa10b1d874211e328da29672a22e8dfabaea6ab"
+    },
+    {
+      "role": "Double-Clickable Windows Native Verification Launcher",
+      "filename": "run_windows_g01_verification.bat",
+      "component_version": "1.16.0",
+      "bytes": 487,
+      "sha256": "e46d315ad2f4697dedd9ef8e9228e2c1eddf9bcb9699a162e2e91bfe162de162"
+    },
+    {
+      "role": "PostgreSQL Core Migration (Draft Week 2 Interface)",
+      "filename": "001_core.sql",
+      "component_version": "1.2.0-draft-interface",
+      "bytes": 22221,
+      "sha256": "5e88f50b497a29e6a7c53e74811d818551f7f97d3b20478d5c69cda29559dd8b"
+    },
+    {
+      "role": "Python SDK & Idempotent Claim Gate Prototype (Draft)",
+      "filename": "trustops_sdk.py",
+      "component_version": "0.4.0-week2-draft-interface",
+      "bytes": 23687,
+      "sha256": "cf9bbfaa9782c922add593a0930ac679853381b7287387f80db2cc2ba4ed0434"
+    },
+    {
+      "role": "Consolidated Week 2 Closeout & Review Report",
+      "filename": "week_2.md",
+      "component_version": "1.16.0",
+      "bytes": 107896,
+      "sha256": "3a9293aa2d27804da041a15e1b02f5804b5b31739796102f39ccfe980a3630b9"
+    }
+  ]
+}

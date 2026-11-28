@@ -1,0 +1,26 @@
+{
+  "config_revision": "generation-adr-r0.9-proposed",
+  "provider": "gemini",
+  "api_surface": "interactions",
+  "api_version": "v1beta",
+  "sdk_distribution": "google-genai",
+  "sdk_version": "2.34.0",
+  "model": "gemini-3.8-flash",
+  "stream": false,
+  "store": false,
+  "background": false,
+  "provider_managed_tools": [],
+  "omit_generation_fields": [
+    "temperature",
+    "top_p",
+    "top_k",
+    "thinking_budget",
+    "candidate_count",
+    "frequency_penalty",
+    "presence_penalty"
+  ],
+  "provider_response_max_bytes_app": 1048576,
+  "function_arguments_max_bytes_app": 65536,
+  "fallback_model": null,
+  "fallback_provider": null
+}

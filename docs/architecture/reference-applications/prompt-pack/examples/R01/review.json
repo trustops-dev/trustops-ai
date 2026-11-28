@@ -1,0 +1,10 @@
+{
+  "id": "R01",
+  "title": "Grounded single-source answer",
+  "objective": "Return a fully supported candidate or an evidence-specific abstention.",
+  "templates": [
+    "rag/assistant_system.md"
+  ],
+  "compliance": "Every word of the factual claim is supported by the selected snapshot; [S1] resolves to its exact passage. This is an authored expected candidate, not a measured generation result.",
+  "gate": null
+}

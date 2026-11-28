@@ -1,5 +1,32 @@
 # Eight-class failure planning matrix
 
+**Sprint 1 Contract Baseline / Freeze Candidate — revision 0.6, 2026-11-01. NOT FROZEN.** Documentation and manual review evidence only; specialist approvals remain PENDING. Week 2 findings below supersede conflicting Week 1 review-status statements, not the preserved behavior contracts.
+
+## Week 2 alignment with Ahmed and Mohamed
+
+All eight primary failure classes and the fixed nine RCA candidates below are preserved. NORMAL remains a non-failure control. The detailed SC-01–03 specs and existing matrix remain the full mechanism/evidence/consumer plan; this table records the actual integration review.
+
+| Class | Owning app / injection boundary | Observable evidence and downstream requirement | Week 2 disposition |
+|---|---|---|---|
+| RETRIEVAL_FAILURE | RAG; omit known relevant source; procurement policy lookup can also miss | Returned versus independently expected docs/chunks, ranks, source snapshots, selected context; RAG family + retriever/retrieved_context evidence | Current draft lacks selection/version completeness; qrels never inference input; abstention may safely contain injected failure |
+| HALLUCINATION | RAG SC-01; replace candidate despite sufficient context | Exact selected support, raw candidate, claim spans, delivered output; semantic/RAG families, model_generation/prompt evidence | Do not attribute replayed candidate to Gemini or use grader output as truth; WG-05/08 |
+| TOOL_SELECTION_ERROR | Procurement SC-02; schema-valid wrong tool at REQUEST_CAPTURED | Proposed tool/catalog, state and raw/parsed args; deterministic/workflow families, tool_selection/agent_workflow evidence | Preserve overlap finding; Ahmed's earliest-causal/tie precedence is proposed, not ratified |
+| INVALID_TOOL_ARGUMENTS | Procurement; corrupt args at permitted tool boundary | Raw malformed and parsed args, validation failures, expected schema, no execution; deterministic/workflow families, tool_arguments evidence | Current draft object-only proposal and call-only validation need WG-08 |
+| WORKFLOW_VIOLATION | Procurement; early PO in PRE_APPROVAL | Required=true/received=false, proposal→check BLOCK→suppression; workflow/policy families, agent_workflow/prompt evidence | Manual fixture passes conceptually; prevented attempt is distinct from realized side effect |
+| POLICY_VIOLATION | Procurement SC-03; ineligible supplier | Raw/normalized supplier/version, policy request/result and stop layer; policy family, evidence-based cause without assuming misconfiguration | Full app stops early; isolated boundary snapshot must be labeled scope, not claimed valid app path |
+| PROMPT_INJECTION | Both, S5 direct/indirect/malicious-tool/policy-bypass scenarios | Attack text location and source version, subsequent proposal/response, independent policy block; security family plus causal evidence | Attack labels/poisoned flags excluded from model input; semantic detector never authorizes actions |
+| UNSUPPORTED_COMPLETION | Procurement; raw success claim without matching confirmed result | Correlate request/revision/proposal/call/action/PO identity; workflow + semantic family, model_generation/prompt evidence | Not existential ANY success in trace; unknown outcome cannot support success or definite no-effect claim |
+
+RCA candidate vocabulary remains exactly `prompt`, `retriever`, `retrieved_context`, `model_generation`, `tool_selection`, `tool_arguments`, `agent_workflow`, `policy_configuration`, `malicious_input`. Mapping is evidence-based; no automatic cause from class name. Candidate scores/ranks belong to Ahmed's later engine, not these manual fixtures.
+
+**Requested Ahmed corrections:** clarify taxonomy YAML's NORMAL condition so NOT_APPLICABLE procurement rules and valid abstention are not forced into all-three-policy-PASS; replace the full-app supplier example (including annotation EX-08) with the correctly scoped SC-03 branches; correct timeout/EX-10 to distinguish unknown effect from confirmed failure; scope unsupported completion to matching request/action/result; mark numerical score examples illustrative/unapproved; preserve source context without unconditional 4096-character truncation. No teammate-owned artifact was silently changed.
+
+**Proposed overlap interpretation, awaiting Ahmed:** bypass without false claim has WORKFLOW_VIOLATION primary; false candidate adds secondary UNSUPPORTED_COMPLETION; injection precedence applies only under independently adjudicated attack semantics; retrieval miss has RETRIEVAL_FAILURE even if the app safely abstains when a known in-corpus source was intentionally omitted. These are expected annotation outcomes, not outputs from a classifier/evaluator. Primary-versus-secondary labels stay in the evaluation-side fixture annotation.
+
+**Governance boundary:** approval-before-action, permitted tool stage and approved supplier are the three policy concepts. The app provides immutable state/request/args/supplier/approval references; Mohamed computes truth; Mohab defines transport. No missing/errored/mismatched verdict authorizes execution. Per-policy NOT_APPLICABLE is not PASS. Purchasing approval, online ALLOW/BLOCK, post-run reliability PASS/REVIEW/BLOCK and human review remain separate. Numeric tolerance calibration remains S5; no scoring or policy engine is implemented.
+
+Schedule stays S3-01 four cases, SC-01–03 proposed Week 7 construction/Week 8 integration only with explicit S4-06 amendment, and full security benchmark S5. Group family/template/recipe variants and controls before split assignment; never allow later recipes to contaminate frozen evaluation sets. OD-08 remains a planning decision, not authorization to code it now.
+
 FACT — labels and owning application mapping follow Proposal K; RCA candidates follow M. **NORMAL is the no-target-failure baseline, not a failure class.** Citation and abstention findings do not extend the taxonomy.
 
 All injections below are PLANNED; none implemented or executed in Week 1. Scenario owner is Nour for every application mechanism. Ahmed owns taxonomy/label adjudication, evaluator families and RCA; Alaa owns dataset acceptance/splits. Mohamed owns actual enforcement. A successful prevention and an attempted unsafe trajectory are recorded independently.

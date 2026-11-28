@@ -1,0 +1,924 @@
+{
+  "source": {
+    "spec": "docs/architecture/governance/policy-truth-tables.md",
+    "spec_revision": "governance 0.6 addendum 10 (implementation baseline B2, GD-35)",
+    "status": "DRAFT matrices. Test-fixture values only. Not a policy release, not a configuration acceptance, not runtime validation.",
+    "covers": "Section 2 (AP), 3 (TS), 4 (SU), 5 (AG) and 5.1 (CB) of the spec.",
+    "not_covered": [
+      "Section 6 (SC-03 scenarios): scenario and trace evidence, not policy unit cases.",
+      "Section 7 (DC, Layer 2 decision precedence): needs thresholds and the decision engine (roadmap Weeks 7 and 8).",
+      "Section 8.1 (CT, claim-time currentness): needs the runtime claim and the currentness comparison.",
+      "Section 8.2 (Nour's OD04 cases): mapped in the spec to cases covered here, or not governance."
+    ],
+    "conventions": [
+      "Every case is the baseline input with input_overrides merged on top. Dicts merge key by key, every other value, including null and lists, replaces.",
+      "amount_relation, where present, states how the proposed amount relates to the test threshold. A test checks it against the real decimals.",
+      "A case id with a suffix (AP-08.a) is a variant of the spec row AP-08. Variants marked derived_from come from the configuration's amount_input rules, not from the spec row text.",
+      "expected.basis is asserted only where the spec states one."
+    ]
+  },
+  "test_configuration": {
+    "label": "TEST_FIXTURE",
+    "note": "Clearly labelled test values. The threshold is deliberately not the draft policy-set value, so no test can pass by hard-coding that number. The shape follows procurement-policy-set-v0.1.yaml.",
+    "policy_set": { "id": "test-fixture-policy-set", "version": "test" },
+    "policies": {
+      "PROC-APPROVAL-01": {
+        "criticality": "critical",
+        "applies_to_tools": ["create_purchase_order"],
+        "comparator": "GT",
+        "currency_rules": [
+          { "currency": "USD", "threshold": "1000.00", "approval_level": "manager", "fraction_digits": 2 }
+        ],
+        "amount_input": {
+          "representation": "DECIMAL_STRING",
+          "pattern": "(?:0|[1-9][0-9]*)(?:\\.[0-9]{1,2})?",
+          "positive_only": true,
+          "whitespace": "REJECT",
+          "exponent": "REJECT",
+          "excess_precision": "REJECT"
+        },
+        "currency_handling": { "match": "EXACT_CASE_SENSITIVE", "fx_conversion": "DISABLED" },
+        "validity": {
+          "time_expiry": "NONE",
+          "must_match_current_binding": [
+            "request_revision",
+            "supplier_id",
+            "total_amount",
+            "currency",
+            "approval_level",
+            "calculation_ref",
+            "policy_version"
+          ],
+          "ordering": "RECORD_SEQUENCE",
+          "unorderable_or_future_dated": "UNRESOLVED"
+        }
+      },
+      "PROC-TOOL-STAGE-01": {
+        "criticality": "critical",
+        "applies_to_tools": "ALL",
+        "match": "EXACT_CASE_SENSITIVE",
+        "stage_allowlist": {
+          "PRE_APPROVAL": ["search_policy", "get_supplier", "request_approval", "calculate_approval_level"],
+          "APPROVED": ["create_purchase_order"],
+          "PO_CREATION": [],
+          "COMPLETED": []
+        }
+      },
+      "PROC-SUPPLIER-01": {
+        "criticality": "critical",
+        "applies_to_tools": ["create_purchase_order"],
+        "eligible_status": "APPROVED"
+      }
+    }
+  },
+  "baseline": {
+    "description": "CB-01: a valid approved purchase above the threshold, stage APPROVED, supplier APPROVED.",
+    "proposal": {
+      "tool": "create_purchase_order",
+      "request_revision": "rev-1",
+      "supplier_id": "sup-1",
+      "total_amount": "1000.01",
+      "currency": "USD"
+    },
+    "stage": "APPROVED",
+    "approval": {
+      "status": "APPROVED",
+      "bound": {
+        "request_revision": "rev-1",
+        "supplier_id": "sup-1",
+        "total_amount": "1000.01",
+        "currency": "USD",
+        "approval_level": "manager"
+      },
+      "decided": "BEFORE_PROPOSAL",
+      "event_agrees_with_record": true,
+      "approver_level_satisfies_required": true
+    },
+    "supplier": { "lookup_outcome": "FOUND", "supplier_id": "sup-1", "status": "APPROVED" },
+    "configuration_present": true,
+    "configuration_edits": []
+  },
+  "aggregation_baseline": {
+    "policy_results": {
+      "PROC-APPROVAL-01": "PASS",
+      "PROC-TOOL-STAGE-01": "PASS",
+      "PROC-SUPPLIER-01": "PASS"
+    },
+    "policy_set_version_matches": true,
+    "context_consistent": true,
+    "request_well_formed": true,
+    "evidence_consistency_findings": [],
+    "evidence_unresolved": false
+  },
+  "policy_cases": [
+    {
+      "id": "AP-01", "policy": "PROC-APPROVAL-01", "amount_relation": "BELOW",
+      "description": "a < T, supported currency",
+      "input_overrides": { "proposal": { "total_amount": "999.99" }, "approval": null },
+      "expected": { "result": "NOT_APPLICABLE", "reason_code": "APPROVAL_NOT_REQUIRED", "basis": "NOT_REQUIRED" }
+    },
+    {
+      "id": "AP-02", "policy": "PROC-APPROVAL-01", "amount_relation": "EQUAL",
+      "description": "a = T: equality does not exceed",
+      "input_overrides": { "proposal": { "total_amount": "1000.00" }, "approval": null },
+      "expected": { "result": "NOT_APPLICABLE", "reason_code": "APPROVAL_NOT_REQUIRED", "basis": "NOT_REQUIRED" }
+    },
+    {
+      "id": "AP-03", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a > T, no approval record",
+      "input_overrides": { "approval": null },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_MISSING" }
+    },
+    {
+      "id": "AP-04", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a > T, record PENDING",
+      "input_overrides": { "approval": { "status": "PENDING", "decided": null } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_PENDING" }
+    },
+    {
+      "id": "AP-05", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a > T, record DENIED",
+      "input_overrides": { "approval": { "status": "DENIED" } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_DENIED" }
+    },
+    {
+      "id": "AP-06", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a > T, record CANCELLED",
+      "input_overrides": { "approval": { "status": "CANCELLED" } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_CANCELLED" }
+    },
+    {
+      "id": "AP-07", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED but bound to a different request revision",
+      "input_overrides": { "approval": { "bound": { "request_revision": "rev-2" } } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_STALE_REVISION" }
+    },
+    {
+      "id": "AP-08.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, bound amount differs from the proposal",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1000.02" } } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_BINDING_MISMATCH" }
+    },
+    {
+      "id": "AP-08.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, bound currency differs from the proposal",
+      "input_overrides": { "approval": { "bound": { "currency": "EUR" } } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_BINDING_MISMATCH" }
+    },
+    {
+      "id": "AP-08.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, bound supplier differs from the proposal",
+      "input_overrides": { "approval": { "bound": { "supplier_id": "sup-2" } } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_BINDING_MISMATCH" }
+    },
+    {
+      "id": "AP-08.d", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, bound approval level differs from the required level",
+      "input_overrides": { "approval": { "bound": { "approval_level": "director" } } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_BINDING_MISMATCH" }
+    },
+    {
+      "id": "AP-09", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, decided after the proposal event",
+      "input_overrides": { "approval": { "decided": "AFTER_PROPOSAL" } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_AFTER_PROPOSAL" }
+    },
+    {
+      "id": "AP-10", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, bound correctly, decided before the proposal, validity rule holds",
+      "input_overrides": {},
+      "expected": { "result": "PASS", "reason_code": "APPROVAL_VALID" }
+    },
+    {
+      "id": "AP-11.a", "policy": "PROC-APPROVAL-01",
+      "description": "amount missing",
+      "input_overrides": { "proposal": { "total_amount": null }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.b", "policy": "PROC-APPROVAL-01",
+      "description": "amount is not a decimal",
+      "input_overrides": { "proposal": { "total_amount": "abc" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.c", "policy": "PROC-APPROVAL-01",
+      "description": "amount is zero, not positive",
+      "input_overrides": { "proposal": { "total_amount": "0.00" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.d", "policy": "PROC-APPROVAL-01",
+      "description": "amount is negative, not positive",
+      "input_overrides": { "proposal": { "total_amount": "-1.00" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.e", "policy": "PROC-APPROVAL-01", "derived_from": "configuration amount_input: excess_precision REJECT",
+      "description": "amount has more fraction digits than configured; never rounded",
+      "input_overrides": { "proposal": { "total_amount": "1000.001" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.f", "policy": "PROC-APPROVAL-01", "derived_from": "configuration amount_input: exponent REJECT",
+      "description": "amount uses an exponent",
+      "input_overrides": { "proposal": { "total_amount": "1e3" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.g", "policy": "PROC-APPROVAL-01", "derived_from": "configuration amount_input: whitespace REJECT",
+      "description": "amount has leading whitespace",
+      "input_overrides": { "proposal": { "total_amount": " 1000.01" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-11.h", "policy": "PROC-APPROVAL-01", "derived_from": "configuration amount_input: representation DECIMAL_STRING",
+      "description": "amount is a JSON number, not a decimal string",
+      "input_overrides": { "proposal": { "total_amount": 1000.5 }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "AMOUNT_INVALID" }
+    },
+    {
+      "id": "AP-12.a", "policy": "PROC-APPROVAL-01",
+      "description": "currency is not in the configured set",
+      "input_overrides": { "proposal": { "currency": "EUR" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "CURRENCY_UNSUPPORTED" }
+    },
+    {
+      "id": "AP-12.b", "policy": "PROC-APPROVAL-01",
+      "description": "currency differs only in case; matching is exact",
+      "input_overrides": { "proposal": { "currency": "usd" }, "approval": null },
+      "expected": { "result": "ERROR", "reason_code": "CURRENCY_UNSUPPORTED" }
+    },
+    {
+      "id": "AP-12.c", "policy": "PROC-APPROVAL-01",
+      "description": "no threshold is configured in the proposal's currency",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [
+          { "op": "set", "path": "policies.PROC-APPROVAL-01.currency_rules.0.currency", "value": "EUR" }
+        ]
+      },
+      "expected": { "result": "ERROR", "reason_code": "CURRENCY_UNSUPPORTED" }
+    },
+    {
+      "id": "AP-13.a", "policy": "PROC-APPROVAL-01",
+      "description": "the currency rules are missing from the configuration",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-APPROVAL-01.currency_rules" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "AP-13.b", "policy": "PROC-APPROVAL-01",
+      "description": "the approval policy is missing from the configuration",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-APPROVAL-01" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "AP-13.c", "policy": "PROC-APPROVAL-01",
+      "description": "no configuration at all",
+      "input_overrides": { "approval": null, "configuration_present": false },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "AP-14.a", "policy": "PROC-APPROVAL-01",
+      "description": "tool is get_supplier, not create_purchase_order",
+      "input_overrides": { "proposal": { "tool": "get_supplier" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" }
+    },
+    {
+      "id": "AP-14.b", "policy": "PROC-APPROVAL-01",
+      "description": "tool is request_approval, not create_purchase_order",
+      "input_overrides": { "proposal": { "tool": "request_approval" }, "stage": "PRE_APPROVAL", "approval": null },
+      "expected": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" }
+    },
+    {
+      "id": "AP-15", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "the approval event and governance's approval record disagree",
+      "input_overrides": { "approval": { "event_agrees_with_record": false } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_EVIDENCE_CONTRADICTION" }
+    },
+    {
+      "id": "AP-16.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "the decision is future-dated",
+      "input_overrides": { "approval": { "decided": "FUTURE_DATED" } },
+      "expected": { "result": "ERROR", "reason_code": "APPROVAL_ORDER_UNDETERMINED" }
+    },
+    {
+      "id": "AP-16.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "the decision cannot be ordered against the proposal",
+      "input_overrides": { "approval": { "decided": "UNORDERABLE" } },
+      "expected": { "result": "ERROR", "reason_code": "APPROVAL_ORDER_UNDETERMINED" }
+    },
+    {
+      "id": "AP-16.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "the ordering evidence conflicts",
+      "input_overrides": { "approval": { "decided": "CONFLICTING" } },
+      "expected": { "result": "ERROR", "reason_code": "APPROVAL_ORDER_UNDETERMINED" }
+    },
+    {
+      "id": "AP-17.a", "policy": "PROC-APPROVAL-01",
+      "description": "comparator is GTE, not GT",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [{ "op": "set", "path": "policies.PROC-APPROVAL-01.comparator", "value": "GTE" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_INVALID" }
+    },
+    {
+      "id": "AP-17.b", "policy": "PROC-APPROVAL-01",
+      "description": "comparator is absent",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-APPROVAL-01.comparator" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_INVALID" }
+    },
+    {
+      "id": "AP-17.c", "policy": "PROC-APPROVAL-01",
+      "description": "a rule is present with a null threshold",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [
+          { "op": "set", "path": "policies.PROC-APPROVAL-01.currency_rules.0.threshold", "value": null }
+        ]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_INVALID" }
+    },
+    {
+      "id": "AP-17.d", "policy": "PROC-APPROVAL-01",
+      "description": "a rule is present with a null approval level",
+      "input_overrides": {
+        "approval": null,
+        "configuration_edits": [
+          { "op": "set", "path": "policies.PROC-APPROVAL-01.currency_rules.0.approval_level", "value": null }
+        ]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_INVALID" }
+    },
+    {
+      "id": "AP-18", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "the approval-validity block is missing from the configuration",
+      "input_overrides": {
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-APPROVAL-01.validity" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "AP-19", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "APPROVED, but the approver's level does not satisfy the required level",
+      "input_overrides": { "approval": { "approver_level_satisfies_required": false } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVER_NOT_ELIGIBLE" }
+    },
+    {
+      "id": "AP-20", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "record status STALE_REVISION is reported as an approval bound to another revision",
+      "input_overrides": { "approval": { "status": "STALE_REVISION" } },
+      "expected": { "result": "FAIL", "reason_code": "APPROVAL_STALE_REVISION" }
+    },
+    {
+      "id": "AP-21.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "record status EXPIRED: the MVP has no expiry, so the evidence is inconsistent",
+      "input_overrides": { "approval": { "status": "EXPIRED" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-21.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "a status that is not in the status set",
+      "input_overrides": { "approval": { "status": "REVOKED" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-21.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "status APPROVED in lowercase; statuses match exactly",
+      "input_overrides": { "approval": { "status": "approved" } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.a", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount carries a plus sign",
+      "input_overrides": { "approval": { "bound": { "total_amount": "+1000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.b", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount is padded with whitespace",
+      "input_overrides": { "approval": { "bound": { "total_amount": " 1000.01 " } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.c", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses an exponent",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1.00001E3" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.d", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount has a leading zero",
+      "input_overrides": { "approval": { "bound": { "total_amount": "01000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.e", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount has more fraction digits than the rule allows",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1000.010" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.f", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses an underscore separator",
+      "input_overrides": { "approval": { "bound": { "total_amount": "1_000.01" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "AP-22.g", "policy": "PROC-APPROVAL-01", "amount_relation": "ABOVE",
+      "description": "bound amount uses full-width digits",
+      "input_overrides": { "approval": { "bound": { "total_amount": "１０００.０１" } } },
+      "expected": { "result": "ERROR", "reason_code": "EVIDENCE_UNRESOLVED" }
+    },
+    {
+      "id": "TS-01.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PRE_APPROVAL, search_policy",
+      "input_overrides": { "proposal": { "tool": "search_policy" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-01.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PRE_APPROVAL, get_supplier",
+      "input_overrides": { "proposal": { "tool": "get_supplier" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-01.c", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PRE_APPROVAL, calculate_approval_level",
+      "input_overrides": { "proposal": { "tool": "calculate_approval_level" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-01.d", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PRE_APPROVAL, request_approval",
+      "input_overrides": { "proposal": { "tool": "request_approval" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-02", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PRE_APPROVAL, create_purchase_order",
+      "input_overrides": { "stage": "PRE_APPROVAL" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-03", "policy": "PROC-TOOL-STAGE-01",
+      "description": "APPROVED, create_purchase_order",
+      "input_overrides": {},
+      "expected": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-04.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "APPROVED, search_policy",
+      "input_overrides": { "proposal": { "tool": "search_policy" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-04.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "APPROVED, get_supplier",
+      "input_overrides": { "proposal": { "tool": "get_supplier" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-04.c", "policy": "PROC-TOOL-STAGE-01",
+      "description": "APPROVED, calculate_approval_level",
+      "input_overrides": { "proposal": { "tool": "calculate_approval_level" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-04.d", "policy": "PROC-TOOL-STAGE-01",
+      "description": "APPROVED, request_approval",
+      "input_overrides": { "proposal": { "tool": "request_approval" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-05.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PO_CREATION, a second create_purchase_order proposal cannot reuse the first ALLOW",
+      "input_overrides": { "stage": "PO_CREATION" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-05.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "PO_CREATION, any other new proposal",
+      "input_overrides": { "proposal": { "tool": "search_policy" }, "stage": "PO_CREATION" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-06.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "COMPLETED, create_purchase_order",
+      "input_overrides": { "stage": "COMPLETED" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-06.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "COMPLETED, search_policy",
+      "input_overrides": { "proposal": { "tool": "search_policy" }, "stage": "COMPLETED" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-07.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "tool name differs only in case; matching is exact",
+      "input_overrides": { "proposal": { "tool": "Create_Purchase_Order" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-07.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "an uncatalogued tool in the APPROVED stage",
+      "input_overrides": { "proposal": { "tool": "delete_supplier" } },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-07.c", "policy": "PROC-TOOL-STAGE-01",
+      "description": "an uncatalogued tool in the PRE_APPROVAL stage",
+      "input_overrides": { "proposal": { "tool": "delete_supplier" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" }
+    },
+    {
+      "id": "TS-08.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "stage missing",
+      "input_overrides": { "stage": null },
+      "expected": { "result": "ERROR", "reason_code": "STAGE_UNKNOWN" }
+    },
+    {
+      "id": "TS-08.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "stage differs only in case; matching is exact",
+      "input_overrides": { "stage": "approved" },
+      "expected": { "result": "ERROR", "reason_code": "STAGE_UNKNOWN" }
+    },
+    {
+      "id": "TS-08.c", "policy": "PROC-TOOL-STAGE-01",
+      "description": "stage is not a canonical stage",
+      "input_overrides": { "stage": "SHIPPED" },
+      "expected": { "result": "ERROR", "reason_code": "STAGE_UNKNOWN" }
+    },
+    {
+      "id": "TS-09.a", "policy": "PROC-TOOL-STAGE-01",
+      "description": "no allowlist is configured for PRE_APPROVAL",
+      "input_overrides": {
+        "proposal": { "tool": "search_policy" },
+        "stage": "PRE_APPROVAL",
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-TOOL-STAGE-01.stage_allowlist.PRE_APPROVAL" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "TS-09.b", "policy": "PROC-TOOL-STAGE-01",
+      "description": "no allowlist is configured for APPROVED",
+      "input_overrides": {
+        "configuration_edits": [{ "op": "remove", "path": "policies.PROC-TOOL-STAGE-01.stage_allowlist.APPROVED" }]
+      },
+      "expected": { "result": "ERROR", "reason_code": "POLICY_CONFIG_MISSING" }
+    },
+    {
+      "id": "SU-01", "policy": "PROC-SUPPLIER-01",
+      "description": "supplier id matches, status APPROVED",
+      "input_overrides": {},
+      "expected": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+    },
+    {
+      "id": "SU-02", "policy": "PROC-SUPPLIER-01",
+      "description": "status NOT_APPROVED",
+      "input_overrides": { "supplier": { "status": "NOT_APPROVED" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+    },
+    {
+      "id": "SU-03", "policy": "PROC-SUPPLIER-01",
+      "description": "status UNKNOWN",
+      "input_overrides": { "supplier": { "status": "UNKNOWN" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_STATUS_UNKNOWN" }
+    },
+    {
+      "id": "SU-04.a", "policy": "PROC-SUPPLIER-01",
+      "description": "another draft's spelling, UNAPPROVED",
+      "input_overrides": { "supplier": { "status": "UNAPPROVED" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+    },
+    {
+      "id": "SU-04.b", "policy": "PROC-SUPPLIER-01",
+      "description": "another status, SUSPENDED",
+      "input_overrides": { "supplier": { "status": "SUSPENDED" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+    },
+    {
+      "id": "SU-04.c", "policy": "PROC-SUPPLIER-01",
+      "description": "lowercase approved; only the literal APPROVED passes",
+      "input_overrides": { "supplier": { "status": "approved" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+    },
+    {
+      "id": "SU-05", "policy": "PROC-SUPPLIER-01",
+      "description": "lookup outcome NOT_FOUND",
+      "input_overrides": { "supplier": { "lookup_outcome": "NOT_FOUND", "supplier_id": null, "status": null } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_FOUND" }
+    },
+    {
+      "id": "SU-06", "policy": "PROC-SUPPLIER-01",
+      "description": "snapshot supplier id differs from the proposal's",
+      "input_overrides": { "supplier": { "supplier_id": "sup-2" } },
+      "expected": { "result": "FAIL", "reason_code": "SUPPLIER_ID_MISMATCH" }
+    },
+    {
+      "id": "SU-07.a", "policy": "PROC-SUPPLIER-01",
+      "description": "no supplier snapshot",
+      "input_overrides": { "supplier": null },
+      "expected": { "result": "ERROR", "reason_code": "SUPPLIER_EVIDENCE_MISSING" }
+    },
+    {
+      "id": "SU-07.b", "policy": "PROC-SUPPLIER-01",
+      "description": "lookup outcome ERROR",
+      "input_overrides": { "supplier": { "lookup_outcome": "ERROR", "supplier_id": null, "status": null } },
+      "expected": { "result": "ERROR", "reason_code": "SUPPLIER_EVIDENCE_MISSING" }
+    },
+    {
+      "id": "SU-07.c", "policy": "PROC-SUPPLIER-01",
+      "description": "supplier found but status is null",
+      "input_overrides": { "supplier": { "status": null } },
+      "expected": { "result": "ERROR", "reason_code": "SUPPLIER_EVIDENCE_MISSING" }
+    },
+    {
+      "id": "SU-08", "policy": "PROC-SUPPLIER-01",
+      "description": "tool is get_supplier, not create_purchase_order",
+      "input_overrides": { "proposal": { "tool": "get_supplier" }, "stage": "PRE_APPROVAL" },
+      "expected": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" }
+    }
+  ],
+  "aggregation_cases": [
+    {
+      "id": "AG-01.a",
+      "description": "all PASS",
+      "input_overrides": {},
+      "expected": { "verdict": "ALLOW", "verdict_basis": "ALL_APPLICABLE_PASSED" }
+    },
+    {
+      "id": "AG-01.b",
+      "description": "PASS and NOT_APPLICABLE only",
+      "input_overrides": {
+        "policy_results": { "PROC-APPROVAL-01": "NOT_APPLICABLE", "PROC-SUPPLIER-01": "NOT_APPLICABLE" }
+      },
+      "expected": { "verdict": "ALLOW", "verdict_basis": "ALL_APPLICABLE_PASSED" }
+    },
+    {
+      "id": "AG-02.a",
+      "description": "one FAIL, no ERROR",
+      "input_overrides": { "policy_results": { "PROC-APPROVAL-01": "FAIL" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED" }
+    },
+    {
+      "id": "AG-02.b",
+      "description": "two FAIL, no ERROR",
+      "input_overrides": { "policy_results": { "PROC-TOOL-STAGE-01": "FAIL", "PROC-SUPPLIER-01": "FAIL" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED" }
+    },
+    {
+      "id": "AG-03.a",
+      "description": "one ERROR, no FAIL",
+      "input_overrides": { "policy_results": { "PROC-SUPPLIER-01": "ERROR" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-03.b",
+      "description": "ERROR with NOT_APPLICABLE and PASS",
+      "input_overrides": { "policy_results": { "PROC-APPROVAL-01": "NOT_APPLICABLE", "PROC-TOOL-STAGE-01": "ERROR" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-04.a",
+      "description": "FAIL and ERROR together; the ERROR is still recorded",
+      "input_overrides": { "policy_results": { "PROC-APPROVAL-01": "FAIL", "PROC-SUPPLIER-01": "ERROR" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED" }
+    },
+    {
+      "id": "AG-04.b",
+      "description": "FAIL, ERROR and PASS together",
+      "input_overrides": { "policy_results": { "PROC-TOOL-STAGE-01": "FAIL", "PROC-APPROVAL-01": "ERROR" } },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED" }
+    },
+    {
+      "id": "AG-05",
+      "description": "policy-set version reported by the application differs from the active version",
+      "input_overrides": { "policy_set_version_matches": false },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-06",
+      "description": "proposal and evidence disagree on revision, amount, currency or supplier",
+      "input_overrides": { "context_consistent": false },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-07",
+      "description": "request malformed or mandatory fields missing",
+      "input_overrides": { "request_well_formed": false },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-10",
+      "description": "evidence-consistency finding, every policy PASS or NOT_APPLICABLE on the source values",
+      "input_overrides": { "evidence_consistency_findings": ["EC-03"] },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    },
+    {
+      "id": "AG-11",
+      "description": "evidence-consistency finding and a policy FAIL on the source values",
+      "input_overrides": {
+        "evidence_consistency_findings": ["EC-03"],
+        "policy_results": { "PROC-SUPPLIER-01": "FAIL" }
+      },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED" }
+    },
+    {
+      "id": "AG-12",
+      "description": "a referenced evidence record is unresolved; the affected policy is ERROR",
+      "input_overrides": {
+        "evidence_unresolved": true,
+        "policy_results": { "PROC-APPROVAL-01": "ERROR" }
+      },
+      "expected": { "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR" }
+    }
+  ],
+  "combined_cases": [
+    {
+      "id": "CB-01", "amount_relation": "ABOVE",
+      "description": "valid approved purchase, stage APPROVED",
+      "input_overrides": {},
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "ALLOW", "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "CB-02", "amount_relation": "EQUAL",
+      "description": "purchase at exactly T, stage APPROVED, supplier approved",
+      "input_overrides": { "proposal": { "total_amount": "1000.00" }, "approval": null },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "NOT_APPLICABLE", "reason_code": "APPROVAL_NOT_REQUIRED" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "ALLOW", "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "CB-03", "amount_relation": "ABOVE",
+      "description": "approval bypass: over T, no approval, stage PRE_APPROVAL; both findings recorded",
+      "input_overrides": { "stage": "PRE_APPROVAL", "approval": null },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "FAIL", "reason_code": "APPROVAL_MISSING" },
+          "PROC-TOOL-STAGE-01": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-04", "amount_relation": "ABOVE",
+      "description": "valid approval but the stage is still PRE_APPROVAL; a valid approval does not override the stage rule",
+      "input_overrides": { "stage": "PRE_APPROVAL" },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-05", "amount_relation": "ABOVE",
+      "description": "approval valid, stage APPROVED, supplier NOT_APPROVED; one failing policy is enough",
+      "input_overrides": { "supplier": { "status": "NOT_APPROVED" } },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-06", "amount_relation": "ABOVE",
+      "description": "approval PENDING, supplier NOT_APPROVED, stage APPROVED; two findings",
+      "input_overrides": {
+        "approval": { "status": "PENDING", "decided": null },
+        "supplier": { "status": "NOT_APPROVED" }
+      },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "FAIL", "reason_code": "APPROVAL_PENDING" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-07", "amount_relation": "ABOVE",
+      "description": "approval fails and supplier evidence is missing (AG-04)",
+      "input_overrides": { "approval": null, "supplier": null },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "FAIL", "reason_code": "APPROVAL_MISSING" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "ERROR", "reason_code": "SUPPLIER_EVIDENCE_MISSING" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-08", "amount_relation": "BELOW",
+      "description": "below T, stage PRE_APPROVAL, tool create_purchase_order; no approval needed does not allow the wrong stage",
+      "input_overrides": { "proposal": { "total_amount": "999.99" }, "stage": "PRE_APPROVAL", "approval": null },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "NOT_APPLICABLE", "reason_code": "APPROVAL_NOT_REQUIRED" },
+          "PROC-TOOL-STAGE-01": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-09",
+      "description": "get_supplier proposed in PRE_APPROVAL",
+      "input_overrides": { "proposal": { "tool": "get_supplier" }, "stage": "PRE_APPROVAL" },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" },
+          "PROC-TOOL-STAGE-01": { "result": "PASS", "reason_code": "TOOL_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "NOT_APPLICABLE", "reason_code": "TOOL_OUT_OF_SCOPE" }
+        },
+        "verdict": "ALLOW", "verdict_basis": "ALL_APPLICABLE_PASSED"
+      }
+    },
+    {
+      "id": "CB-10", "amount_relation": "ABOVE",
+      "description": "second create_purchase_order proposal while in PO_CREATION; an earlier ALLOW cannot be reused. The spec cell says 'AP-14 or per evidence'; the tool is create_purchase_order, so approval and supplier follow the evidence",
+      "input_overrides": { "stage": "PO_CREATION" },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "FAIL", "reason_code": "TOOL_NOT_ALLOWED_IN_STAGE" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    },
+    {
+      "id": "CB-11.a", "amount_relation": "ABOVE",
+      "description": "stage unknown, everything else valid: an evaluation error",
+      "input_overrides": { "stage": null },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "ERROR", "reason_code": "STAGE_UNKNOWN" },
+          "PROC-SUPPLIER-01": { "result": "PASS", "reason_code": "SUPPLIER_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "FAIL_CLOSED_ON_POLICY_ERROR"
+      }
+    },
+    {
+      "id": "CB-11.b", "amount_relation": "ABOVE",
+      "basis_differs_from_spec_row": "The spec row says 'evaluation error, unless another policy already FAILs (then violation)'. This variant is the 'unless' branch.",
+      "description": "stage unknown (non-canonical casing) and the supplier fails: a violation, not an evaluation error",
+      "input_overrides": { "stage": "approved", "supplier": { "status": "NOT_APPROVED" } },
+      "expected": {
+        "policy_results": {
+          "PROC-APPROVAL-01": { "result": "PASS", "reason_code": "APPROVAL_VALID" },
+          "PROC-TOOL-STAGE-01": { "result": "ERROR", "reason_code": "STAGE_UNKNOWN" },
+          "PROC-SUPPLIER-01": { "result": "FAIL", "reason_code": "SUPPLIER_NOT_APPROVED" }
+        },
+        "verdict": "BLOCK", "verdict_basis": "MANDATORY_POLICY_FAILED"
+      }
+    }
+  ],
+  "deferred": [
+    {
+      "id": "AG-08",
+      "reason": "No response (timeout, exception, unreachable) is a caller and runtime behavior with no engine verdict. It is covered by the integration test at the pre-tool hook, not by a pure policy matrix."
+    },
+    {
+      "id": "AG-09",
+      "reason": "Replay of the same trace, proposal and attempt returns the original result. That needs the persisted check record, which is Mohab's persistence and the integration step."
+    },
+    {
+      "id": "AG-13",
+      "reason": "A read-tool retry with a new attempt id gets a fresh check with its own check_id and authorization_snapshot. That needs identifiers and the snapshot, covered at the in-process service step."
+    }
+  ]
+}

@@ -9,6 +9,7 @@ dependencies = []
 audit = ["pip-audit==2.10.1"]
 dev = [
     "hatchling==1.32.4",
+    "httpx>=0.23.3",
     "import-linter==2.15",
     "mypy==2.4.0",
     "pytest==9.1.1",
@@ -68,7 +69,7 @@ select = ["E4", "E7", "E9", "F", "I", "B", "UP"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["apps", "packages", "tests"]
+files = ["apps", "packages", "tests", "tools/rag_vector_probe/probe.py"]
 namespace_packages = true
 explicit_package_bases = true
 mypy_path = [
@@ -81,6 +82,8 @@ mypy_path = [
     "$MYPY_CONFIG_FILE_DIR/apps/api/src",
     "$MYPY_CONFIG_FILE_DIR/apps/procurement-agent/src",
     "$MYPY_CONFIG_FILE_DIR/apps/rag-assistant/src",
+    "$MYPY_CONFIG_FILE_DIR/scripts/schema_validation",
+    "$MYPY_CONFIG_FILE_DIR/scripts/g01_diagnostic",
 ]
 
 [tool.pytest.ini_options]

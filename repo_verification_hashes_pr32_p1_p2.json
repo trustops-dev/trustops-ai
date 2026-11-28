@@ -1,0 +1,114 @@
+{
+  "record_type": "REPOSITORY_COMMITTED_BYTE_VERIFICATION",
+  "generated_at_utc": "2026-11-24T19:19:02Z",
+  "git_revision": "abd551fcbbf950364ec428e17a1e273405288f1a",
+  "git_short_sha": "abd551f",
+  "git_branch": "feat/mohab-schema-v1.16-closeout",
+  "git_working_tree_clean": true,
+  "archive_manifest_preserved": "manifest_v1_18.json (historical archive snapshot, intentionally unmodified)",
+  "tracked_file_count": 17,
+  "files": [
+    {
+      "repo_path": "artifacts/schema-v1.16-package/s1_01_validation_report.json",
+      "filename": "s1_01_validation_report.json",
+      "bytes": 52171,
+      "sha256": "48dbfee5e656132a7a72e343dce5af8bb027b43df80ebbadb71b557a00e0a6de"
+    },
+    {
+      "repo_path": "docs/architecture/schemas/manifest_v1_18.json",
+      "filename": "manifest_v1_18.json",
+      "bytes": 3693,
+      "sha256": "2f7b337ea2775f0184a93be2b3d705fe25c888518862f1d5a18bb12c4fb26d57"
+    },
+    {
+      "repo_path": "docs/architecture/schemas/updated_schemas_v18.md",
+      "filename": "updated_schemas_v18.md",
+      "bytes": 421172,
+      "sha256": "f2784b5b7dbf23c6d9d54111ab37d51c98af3042b12c443039ded43f3532e9fd"
+    },
+    {
+      "repo_path": "docs/architecture/schemas/week_2.md",
+      "filename": "week_2.md",
+      "bytes": 115247,
+      "sha256": "5690ba5c666d8902d940e787eee606bcb7028033bb97711b1095f178569291c5"
+    },
+    {
+      "repo_path": "migrations/001_core.sql",
+      "filename": "001_core.sql",
+      "bytes": 23977,
+      "sha256": "fafb1b3c9a8b96d38e610958107c8a2cc612e0f8fd744a7b3c4347b42ef21688"
+    },
+    {
+      "repo_path": "packages/instrumentation-sdk/src/trustops_sdk/trustops_sdk.py",
+      "filename": "trustops_sdk.py",
+      "bytes": 31260,
+      "sha256": "fc56101471267fa8c4db1bca29502053dce6913589bdd407102d6da67eed0069"
+    },
+    {
+      "repo_path": "packages/instrumentation-sdk/src/trustops_sdk/validate_s1_01_schema_v1_11.py",
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "bytes": 162779,
+      "sha256": "fef2e999b7eee57f69ef41cf23fb41233caa936583cbd1805c202195a55505fa"
+    },
+    {
+      "repo_path": "scripts/g01_diagnostic/g01_isolated_diagnostic_runner.py",
+      "filename": "g01_isolated_diagnostic_runner.py",
+      "bytes": 114639,
+      "sha256": "a3480faa152edfc75bee3a043eff049f4dbfd008924a20d2485de3d0be06eb48"
+    },
+    {
+      "repo_path": "scripts/schema_validation/run_native_verification.py",
+      "filename": "run_native_verification.py",
+      "bytes": 7278,
+      "sha256": "443bd447286cd7e1f4b6ada34eb3a1b3d9a58996da96c484a6f5bef57e59b608"
+    },
+    {
+      "repo_path": "scripts/schema_validation/run_s1_01_regression_suite.py",
+      "filename": "run_s1_01_regression_suite.py",
+      "bytes": 111377,
+      "sha256": "ef225c68c3d2511d369a3d143cec4c3095773b4dac051af1fa88d991acbb62aa"
+    },
+    {
+      "repo_path": "scripts/schema_validation/run_windows_g01_verification.bat",
+      "filename": "run_windows_g01_verification.bat",
+      "bytes": 487,
+      "sha256": "5d2d51f927428f1605f02e7330ed2f86a37171fb65e11326beec752d8e212a0a"
+    },
+    {
+      "repo_path": "scripts/schema_validation/validate_s1_01_schema_v1_11.py",
+      "filename": "validate_s1_01_schema_v1_11.py",
+      "bytes": 162779,
+      "sha256": "fef2e999b7eee57f69ef41cf23fb41233caa936583cbd1805c202195a55505fa"
+    },
+    {
+      "repo_path": "tests/test_sdk_clean_install_smoke.py",
+      "filename": "test_sdk_clean_install_smoke.py",
+      "bytes": 5665,
+      "sha256": "7d75b813835dd8762c8d2b2fa7071eb0d120a951d81a93df60a811d7b26d471f"
+    },
+    {
+      "repo_path": "tests/tests_g01_diagnostic/probe_remaining_controls.py",
+      "filename": "probe_remaining_controls.py",
+      "bytes": 18582,
+      "sha256": "6a5f24fcfa1337bb260d1137ea921ef0b4b81c29d191d38c2dfe9dc58c890db4"
+    },
+    {
+      "repo_path": "tests/tests_g01_diagnostic/test_g01_isolated_diagnostic.py",
+      "filename": "test_g01_isolated_diagnostic.py",
+      "bytes": 53229,
+      "sha256": "7dc5becc46b57785a1fd7af925c166c1c28c1fcbe3099d1e6013d2fabc2c0380"
+    },
+    {
+      "repo_path": "tests/tests_schema_validation/independent_probes.py",
+      "filename": "independent_probes.py",
+      "bytes": 5705,
+      "sha256": "93f8cea762a317f899831984492bb5ac7abdcb3d2dfcaf910f3b0ffd099e79eb"
+    },
+    {
+      "repo_path": "tests/tests_schema_validation/reproduce_findings.py",
+      "filename": "reproduce_findings.py",
+      "bytes": 13189,
+      "sha256": "14493e6035dc9974b12718d77774897dcddc41afb9bbc7628d6cd68fc0c9b6da"
+    }
+  ]
+}

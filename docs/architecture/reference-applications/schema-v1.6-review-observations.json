@@ -1,0 +1,884 @@
+{
+  "review_date": "2026-11-06",
+  "scope": "Fresh offline rerun of pinned external draft; no deployed/runtime or stakeholder acceptance.",
+  "input_hashes": {
+    "run_s1_01_regression_suite(1).py": "d43592f352a3741882440e50c7595d330abfff41d82f7d8b190695902991c784",
+    "validate_s1_01_schema_v1_6.py": "29bf239d0fbd3070e37ef9287be38fc31337e5f032e9a6c5e68c14c102b2679e",
+    "updated_schemas_v6.md": "84b749967df6cab5dd8f71d15768647ca10625554eb3f09ed76d6a77dd1a6997",
+    "evidence-consistency-and-recovery.zip": "641ab6e98634a0c04780e89e66e4247708813ca49f8f66ae864b49b3bb44daa4",
+    "s1_01_validation_report(1).json": "9fc344ea6e187c44b3a851a808f2d4aec1730deab7532bb48b5b70cd98dd365e"
+  },
+  "baseline": {
+    "exit_code": 0,
+    "assertions": 2106,
+    "failures": 0
+  },
+  "supplied_suite": {
+    "exit_code": 0,
+    "cases": 27,
+    "expectations_met": 27,
+    "results": [
+      {
+        "case_id": "BASE-00",
+        "name": "canonical_specification_v1_6",
+        "category": "POSITIVE_BASELINE",
+        "fixture_file": "updated_schemas_v6.md",
+        "fixture_sha256": "84b749967df6cab5dd8f71d15768647ca10625554eb3f09ed76d6a77dd1a6997",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "assertions_checked": 2106,
+        "required_failure_codes": [],
+        "allowed_failure_codes": [],
+        "observed_failure_codes": [],
+        "case_passed": true
+      },
+      {
+        "case_id": "POS-11",
+        "name": "pos_11_valid_tool_error_variant",
+        "category": "POSITIVE_VARIANT",
+        "fixture_file": "pos_11_valid_tool_error_variant.json",
+        "fixture_sha256": "0ea2f67a8d7ea0cfc27d2b5e4f22e546d6237b29d88942a80c080e1d09fdcdb6",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "assertions_checked": 475,
+        "required_failure_codes": [],
+        "allowed_failure_codes": [],
+        "observed_failure_codes": [],
+        "case_passed": true
+      },
+      {
+        "case_id": "POS-12",
+        "name": "pos_12_valid_calculation_unresolved_eur",
+        "category": "POSITIVE_VARIANT",
+        "fixture_file": "pos_12_valid_calculation_unresolved_eur.json",
+        "fixture_sha256": "52a3d000ac866103ee743002ee205309a3135a8d8764a8d0e376eb87f86743ca",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "assertions_checked": 657,
+        "required_failure_codes": [],
+        "allowed_failure_codes": [],
+        "observed_failure_codes": [],
+        "case_passed": true
+      },
+      {
+        "case_id": "POS-13",
+        "name": "pos_13_valid_empty_retrieval_abstention",
+        "category": "POSITIVE_VARIANT",
+        "fixture_file": "pos_13_valid_empty_retrieval_abstention.json",
+        "fixture_sha256": "a6da5306a142ee0740fc9dbc2d721c50f984d7f97275c76c2c32bec3b8796cef",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "assertions_checked": 122,
+        "required_failure_codes": [],
+        "allowed_failure_codes": [],
+        "observed_failure_codes": [],
+        "case_passed": true
+      },
+      {
+        "case_id": "POS-14",
+        "name": "pos_14_valid_retry_accounting",
+        "category": "POSITIVE_VARIANT",
+        "fixture_file": "pos_14_valid_retry_accounting.json",
+        "fixture_sha256": "a36d4a4e883b265ed775fb6e614c1629828fde997dfb17c10b15369e36d404a1",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "assertions_checked": 1186,
+        "required_failure_codes": [],
+        "allowed_failure_codes": [],
+        "observed_failure_codes": [],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-01",
+        "name": "neg_01_corrupt_argument_digest",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_01_corrupt_argument_digest.json",
+        "fixture_sha256": "4e4f87126152bec2661a64c53f4bd8c122e890bb0124786a28b94dcd57909822",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_ARG_DIGEST_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_ARG_DIGEST_MISMATCH",
+          "ERR_COMMON_BINDING_FAILED"
+        ],
+        "observed_failure_codes": [
+          "ERR_ARG_DIGEST_MISMATCH",
+          "ERR_COMMON_BINDING_FAILED"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-02",
+        "name": "neg_02_unknown_authorization_check",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_02_unknown_authorization_check.json",
+        "fixture_sha256": "7cac3e2d35a0d1cc9e608807a881989792a13593f3a4ecc3606d82b09a340f00",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1172,
+        "required_failure_codes": [
+          "ERR_AUTH_CHECK_UNRESOLVED"
+        ],
+        "allowed_failure_codes": [
+          "ERR_AUTH_CHECK_UNRESOLVED",
+          "ERR_COMMON_BINDING_FAILED"
+        ],
+        "observed_failure_codes": [
+          "ERR_AUTH_CHECK_UNRESOLVED",
+          "ERR_COMMON_BINDING_FAILED"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-03",
+        "name": "neg_03_invalid_event_order_and_parent",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_03_invalid_event_order_and_parent.json",
+        "fixture_sha256": "3277c1e3aa0395c4163f87d8260972f199050ded0927029983015a5bf3f2f909",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_EVENT_PARENT_UNRESOLVED",
+          "ERR_EVENT_SEQ_ORDER"
+        ],
+        "allowed_failure_codes": [
+          "ERR_EVENT_PARENT_UNRESOLVED",
+          "ERR_EVENT_SEQ_ORDER"
+        ],
+        "observed_failure_codes": [
+          "ERR_EVENT_PARENT_UNRESOLVED",
+          "ERR_EVENT_SEQ_ORDER"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-04",
+        "name": "neg_04_missing_authorization_snapshot",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_04_missing_authorization_snapshot.json",
+        "fixture_sha256": "fb8c459c8c5615b94484dc8fc3257a87bf252a495b72e6d827441f4108a19e6c",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1167,
+        "required_failure_codes": [
+          "ERR_SNAPSHOT_MISSING"
+        ],
+        "allowed_failure_codes": [
+          "ERR_ARG_DIGEST_MISMATCH",
+          "ERR_COMMON_BINDING_FAILED",
+          "ERR_SNAPSHOT_BINDING",
+          "ERR_SNAPSHOT_MISSING",
+          "ERR_SNAPSHOT_STATE_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_ARG_DIGEST_MISMATCH",
+          "ERR_COMMON_BINDING_FAILED",
+          "ERR_SNAPSHOT_BINDING",
+          "ERR_SNAPSHOT_MISSING",
+          "ERR_SNAPSHOT_STATE_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-05",
+        "name": "neg_05_nonexistent_citation_chunk",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_05_nonexistent_citation_chunk.json",
+        "fixture_sha256": "41528bf97354af0fcab4b2ecff74061f993be257f047ffbc2877be0b5f02f54a",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1176,
+        "required_failure_codes": [
+          "ERR_CITATION_SOURCE_UNRESOLVED"
+        ],
+        "allowed_failure_codes": [
+          "ERR_CITATION_CONTEXT_FLAG_MISMATCH",
+          "ERR_CITATION_SOURCE_UNRESOLVED"
+        ],
+        "observed_failure_codes": [
+          "ERR_CITATION_CONTEXT_FLAG_MISMATCH",
+          "ERR_CITATION_SOURCE_UNRESOLVED"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-06",
+        "name": "neg_06_invalid_po_state_transition",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_06_invalid_po_state_transition.json",
+        "fixture_sha256": "81a6eaf203ce93c0f7a41c56842c271ede934db3e70f4889ce7dce3059fcfe28",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_PO_STATE_TRANSITION_INVALID"
+        ],
+        "allowed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_PO_STATE_TRANSITION_INVALID"
+        ],
+        "observed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_PO_STATE_TRANSITION_INVALID"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-07",
+        "name": "neg_07_unknown_field_in_result_payload",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_07_unknown_field_in_result_payload.json",
+        "fixture_sha256": "b4b07f4aab47912fc3116e1e01433d12eefc32a8d4cc44d684d9f18e773db589",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_UNKNOWN_FIELD_REJECTED"
+        ],
+        "allowed_failure_codes": [
+          "ERR_UNKNOWN_FIELD_REJECTED"
+        ],
+        "observed_failure_codes": [
+          "ERR_UNKNOWN_FIELD_REJECTED"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-08",
+        "name": "neg_08_rag_ground_truth_leak",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_08_rag_ground_truth_leak.json",
+        "fixture_sha256": "49c22b83da78545a2ddfac514b4c9ba647f8a8cb14e3f92fc0d41ccfcb0f1309",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 199,
+        "required_failure_codes": [
+          "ERR_GROUND_TRUTH_LEAK"
+        ],
+        "allowed_failure_codes": [
+          "ERR_GROUND_TRUTH_LEAK"
+        ],
+        "observed_failure_codes": [
+          "ERR_GROUND_TRUTH_LEAK"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-09",
+        "name": "neg_09_false_true_binding_flag_on_stale_rev",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_09_false_true_binding_flag_on_stale_rev.json",
+        "fixture_sha256": "75ff5939105c59227b36958fb9f8e7138717b99b04c2537edba71aeff44a422c",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_SNAPSHOT_REQUEST_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_SNAPSHOT_REQUEST_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_SNAPSHOT_REQUEST_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-10",
+        "name": "neg_10_supplier_not_approved_snapshot_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_10_supplier_not_approved_snapshot_mismatch.json",
+        "fixture_sha256": "b28c49b0a51f02dbd1df41fb7f4f72620fbd9fc8c708dffa31aa7d99801d7f12",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-11",
+        "name": "neg_11_approval_denied_snapshot_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_11_approval_denied_snapshot_mismatch.json",
+        "fixture_sha256": "c398c6385b0e757cc14320459435afa55e430f2e95c17ef243d10f38be6cc735",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_PO_BINDING_FAILED",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-12",
+        "name": "neg_12_root_request_amount_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_12_root_request_amount_mismatch.json",
+        "fixture_sha256": "1d1efdcce7ede0e3ce7e643f48c396a589904be55b44b87dd1f4e816fe9261a3",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_REQUEST_TOOL_ARG_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_BUDGET_IDEMPOTENCY_DIGEST",
+          "ERR_PO_RESULT_REQUEST_MISMATCH",
+          "ERR_REQUEST_TOOL_ARG_MISMATCH",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+          "ERR_SNAPSHOT_CALC_EVIDENCE_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_BUDGET_IDEMPOTENCY_DIGEST",
+          "ERR_PO_RESULT_REQUEST_MISMATCH",
+          "ERR_REQUEST_TOOL_ARG_MISMATCH",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+          "ERR_SNAPSHOT_CALC_EVIDENCE_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-13",
+        "name": "neg_13_duplicate_policy_ids_in_check",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_13_duplicate_policy_ids_in_check.json",
+        "fixture_sha256": "dce926c4222dd14d32eeba17038f920bc420139f68a241406469db7a309caece",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_POLICY_IDS_NOT_DISTINCT"
+        ],
+        "allowed_failure_codes": [
+          "ERR_POLICY_IDS_NOT_DISTINCT"
+        ],
+        "observed_failure_codes": [
+          "ERR_POLICY_IDS_NOT_DISTINCT"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-14",
+        "name": "neg_14_snapshot_dispatch_claim_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_14_snapshot_dispatch_claim_mismatch.json",
+        "fixture_sha256": "f35f6036a3f93d92db906b36145fae3020e6963ccac92995e3346e6c76c6a5c2",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_DISPATCH_CLAIM_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ],
+        "allowed_failure_codes": [
+          "ERR_DISPATCH_CLAIM_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ],
+        "observed_failure_codes": [
+          "ERR_DISPATCH_CLAIM_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-15",
+        "name": "neg_15_timeout_side_effect_none",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_15_timeout_side_effect_none.json",
+        "fixture_sha256": "058a2087b6975c169b5953d85ac5591139ddce8ecf5fb7463bed4e85cafd2256",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 366,
+        "required_failure_codes": [
+          "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+        ],
+        "allowed_failure_codes": [
+          "ERR_RECOVERY_TARGET_NOT_UNKNOWN",
+          "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+        ],
+        "observed_failure_codes": [
+          "ERR_RECOVERY_TARGET_NOT_UNKNOWN",
+          "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-16",
+        "name": "neg_16_recovery_identity_and_payload_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_16_recovery_identity_and_payload_mismatch.json",
+        "fixture_sha256": "a1e7fab2d88493c1eebd4c57e1ab751b1cfeb8b659d878f8ba463402f622fdc2",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 366,
+        "required_failure_codes": [
+          "ERR_PO_RESULT_REQUEST_MISMATCH",
+          "ERR_RECOVERY_KEY_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_PO_RESULT_REQUEST_MISMATCH",
+          "ERR_RECOVERY_KEY_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_PO_RESULT_REQUEST_MISMATCH",
+          "ERR_RECOVERY_KEY_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-17",
+        "name": "neg_17_duplicate_terminal_tool_result",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_17_duplicate_terminal_tool_result.json",
+        "fixture_sha256": "4566721c85dbd4de298ccf28ee0f995dbba854cddea640fa4ee13ded7306b0b5",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1208,
+        "required_failure_codes": [
+          "ERR_DUPLICATE_TERMINAL_TOOL_RESULT"
+        ],
+        "allowed_failure_codes": [
+          "ERR_DUPLICATE_TERMINAL_TOOL_RESULT"
+        ],
+        "observed_failure_codes": [
+          "ERR_DUPLICATE_TERMINAL_TOOL_RESULT"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-18",
+        "name": "neg_18_budget_counter_arithmetic_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_18_budget_counter_arithmetic_mismatch.json",
+        "fixture_sha256": "1d1e5cb212b1c828cc0b89d6f4ebc74f6b3e5d7779bb4851c204ef6fd07feba9",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1178,
+        "required_failure_codes": [
+          "ERR_BUDGET_COUNTER_INVALID"
+        ],
+        "allowed_failure_codes": [
+          "ERR_BUDGET_COUNTER_INVALID"
+        ],
+        "observed_failure_codes": [
+          "ERR_BUDGET_COUNTER_INVALID"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-19",
+        "name": "neg_19_fencing_token_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_19_fencing_token_mismatch.json",
+        "fixture_sha256": "6f4b8964df564ac2522912a18632a7b689676a302c75da2b84775eb3aa7bb0da",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_BUDGET_FENCING_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_BUDGET_FENCING_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_BUDGET_FENCING_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-20",
+        "name": "neg_20_citation_doc_version_mismatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_20_citation_doc_version_mismatch.json",
+        "fixture_sha256": "3a3d0594a2fa75a4b971d5779631b4bd7696c0c66a6e19ffef4be661bcba9046",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_CITATION_VERSION_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_CITATION_VERSION_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_CITATION_VERSION_MISMATCH"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-21",
+        "name": "neg_21_citation_outside_selected_passage",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_21_citation_outside_selected_passage.json",
+        "fixture_sha256": "843dd59a41d8bb94e4d42e6f4d5222ab6b55b9d6741d2f96ec5cb645ae8892f9",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1181,
+        "required_failure_codes": [
+          "ERR_CITATION_OUTSIDE_SELECTED_SLICE"
+        ],
+        "allowed_failure_codes": [
+          "ERR_CITATION_OUTSIDE_SELECTED_SLICE",
+          "ERR_PROMPT_CONTEXT_MISSING"
+        ],
+        "observed_failure_codes": [
+          "ERR_CITATION_OUTSIDE_SELECTED_SLICE"
+        ],
+        "case_passed": true
+      },
+      {
+        "case_id": "NEG-22",
+        "name": "neg_22_malformed_raw_args_and_duplicate_po_dispatch",
+        "category": "NEGATIVE_PROBE",
+        "fixture_file": "neg_22_malformed_raw_args_and_duplicate_po_dispatch.json",
+        "fixture_sha256": "f5364af690a70a901ae78a9e38628efeb6e0adbd4e8b2e0453bb02a61aa67ee0",
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "assertions_checked": 1228,
+        "required_failure_codes": [
+          "ERR_AUTH_CHECK_REUSED",
+          "ERR_PO_DUPLICATE_DISPATCH_CLAIM",
+          "ERR_RAW_ARGS_PARSE_MISMATCH"
+        ],
+        "allowed_failure_codes": [
+          "ERR_AUTH_CHECK_REUSED",
+          "ERR_BUDGET_COUNTER_INVALID",
+          "ERR_COMMON_BINDING_FAILED",
+          "ERR_PO_BINDING_FAILED",
+          "ERR_PO_DUPLICATE_DISPATCH_CLAIM",
+          "ERR_PO_STATE_TRANSITION_INVALID",
+          "ERR_RAW_ARGS_PARSE_MISMATCH",
+          "ERR_SNAPSHOT_STATE_MISMATCH"
+        ],
+        "observed_failure_codes": [
+          "ERR_AUTH_CHECK_REUSED",
+          "ERR_BUDGET_COUNTER_INVALID",
+          "ERR_COMMON_BINDING_FAILED",
+          "ERR_PO_BINDING_FAILED",
+          "ERR_PO_DUPLICATE_DISPATCH_CLAIM",
+          "ERR_PO_STATE_TRANSITION_INVALID",
+          "ERR_RAW_ARGS_PARSE_MISMATCH",
+          "ERR_SNAPSHOT_STATE_MISMATCH"
+        ],
+        "case_passed": true
+      }
+    ]
+  },
+  "independent_suite": {
+    "exit_code": 1,
+    "cases": 35,
+    "expectations_met": 19,
+    "unmet_expectations": 16,
+    "results": [
+      {
+        "case": "control_WT1",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "control_WT3",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 366,
+        "codes": []
+      },
+      {
+        "case": "old_supplier_contradiction",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_SNAPSHOT_SUPPLIER_EVIDENCE_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ]
+      },
+      {
+        "case": "old_approval_denied",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ]
+      },
+      {
+        "case": "old_request_amount",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_REQUEST_TOOL_ARG_MISMATCH",
+          "ERR_BUDGET_IDEMPOTENCY_DIGEST",
+          "ERR_SNAPSHOT_CALC_EVIDENCE_MISMATCH",
+          "ERR_SNAPSHOT_APPROVAL_EVIDENCE_MISMATCH",
+          "ERR_PO_RESULT_REQUEST_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_duplicate_policy_ids",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_POLICY_IDS_NOT_DISTINCT"
+        ]
+      },
+      {
+        "case": "old_claim_mismatch",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_DISPATCH_CLAIM_MISMATCH",
+          "ERR_PO_BINDING_FAILED"
+        ]
+      },
+      {
+        "case": "old_recovery_key",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 366,
+        "codes": [
+          "ERR_RECOVERY_KEY_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_recovery_digest",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 366,
+        "codes": [
+          "ERR_RECOVERY_DIGEST_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_timeout_none",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 366,
+        "codes": [
+          "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN",
+          "ERR_RECOVERY_TARGET_NOT_UNKNOWN"
+        ]
+      },
+      {
+        "case": "old_negative_counter",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1178,
+        "codes": [
+          "ERR_BUDGET_COUNTER_INVALID"
+        ]
+      },
+      {
+        "case": "old_missing_counters",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1119,
+        "codes": [
+          "ERR_BUDGET_DIMENSIONS_MISSING"
+        ]
+      },
+      {
+        "case": "old_fencing",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_BUDGET_FENCING_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_raw_malformed",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 1181,
+        "codes": [
+          "ERR_RAW_ARGS_PARSE_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_citation_version",
+        "expected": "FINDING",
+        "observed": "FINDING",
+        "assertions": 199,
+        "codes": [
+          "ERR_CITATION_VERSION_MISMATCH"
+        ]
+      },
+      {
+        "case": "old_legitimate_qrel_overlap",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "old_optional_retry",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 1184,
+        "codes": []
+      },
+      {
+        "case": "approval_event_reference_nonexistent",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_ceiling_below_request",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_source_level_disagrees",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_source_record_disagrees",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_submission_request_disagrees",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_policy_version_disagrees",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_future_timestamp",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "approval_unknown_field",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "timeout_error_claims_no_effect",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1176,
+        "codes": []
+      },
+      {
+        "case": "unknown_after_runtime_exception",
+        "expected": "PASS",
+        "observed": "FINDING",
+        "assertions": 366,
+        "codes": [
+          "ERR_TIMEOUT_SIDE_EFFECT_NOT_UNKNOWN",
+          "ERR_RECOVERY_TARGET_NOT_UNKNOWN"
+        ]
+      },
+      {
+        "case": "unresolved_recovery_still_completed",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 356,
+        "codes": []
+      },
+      {
+        "case": "unknown_result_wrong_claim",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 366,
+        "codes": []
+      },
+      {
+        "case": "unknown_result_wrong_proposal",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 366,
+        "codes": []
+      },
+      {
+        "case": "invalid_event_timestamps",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1181,
+        "codes": []
+      },
+      {
+        "case": "injected_root_cause_in_runtime",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 199,
+        "codes": []
+      },
+      {
+        "case": "manual_partial_prerequisite_assumed",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 366,
+        "codes": []
+      },
+      {
+        "case": "valid_unresolved_recovery_fragment",
+        "expected": "PASS",
+        "observed": "PASS",
+        "assertions": 326,
+        "codes": []
+      },
+      {
+        "case": "approval_submission_retry_unaccounted",
+        "expected": "FINDING",
+        "observed": "PASS",
+        "assertions": 1185,
+        "codes": []
+      }
+    ]
+  },
+  "overall_schema_status": "CHANGES_REQUIRED",
+  "prior_cli_review": "Available in external joint packet; not rerun separately in this mapping task."
+}

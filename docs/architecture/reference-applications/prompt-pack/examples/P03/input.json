@@ -1,0 +1,19 @@
+{
+  "user_request": "Check the policy for this laptop request.",
+  "runtime_context": {
+    "request": {
+      "request_id": "req-demo-01",
+      "request_revision": "req-demo-01-r1",
+      "item_description": "business laptops",
+      "quantity": 20,
+      "total_amount": "16000.00",
+      "currency": "USD",
+      "supplier_id": "SUP-088",
+      "requester_ref": "actor-requester-demo"
+    },
+    "state": "REQUEST_CAPTURED",
+    "observations": {
+      "runtime_top_k": 1
+    }
+  }
+}

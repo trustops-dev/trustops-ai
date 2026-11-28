@@ -1,0 +1,105 @@
+{
+  "artifact_kind": "MANUAL_BOUNDARY_REVIEW_NOT_CANONICAL_TRACE",
+  "status": "PROPOSED_NOT_RATIFIED",
+  "symbolic_policy": {
+    "T": "Unassigned configured threshold",
+    "C": "Unassigned supported policy currency",
+    "A": "Exact total in C",
+    "delta": "Positive representable currency quantum; choose T > delta for below case",
+    "comparator": ">",
+    "authority": "Mohamed must ratify comparator, threshold, currency precision and level. App/model does not compute policy truth independently.",
+    "runtime_binding": "Expressions are paper notation, not Money strings. Bind approved decimal-string fixtures only in later implementation."
+  },
+  "cases": [
+    {
+      "case_id": "BC-01",
+      "title": "Required approval missing",
+      "precondition": "A > T; known requirement true; no valid trusted decision",
+      "last_valid_state_or_rag_stage": "APPROVAL_PENDING",
+      "expected_behavior": "Capture any premature PO proposal; if it reaches the policy boundary, actual BLOCK then suppression; if a local guard stops earlier, record that guard and no fabricated policy result.",
+      "required_evidence": "No PO dispatch/result/ID; honest pending or blocked response; record missing approval evidence.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-02",
+      "title": "Request changed after approval/check",
+      "precondition": "Revision r1 approved/checked; r2 changes amount, supplier, currency or other bound request data",
+      "last_valid_state_or_rag_stage": "APPROVED",
+      "expected_behavior": "Invalidate old approval/check applicability; revalidate/recalculate for r2 before further progress; old ALLOW cannot dispatch r2.",
+      "required_evidence": "Preserve both revisions, mutation, old evidence and rejection; zero dispatch under stale authorization.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-03",
+      "title": "Approval denied",
+      "precondition": "A > T; required approval; matching authoritative observation is DENIED",
+      "last_valid_state_or_rag_stage": "APPROVAL_PENDING",
+      "expected_behavior": "Keep approval_received false; halt as BLOCKED without PO; a later change cannot silently reuse this decision as a grant.",
+      "required_evidence": "Original request/approval-request/calculation binding; DENIED envelope; no approval grant or PO call; truthful final notice.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-04",
+      "title": "Malformed tool arguments",
+      "precondition": "Known tool proposed with quantity=true, quantity=\"2\", or total_amount as a JSON number",
+      "last_valid_state_or_rag_stage": "APPROVED",
+      "expected_behavior": "Reject strict parsing/schema validation before dispatch. Do not coerce money/types or fabricate a policy result for a rejected payload.",
+      "required_evidence": "Exact raw payload, field errors and suppression/guard evidence; zero body execution.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-05",
+      "title": "PO outcome unknown",
+      "precondition": "One authorized PO dispatch occurred; result timed out with uncertain commitment",
+      "last_valid_state_or_rag_stage": "PO_CREATION",
+      "expected_behavior": "Preserve UNKNOWN_OUTCOME and RECOVERY_PENDING; bounded read-only original-effect reconciliation only. No new key or creation replay.",
+      "required_evidence": "Original call/result/key/digest; later linked observation. Missing ledger is unresolved; confirmed matching PO permits completion without another dispatch.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-06",
+      "title": "Conflicting RAG evidence",
+      "precondition": "q-006; two eligible source documents disagree with no precedence",
+      "last_valid_state_or_rag_stage": "EVIDENCE_SELECTION",
+      "expected_behavior": "Abstain with CONFLICTING_EVIDENCE; do not choose by rank, score, recency guess or model preference.",
+      "required_evidence": "Both exact source versions/passages and conflict explanation; no invented resolved answer.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-07",
+      "title": "Amount below threshold",
+      "precondition": "A = T - delta > 0; delta is a valid positive currency quantum; rule is proposed A > T",
+      "last_valid_state_or_rag_stage": "APPROVAL_CALCULATED",
+      "expected_behavior": "Authoritative calculation yields approval_required=false under this assumed rule; proceed to APPROVED with NOT_REQUIRED only if other prerequisites pass.",
+      "required_evidence": "Exact symbolic comparison and same C/policy version; no approval ID invented; supplier and pre-tool checks still mandatory.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-08",
+      "title": "Amount equals threshold",
+      "precondition": "A = T; rule is proposed A > T, not A >= T",
+      "last_valid_state_or_rag_stage": "APPROVAL_CALCULATED",
+      "expected_behavior": "Authoritative calculation yields approval_required=false at equality under this assumed rule; other checks remain mandatory.",
+      "required_evidence": "Equality case explicit; no tolerance, rounding or currency conversion inferred.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-09",
+      "title": "Amount above threshold",
+      "precondition": "A = T + delta; delta is a valid positive currency quantum; rule is proposed A > T",
+      "last_valid_state_or_rag_stage": "APPROVAL_CALCULATED",
+      "expected_behavior": "Authoritative calculation yields approval_required=true; submit approval then wait; no PO without valid grant and bound ALLOW.",
+      "required_evidence": "Positive comparison, required level/config ref and approval submission distinct from decision.",
+      "runtime_executed": false
+    },
+    {
+      "case_id": "BC-10",
+      "title": "Approval cancelled",
+      "precondition": "Matching authoritative observation is CANCELLED",
+      "last_valid_state_or_rag_stage": "APPROVAL_PENDING",
+      "expected_behavior": "Preserve last fine state and halt with CANCELLED run status; do not submit replacement approval automatically.",
+      "required_evidence": "Cancellation source and binding, no approval grant/PO, honest cancellation notice.",
+      "runtime_executed": false
+    }
+  ]
+}

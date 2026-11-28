@@ -1,0 +1,93 @@
+{
+  "artifact_kind": "OFFLINE_AUTHORED_QUERY_AND_RETRIEVAL_PLAN",
+  "version": "retrieval-fixtures-v0.1",
+  "cases": [
+    {
+      "query_id": "q-001",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does an urgent request above T bypass purchasing approval?",
+      "authored_returned_documents": [
+        "doc-001"
+      ],
+      "authored_selected_documents": [
+        "doc-001"
+      ]
+    },
+    {
+      "query_id": "q-002",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave require five working days of notice, and is it automatically approved?",
+      "authored_returned_documents": [
+        "doc-003"
+      ],
+      "authored_selected_documents": [
+        "doc-003"
+      ]
+    },
+    {
+      "query_id": "q-003",
+      "snapshot_id": "corpus-review-s01",
+      "question": "May an urgent repair run outside the maintenance window just because it is urgent?",
+      "authored_returned_documents": [
+        "doc-004"
+      ],
+      "authored_selected_documents": [
+        "doc-004"
+      ]
+    },
+    {
+      "query_id": "q-004",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support, and does the ticket authorize a replacement purchase?",
+      "authored_returned_documents": [
+        "doc-005"
+      ],
+      "authored_selected_documents": [
+        "doc-005"
+      ]
+    },
+    {
+      "query_id": "q-005",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Where do I request laptop support?",
+      "authored_returned_documents": [
+        "doc-006",
+        "doc-008"
+      ],
+      "authored_selected_documents": []
+    },
+    {
+      "query_id": "q-006",
+      "snapshot_id": "corpus-review-s02",
+      "question": "What is the deadline for submitting receipts after a business trip?",
+      "authored_returned_documents": [
+        "doc-006",
+        "doc-007"
+      ],
+      "authored_selected_documents": [
+        "doc-006",
+        "doc-007"
+      ]
+    },
+    {
+      "query_id": "q-007",
+      "snapshot_id": "corpus-review-s01",
+      "question": "How many parking permits may an employee request?",
+      "authored_returned_documents": [
+        "doc-008"
+      ],
+      "authored_selected_documents": []
+    },
+    {
+      "query_id": "q-008",
+      "snapshot_id": "corpus-review-s01",
+      "question": "Does emergency leave need five working days of notice?",
+      "authored_returned_documents": [
+        "doc-003"
+      ],
+      "authored_selected_documents": [
+        "doc-003"
+      ]
+    }
+  ]
+}

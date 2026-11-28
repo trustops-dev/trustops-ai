@@ -1,0 +1,46 @@
+{
+  "record_date": "2026-11-15",
+  "scope": "Offline packet consistency after recording Ahmed evaluator-side response; no canonical schema, semantic evaluator, runtime, cross-team or plan validation",
+  "reviewed_owner_commit": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+  "source": {
+    "path": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response-source.md",
+    "sha256": "982b68089f2096ae1aba61096d622330f4763efeec934ba1553c5d9a35d585ec",
+    "email_sent_date": null,
+    "original_attachment_sha256": "bac566ebff7fd56466b0a59943581b70b1fd99b50b98d7f1dd0438ca87e47759",
+    "normalization": "Removed one trailing blank line only; review meaning unchanged"
+  },
+  "review_record": {
+    "path": "docs/architecture/reference-applications/reviews/ahmed-9e6affa-evaluator-response.md",
+    "sha256": "ff60e1be8601991e1c82a8924d79360e1b311ff8d9e5dc5b58a2c923befc87a2"
+  },
+  "checks": [
+    {
+      "command": "python docs/architecture/reference-applications/validation/verify_manual_fixtures.py . --output /tmp/ahmed-manual-fixtures.json",
+      "status": "PASS",
+      "count": 1000,
+      "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation"
+    },
+    {
+      "command": "python docs/architecture/reference-applications/validation/verify_corpus_boundaries.py . --output /tmp/ahmed-corpus-boundaries.json",
+      "status": "PASS",
+      "count": 397,
+      "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only"
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS",
+      "scope": "Working-tree whitespace only"
+    },
+    {
+      "command": "sha256 source and check packet cross-links",
+      "status": "PASS",
+      "scope": "Exact source bytes and five linked owner docs"
+    }
+  ],
+  "decision_status": {
+    "OD-09_GD-26": "OPEN_JOINT_MAPPING_AND_NOUR_PLAN_DECISION",
+    "direct_retrieval_fault_amendment": "OPEN_MOHAB_SCHEMA_DISPOSITION"
+  },
+  "prior_validation_reports": "HISTORICAL_AT_THEIR_RECORDED_MANIFEST_HASH; NOT REWRITTEN",
+  "new_provider_or_runtime_checks": "NOT_RUN"
+}

@@ -1,0 +1,1136 @@
+{
+  "date": "2026-11-06",
+  "result": "PASS",
+  "scope": "Static mapping integrity, pinned inputs, recorded evidence and representative path presence only; not semantic completeness or runtime acceptance",
+  "mapping_sha256": "4f76c2fc9e853b9ddf5ab586fafad28260f78fe4cd8df18fc32114815a8fb295",
+  "rows": 27,
+  "status_counts": {
+    "OK": 9,
+    "OPEN": 9,
+    "CHANGE REQUIRED": 9
+  },
+  "representative_paths_checked": 69,
+  "check_count": 280,
+  "checks": [
+    {
+      "check": "Pinned input: run_s1_01_regression_suite(1).py",
+      "status": "PASS"
+    },
+    {
+      "check": "Pinned input: validate_s1_01_schema_v1_6.py",
+      "status": "PASS"
+    },
+    {
+      "check": "Pinned input: updated_schemas_v6.md",
+      "status": "PASS"
+    },
+    {
+      "check": "Pinned input: evidence-consistency-and-recovery.zip",
+      "status": "PASS"
+    },
+    {
+      "check": "Pinned input: s1_01_validation_report(1).json",
+      "status": "PASS"
+    },
+    {
+      "check": "Historical mapping unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "Mapped specification hash",
+      "status": "PASS"
+    },
+    {
+      "check": "Mapped validator hash",
+      "status": "PASS"
+    },
+    {
+      "check": "Four canonical walkthroughs extracted",
+      "status": "PASS"
+    },
+    {
+      "check": "Pinned generated POS-13 fixture",
+      "status": "PASS"
+    },
+    {
+      "check": "Exactly E01\u2013E27 in order",
+      "status": "PASS"
+    },
+    {
+      "check": "Status counts agree",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 path WT1/None/request.request_revision",
+      "status": "PASS"
+    },
+    {
+      "check": "E01 path WT4/None/request.synthetic_data",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 path WT4/e2/attributes.rendered_prompt_or_messages",
+      "status": "PASS"
+    },
+    {
+      "check": "E02 path WT1/e29/attributes.selected_context_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 path WT1/e5/attributes.arguments.query",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 path WT1/e7/attributes.linked_retrieval_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E03 path WT1/e7/attributes.result_payload.data.policy_set_version",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 path WT4/e1/attributes.effective_query",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 path WT4/None/versions.index_version",
+      "status": "PASS"
+    },
+    {
+      "check": "E04 supplied case POS-13",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 path WT4/e1/attributes.retrieved_documents.0.content_hash",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 path WT4/e1/attributes.retrieved_documents.0.source_locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E05 path WT4/e1/attributes.retrieved_documents.0.canonical_chunk_char_span",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 path WT4/e1/attributes.score_semantics.metric_type",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 path WT4/e1/attributes.retrieved_documents.0.rank",
+      "status": "PASS"
+    },
+    {
+      "check": "E06 path WT1/e7/attributes.result_payload.data.returned_count",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 path WT4/e1/attributes.evidence_sufficiency.missing_or_unsupported_facets",
+      "status": "PASS"
+    },
+    {
+      "check": "E07 path WT4/e2/attributes.selected_context_ref.selected_chunk_ids",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 path WT1/None/request.structured_input.total_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 path WT1/e3/attributes.normalized_arguments",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 independent case old_request_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "E08 independent case old_raw_malformed",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 path WT1/e33/attributes.bound_authorization_check_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 path WT1/e33/attributes.state_revision_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 path WT1/e14/parent_event_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 independent case unresolved_recovery_still_completed",
+      "status": "PASS"
+    },
+    {
+      "check": "E09 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 path WT1/e30/attributes.policy_stage_at_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 path WT1/e32/attributes.authorization_snapshot.checked_policy_stage",
+      "status": "PASS"
+    },
+    {
+      "check": "E10 path WT1/e34/attributes.policy_stage_at_dispatch",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 path WT1/e13/attributes.result_payload.data.supplier.status",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 path WT1/e32/attributes.authorization_snapshot.supplier_evidence_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 independent case old_supplier_contradiction",
+      "status": "PASS"
+    },
+    {
+      "check": "E11 supplied case NEG-10",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 path WT1/e19/attributes.result_payload.data.basis",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 path WT1/e20/attributes.approval_required",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 independent case old_request_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "E12 supplied case POS-12",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 path WT1/e25/attributes.result_payload.data.approval_request_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 path WT1/e25/attributes.result_payload.data.calculation_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 independent case approval_submission_request_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 independent case approval_submission_retry_unaccounted",
+      "status": "PASS"
+    },
+    {
+      "check": "E13 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 path WT1/e27/attributes.approval_status",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 path WT1/e27/attributes.bound_request_revision",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 path WT1/e32/attributes.authorization_snapshot.approval_evidence_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case old_approval_denied",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_event_reference_nonexistent",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_ceiling_below_request",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_source_level_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_source_record_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_policy_version_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_future_timestamp",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 independent case approval_unknown_field",
+      "status": "PASS"
+    },
+    {
+      "check": "E14 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 path WT1/e30/attributes.proposal_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 path WT1/e30/parent_event_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E15 path WT1/e31/attributes.tool_schema_version",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 path WT1/e2/attributes.raw_arguments_serialized",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 path WT1/e3/attributes.validation_errors",
+      "status": "PASS"
+    },
+    {
+      "check": "E16 independent case old_raw_malformed",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 path WT1/e32/attributes.authorization_snapshot",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 path WT1/e34/attributes.dispatch_claim_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 independent case old_supplier_contradiction",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 independent case old_request_amount",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 independent case old_claim_mismatch",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 independent case approval_event_reference_nonexistent",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 independent case approval_ceiling_below_request",
+      "status": "PASS"
+    },
+    {
+      "check": "E17 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 path WT1/e32/attributes.evaluated_policies.0.policy_result",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 path WT2/e6/attributes.action_verdict",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 independent case old_duplicate_policy_ids",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 independent case approval_source_level_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 independent case approval_policy_version_disagrees",
+      "status": "PASS"
+    },
+    {
+      "check": "E18 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 path WT2/e7/attributes.execution_started",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 path WT2/e7/attributes.blocking_check_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E19 path WT2/e7/attributes.tool_dispatched",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 path WT1/e35/attributes.result_payload.data.result_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 path WT3/e7/attributes.side_effect_state",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 supplied case NEG-17",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 independent case old_timeout_none",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 independent case timeout_error_claims_no_effect",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 independent case unknown_after_runtime_exception",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 independent case unknown_result_wrong_claim",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 independent case unknown_result_wrong_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "E20 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 path WT1/e38/attributes.claimed_actions.0.supporting_result_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 path WT2/e8/attributes.raw_model_candidate_text",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 path WT2/e8/attributes.delivered_response_text",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 independent case unresolved_recovery_still_completed",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 independent case unknown_result_wrong_claim",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 independent case unknown_result_wrong_proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "E21 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 path WT4/e3/attributes.generating_model_call_id",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 path WT4/e3/attributes.claim_to_source_spans.0.response_char_span",
+      "status": "PASS"
+    },
+    {
+      "check": "E22 supplied case NEG-21",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 path WT4/e3/attributes.visible_citations.0.cited_doc_version",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 path WT4/e3/attributes.claim_to_source_spans.0.source_evidence_spans.0.source_char_span",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 independent case old_citation_version",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 supplied case NEG-20",
+      "status": "PASS"
+    },
+    {
+      "check": "E23 supplied case NEG-21",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path WT4/e1/attributes.evidence_sufficiency.sufficiency_status",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path WT4/e3/attributes.abstention_details",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path WT4/None/last_rag_stage",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path POS-13/e3/attributes.abstention_details.abstention_reason_code",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path POS-13/e3/attributes.delivered_response_text",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 path POS-13/None/last_rag_stage",
+      "status": "PASS"
+    },
+    {
+      "check": "E24 supplied case POS-13",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 path WT3/e8/attributes.queried_idempotency_key",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 path WT3/e8/attributes.unresolved_reason_code",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 path WT2/None/fixture_provenance",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_recovery_key",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_recovery_digest",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_negative_counter",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_missing_counters",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_fencing",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case old_optional_retry",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case timeout_error_claims_no_effect",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case unknown_after_runtime_exception",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case unresolved_recovery_still_completed",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 independent case approval_submission_retry_unaccounted",
+      "status": "PASS"
+    },
+    {
+      "check": "E25 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 path WT4/None/versions.effective_config_ref",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 path WT4/None/versions.config_digest",
+      "status": "PASS"
+    },
+    {
+      "check": "E26 path WT3/None/metadata_availability.token_usage.status",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 original requirement preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 valid status",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 complete evidence/action fields",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 source locator",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 change has finding reference",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 path WT4/None/scenario_metadata.expected_relevant_doc_ids",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 path WT4/e1/attributes.retrieved_documents.0.source_metadata.is_poisoned_test_doc",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 independent case old_legitimate_qrel_overlap",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 independent case injected_root_cause_in_runtime",
+      "status": "PASS"
+    },
+    {
+      "check": "E27 reproduced unmet expectation",
+      "status": "PASS"
+    },
+    {
+      "check": "No fabricated acceptance/runtime claim",
+      "status": "PASS"
+    },
+    {
+      "check": "16 independent unmet expectations retained",
+      "status": "PASS"
+    }
+  ]
+}

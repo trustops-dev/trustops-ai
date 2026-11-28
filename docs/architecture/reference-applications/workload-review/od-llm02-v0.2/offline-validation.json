@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "checks": [
+    "free only",
+    "no automatic fallback",
+    "not live enabled",
+    "keep selected generation model",
+    "compatibility_day debit",
+    "compatibility_day daily envelope",
+    "procurement_only_day debit",
+    "procurement_only_day daily envelope",
+    "rag_only_day debit",
+    "rag_only_day daily envelope",
+    "mixed blocked before verification",
+    "mixed conditional fits",
+    "prior smoke does not fit worst case",
+    "prior daily estimate does not fit",
+    "index worst case",
+    "index fits proposed daily embedding cap",
+    "generation pacing token envelope",
+    "embedding pacing token envelope",
+    "boundary 21 rejects",
+    "boundary 20 fits"
+  ],
+  "check_count": 20,
+  "runtime_calls": 0
+}

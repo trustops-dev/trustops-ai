@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-09",
+  "result": "PASS_ROUTING_COVERAGE_ONLY",
+  "source_sha256": {
+    "proposal": "8477f21210c1ba142c7a85a59ccc1fb38eb7d991da1b012f8443812538c3f36c",
+    "original_plan": "6bbfc2eeeeedb473ad7052c0973feda04ea7cab1b5892456057320a5bf154bd1",
+    "ui_plan_full": "cca78edca35d450b743412a0985936a70478307ebe9426fdfc7b73ae216fbefb",
+    "ui_plan_updates": "5af1d891132436a39b566337fb753aaff0c97975c5f8c50544ba38536b4586dc"
+  },
+  "reviewed_main": "3ef7da1f190cd5a22efdcd6798af59199924bac3",
+  "reviewed_pr_branch": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+  "decision_groups": [
+    "OD-02",
+    "OD-06",
+    "OD-08",
+    "OD-16",
+    "GD-26",
+    "Malak UI schedule amendment"
+  ],
+  "count": 6,
+  "plan_approver_name": "UNCONFIRMED",
+  "authority_delegation": "NOT_SUPPLIED",
+  "routing": "PREPARED_NOT_SENT",
+  "plan_approval": "NOT_GRANTED",
+  "ui_schedule": "PROPOSED_NOT_APPROVED",
+  "static_manual_checks": 940,
+  "static_corpus_checks": 360,
+  "limits": "Document/source audit only; no authority attestation, specialist sign-off or plan change",
+  "integration_validation": {
+    "date": "2026-11-11",
+    "baseline_commit": "9e6affaa6d2f9bfca675e63e1c536d47005cd74d",
+    "python": "3.12.14",
+    "manual_fixture_summary": {
+      "status": "PASS",
+      "scope": "Static authored-artifact consistency only; not canonical schema or runtime validation",
+      "canonical_schema": "BLOCKED",
+      "runtime": "NOT_RUN",
+      "team_approvals": "PENDING",
+      "git_checks": "NOT_REQUESTED",
+      "fixture_event_counts": {
+        "01-procurement-success.json": 37,
+        "02-procurement-bypass.json": 32,
+        "03-rag-grounded.json": 6,
+        "04-rag-insufficient.json": 4
+      },
+      "check_count": 940,
+      "execution_environment": {
+        "python": "3.12.14",
+        "helper_sha256": "ed99b3532c8d901e3900912b113256f4d8d3b901b97952fda1e27531bdac4185"
+      }
+    },
+    "corpus_boundary_summary": {
+      "result": "PASS",
+      "scope": "Static authored source hashes/spans, review labels/references, symbolic boundary cases, denial JSON and documentation links only",
+      "checks": 360,
+      "source_documents": 8,
+      "snapshots": 2,
+      "corpus_review_cases": 8,
+      "boundary_cases": 10,
+      "not_run": [
+        "chunk token counts",
+        "embedding API",
+        "pgvector/FAISS",
+        "runtime workflow",
+        "canonical trace validator",
+        "semantic evaluator",
+        "shared acceptance"
+      ],
+      "execution_environment": {
+        "python": "3.12.14",
+        "helper_sha256": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+      }
+    },
+    "source_copy_sha256": "d48f685c2f0c62b007f0e0b3ec25938d25918835dc1eacdd8f78a39823514e65",
+    "source_copy_exact_zip_bytes": "PASS",
+    "nine_source_distinctions": "PASS",
+    "six_decision_groups_and_unconfirmed_authority": "PASS",
+    "ruff_check": "PASS",
+    "ruff_format": "PASS_104_FILES",
+    "json": "PASS",
+    "whitespace": "PASS",
+    "ui_execution": "NOT_RUN",
+    "external_plan_attachments": "ABSENT_FROM_PACKAGE; supplied source hashes retained",
+    "messages_sent": 0
+  }
+}

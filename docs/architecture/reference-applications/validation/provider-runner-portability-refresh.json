@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-08",
+  "status": "NATIVE_WINDOWS_OFFLINE_VERIFIED_LIVE_PENDING",
+  "baseline_pr_head": "17948052ed1de126459a4bc8610e673fb0cc48f9",
+  "environment": {
+    "python": "3.12.15",
+    "platform": "Windows",
+    "google_genai": "2.34.0",
+    "pytest": "9.1.1"
+  },
+  "fresh_checks": {
+    "runner_tests_passed": 25,
+    "runner_tests_failed": 0,
+    "dry_run": "DRY_RUN_NO_REQUESTS",
+    "manual_fixture_link_checks": 886,
+    "optional_git_checks": 3,
+    "manual_total": 889,
+    "corpus_boundary_checks": 327,
+    "ruff_lint": "PASS",
+    "ruff_format": "PASS"
+  },
+  "live_provider_calls": 0,
+  "headroom": "NOT_VERIFIED",
+  "model_promoted": false,
+  "preparation_snapshot": {
+    "date": "2026-11-08",
+    "status": "PORTABILITY_PATCH_OFFLINE_VERIFIED_NATIVE_WINDOWS_PENDING",
+    "baseline_pr_head": "17948052ed1de126459a4bc8610e673fb0cc48f9",
+    "change": "Native Windows msvcrt single-byte nonblocking lock; POSIX keeps fcntl and inherited lock descriptor; Windows child no pass_fds.",
+    "checks": {
+      "pytest_linux_with_windows_branch_simulation": "25 PASSED",
+      "ruff_lint": "PASS",
+      "ruff_format": "PASS",
+      "dry_run": "PASS"
+    },
+    "windows_native_runner_tests": "NOT_RUN_IN_THIS_ENVIRONMENT",
+    "live_provider_calls": 0,
+    "local_key_available_in_authoring_process": false,
+    "headroom": "NOT_VERIFIED",
+    "model_promoted": false,
+    "remaining": [
+      "Run 25 tests on the target Windows host.",
+      "Verify key is present in the SAME local process without revealing it.",
+      "Verify current free tier and model-specific headroom including other consumers.",
+      "Run bounded synthetic probes in an authorized local environment and share sanitized results.",
+      "Mohab to settle full-envelope token admission; Alaa to review workload/evidence."
+    ]
+  },
+  "remaining": [
+    "Key availability and current Free-tier/headroom must be verified in the same private execution process.",
+    "Bounded live synthetic probes and sanitized result review remain pending.",
+    "Full-envelope token admission, workload review and shared acceptance remain pending."
+  ]
+}

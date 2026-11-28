@@ -1,0 +1,40 @@
+{
+  "recorded_on": "2026-11-07",
+  "result": "PASS_OFFLINE_INTEGRATION_ONLY",
+  "base_commit": "d07d23338090e1106bdf55645643daa6fb62eb1c",
+  "python": "3.12.15",
+  "manual_fixture_link_checks": 870,
+  "optional_git_checks": 3,
+  "manual_total": 873,
+  "corpus_boundary_checks": 316,
+  "arithmetic_boundary_checks": [
+    "smoke PLANNING_ESTIMATE_WITH_RETRY_RESERVE hand-derived request/token totals",
+    "smoke PLANNING_ESTIMATE_WITH_RETRY_RESERVE hand-derived token subtotal",
+    "smoke CONDITIONAL_CAP_EXPOSURE hand-derived request/token totals",
+    "smoke CONDITIONAL_CAP_EXPOSURE hand-derived token subtotal",
+    "development_week PLANNING_ESTIMATE_WITH_RETRY_RESERVE hand-derived request/token totals",
+    "development_week PLANNING_ESTIMATE_WITH_RETRY_RESERVE hand-derived token subtotal",
+    "development_week CONDITIONAL_CAP_EXPOSURE hand-derived request/token totals",
+    "development_week CONDITIONAL_CAP_EXPOSURE hand-derived token subtotal",
+    "Zero workload",
+    "Retry rounding 0",
+    "Retry rounding 1",
+    "Rejected -1",
+    "Rejected NaN"
+  ],
+  "calculator_reproduces_prepared_results": true,
+  "ruff_version": "0.17.0",
+  "ruff_lint": "PASS",
+  "ruff_format": "PASS",
+  "source_validation_report": "validation/workload-review-refresh.json",
+  "source_report_context": "Package preparation evidence retained unchanged. This separate record reports fresh integration checks.",
+  "live_runtime": "NOT_RUN",
+  "account_ownership_quotas_spend_approval": "PENDING",
+  "external_schema_suite": "HISTORICAL_NOT_RERUN",
+  "input_hashes": {
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/workload-candidate.json": "dca06b1d4e2e344f22607654dd8893160f0c95d0cfd5dc87fefe3c1d848d4195",
+    "docs/architecture/reference-applications/workload-review/od-llm02-v0.1/calculate_workload.py": "5fcc5db4e398e9136206b502015054bbe6d548dc1c0aef4a8273268c0a3c84b3",
+    "docs/architecture/reference-applications/validation/verify_manual_fixtures.py": "b25eadb11f38ab783368c91ab3f6a75b3c754cfc7b9db67acd6f5b4c8210d8b2",
+    "docs/architecture/reference-applications/validation/verify_corpus_boundaries.py": "d149992845070cfbe18f6ffe7c416b99bba7a1e3ba7488b67f854cb6e7ebb7e1"
+  }
+}
